@@ -1,0 +1,237 @@
+﻿@using PatientPortal.Resource.SurveyUser;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <base href="@PatientPortal.Shared.PatientPortalConstants.ConfigurationKeys.baseHref" />
+    <meta charset="utf-8">
+    <link href="~/Contents/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Contents/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+    <link href="~/Contents/css/jquery-confirm.min.css" rel="stylesheet" />
+    <link href="~/Contents/css/PatientPortal.css" rel="stylesheet" />
+    <link href="~/Contents/css/jquery-ui.css" rel="stylesheet" />
+    @*<link href="~/Contents/css/jquery.bxslider.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Contents/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+    <!-- Script added -->
+    @Scripts.Render("~/bundles/LayoutUserBundles")
+    <script>
+        var baseUrl = '@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))';
+        var languageCode = '@System.Web.HttpContext.Current.Request.Cookies["Language"].Value.ToString()';
+        $(document).ready(function () {
+            $("#divLoader").removeClass("hidden");
+            $("#loginAnchor").click(function () {
+                $('#modelLogin').modal('show');
+                SetPlaceHolderForIE9();
+            });
+        });
+        function SetPlaceHolderForIE9() {
+            var pos = window.navigator.userAgent.indexOf("MSIE");
+            if (pos > 0) {
+                if (window.navigator.userAgent.substring(pos + 5, window.navigator.userAgent.indexOf(".", pos)) < 10) {
+                    $("input[placeholder]").each(function () {
+                        $(this).val($(this).attr("placeholder"));
+                    });
+
+                    $("input[placeholder]").click(function () {
+                        if ($(this).val() === $(this).attr("placeholder")) {
+                            $(this).val('');
+                        }
+                    });
+
+                    $('input[placeholder]').blur(function () {
+
+                        if ($.trim($(this).val()).length === 0) {
+                            $(this).val($(this).attr("placeholder"));
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="divLayout" class="pagewrap userpage">
+        <div class="loading hidden" id="divLoader">
+            <img src="~/Contents/images/loader.gif" />
+        </div>
+
+        <!-- Header Start -->
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 col-xs-12 logo">
+                        <a href="index.html">
+                            <img src="~/Contents/images/logo-yale.png" class="img-responsive" alt="@LayoutUser.WelcomeAssaAbloy" />
+                        </a>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-12 nextouch">Multi-Family Housing Solutions
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Header End -->
+        <!-- Nav Start -->
+        <!-- main-navigation start -->
+        <div class="main-navigation">
+            <!-- navigation container start -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-6">
+                        <div class="row">
+                            <!-- For Responsive Navigation Toggle Button code start -->
+                            <div class="navbar-header">
+                                <button aria-controls="navbar" aria-expanded="true" data-target="#navbar" data-toggle="collapse" class="navbar-toggle pull-left" type="button">
+                                    <span class="sr-only">@LayoutUser.ToggleNavigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+
+                            </div>
+                            <!-- end code -->
+                            <nav id="navbar" class="navbar-collapse collapse" aria-expanded="true">
+                                <ul class="nav navbar-nav" id="ulMenuItem">
+                                    @{string userName = string.Empty;}
+                                    @if (HttpContext.Current.Session["User"] != null && (((HttpContext.Current.Session["User"] as PatientPortal.DTOModel.UserDTO)).RoleDTO).Type == "SurveyUser")
+                                    {
+                                        userName = (System.Web.HttpContext.Current.Session["User"] as PatientPortal.DTOModel.UserDTO).UserDetailDTO.FirstName;
+                                        <li id="liPastSurvey"><a href="pastsurvey"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>@LayoutUser.PastSurvey</a></li>
+                                    }
+                                    @{
+                                        if (string.IsNullOrEmpty(userName))
+                                        {
+                                            userName = LayoutUser.Guest;
+                                        }
+                                    }
+                                    <li class="active" id="liSurvey"><a href="javascript:void(0);"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> @LayoutUser.Survey</a></li>
+
+                                    @*@if (HttpContext.Current.Session["RecommendedGuid"] != null && HttpContext.Current.Session["User"] == null && (((HttpContext.Current.Session["User"] as PatientPortal.DTOModel.UserDTO)).RoleDTO).Type == "SurveyUser")
+                                        {
+                                            <li id="liRecommendation"><a href="~/recommendation"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>@LayoutUser.Recommendation</a></li>
+                                        }
+                                        else
+                                        {*@
+                                    <li id="liRecommendation"><a href="javascript:void(0);"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>@LayoutUser.Recommendation</a></li>
+                                    @*}*@
+
+                                    @*@if (HttpContext.Current.Session["User"] != null && (((HttpContext.Current.Session["User"] as PatientPortal.DTOModel.UserDTO)).RoleDTO).Type == "SurveyUser")
+                                        {
+                                            <li><a href="javascript:void(0);"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>@LayoutUser.AdditionalInformation</a></li>
+                                        }
+                                        else
+                                        {*@
+                                    <li id="liAdditionalInfo"><a href="javascript:void(0);"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>@LayoutUser.AdditionalInformation</a></li>
+                                    @*}*@
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 text-right login-detail ">
+                        <span class="welcomeuser"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Welcome @userName</span>
+                        @if (HttpContext.Current.Session["User"] != null && (((HttpContext.Current.Session["User"] as PatientPortal.DTOModel.UserDTO)).RoleDTO).Type == "SurveyUser")
+                        {
+                            <span id="spanIsLogin" style="display:none">true</span>
+                            <a class="signout" href="~/signout/"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>@LayoutUser.SignOut</a>
+                        }
+                        else
+                        {
+                            <span id="spanIsLogin" style="display:none">false</span>
+                            <a class="signin" id="loginAnchor" href="javascript:void(0)"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>@LayoutUser.Login</a>
+                        }
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- main-navigation end -->
+        </div>
+        <!-- Nav End -->
+        <!-- Content Area Start -->
+        @RenderBody()
+
+    </div>
+    <!-- Foorer Start -->
+    <div class="footer user-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-12 col-xs-12 text-left">An ASSA ABLOY Group Brand</div>
+                <div class="col-md-7 col-sm-12 col-xs-12 text-center">Copyright &copy; 2015, Yale Security Inc., an ASSA ABLOY Group company </div>
+                <div class="col-md-2 col-sm-12 col-xs-12 text-right footer-logo"> <img src="~/Contents/images/footer-logo.png" class="img-responsive" /></div>
+            </div>
+        </div>
+    </div>
+    <!-- Content Area Start -->
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/lib/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" data-main="Scripts/app/@ViewBag.Script/config.js" src="~/Scripts/lib/require.js"></script>
+    <!-- Modal Window -->
+    <div class="modal fade" id="modelLogin" tabindex="-1" role="dialog" aria-labelledby="modelLoginLegend" data-keyboard="false" data-backdrop="static">
+
+        <div class="modal-dialog" role="document" id="divLogin">
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="signin-form" id="divSignin">
+                            <div class="page-header">
+                                <h1>@LayoutUser.Login</h1>
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="col-md-4 col-sm-12 col-xs-12 control-label">@LayoutUser.UserName</label>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" name="username" id="username" data-bind="value: userModel.UserName" maxlength="254" placeholder="@LayoutUser.EnterUserName" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="col-md-4 col-sm-12 col-xs-12 control-label">@LayoutUser.Password</label>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <input type="password" class="form-control" name="password" id="password" data-bind="value:userModel.Password" maxlength="15" placeholder="@LayoutUser.EnterPassword" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="col-md-4  hidden-xs hidden-sm control-label">&nbsp;</label>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <a class="forgot-password" href="javascript:void(0);" data-bind="click:ForgetPassword">@LayoutUser.ForgotPassword </a>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <a class="forgot-password" data-dismiss="modal" href="javascript:void(0);">@LayoutUser.ContinueGuest </a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-4 col-md-6 col-sm-12 col-xs-12">
+                                    <button type="submit" id="btnLogin" class="btn btn-default" data-bind="click:LoginUser">@LayoutUser.SignIn</button>
+                                    &nbsp;<button type="submit" id="btnCancel" class="btn btn-default" data-bind="click:LoginCancel">@LayoutUser.Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forgot-password-form" id="divForgetPassword" style="display:none;">
+                            <div class="page-header">
+                                <h1>@LayoutUser.ForgotPasswordWithoutQuestionMark</h1>
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="col-md-4 col-sm-12 col-xs-12 control-label">@LayoutUser.EmailId</label>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" id="username" data-bind="value:userModel.ForgetPasswordUserName" placeholder="@LayoutUser.EnterUserName" maxlength="254" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-4 col-md-6 col-sm-12 col-xs-12">
+                                    <button type="submit" class="btn btn-default" data-bind="click: SendForgetPassword">Send</button>
+                                    <a class="paddingL10 link" href="#" data-bind="click:BackToLogin">@LayoutUser.Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

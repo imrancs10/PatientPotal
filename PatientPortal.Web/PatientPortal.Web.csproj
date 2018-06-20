@@ -1,0 +1,601 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DF25E417-F1E2-49B6-A51A-9564A40EC251}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PatientPortal.Web</RootNamespace>
+    <AssemblyName>PatientPortal.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.0.0\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.0\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionFilters\SessionExpireFilter.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\IntroductionApiController.cs" />
+    <Compile Include="Controllers\Api\ProductImagesApiController.cs" />
+    <Compile Include="Controllers\Api\LanguageApiController.cs" />
+    <Compile Include="Controllers\Api\StateApiController.cs" />
+    <Compile Include="Controllers\Api\RecommendationApiController.cs" />
+    <Compile Include="Controllers\Api\PastSurveyApiController.cs" />
+    <Compile Include="Controllers\Api\TerritoryEmailApiController.cs" />
+    <Compile Include="Controllers\Api\AdditionalInfoApiController.cs" />
+    <Compile Include="Controllers\Api\SurveyUserApiController.cs" />
+    <Compile Include="Controllers\Api\TextInputTypeApiController.cs" />
+    <Compile Include="Shared\Constants\EnumTextInputType.cs" />
+    <Compile Include="Shared\Constants\EnumLanguage.cs" />
+    <Compile Include="Shared\Constants\EnumMessage.cs" />
+    <Compile Include="Utility\CustomLogger.cs" />
+    <Compile Include="Utility\PatientPortalRole.cs" />
+    <Compile Include="Controllers\Api\AnswerApiController.cs" />
+    <Compile Include="Controllers\Api\ProductApiController.cs" />
+    <Compile Include="Controllers\Api\QuestionTypeApiController.cs" />
+    <Compile Include="Controllers\Api\QuestionApiController.cs" />
+    <Compile Include="Controllers\Api\SurveyApiController.cs" />
+    <Compile Include="Controllers\Api\UserApiController.cs" />
+    <Compile Include="Controllers\Controllers\SurveyUserController.cs" />
+    <Compile Include="Controllers\Controllers\AdminController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Mapper\EntityDtoMapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\Base\BaseApiController.cs" />
+    <Compile Include="Shared\Base\RoleAuthorizationAttribute.cs" />
+    <Compile Include="Startup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\ExtensionManager.cs" />
+    <Compile Include="Shared\IoC\Registration.cs" />
+    <Compile Include="Shared\IoC\UnityResolver.cs" />
+    <Compile Include="Extensions\ViewPageExtension.cs" />
+    <Compile Include="Utility\Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Contents\css\bootstrap-3.3.5-dist\css\bootstrap.min.css" />
+    <Content Include="Contents\css\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Contents\css\bootstrap-3.3.5-dist\js\bootstrap.min.js" />
+    <Content Include="Contents\css\bootstrap.css" />
+    <Content Include="Contents\css\bootstrap.min.css" />
+    <Content Include="Contents\css\font-awesome.min.css" />
+    <Content Include="Contents\css\fonts.css" />
+    <Content Include="Contents\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="Contents\css\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Contents\css\fonts\HelveticaNeueLTPro-Bd.svg" />
+    <Content Include="Contents\css\fonts\opensans-bold.svg" />
+    <Content Include="Contents\css\fonts\opensans-light.svg" />
+    <Content Include="Contents\css\fonts\opensans-regular.svg" />
+    <Content Include="Contents\css\fonts\opensans-semibold.svg" />
+    <Content Include="Contents\css\jquery-confirm.min.css" />
+    <Content Include="Contents\css\jquery-te-1.4.0.css" />
+    <Content Include="Contents\css\jquery-ui.css" />
+    <Content Include="Contents\css\jquery-te-1.4.0.css" />
+    <Content Include="Contents\css\jquery.bxslider.css" />
+    <Content Include="Contents\css\jquery.mCustomScrollbar.css" />
+    <Content Include="Contents\css\kendo.common.min.css" />
+    <Content Include="Contents\css\kendo.default.min.css" />
+    <Content Include="Contents\css\style.css" />
+    <Content Include="Contents\css\PatientPortal.css" />
+    <Content Include="Contents\images\1.jpg" />
+    <Content Include="Contents\images\2.jpg" />
+    <Content Include="Contents\images\3.jpg" />
+    <Content Include="Contents\images\4.jpg" />
+    <Content Include="Contents\images\5.jpg" />
+    <Content Include="Contents\images\arrow.png" />
+    <Content Include="Contents\images\bg-bldg.jpg" />
+    <Content Include="Contents\images\bg.jpg" />
+    <Content Include="Contents\images\bg.png" />
+    <Content Include="Contents\images\browse-img.png" />
+    <Content Include="Contents\images\bx_loader.gif" />
+    <Content Include="Contents\images\checked.jpg" />
+    <Content Include="Contents\images\collapse-expand-icon.png" />
+    <Content Include="Contents\images\controls.png" />
+    <Content Include="Contents\images\controls1.png" />
+    <Content Include="Contents\images\custom-checkbox.png" />
+    <Content Include="Contents\images\custom-checkbox1.png" />
+    <Content Include="Contents\images\custom-radio.png" />
+    <Content Include="Contents\images\custom-radio1.png" />
+    <Content Include="Contents\images\default-img.jpg" />
+    <Content Include="Contents\images\default-img.png" />
+    <Content Include="Contents\images\down-arrow.png" />
+    <Content Include="Contents\images\dummy-pic.jpg" />
+    <Content Include="Contents\images\footer-bg-pdf.png" />
+    <Content Include="Contents\images\footer-bg-tab.png" />
+    <Content Include="Contents\images\footer-bg.png" />
+    <Content Include="Contents\images\footer-img.jpg" />
+    <Content Include="Contents\images\footer-logo-pdf.png" />
+    <Content Include="Contents\images\footer-logo.png" />
+    <Content Include="Contents\images\grey-bg-logo.png" />
+    <Content Include="Contents\images\icons.png" />
+    <Content Include="Contents\images\logo_grey.png" />
+    <Content Include="Contents\images\pdf.jpg" />
+    <Content Include="Contents\images\jquery-te.png" />
+    <Content Include="Contents\images\list-bullet.png" />
+    <Content Include="Contents\images\loader.gif" />
+    <Content Include="Contents\images\jquery-te.png" />
+    <Content Include="Contents\images\logo-yale.png" />
+    <Content Include="Contents\images\logo.png" />
+    <Content Include="Contents\images\nexTouch.png" />
+    <Content Include="Contents\images\pdf.jpg" />
+    <Content Include="Contents\images\prod-img1.png" />
+    <Content Include="Contents\images\product.png" />
+    <Content Include="Contents\images\radio-checked.jpg" />
+    <Content Include="Contents\images\radio-unchecked.jpg" />
+    <Content Include="Contents\images\sprite.png" />
+    <Content Include="Contents\images\sprite_2x.png" />
+    <Content Include="Contents\images\thumbs\1.jpg" />
+    <Content Include="Contents\images\thumbs\2.jpg" />
+    <Content Include="Contents\images\thumbs\3.jpg" />
+    <Content Include="Contents\images\thumbs\4.jpg" />
+    <Content Include="Contents\images\uncheck.jpg" />
+    <Content Include="Contents\images\white-bg-logo.png" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\AnswerImages\1e0f6119-8b8d-4125-987e-dcd43361189a.jpg" />
+    <Content Include="Images\AnswerImages\3943be33-3f1f-4af2-9813-70af85c56515.png" />
+    <Content Include="Images\AnswerImages\73321b8d-4de8-483a-8b1b-a2feeb7bb38d.png" />
+    <Content Include="Images\AnswerImages\7721a13c-522e-4092-a972-361fb0aef07c.jpg" />
+    <Content Include="Images\AnswerImages\86314cdf-fc03-46f2-b962-bf94b9eba985.png" />
+    <Content Include="Images\AnswerImages\9d8e4615-1aa6-4142-acee-e22683b332b0.jpg" />
+    <Content Include="Images\AnswerImages\ad00fb67-4c63-4f11-8368-a61196800aac.png" />
+    <Content Include="Images\AnswerImages\b16fb808-ff37-448a-87d4-620ecc7ef3cc.jpg" />
+    <Content Include="Images\AnswerImages\cb23db44-f7d8-48c6-b311-6deb1f19ce73.jpg" />
+    <Content Include="Images\AnswerImages\cc1d0844-8e37-4613-85e4-b69dca572a6c.png" />
+    <Content Include="Images\AnswerImages\dfbaf6e3-75ef-47fc-832a-fe3c502f3dd0.jpg" />
+    <Content Include="Images\ProductImages\06201987-7c2b-48b3-9a8a-e251ca252095.jpg" />
+    <Content Include="Images\ProductImages\0ce3010e-bb78-41c3-8fe5-55acf9906d2c.png" />
+    <Content Include="Images\ProductImages\15afec71-7d39-4424-8a7a-1ce059250cb3.jpg" />
+    <Content Include="Images\ProductImages\62154975-77e3-44b5-93ae-676bb6b2471a.jpg" />
+    <Content Include="Images\ProductImages\6af92f79-c969-479c-8a4a-e9d0e4a91e12.jpg" />
+    <Content Include="Images\ProductImages\7397f2c3-0dc1-4d3b-9177-e008ee04aa44.jpg" />
+    <Content Include="Images\ProductImages\8c89e603-6746-4ca9-98a8-dd337a07a09a.jpg" />
+    <Content Include="Images\ProductImages\ac11f968-64b2-4ef3-9b8a-3c00cf98303e.jpg" />
+    <Content Include="Images\ProductImages\bea1ccb4-0776-4beb-8cb4-ec627a0636bf.jpg" />
+    <Content Include="Images\ProductImages\bfa3e00c-abba-4fd6-a2ea-6b91dcd50b61.jpg" />
+    <Content Include="Images\ProductImages\dcfd0c50-f7b6-4382-9e9d-ce485c26ad1d.jpg" />
+    <Content Include="Images\ProductImages\deee7345-815c-4105-9906-41ef4711fadb.jpg" />
+    <Content Include="Images\ProductImages\e0ce8fc3-4899-461d-8bac-64aec5ea7c78.jpg" />
+    <Content Include="Images\ProductImages\e44dc519-2cc0-408a-9e58-9530e202d6ff.jpg" />
+    <Content Include="Images\ProductImages\eef7346f-07ee-46ae-89ac-d597ca3cd115.jpg" />
+    <Content Include="Images\ProductImages\f01b5edd-57b7-4cf2-be11-652940c53272.jpg" />
+    <Content Include="Images\ProductImages\fdad8c66-b159-437b-8580-5ad791bcd0bc.jpg" />
+    <Content Include="Images\ProductImages\feffcc00-3e6e-488a-8c75-7ee6c498a5eb.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\06201987-7c2b-48b3-9a8a-e251ca252095.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\0ce3010e-bb78-41c3-8fe5-55acf9906d2c.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\15afec71-7d39-4424-8a7a-1ce059250cb3.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\62154975-77e3-44b5-93ae-676bb6b2471a.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\6af92f79-c969-479c-8a4a-e9d0e4a91e12.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\7397f2c3-0dc1-4d3b-9177-e008ee04aa44.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\8c89e603-6746-4ca9-98a8-dd337a07a09a.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\ac11f968-64b2-4ef3-9b8a-3c00cf98303e.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\bea1ccb4-0776-4beb-8cb4-ec627a0636bf.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\bfa3e00c-abba-4fd6-a2ea-6b91dcd50b61.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\deee7345-815c-4105-9906-41ef4711fadb.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\e0ce8fc3-4899-461d-8bac-64aec5ea7c78.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\e44dc519-2cc0-408a-9e58-9530e202d6ff.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\eef7346f-07ee-46ae-89ac-d597ca3cd115.png" />
+    <Content Include="Images\ProductImages\ProductThumbnails\f01b5edd-57b7-4cf2-be11-652940c53272.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\fdad8c66-b159-437b-8580-5ad791bcd0bc.jpg" />
+    <Content Include="Images\ProductImages\ProductThumbnails\feffcc00-3e6e-488a-8c75-7ee6c498a5eb.jpg" />
+    <Content Include="Rotativa\vcredist_x86.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\app\Admin\Product\config.js" />
+    <Content Include="Scripts\app\Admin\Product\main.js" />
+    <Content Include="Scripts\app\Admin\Product\ProductViewModel.js" />
+    <Content Include="Scripts\app\Admin\Question\config.js" />
+    <Content Include="Scripts\app\User\AdditionalInformation\config.js" />
+    <Content Include="Scripts\app\User\AdditionalInformation\main.js" />
+    <Content Include="Scripts\app\User\AdditionalInformation\AdditionalInfoViewModel.js" />
+    <Content Include="Scripts\app\Model\UserDetailModel.js" />
+    <Content Include="Scripts\app\User\PastSurvey\config.js" />
+    <Content Include="Scripts\app\Model\ProductImageModel.js" />
+    <Content Include="Scripts\app\User\PastSurvey\main.js" />
+    <Content Include="Scripts\app\Model\ProductModel.js" />
+    <Content Include="Scripts\app\User\PastSurvey\PastSurveyViewModel.js" />
+    <Content Include="Scripts\app\User\Recommendation\config.js" />
+    <Content Include="Scripts\app\User\Recommendation\main.js" />
+    <Content Include="Scripts\app\User\Recommendation\RecommendationViewModel.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\lib\custom-scroll.js" />
+    <Content Include="Scripts\lib\custom.js" />
+    <Content Include="Scripts\lib\datatables.js" />
+    <Content Include="Contents\css\jquery.dataTables.min.css" />
+    <Content Include="Scripts\app\Admin\Question\main.js" />
+    <Content Include="Scripts\app\Admin\Question\QuestionViewModel.js" />
+    <Content Include="Scripts\app\Admin\Survey\config.js" />
+    <Content Include="Scripts\app\Admin\Survey\main.js" />
+    <Content Include="Scripts\app\Model\SurveyModel.js" />
+    <Content Include="Scripts\app\Model\RoleModel.js" />
+    <Content Include="Scripts\app\Model\UserModel.js" />
+    <Content Include="Scripts\app\Admin\User\UserViewModel.js" />
+    <Content Include="Scripts\app\Admin\Survey\SurveyViewModel.js" />
+    <Content Include="Scripts\app\Admin\User\config.js" />
+    <Content Include="Scripts\app\Model\ProductTreeModel.js" />
+    <Content Include="Scripts\app\Model\AnswerTreeModel.js" />
+    <Content Include="Scripts\app\Model\SurveyQuestionMapModel.js" />
+    <Content Include="Scripts\app\Model\QuestionTreeModel.js" />
+    <Content Include="Scripts\app\Model\AnswerModel.js" />
+    <Content Include="Scripts\app\Model\LanguageModel.js" />
+    <Content Include="Scripts\app\Model\QuestionModel.js" />
+    <Content Include="Scripts\app\Model\QuestionTypeModel.js" />
+    <Content Include="Scripts\app\Model\SurveyQuestionAnswerModel.js" />
+    <Content Include="Scripts\app\User\Survey\config.js" />
+    <Content Include="Scripts\app\User\Survey\main.js" />
+    <Content Include="Scripts\app\User\Survey\SurveyViewModel.js" />
+    <Content Include="Scripts\lib\bootstrap.js" />
+    <Content Include="Scripts\lib\bootstrap.min.js" />
+    <Content Include="Contents\css\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Contents\css\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Contents\css\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Contents\css\bootstrap-3.3.5-dist\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Contents\css\fonts\fontawesome-webfont.eot" />
+    <Content Include="Contents\css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Contents\css\fonts\fontawesome-webfont.woff" />
+    <Content Include="Contents\css\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Contents\css\fonts\FontAwesome.otf" />
+    <Content Include="Contents\css\fonts\opensans-bold.eot" />
+    <Content Include="Contents\css\fonts\opensans-bold.ttf" />
+    <Content Include="Contents\css\fonts\opensans-bold.woff" />
+    <Content Include="Contents\css\fonts\opensans-bold.woff2" />
+    <Content Include="Contents\css\fonts\opensans-light.eot" />
+    <Content Include="Contents\css\fonts\opensans-light.ttf" />
+    <Content Include="Contents\css\fonts\opensans-light.woff" />
+    <Content Include="Contents\css\fonts\opensans-light.woff2" />
+    <Content Include="Contents\css\fonts\opensans-regular.eot" />
+    <Content Include="Contents\css\fonts\opensans-regular.ttf" />
+    <Content Include="Contents\css\fonts\opensans-regular.woff" />
+    <Content Include="Contents\css\fonts\opensans-regular.woff2" />
+    <Content Include="Contents\css\fonts\opensans-semibold.eot" />
+    <Content Include="Contents\css\fonts\opensans-semibold.ttf" />
+    <Content Include="Contents\css\fonts\opensans-semibold.woff" />
+    <Content Include="Contents\css\fonts\opensans-semibold.woff2" />
+    <Content Include="Contents\css\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Contents\css\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Contents\css\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Contents\css\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Contents\css\fonts\HelveticaNeueLTPro-Bd.eot" />
+    <Content Include="Contents\css\fonts\HelveticaNeueLTPro-Bd.otf" />
+    <Content Include="Contents\css\fonts\HelveticaNeueLTPro-Bd.ttf" />
+    <Content Include="Contents\css\fonts\HelveticaNeueLTPro-Bd.woff" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Configurations\log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\yalenexttouchprofile.pubxml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\lib\bxslider.js" />
+    <Content Include="Scripts\lib\jquery-1.10.2.js" />
+    <Content Include="Scripts\lib\jquery-1.10.2.min.js" />
+    <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\lib\jquery-1.11.3.min.js" />
+    <Content Include="Scripts\lib\jquery-confirm.min.js" />
+    <Content Include="Scripts\lib\jquery-migrate-1.3.0.js" />
+    <Content Include="Scripts\lib\jquery-te-1.4.0.min.js" />
+    <Content Include="Scripts\lib\jquery-ui.js" />
+    <Content Include="Scripts\lib\jquery-te-1.4.0.min.js" />
+    <Content Include="Scripts\lib\jquery.bxslider.js" />
+    <Content Include="Scripts\lib\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\lib\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Scripts\lib\jquery.validate.js" />
+    <Content Include="Scripts\lib\jquery.validate.min.js" />
+    <Content Include="Scripts\lib\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\lib\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lib\kendo.all.min.js" />
+    <Content Include="Scripts\lib\knockout-3.3.0.debug.js" />
+    <Content Include="Scripts\lib\knockout-3.3.0.js" />
+    <Content Include="Scripts\lib\knockout.mapping-latest.debug.js" />
+    <Content Include="Scripts\lib\knockout.mapping-latest.js" />
+    <Content Include="Scripts\lib\knockout.validation.debug.js" />
+    <Content Include="Scripts\lib\knockout.validation.js" />
+    <Content Include="Scripts\lib\lodash.min.js" />
+    <Content Include="Scripts\lib\modernizr-2.6.2.js" />
+    <Content Include="Scripts\lib\modernizr-custom.js" />
+    <Content Include="Scripts\lib\require.js" />
+    <Content Include="Scripts\lib\respond.js" />
+    <Content Include="Scripts\lib\respond.min.js" />
+    <Content Include="Scripts\lib\_references.js" />
+    <Content Include="Scripts\app\Admin\User\main.js" />
+    <Content Include="Scripts\utils\common.js" />
+    <Content Include="Scripts\utils\PatientPortalGrid.js" />
+    <Content Include="Views\Shared\AdvisorEmailTemplate.html" />
+    <Content Include="Views\Shared\ForgetPassword.html" />
+    <Content Include="Views\Shared\SurveyResultBodyTemplate.html" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Scripts\lib\jquery-1.10.2.min.map" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Admin\Survey.cshtml" />
+    <Content Include="Views\Admin\Question.cshtml" />
+    <Content Include="Views\Admin\Product.cshtml" />
+    <Content Include="Views\SurveyUser\Index.cshtml" />
+    <Content Include="Views\SurveyUser\PastSurvey.cshtml" />
+    <Content Include="Views\SurveyUser\Recommendation.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\SurveyUser\AdditionalInformation.cshtml" />
+    <Content Include="Views\SurveyUser\ConfirmPassword.cshtml" />
+    <Content Include="Views\Shared\PageNotFound.cshtml" />
+    <Content Include="Views\SurveyUser\CreatePDF1.cshtml" />
+    <Content Include="Views\Shared\PdfFooter.cshtml" />
+    <Content Include="Views\SurveyUser\CreatePDF.cshtml" />
+    <Content Include="Views\Shared\PdfHeader.cshtml" />
+    <Content Include="Views\SurveyUser\SurveyResult.cshtml" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Images\PDFFiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PatientPortal.Business\PatientPortal.Business.csproj">
+      <Project>{17b1e765-c659-4b05-b9a7-bcf4a0a35c19}</Project>
+      <Name>PatientPortal.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientPortal.DataAccess\PatientPortal.DataAccess.csproj">
+      <Project>{5407c474-b72a-4abf-9308-acc1f1e1b39b}</Project>
+      <Name>PatientPortal.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientPortal.DTOModel\PatientPortal.DTOModel.csproj">
+      <Project>{94aa86dc-22e2-4215-a738-a2963215dbb8}</Project>
+      <Name>PatientPortal.DTOModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientPortal.Entities\PatientPortal.Entities.csproj">
+      <Project>{ee4d7f8a-52ad-434c-8f55-aaaa97649ff2}</Project>
+      <Name>PatientPortal.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientPortal.Facade\PatientPortal.Facade.csproj">
+      <Project>{c8281de3-49b0-4842-8111-9ae36e303091}</Project>
+      <Name>PatientPortal.Facade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientPortal.Resource\PatientPortal.Resource.csproj">
+      <Project>{e708510a-52ff-4bb4-b997-454f124d8951}</Project>
+      <Name>PatientPortal.Resource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientPortal.Shared\PatientPortal.Shared.csproj">
+      <Project>{83794482-064f-4f76-9308-b11ffc34d436}</Project>
+      <Name>PatientPortal.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Logging\PatientPortal.Plugin.Log4net.csproj">
+      <Project>{f97e3f3b-bf4d-465a-b8de-a2525ee71e52}</Project>
+      <Name>PatientPortal.Plugin.Log4net</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60270</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60270/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

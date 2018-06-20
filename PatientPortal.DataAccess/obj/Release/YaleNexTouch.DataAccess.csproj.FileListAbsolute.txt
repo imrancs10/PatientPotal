@@ -1,0 +1,75 @@
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DataAccess.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DataAccess.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\AutoMapper.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DTOModel.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Entities.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Shared.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DTOModel.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\AutoMapper.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DataAccess.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DataAccess.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\AutoMapper.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DTOModel.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Entities.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Shared.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DTOModel.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\AutoMapper.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DataAccess.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DataAccess.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\AutoMapper.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DTOModel.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Entities.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Shared.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.Unity.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DTOModel.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Entities.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Shared.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\AutoMapper.xml
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.Unity.xml
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.csprojResolveAssemblyReference.cache
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DataAccess.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DataAccess.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\AutoMapper.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DTOModel.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Entities.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Shared.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.Unity.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.DTOModel.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Entities.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\YaleNexTouch.Shared.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\AutoMapper.xml
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.Unity.xml
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.csprojResolveAssemblyReference.cache
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.pdb
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.DataAccess\obj\Release\YaleNexTouch.DataAccess.csproj.CoreCompileInputs.cache

@@ -1,0 +1,65 @@
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\YaleNexTouch.Entities.dll.config
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\YaleNexTouch.Entities.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\YaleNexTouch.Entities.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\Microsoft.Practices.Unity.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\Microsoft.Practices.Unity.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\obj\x86\Debug\YaleNexTouch.Entities.csprojResolveAssemblyReference.cache
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\obj\x86\Debug\YaleNexTouch.Entities.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\obj\x86\Debug\YaleNexTouch.Entities.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\YaleNexTouch.Shared.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Entities\bin\debug\YaleNexTouch.Shared.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.dll.config
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Shared.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.Unity.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Shared.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.Unity.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.csprojResolveAssemblyReference.cache
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.dll.config
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Shared.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.dll.config
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Shared.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.dll.config
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Shared.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Entities\obj\x86\Debug\YaleNexTouch.Entities.pdb

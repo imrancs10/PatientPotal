@@ -1,0 +1,152 @@
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\bin\Release\es\YaleNexTouch.Resource.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\bin\Release\fr\YaleNexTouch.Resource.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.csproj.GenerateResource.Cache
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\es\YaleNexTouch.Resource.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\fr\YaleNexTouch.Resource.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\bin\Release\es\YaleNexTouch.Resource.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\bin\Release\fr\YaleNexTouch.Resource.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.es.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.fr.resources
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.csproj.GenerateResource.Cache
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\es\YaleNexTouch.Resource.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\fr\YaleNexTouch.Resource.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.csprojResolveAssemblyReference.cache
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\bin\Release\es\YaleNexTouch.Resource.resources.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\bin\Release\fr\YaleNexTouch.Resource.resources.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.es.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.fr.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.es.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.fr.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.es.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.fr.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.es.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.fr.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.es.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.fr.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.es.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.es.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.fr.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.fr.resources
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.csproj.GenerateResource.Cache
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\es\YaleNexTouch.Resource.resources.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\fr\YaleNexTouch.Resource.resources.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\bin\Release\es\YaleNexTouch.Resource.resources.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\bin\Release\fr\YaleNexTouch.Resource.resources.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.es.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.fr.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.es.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.fr.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.es.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.fr.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.es.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.fr.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.es.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.fr.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.es.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.es.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.fr.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.fr.resources
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.csproj.GenerateResource.Cache
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\es\YaleNexTouch.Resource.resources.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\fr\YaleNexTouch.Resource.resources.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.pdb
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\bin\Release\YaleNexTouch.Resource.pdb
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\bin\Release\es\YaleNexTouch.Resource.resources.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\bin\Release\fr\YaleNexTouch.Resource.resources.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.es.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.Admin.Login.fr.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.es.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.LayoutUser.fr.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.es.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PageNotFound.fr.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.es.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Recommendation.fr.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.es.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.AdditionalInformation.fr.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.es.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.es.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.PastSurvey.fr.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.SurveyUser.Index.fr.resources
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.csproj.GenerateResource.cache
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.csproj.CoreCompileInputs.cache
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\es\YaleNexTouch.Resource.resources.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\fr\YaleNexTouch.Resource.resources.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Resource\obj\Release\YaleNexTouch.Resource.pdb

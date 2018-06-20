@@ -1,0 +1,16 @@
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\PatientPortal.Entities.dll.config
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\PatientPortal.Entities.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\PatientPortal.Entities.pdb
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\PatientPortal.Shared.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\Microsoft.Practices.Unity.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\Microsoft.Practices.ServiceLocation.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\PatientPortal.Shared.pdb
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\Microsoft.Practices.Unity.xml
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\bin\x86\Release\Microsoft.Practices.ServiceLocation.xml
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\obj\x86\Release\PatientPortal.Entities.csprojAssemblyReference.cache
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\obj\x86\Release\PatientPortal.Entities.csproj.CoreCompileInputs.cache
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\obj\x86\Release\PatientPortal.Entities.csproj.CopyComplete
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\obj\x86\Release\PatientPortal.Entities.dll
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Entities\obj\x86\Release\PatientPortal.Entities.pdb

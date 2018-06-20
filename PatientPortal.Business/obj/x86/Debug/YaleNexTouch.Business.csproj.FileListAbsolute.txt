@@ -1,0 +1,120 @@
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\YaleNexTouch.Business.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\YaleNexTouch.Business.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\Newtonsoft.Json.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\System.Net.Http.Formatting.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\System.Web.Cors.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\System.Web.Http.Cors.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\System.Web.Http.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\Microsoft.Practices.Unity.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\Newtonsoft.Json.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\System.Net.Http.Formatting.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\System.Web.Http.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\System.Web.Http.Cors.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\Microsoft.Practices.Unity.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\ko\System.Web.Http.Cors.resources.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\obj\x86\Debug\YaleNexTouch.Business.csprojResolveAssemblyReference.cache
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\obj\x86\Debug\YaleNexTouch.Business.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\obj\x86\Debug\YaleNexTouch.Business.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\YaleNexTouch.Entities.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\YaleNexTouch.Entities.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\YaleNexTouch.Shared.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\Company.Project.Business\bin\debug\YaleNexTouch.Shared.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\YaleNexTouch.Business.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\YaleNexTouch.Business.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\Newtonsoft.Json.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\System.Net.Http.Formatting.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\System.Web.Cors.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\System.Web.Http.Cors.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\System.Web.Http.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\YaleNexTouch.Entities.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\YaleNexTouch.Shared.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\Microsoft.Practices.Unity.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\YaleNexTouch.Entities.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\YaleNexTouch.Shared.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\Newtonsoft.Json.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\System.Net.Http.Formatting.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\System.Web.Http.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\System.Web.Http.Cors.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\Microsoft.Practices.Unity.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\bin\debug\ko\System.Web.Http.Cors.resources.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.csprojResolveAssemblyReference.cache
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.dll
+E:\TTXFrkFinal\TTXFrkFinal\Company.Project\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.pdb
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Business.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Business.pdb
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\Newtonsoft.Json.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\System.Net.Http.Formatting.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Cors.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Http.Cors.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Http.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Entities.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Shared.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\Newtonsoft.Json.xml
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\System.Net.Http.Formatting.xml
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Http.xml
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Http.Cors.xml
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\bin\debug\ko\System.Web.Http.Cors.resources.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.dll
+E:\Assa Abloy\Working Code\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Business.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Business.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\Newtonsoft.Json.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\System.Net.Http.Formatting.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Cors.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Http.Cors.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Http.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Entities.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Shared.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\Newtonsoft.Json.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\System.Net.Http.Formatting.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Http.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\System.Web.Http.Cors.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\bin\debug\ko\System.Web.Http.Cors.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\YaleNexTouch.Business.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\YaleNexTouch.Business.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\Newtonsoft.Json.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\System.Net.Http.Formatting.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\System.Web.Cors.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\System.Web.Http.Cors.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\System.Web.Http.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\YaleNexTouch.Entities.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\YaleNexTouch.Shared.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\YaleNexTouch.Entities.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\Newtonsoft.Json.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\System.Net.Http.Formatting.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\System.Web.Http.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\System.Web.Http.Cors.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\bin\debug\ko\System.Web.Http.Cors.resources.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Business\obj\x86\Debug\YaleNexTouch.Business.pdb

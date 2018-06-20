@@ -1,0 +1,142 @@
+@using PatientPortal.DTOModel;
+@model PatientPortal.DTOModel.SurveyDTO
+
+
+<link href="~/Contents/css/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Contents/css/kendo.default.min.css" rel="stylesheet" />
+<link href="~/Contents/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<link href="~/Contents/css/jquery-confirm.min.css" rel="stylesheet" />
+<link href="~/Contents/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<div class="content-area" id="surveyDiv">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="add-product paddingTB10 clearfix">
+                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addSurvey" data-bind="click: function () { OpenAddSurvey() }"> Add</button>
+                    <!-- Modal Window -->
+                    <div class="modal fade bs-example-modal-lg" id="addSurvey" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span type="button" class="close glyphicon glyphicon-remove" data-bind="click: function () { Cancel($data) }" aria-label="Close"></span>
+                                    <h4 class="modal-title text-left" id="myModalLabel">Add Survey</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-md-3 col-sm-3  col-xs-12 control-label text-left">Language:</label>
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <select class="form-control" id="ddlLanguage" data-bind="value: model.LanguageId, options: LanguageList, optionsText:'Name',optionsValue:'Id',  optionsCaption: 'Select', event:{ change: LanguageChange}"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="textName" class="col-md-3 col-sm-3  col-xs-12 control-label ">Survey Name:</label>
+                                            <div class="col-md-9 col-sm-9 col-12-9">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <input type="text" class="form-control" data-bind="value:model.Name" maxlength="40" />
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" data-bind="checked:model.IsActive">Is Active
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group hidden" id="divSurveyLink">
+                                            <label for="txtSurveyLink" class="col-md-3 col-sm-3  col-xs-12  control-label ">Survey Link:</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <span id="spnSurveyLink"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="textName" class="col-md-3 col-sm-3  col-xs-12 control-label ">Drag &amp; Drop Questions and Products to the Survey:</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+
+                                                <div class="row demo-section k-content">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="draggable scroll-draggable mCustomScrollbar ">
+
+                                                            <div id="QuestionListTreeView"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="draggable scroll-draggable mCustomScrollbar ">
+
+                                                            <div id="ProductListTreeView"></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12 col-sm-12 col-xs-12  ">
+                                                        <div class="droppable scroll mCustomScrollbar ">
+                                                            <div class="content-scroll">
+                                                                <h4>Survey</h4>
+                                                                <div id="MappingListTreeView"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="button-remove clearfix">
+                                                    <span class="glyphicon glyphicon-remove pull-left"></span>
+                                                    <input type="button" value="Remove Node" class="remove-node" data-bind="click: function () { RemoveNode() }" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="modal-footer clearfix">
+                                    <button type="button" class="btn btn-default pull-left" data-bind="click: function () { Cancel($data) }">Cancel</button>
+                                    <span id="spnInsert">
+                                        <button type="button" class="btn btn-primary pull-right" data-bind="click: function () { InsertSurvey($data) }">Save</button>
+                                    </span>
+                                    <span id="spnUpdate">
+                                        <button type="button" class="btn btn-primary pull-right" data-bind="click: function () { UpdateSurvey($data) }">Save</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="question-table table-responsive">
+                    <table class="table table-bordered" id="tblSurveyList">
+                        <thead>
+                            <tr>
+                                <th width="100">Survey ID<span class="sorting"></span></th>
+                                <th>Survey Name<span class="sorting"></span></th>
+                                <th width="200">Language<span class="sorting"></span></th>
+                                <th width="200">Status<span class="sorting"></span></th>
+                                <th width="200">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: yaleGrid.DataRows">
+                            <tr data-bind="attr: { id: Id }">
+                                <td width="100"><span data-bind="text:$index() + 1"></span></td>
+                                <td><span data-bind="text: (Name.length > 20 ? (Name.substring(0, 20) + '...') :  Name), attr:{title:Name}"></span></td>
+                                <td width="200"><span data-bind="text: ILanguageDTO.Name"></span></td>
+                                <td width="200"><span data-bind="text: (IsActive == '0' ? 'Inactive' : 'Active')"></span></td>
+                                <td width="200">
+                                    <div class="action">
+                                        <a href="#" class="copylink" title="Copy Survey Link" data-bind="click:function () { $root.CopySurveyLink($data); }"></a>
+                                        <a href="#" class="copy" title="Copy Survey" data-bind="click:function () { $root.CopySurvey($data); }"></a>
+                                        <a title="Edit Survey" class="edit" href="#" data-toggle="modal" data-target="#editModal" data-bind="click: function () { $root.GetSurveyById($data.Id);}"></a>
+                                        <a title="Delete Survey" class="delete" href="#" data-bind="click:function () { $root.DeleteSurvey($data, this); }"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

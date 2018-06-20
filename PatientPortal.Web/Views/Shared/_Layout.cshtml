@@ -1,0 +1,107 @@
+﻿@{
+    string userName = string.Empty;
+    if (System.Web.HttpContext.Current.Session["User"] != null)
+    {
+        userName = (System.Web.HttpContext.Current.Session["User"] as PatientPortal.DTOModel.UserDTO).UserDetailDTO.FirstName;
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <base href="@PatientPortal.Shared.PatientPortalConstants.ConfigurationKeys.baseHref" />
+    <meta charset="utf-8">
+    <link href="~/Contents/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Contents/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+
+    <link href="~/Contents/css/jquery-confirm.min.css" rel="stylesheet" />
+    <!-- CSS For Bx Slider -->
+    <link href="~/Contents/css/jquery.bxslider.css" rel="stylesheet" type="text/css" />
+
+    <!-- CSS For Custum ScrollBar -->
+    <link href="~/Contents/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+    <!-- Script added -->
+    @Scripts.Render("~/bundles/LayoutBundles")
+
+    <script>
+        var baseUrl = '@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))';
+        var languageCode = '@System.Web.HttpContext.Current.Request.Cookies["Language"].Value.ToString()';
+        $(document).ready(function () {
+            $("#divLoader").removeClass("hidden");
+        });
+    </script>
+</head>
+<body>
+    <div class="loading hidden" id="divLoader">
+        <img src="~/Contents/images/loader.gif" />
+    </div>
+    <div class="pagewrap">
+        <header>
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-md-5 col-sm-5 col-xs-12 logo">
+                        <img src="~/Contents/images/logo-yale.png" class="img-responsive" alt="Welcome to the ASSA ABLOY Group - The global leader in door opening solutions" />
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-12 nextouch">
+                        Multi-Family Housing Solutions
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-navigation">
+            <!-- navigation container start -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-4 col-xs-12">
+                        <div class="row">
+                            <!-- For Responsive Navigation Toggle Button code start -->
+                            <div class="navbar-header">
+                                <button aria-controls="navbar" aria-expanded="true" data-target="#navbar" data-toggle="collapse" class="navbar-toggle pull-left" type="button">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+
+                            </div>
+
+                            <nav id="navbar" class="navbar-collapse collapse " aria-expanded="true">
+                                <ul class="nav navbar-nav">
+                                    <li id="liProducts"><a href="~/product/"><span class="glyphicon glyphicon-compressed" aria-hidden="true"></span>Products</a></li>
+                                    <li id="liQuestions"><a href="~/question/"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>Questions</a></li>
+                                    <li id="liSurveys"><a href="~/survey/"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Survey</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-8 col-xs-12 text-right login-detail ">
+                        <span class="welcomeuser"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Welcome  @userName</span>
+                        <a class="signout" href="~/signout/"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Sign Out</a>
+                    </div>
+                </div>
+            </div>
+            <!-- navigation container end -->
+        </div>
+
+        @RenderBody()
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-12 col-xs-12 text-left">An ASSA ABLOY Group Brand</div>
+                <div class="col-md-7 col-sm-12 col-xs-12 text-center">Copyright &copy; 2015, Yale Security Inc., an ASSA ABLOY Group company </div>
+                <div class="col-md-2 col-sm-12 col-xs-12 text-right footer-logo"> <img src="~/Contents/images/footer-logo.png" class="img-responsive" /></div>
+            </div>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+    <link href="~/Contents/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" data-main="Scripts/app/@ViewBag.Script/config.js" src="~/Scripts/lib/require.js"></script>
+</body>
+</html>

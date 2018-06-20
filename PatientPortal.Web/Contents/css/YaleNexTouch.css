@@ -1,0 +1,12 @@
+﻿.disabledAnchor {
+    pointer-events: none !important;
+    cursor: default;
+}
+
+.borderimageThumnail {
+    border: 2px solid #f8ce06 !important;
+}
+
+.rangesliderwidth {
+    width: 100% !important;
+}

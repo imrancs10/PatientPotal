@@ -1,0 +1,603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PatientPortalModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+  <EntityContainer Name="PatientPortalEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Answers" EntityType="PatientPortalModel.Answer" />
+    <EntitySet Name="Introductions" EntityType="PatientPortalModel.Introduction" />
+    <EntitySet Name="Languages" EntityType="PatientPortalModel.Language" />
+    <EntitySet Name="Products" EntityType="PatientPortalModel.Product" />
+    <EntitySet Name="ProductImages" EntityType="PatientPortalModel.ProductImage" />
+    <EntitySet Name="Questions" EntityType="PatientPortalModel.Question" />
+    <EntitySet Name="QuestionTypes" EntityType="PatientPortalModel.QuestionType" />
+    <EntitySet Name="Roles" EntityType="PatientPortalModel.Role" />
+    <EntitySet Name="States" EntityType="PatientPortalModel.State" />
+    <EntitySet Name="Surveys" EntityType="PatientPortalModel.Survey" />
+    <EntitySet Name="SurveyQuestionAnswers" EntityType="PatientPortalModel.SurveyQuestionAnswer" />
+    <EntitySet Name="SurveyQuestionMaps" EntityType="PatientPortalModel.SurveyQuestionMap" />
+    <EntitySet Name="sysdiagrams" EntityType="PatientPortalModel.sysdiagram" />
+    <EntitySet Name="TerritoriesEmails" EntityType="PatientPortalModel.TerritoriesEmail" />
+    <EntitySet Name="TextInputTypes" EntityType="PatientPortalModel.TextInputType" />
+    <EntitySet Name="Users" EntityType="PatientPortalModel.User" />
+    <EntitySet Name="UserDetails" EntityType="PatientPortalModel.UserDetail" />
+    <AssociationSet Name="FK_Answer_Question" Association="PatientPortalModel.FK_Answer_Question">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Answer" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionAnswer_Answer" Association="PatientPortalModel.FK_SurveyQuestionAnswer_Answer">
+      <End Role="Answer" EntitySet="Answers" />
+      <End Role="SurveyQuestionAnswer" EntitySet="SurveyQuestionAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionMap_Answer" Association="PatientPortalModel.FK_SurveyQuestionMap_Answer">
+      <End Role="Answer" EntitySet="Answers" />
+      <End Role="SurveyQuestionMap" EntitySet="SurveyQuestionMaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Introduction_Language" Association="PatientPortalModel.FK_Introduction_Language">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="Introduction" EntitySet="Introductions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Language" Association="PatientPortalModel.FK_Product_Language">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_Language" Association="PatientPortalModel.FK_Question_Language">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Survey_Language" Association="PatientPortalModel.FK_Survey_Language">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="Survey" EntitySet="Surveys" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductImages_Product" Association="PatientPortalModel.FK_ProductImages_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductImage" EntitySet="ProductImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionMap_Product" Association="PatientPortalModel.FK_SurveyQuestionMap_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="SurveyQuestionMap" EntitySet="SurveyQuestionMaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_QuestionType" Association="PatientPortalModel.FK_Question_QuestionType">
+      <End Role="QuestionType" EntitySet="QuestionTypes" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_TextInputType" Association="PatientPortalModel.FK_Question_TextInputType">
+      <End Role="TextInputType" EntitySet="TextInputTypes" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionAnswer_Question" Association="PatientPortalModel.FK_SurveyQuestionAnswer_Question">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="SurveyQuestionAnswer" EntitySet="SurveyQuestionAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionMap_Question" Association="PatientPortalModel.FK_SurveyQuestionMap_Question">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="SurveyQuestionMap" EntitySet="SurveyQuestionMaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionMap_Question1" Association="PatientPortalModel.FK_SurveyQuestionMap_Question1">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="SurveyQuestionMap" EntitySet="SurveyQuestionMaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="PatientPortalModel.FK_User_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TerritoriesEmail_State" Association="PatientPortalModel.FK_TerritoriesEmail_State">
+      <End Role="State" EntitySet="States" />
+      <End Role="TerritoriesEmail" EntitySet="TerritoriesEmails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetail_State" Association="PatientPortalModel.FK_UserDetail_State">
+      <End Role="State" EntitySet="States" />
+      <End Role="UserDetail" EntitySet="UserDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionAnswer_Survey" Association="PatientPortalModel.FK_SurveyQuestionAnswer_Survey">
+      <End Role="Survey" EntitySet="Surveys" />
+      <End Role="SurveyQuestionAnswer" EntitySet="SurveyQuestionAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionMap_Survey" Association="PatientPortalModel.FK_SurveyQuestionMap_Survey">
+      <End Role="Survey" EntitySet="Surveys" />
+      <End Role="SurveyQuestionMap" EntitySet="SurveyQuestionMaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionAnswer_User" Association="PatientPortalModel.FK_SurveyQuestionAnswer_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="SurveyQuestionAnswer" EntitySet="SurveyQuestionAnswers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SurveyQuestionMap_SurveyQuestionMap" Association="PatientPortalModel.FK_SurveyQuestionMap_SurveyQuestionMap">
+      <End Role="SurveyQuestionMap" EntitySet="SurveyQuestionMaps" />
+      <End Role="SurveyQuestionMap1" EntitySet="SurveyQuestionMaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetail_User" Association="PatientPortalModel.FK_UserDetail_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserDetail" EntitySet="UserDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionId" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="ToolTip" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="ImagePath" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Question" Relationship="PatientPortalModel.FK_Answer_Question" FromRole="Answer" ToRole="Question" />
+    <NavigationProperty Name="SurveyQuestionAnswers" Relationship="PatientPortalModel.FK_SurveyQuestionAnswer_Answer" FromRole="Answer" ToRole="SurveyQuestionAnswer" />
+    <NavigationProperty Name="SurveyQuestionMaps" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Answer" FromRole="Answer" ToRole="SurveyQuestionMap" />
+  </EntityType>
+  <EntityType Name="Introduction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LanguageId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="ImagePath" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Language" Relationship="PatientPortalModel.FK_Introduction_Language" FromRole="Introduction" ToRole="Language" />
+  </EntityType>
+  <EntityType Name="Language">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CultureCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Introductions" Relationship="PatientPortalModel.FK_Introduction_Language" FromRole="Language" ToRole="Introduction" />
+    <NavigationProperty Name="Products" Relationship="PatientPortalModel.FK_Product_Language" FromRole="Language" ToRole="Product" />
+    <NavigationProperty Name="Questions" Relationship="PatientPortalModel.FK_Question_Language" FromRole="Language" ToRole="Question" />
+    <NavigationProperty Name="Surveys" Relationship="PatientPortalModel.FK_Survey_Language" FromRole="Language" ToRole="Survey" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProductURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="LanguageId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Language" Relationship="PatientPortalModel.FK_Product_Language" FromRole="Product" ToRole="Language" />
+    <NavigationProperty Name="ProductImages" Relationship="PatientPortalModel.FK_ProductImages_Product" FromRole="Product" ToRole="ProductImage" />
+    <NavigationProperty Name="SurveyQuestionMaps" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Product" FromRole="Product" ToRole="SurveyQuestionMap" />
+  </EntityType>
+  <EntityType Name="ProductImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="ImagePath" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ThumbnailPath" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="PatientPortalModel.FK_ProductImages_Product" FromRole="ProductImage" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="IsMandatary" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="QuestionTypeId" Type="Int32" Nullable="false" />
+    <Property Name="LanguageId" Type="Int32" Nullable="false" />
+    <Property Name="TextInputTypeId" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Answers" Relationship="PatientPortalModel.FK_Answer_Question" FromRole="Question" ToRole="Answer" />
+    <NavigationProperty Name="Language" Relationship="PatientPortalModel.FK_Question_Language" FromRole="Question" ToRole="Language" />
+    <NavigationProperty Name="QuestionType" Relationship="PatientPortalModel.FK_Question_QuestionType" FromRole="Question" ToRole="QuestionType" />
+    <NavigationProperty Name="TextInputType" Relationship="PatientPortalModel.FK_Question_TextInputType" FromRole="Question" ToRole="TextInputType" />
+    <NavigationProperty Name="SurveyQuestionAnswers" Relationship="PatientPortalModel.FK_SurveyQuestionAnswer_Question" FromRole="Question" ToRole="SurveyQuestionAnswer" />
+    <NavigationProperty Name="SurveyQuestionMaps" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Question" FromRole="Question" ToRole="SurveyQuestionMap" />
+    <NavigationProperty Name="SurveyQuestionMaps1" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Question1" FromRole="Question" ToRole="SurveyQuestionMap" />
+  </EntityType>
+  <EntityType Name="QuestionType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Questions" Relationship="PatientPortalModel.FK_Question_QuestionType" FromRole="QuestionType" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="PatientPortalModel.FK_User_Role" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TerritoriesEmails" Relationship="PatientPortalModel.FK_TerritoriesEmail_State" FromRole="State" ToRole="TerritoriesEmail" />
+    <NavigationProperty Name="UserDetails" Relationship="PatientPortalModel.FK_UserDetail_State" FromRole="State" ToRole="UserDetail" />
+  </EntityType>
+  <EntityType Name="Survey">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="LanguageId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Language" Relationship="PatientPortalModel.FK_Survey_Language" FromRole="Survey" ToRole="Language" />
+    <NavigationProperty Name="SurveyQuestionAnswers" Relationship="PatientPortalModel.FK_SurveyQuestionAnswer_Survey" FromRole="Survey" ToRole="SurveyQuestionAnswer" />
+    <NavigationProperty Name="SurveyQuestionMaps" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Survey" FromRole="Survey" ToRole="SurveyQuestionMap" />
+  </EntityType>
+  <EntityType Name="SurveyQuestionAnswer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SurveyId" Type="Int32" Nullable="false" />
+    <Property Name="QuestionId" Type="Int32" Nullable="false" />
+    <Property Name="AnswerId" Type="Int32" />
+    <Property Name="TextInput" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Guid" Type="Guid" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Answer" Relationship="PatientPortalModel.FK_SurveyQuestionAnswer_Answer" FromRole="SurveyQuestionAnswer" ToRole="Answer" />
+    <NavigationProperty Name="Question" Relationship="PatientPortalModel.FK_SurveyQuestionAnswer_Question" FromRole="SurveyQuestionAnswer" ToRole="Question" />
+    <NavigationProperty Name="Survey" Relationship="PatientPortalModel.FK_SurveyQuestionAnswer_Survey" FromRole="SurveyQuestionAnswer" ToRole="Survey" />
+    <NavigationProperty Name="User" Relationship="PatientPortalModel.FK_SurveyQuestionAnswer_User" FromRole="SurveyQuestionAnswer" ToRole="User" />
+  </EntityType>
+  <EntityType Name="SurveyQuestionMap">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SurveyId" Type="Int32" Nullable="false" />
+    <Property Name="QuestionId" Type="Int32" Nullable="false" />
+    <Property Name="AnswerId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="ChildQuestionId" Type="Int32" />
+    <Property Name="QuestionOrderNumber" Type="Int32" Nullable="false" />
+    <Property Name="SurveyQuestionMapId" Type="Int32" />
+    <Property Name="IsMainNode" Type="Int32" />
+    <Property Name="SameQuestionNumber" Type="Int32" />
+    <NavigationProperty Name="Answer" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Answer" FromRole="SurveyQuestionMap" ToRole="Answer" />
+    <NavigationProperty Name="Product" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Product" FromRole="SurveyQuestionMap" ToRole="Product" />
+    <NavigationProperty Name="Question" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Question" FromRole="SurveyQuestionMap" ToRole="Question" />
+    <NavigationProperty Name="Question1" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Question1" FromRole="SurveyQuestionMap" ToRole="Question" />
+    <NavigationProperty Name="Survey" Relationship="PatientPortalModel.FK_SurveyQuestionMap_Survey" FromRole="SurveyQuestionMap" ToRole="Survey" />
+    <NavigationProperty Name="SurveyQuestionMap1" Relationship="PatientPortalModel.FK_SurveyQuestionMap_SurveyQuestionMap" FromRole="SurveyQuestionMap" ToRole="SurveyQuestionMap1" />
+    <NavigationProperty Name="SurveyQuestionMap2" Relationship="PatientPortalModel.FK_SurveyQuestionMap_SurveyQuestionMap" FromRole="SurveyQuestionMap1" ToRole="SurveyQuestionMap" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TerritoriesEmail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="StateId" Type="Int32" Nullable="false" />
+    <Property Name="EmailId" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_TerritoriesEmail_State" FromRole="TerritoriesEmail" ToRole="State" />
+  </EntityType>
+  <EntityType Name="TextInputType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="InputType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Questions" Relationship="PatientPortalModel.FK_Question_TextInputType" FromRole="TextInputType" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Role" Relationship="PatientPortalModel.FK_User_Role" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="SurveyQuestionAnswers" Relationship="PatientPortalModel.FK_SurveyQuestionAnswer_User" FromRole="User" ToRole="SurveyQuestionAnswer" />
+    <NavigationProperty Name="UserDetails" Relationship="PatientPortalModel.FK_UserDetail_User" FromRole="User" ToRole="UserDetail" />
+  </EntityType>
+  <EntityType Name="UserDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="BusinessName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="StateId" Type="Int32" Nullable="false" />
+    <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="EmailId" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsReqForPromotions" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_UserDetail_State" FromRole="UserDetail" ToRole="State" />
+    <NavigationProperty Name="User" Relationship="PatientPortalModel.FK_UserDetail_User" FromRole="UserDetail" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Answer_Question">
+    <End Type="PatientPortalModel.Question" Role="Question" Multiplicity="1" />
+    <End Type="PatientPortalModel.Answer" Role="Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionAnswer_Answer">
+    <End Type="PatientPortalModel.Answer" Role="Answer" Multiplicity="0..1" />
+    <End Type="PatientPortalModel.SurveyQuestionAnswer" Role="SurveyQuestionAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Answer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionAnswer">
+        <PropertyRef Name="AnswerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionMap_Answer">
+    <End Type="PatientPortalModel.Answer" Role="Answer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="PatientPortalModel.SurveyQuestionMap" Role="SurveyQuestionMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Answer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionMap">
+        <PropertyRef Name="AnswerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Introduction_Language">
+    <End Type="PatientPortalModel.Language" Role="Language" Multiplicity="1" />
+    <End Type="PatientPortalModel.Introduction" Role="Introduction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Introduction">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Language">
+    <End Type="PatientPortalModel.Language" Role="Language" Multiplicity="1" />
+    <End Type="PatientPortalModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_Language">
+    <End Type="PatientPortalModel.Language" Role="Language" Multiplicity="1" />
+    <End Type="PatientPortalModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Survey_Language">
+    <End Type="PatientPortalModel.Language" Role="Language" Multiplicity="1" />
+    <End Type="PatientPortalModel.Survey" Role="Survey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Survey">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductImages_Product">
+    <End Type="PatientPortalModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="PatientPortalModel.ProductImage" Role="ProductImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductImage">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionMap_Product">
+    <End Type="PatientPortalModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="PatientPortalModel.SurveyQuestionMap" Role="SurveyQuestionMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionMap">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_QuestionType">
+    <End Type="PatientPortalModel.QuestionType" Role="QuestionType" Multiplicity="1" />
+    <End Type="PatientPortalModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="QuestionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_TextInputType">
+    <End Type="PatientPortalModel.TextInputType" Role="TextInputType" Multiplicity="0..1" />
+    <End Type="PatientPortalModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TextInputType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="TextInputTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionAnswer_Question">
+    <End Type="PatientPortalModel.Question" Role="Question" Multiplicity="1" />
+    <End Type="PatientPortalModel.SurveyQuestionAnswer" Role="SurveyQuestionAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionAnswer">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionMap_Question">
+    <End Type="PatientPortalModel.Question" Role="Question" Multiplicity="1" />
+    <End Type="PatientPortalModel.SurveyQuestionMap" Role="SurveyQuestionMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionMap">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionMap_Question1">
+    <End Type="PatientPortalModel.Question" Role="Question" Multiplicity="0..1" />
+    <End Type="PatientPortalModel.SurveyQuestionMap" Role="SurveyQuestionMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionMap">
+        <PropertyRef Name="ChildQuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Type="PatientPortalModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="PatientPortalModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TerritoriesEmail_State">
+    <End Type="PatientPortalModel.State" Role="State" Multiplicity="1" />
+    <End Type="PatientPortalModel.TerritoriesEmail" Role="TerritoriesEmail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TerritoriesEmail">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDetail_State">
+    <End Type="PatientPortalModel.State" Role="State" Multiplicity="1" />
+    <End Type="PatientPortalModel.UserDetail" Role="UserDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionAnswer_Survey">
+    <End Type="PatientPortalModel.Survey" Role="Survey" Multiplicity="1" />
+    <End Type="PatientPortalModel.SurveyQuestionAnswer" Role="SurveyQuestionAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Survey">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionAnswer">
+        <PropertyRef Name="SurveyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionMap_Survey">
+    <End Type="PatientPortalModel.Survey" Role="Survey" Multiplicity="1" />
+    <End Type="PatientPortalModel.SurveyQuestionMap" Role="SurveyQuestionMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Survey">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionMap">
+        <PropertyRef Name="SurveyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionAnswer_User">
+    <End Type="PatientPortalModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="PatientPortalModel.SurveyQuestionAnswer" Role="SurveyQuestionAnswer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionAnswer">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SurveyQuestionMap_SurveyQuestionMap">
+    <End Type="PatientPortalModel.SurveyQuestionMap" Role="SurveyQuestionMap" Multiplicity="0..1" />
+    <End Type="PatientPortalModel.SurveyQuestionMap" Role="SurveyQuestionMap1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SurveyQuestionMap">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SurveyQuestionMap1">
+        <PropertyRef Name="SurveyQuestionMapId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDetail_User">
+    <End Type="PatientPortalModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="PatientPortalModel.UserDetail" Role="UserDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

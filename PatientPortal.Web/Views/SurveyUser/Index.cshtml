@@ -1,0 +1,201 @@
+﻿@using PatientPortal.Web.Utilities;
+@using PatientPortal.DTOModel;
+@using PatientPortal.Resource.SurveyUser;
+@model PatientPortal.DTOModel.SurveyDTO
+
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<label class="hidden" id="lblSurveyIdLanguageId">@Model.EncryptSurveyIdLanguageId</label>
+<div class="content-area">
+    <div class="container">
+        <div class="row" id="divSurvey">
+            <div class="col-md-12  col-sm-12 col-xs-12" id="divSurveyActive">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="page-header">
+                            <h1><span data-bind="text:Question()[0] && Question()[0].ISurveyDTO && Question()[0].ISurveyDTO.Name"></span></h1>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="progress">
+                            <div class="progress-bar" id="SurveyProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                0%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="survey-content">
+                    <span class="error hidden" style="color: Red;">* @Index.EnterNumericValue</span>
+                    <div class="small-popover">
+                        <a class="popover-btn">
+                            @Index.WhyTake
+                        </a>
+                        <div class="popover-detail">
+                            <p id="pIntroductionDescription">
+
+                            </p>
+                            @*<div class="img-block"><img id="imgIntroduction" src="" class="img-responsive" /></div>*@
+                        </div>
+                    </div>
+                    <!-- Slider Start -->
+                    <div id="SurveyCarousel" class="carousel slide" data-interval="false" data-wrap="false">
+                        <!-- Indicators -->
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <!-- ko foreach: Question()-->
+                            <div class="item" id="QuestionSlider" data-bind="attr:{surveyQuestId:Id,QuestionId:QuestionId,AnswerId:AnswerId},css: { active: $index() == 0 }">
+                                <div class="col-md-12 col-sm-12 col-xs-12  qustion ">
+                                    <span data-bind="text:$data.IQuestionDTO && $data.IQuestionDTO.Title"></span>
+                                    <span data-selector="QuestionId" data-bind="text:$data.IQuestionDTO && $data.IQuestionDTO.Id,visible:false"></span>
+                                    <span data-selector="QuestionMandatory" data-bind="text:$data.IQuestionDTO && $data.IQuestionDTO.IsMandatary,visible:false"></span>
+                                    <span data-selector="TextInputTypeId" data-bind="text:$data.IQuestionDTO && $data.IQuestionDTO.TextInputTypeId,visible:false"></span>
+                                    <span data-selector="QuestionType" data-bind="text:$data.IQuestionDTO && $data.IQuestionDTO.IQuestionTypeDTO && $data.IQuestionDTO.IQuestionTypeDTO.Type,visible:false"></span>
+                                </div>
+                                <!-- ko foreach: IQuestionDTO.IAnswerDTOList -->
+                                <div class="col-md-3 col-sm-3 col-xs-12" data-selector="DivAnswers" data-bind="css: {rangesliderwidth: $parent.IQuestionDTO.IQuestionTypeDTO.Type == 'Number-Slider'}">
+                                    <!-- ko if: $parent.IQuestionDTO.IQuestionTypeDTO.Type=='Single-Select' -->
+                                    <div class="option">
+                                        <span class="custom-radio">
+                                            <input type="radio" class="radio-opt" name="SingleSelect" data-bind="value:Id,attr:{questionId:QuestionId},click:$root.SetRadioSelected" />
+                                        </span>
+
+                                        <div class="prod-img">
+                                            <!--ko if:ImagePath != null && ImagePath != "" -->
+                                            <img data-bind="attr:{src:ImagePath}" class="img-responsive" />
+                                            <!--/ko-->
+                                            <!--ko if:ImagePath == null || ImagePath == ""-->
+                                            <img src="~/Contents/images/prod-img1.png" />
+                                            <!--/ko-->
+                                        </div>
+                                        <div class="prod-detail">
+                                            <span id="SpanTextBox" data-bind="attr:{answerId:Id},text:$root.ShowText(Title,Id)"></span>
+                                            <a class="marginL15" data-bind="attr:{answerId:Id},click:$root.ShowMoreText,visible:Title.length > 55 " href=" #">@Index.MoreText</a>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if:$parent.IQuestionDTO.IQuestionTypeDTO.Type=='Multi-Select' -->
+                                    <div class="option">
+                                        <span class="custom-checkbox">
+                                            <input type="checkbox" class="check-opt" name="MultiSelect" data-bind="value:Id,event:{change:$root.SetCheckBoxSelected}" />
+                                        </span>
+                                        <div class="prod-img">
+                                            <!--ko if:ImagePath != null && ImagePath != "" -->
+                                            <img data-bind="attr:{src:ImagePath}" class="img-responsive" />
+                                            <!--/ko-->
+                                            <!--ko if:ImagePath == null || ImagePath == ""-->
+                                            <img src="~/Contents/images/prod-img1.png" />
+                                            <!--/ko-->
+                                        </div>
+                                        <div class="prod-detail">
+                                            <span id="SpanTextBox" data-bind="attr:{answerId:Id},text:$root.ShowText(Title,Id)"></span>
+
+                                            <a class="marginL15" data-bind="attr:{answerId:Id},click:$root.ShowMoreText,visible:Title.length > 55 " href=" #">@Index.MoreText</a>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: $parent.IQuestionDTO.IQuestionTypeDTO.Type=='TextBox' -->
+                                    <div class="option">
+                                        <div class="prod-detail">
+                                            <span id="SpanTextBox" data-bind="attr:{answerId:Id},text:$root.ShowText(Title,Id)"></span>
+
+                                            <a class="marginL15" data-bind="attr:{answerId:Id},click:$root.ShowMoreText,visible:Title.length > 55 " href=" #">@Index.MoreText</a>
+                                        </div>
+                                        <div class="prod-img">
+                                            <!--ko if:ImagePath != null && ImagePath != ""-->
+                                            <img data-bind="attr:{src:ImagePath}" class="img-responsive" />
+                                            <!--/ko-->
+                                            <!--ko if:ImagePath == null || ImagePath == ""-->
+                                            <img src="~/Contents/images/prod-img1.png" />
+                                            <!--/ko-->
+                                        </div>
+                                        <div class="form-element">
+                                            <span class="custom-textbox">
+                                                <input type="text" id="TextboxAnswer" name="TextBox" data-bind="attr:{answerId:Id},event: { blur: $root.setTextBoxInput,keyup:$root.setTextBoxInputNextButton}" class="form-control" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: $parent.IQuestionDTO.IQuestionTypeDTO.Type=='TextArea' -->
+                                    <div class="option">
+                                        <div class="prod-detail marginT15">
+                                            <span id="SpanTextBox" data-bind="attr:{answerId:Id},text:$root.ShowText(Title,Id)"></span>
+
+                                            <a class="marginL15" data-bind="attr:{answerId:Id},click:$root.ShowMoreText,visible:Title.length > 55 " href=" #">@Index.MoreText</a>
+                                        </div>
+                                        <div class="prod-img">
+                                            <!--ko if:ImagePath != null && ImagePath != ""-->
+                                            <img data-bind="attr:{src:ImagePath}" class="img-responsive" />
+                                            <!--/ko-->
+                                            <!--ko if:ImagePath == null || ImagePath == "" -->
+                                            <img src="~/Contents/images/prod-img1.png" />
+                                            <!--/ko-->
+                                        </div>
+                                        <div class="form-element">
+                                            <span class="custom-textbox" style="padding-bottom:50px;">
+                                                <textarea name="TextArea" id="TextArea" data-bind="attr:{answerId:Id},event: { blur: $root.setTextAreaInput,keyup:$root.setTextAreaInputNextButton}" class="form-control"></textarea>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: $parent.IQuestionDTO.IQuestionTypeDTO.Type=='Number-Slider' -->
+                                    <div class="col-md-12 col-sm-12 col-xs-12 rangeSlider">
+                                        <div class="col-md-1 col-sm-2 col-xs-12">
+                                            <div class="text-left">
+                                                <a href="javascript:void(0);" class="decreseval"><span class="range-icon glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10 col-sm-8 col-xs-12">
+                                            <div class="row">
+                                                <div class="numberSlider" id="master" data-bind="attr:{answerId:Id}">
+                                                    <div class="clearfix">
+                                                        <span class="pull-left rangetext" data-bind="text:Title"></span>
+                                                        <span class="pull-right rangetext" data-bind="text:ToolTip"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 col-sm-2 col-xs-12"><div class="text-right"><a href="javascript:void(0);" class="increaseval"><span class="range-icon glyphicon glyphicon-plus" aria-hidden="true"></span></a></div></div>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                                <!-- /ko -->
+
+                            </div>
+                            <!-- /ko -->
+                            <div class="item" id="QuestionSlider" surveyquestid="finalSubmit">
+                                <div class=" col-md-12 col-sm-12 col-xs-12  qustion text-center marginT150">@Index.EndSurvey <div class="text-center survey-message">@Index.SurveySubmitMessage</div></div>
+                               
+                                <div class="col-md-12  col-sm-12 col-xs-12 text-center">
+                                    <button type="button" class="btn btn-primary" data-bind="click:SubmitSurvey">@Index.Submit</button>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <!-- Controls -->
+                        <a class="left carousel-control" role="button" data-slide="prev" id="LeftButton"
+                           data-bind="click: function () { PreviousQuestion($data) },css: index() == -1 ? 'disabledAnchor' : '' ">
+                            <span class="glyphicon glyphicon-menu-left" aria-hidden="true" id="LeftSpan" data-bind="style: { color: index() == -1  ? '#babfc0' : '#000' }"><span class="btn-text">Back</span></span>
+                            <span class="sr-only">@Index.Previous</span>
+                        </a>
+                        <a class="right carousel-control" role="button" data-slide="next" id="RightButton"
+                           data-bind="click: function () { NextQuestion($data) }">
+                            <span class="glyphicon glyphicon-menu-right" aria-hidden="true" id="RightSpan">
+                                <span class="btn-text">Next</span>
+                            </span>
+                            <span class="sr-only">@Index.Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="divSurveyInActive" class="text-center paddingT15 hidden">
+                @Index.InactiveSurveyMessage
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

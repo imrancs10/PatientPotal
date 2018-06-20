@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0050AB6D-F50F-41A5-96FF-3353E11C90DF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Company.Project.Facade.UnitTests</RootNamespace>
+    <AssemblyName>Company.Project.Facade.UnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External Libraries\Unity\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\External Libraries\Unity\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External Libraries\UnitTestFramework\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External Libraries\Mock\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomerFacadeTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Configurations\unity.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\RequestModelData.xls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Company.Project.Business\TTX.UBS.Business.csproj">
+      <Project>{17b1e765-c659-4b05-b9a7-bcf4a0a35c19}</Project>
+      <Name>TTX.UBS.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Company.Project.DataAccess\TTX.UBS.DataAccess.csproj">
+      <Project>{5407c474-b72a-4abf-9308-acc1f1e1b39b}</Project>
+      <Name>TTX.UBS.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Company.Project.DTOModel\TTX.UBS.DTOModel.csproj">
+      <Project>{94aa86dc-22e2-4215-a738-a2963215dbb8}</Project>
+      <Name>TTX.UBS.DTOModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Company.Project.Entities\TTX.UBS.Entities.csproj">
+      <Project>{ee4d7f8a-52ad-434c-8f55-aaaa97649ff2}</Project>
+      <Name>TTX.UBS.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Company.Project.Shared\TTX.UBS.Shared.csproj">
+      <Project>{83794482-064f-4f76-9308-b11ffc34d436}</Project>
+      <Name>TTX.UBS.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Plugins\Logging\Company.Project.Plugin.Log4net.csproj">
+      <Project>{f97e3f3b-bf4d-465a-b8de-a2525ee71e52}</Project>
+      <Name>Company.Project.Plugin.Log4net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TTX.UBS.Facade.csproj">
+      <Project>{c8281de3-49b0-4842-8111-9ae36e303091}</Project>
+      <Name>TTX.UBS.Facade</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,105 @@
+﻿@using PatientPortal.Web.Utilities;
+@using PatientPortal.Resource.SurveyUser;
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<!-- Content Area Start -->
+<div class="content-area" id="divRecommendation">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="page-header">
+                            <h1>
+                                <span data-bind="text:SurveyName"></span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div id="divRecommendedProduct">
+                    <div class="content-container">
+                        <p class="clearfix">
+                            @Recommendation.ThankYouRecommendation <br /> <br />
+                            <span class="col-md-12 col-sm-12 col-xs-12 display-block margin-B5 ">
+                                <span class="row display-block">
+                                    <a href=" javascript:void(0);" class="yellow-link click-btn" data-bind="click: function () { AdditionalInformation() }">
+                                        @Recommendation.ClickHereTo
+                                    </a>
+                                </span>
+                            </span>
+                            <ul>
+                                <li type="square">@Recommendation.ClickHereDownloadPDF</li>
+                                <li type="square">@Recommendation.ClickHereAdvisor</li>
+                                <li type="square">Register so you can access your completed surveys again</li>
+                            </ul>
+                        </p>
+                        <hr />
+                        <div id="DivCustomScrollbar" class="mCustomScrollbar custom-scroll-common">
+                            <ul class="list-recommendation" data-bind="foreach:RecommendationList">
+                                <li>
+                                    <div class="row">
+                                        <div class=" col-md-10 col-sm-10 col-xs-12">
+                                            <div class="desc">
+                                                <!--ko if:RecommendedCount != null && RecommendedCount != "" && $root.isNotNumberSlider(AnswerTitle) && DuplicateProductConstraint == ""-->
+                                                <h3 class="list-recommendation-product"><span data-bind="text:ProductName"></span></h3>
+                                                <span data-bind="text:AnswerTitle" class="recommendedtext"></span>:
+                                                <span class="recommendedtext" data-bind="text:' '+RecommendedCount +' units'"></span>
+                                                <hr style="margin-top: 10px; height: 1px; border-top: 2px solid #eee; ">
+                                                <!--/ko-->
+                                                <!--ko if:(RecommendedCount == null || RecommendedCount == "") && $root.isNotNumberSlider(AnswerTitle) && DuplicateProductConstraint == ""-->
+                                                <h3 class="list-recommendation-product"><span data-bind="text:ProductName"></span></h3>
+                                                <!--/ko-->
+                                                <!--ko if:!$root.isNotNumberSlider(AnswerTitle) && DuplicateProductConstraint == ""-->
+                                                <h3 class="list-recommendation-product"><span data-bind="text:ProductName"></span></h3>
+                                                <span class="recommendedtext" data-bind="text:RecommendedCount"></span> units
+                                                <hr style="margin-top: 10px; height: 1px; border-top: 2px solid #eee;">
+                                                <!--/ko-->
+                                                <!--ko if:DuplicateProductConstraint != ""-->
+                                                <h3 class="list-recommendation-product"><span data-bind="text:ProductName"></span></h3>
+                                                <span class="recommendedtext" data-bind="html:$root.GetProductConstraint(AnswerTitle+': '+ RecommendedCount,DuplicateProductConstraint)"></span>
+                                                <hr style="margin-top: 10px; height: 1px; border-top: 2px solid #eee; ">
+                                                <!--/ko-->
+                                                <b>Product Description</b><br />
+                                                <span data-bind="html:ProductDescription"></span>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-2 col-sm-2 col-xs-12">
+                                            <div class="img-area">
+                                                <!--ko if:ProductMainImage != null && ProductMainImage != ""-->
+                                                <img data-bind="attr:{src:ProductMainImage}" class="img-responsive" />
+                                                <!--/ko-->
+                                                <!--ko if:ProductMainImage == null || ProductMainImage == ""-->
+                                                <img src="~/Contents/images/prod-img1.png" class="img-responsive" />
+                                                <!--/ko-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    @*<div class="question-table table-responsive" style="min-height:auto!important;margin-top:10px;">
+                            <table class="table table-bordered tblid" id="tblRecommendedList">
+                                <thead>
+                                    <tr>
+                                        <th>@Recommendation.RecommendedProducts</th>
+                                        <th>@Recommendation.Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: RecommendedGrid.DataRows">
+                                    <tr>
+                                        <td><span data-bind="text:ProductName"></span></td>
+                                        <td><span data-bind="text:RecommendedCount"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>*@
+                </div>
+                @*<div id="divNoResultFound" style="display:none" class="content-container">
+                        <p>@Recommendation.NoRecentSuevey</p>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>

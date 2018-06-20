@@ -1,0 +1,51 @@
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Facade.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Facade.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Shared.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\Working Code\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Facade.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Facade.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Shared.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.Unity.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Shared.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.Unity.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.csprojResolveAssemblyReference.cache
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.dll
+E:\Assa Abloy\YaleNexTouch\Source Code\NexTouch Branch\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Facade.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Facade.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Shared.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.Unity.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Shared.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.Unity.xml
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.csprojResolveAssemblyReference.cache
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.dll
+E:\ASSA ABLOY\Source Code\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Facade.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Facade.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Shared.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.Unity.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\YaleNexTouch.Shared.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.Unity.xml
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.csprojResolveAssemblyReference.cache
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.dll
+E:\ASSA ABLOY\Source Code\YaleConversion\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.pdb
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Facade\obj\Release\YaleNexTouch.Facade.csproj.CoreCompileInputs.cache

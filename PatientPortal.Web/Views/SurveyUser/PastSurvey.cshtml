@@ -1,0 +1,243 @@
+﻿@using PatientPortal.Web.Utilities;
+@using PatientPortal.Resource.SurveyUser;
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<!-- Content Area Start -->
+<div class="content-area" id="divPastSurvey">
+    <div class="container">
+        <div class="row" id="divSurveyList">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="page-header">
+                    <h1>@PastSurvey.PastSurveyList</h1>
+                </div>
+                <div class="question-table table-responsive">
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th data-bind="visible:false">@PastSurvey.Guid</th>
+                                <th data-bind="visible:false">@PastSurvey.SurveyID</th>
+                                <th>@PastSurvey.SurveyName</th>
+                                <th>@PastSurvey.DateTaken</th>
+                                <th>@PastSurvey.SurveyLink</th>
+                                <th>@PastSurvey.Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: PastSurveyGrid.DataRows">
+                            <tr>
+                                <td data-bind="visible:false"><span data-bind="text:Guid"></span></td>
+                                <td data-bind="visible:false"><span data-bind="text:SurveyId"></span></td>
+                                <td><span data-bind="text:SurveyName"></span></td>
+                                <td><span data-bind="text:SurveyTakenDateDisplay"></span></td>
+                                <td><a href="#" target="_self" data-bind="click:$root.SurveyLink">@PastSurvey.RetakeSurvey</a></td>
+                                <td>
+                                    <div class="action">
+                                        <a title="@PastSurvey.ViewSurvey" class="view" href="#" data-bind="click:$root.GetSurveyAttempt"></a>
+                                        <a title="@PastSurvey.DownloadPDF" class="pdf-download" href="#" data-bind="click:$root.DownloadPDF"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <span id="lblNoRecord" style="display:none;">@PastSurvey.NotCompletedSurvey</span>
+                </div>
+            </div>
+        </div>
+        <div id="divSurveyDetail" class="row" style="display:none;">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="page-header">
+                    <h1>
+                        <span data-bind="text:Question()[0] && Question()[0].ISurveyDTO && Question()[0].ISurveyDTO.Name"></span>
+                        <a href="#" data-bind="click:$root.BackToSuveyList" style="float:right">@PastSurvey.BacktoList</a>
+                    </h1>
+
+                </div>
+                <div class="survey-content">
+                    <!-- Slider Start -->
+                    <div id="SurveyCarousel" class="carousel slide" data-interval="false" data-wrap="false">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <!-- ko foreach: Question()-->
+                            <div class="item" id="QuestionSlider" data-bind="attr:{surveyQuestId:Id},css: { active: $index() == 0 }">
+                                <div class="col-md-12 col-sm-12 col-xs-12  qustion ">
+                                    <span data-bind="text:$data.IQuestionDTO && $data.IQuestionDTO.Title"></span>
+                                </div>
+                                <!-- ko foreach: IQuestionDTO.IAnswerDTOList -->
+                                <div class="col-md-3 col-sm-3 col-xs-12" data-selector="DivAnswers" data-bind="css: {rangesliderwidth: $parent.IQuestionDTO.IQuestionTypeDTO.Type == 'Number-Slider'}">
+                                    <!-- ko if: $parent.IQuestionDTO.IQuestionTypeDTO.Type=='Single-Select' -->
+                                    <div class="option">
+                                        <span class="custom-radio" data-bind="css:$parent.AnswerId==Id?'active':''">
+                                            <input type="radio" class="radio-opt" name="SingleSelect" data-bind="value:Id,attr:{questionId:QuestionId},checked:$parent.AnswerId==Id" />
+                                        </span>
+
+                                        <div class="prod-img">
+                                            <!--ko if:ImagePath != null && ImagePath != ""-->
+                                            <img data-bind="attr:{src:ImagePath}" class="img-responsive" />
+                                            <!--/ko-->
+                                            <!--ko if:ImagePath == null || ImagePath == "" -->
+                                            <img src="~/Contents/images/prod-img1.png" />
+                                            <!--/ko-->
+                                        </div>
+                                        <div class="prod-detail">
+                                            <span id="SpanTextBox" data-bind="attr:{answerId:Id},text:$root.ShowText(Title,Id)"></span>
+                                            <a class="marginL15" data-bind="attr:{answerId:Id},click:$root.ShowMoreText,visible:Title.length > 55 " href=" #">@Index.MoreText</a>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if:$parent.IQuestionDTO.IQuestionTypeDTO.Type=='Multi-Select' -->
+                                    <div class="option">
+                                        <span class="custom-checkbox" data-bind="css:$root.isMatchedAnswer($parent.AnswerId,Id)?'active':''">
+                                            <input type="checkbox" class="check-opt" name="MultiSelect" data-bind="value:Id" />
+                                        </span>
+                                        <div class="prod-img">
+                                            <!--ko if:ImagePath != null && ImagePath != "" -->
+                                            <img data-bind="attr:{src:ImagePath}" class="img-responsive" />
+                                            <!--/ko-->
+                                            <!--ko if:ImagePath == null || ImagePath == "" -->
+                                            <img src="~/Contents/images/prod-img1.png" />
+                                            <!--/ko-->
+                                        </div>
+                                        <div class="prod-detail">
+                                            <span id="SpanTextBox" data-bind="attr:{answerId:Id},text:$root.ShowText(Title,Id)"></span>
+                                            <a class="marginL15" data-bind="attr:{answerId:Id},click:$root.ShowMoreText,visible:Title.length > 55 " href=" #">@Index.MoreText</a>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: $parent.IQuestionDTO.IQuestionTypeDTO.Type=='TextBox' -->
+                                    <div class="option">
+                                        <div class="prod-detail">
+                                            <span id="SpanTextBox" data-bind="attr:{answerId:Id},text:$root.ShowText(Title,Id)"></span>
+                                            <a class="marginL15" data-bind="attr:{answerId:Id},click:$root.ShowMoreText,visible:Title.length > 55 " href=" #">@Index.MoreText</a>
+                                        </div>
+                                        <div class="prod-img">
+                                            <!--ko if:ImagePath != null && ImagePath != "" -->
+                                            <img data-bind="attr:{src:ImagePath}" class="img-responsive" />
+                                            <!--/ko-->
+                                            <!--ko if:ImagePath == null || ImagePath == "" -->
+                                            <img src="~/Contents/images/prod-img1.png" />
+                                            <!--/ko-->
+                                        </div>
+                                        <div class="form-element">
+                                            <span class="custom-textbox">
+                                                <!-- ko if: $root.isMatchedAnswer($parent.AnswerId,Id) -->
+                                                <input type="text" id="TextboxAnswer" readonly name="TextBox" class="form-control" data-bind="value:$root.getAnswerValue($parent.TextInput,$parent.AnswerId,Id)" />
+                                                <!--/ko-->
+                                                <!-- ko if: !$root.isMatchedAnswer($parent.AnswerId,Id) -->
+                                                <input type="text" id="TextboxAnswer" readonly name="TextBox" class="form-control" />
+                                                <!--/ko-->
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: $parent.IQuestionDTO.IQuestionTypeDTO.Type=='TextArea' -->
+                                    <div class="option">
+                                        <div class="prod-detail marginT15">
+                                            <span id="SpanTextBox" data-bind="attr:{answerId:Id},text:$root.ShowText(Title,Id)"></span>
+                                            <a class="marginL15" data-bind="attr:{answerId:Id},click:$root.ShowMoreText,visible:Title.length > 55 " href=" #">@Index.MoreText</a>
+                                        </div>
+                                        <div class="prod-img">
+                                            <!--ko if:ImagePath != null && ImagePath != "" -->
+                                            <img data-bind="attr:{src:ImagePath}" class="img-responsive" />
+                                            <!--/ko-->
+                                            <!--ko if:ImagePath == null || ImagePath == "" -->
+                                            <img src="~/Contents/images/prod-img1.png" />
+                                            <!--/ko-->
+                                        </div>
+                                        <div class="form-element">
+                                            <span class="custom-textbox" style="padding-bottom:50px;">
+                                                <!-- ko if: $root.isMatchedAnswer($parent.AnswerId,Id) -->
+                                                <textarea name="TextArea" id="TextArea" readonly class="form-control" data-bind="value:$root.getAnswerValue($parent.TextInput,$parent.AnswerId,Id)"></textarea>
+                                                <!--/ko-->
+                                                <!-- ko if: !$root.isMatchedAnswer($parent.AnswerId,Id) -->
+                                                <textarea name="TextArea" id="TextArea" readonly class="form-control"></textarea>
+                                                <!--/ko-->
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: $parent.IQuestionDTO.IQuestionTypeDTO.Type=='Number-Slider' -->
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="numberSlider" id="master">
+                                            <div class="clearfix">
+                                                <span class="pull-left rangetext" data-bind="text:Title"></span>
+                                                <span class="pull-right rangetext" data-bind="text:ToolTip"></span>
+                                            </div>
+                                            <span id="spanSliderText" data-bind="text:$parent.TextInput,visible:false"></span>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                                <!-- /ko -->
+
+                            </div>
+                            <!-- /ko -->
+                            <div class="item" id="QuestionSlider">
+                                <div class=" col-md-12 col-sm-12 col-xs-12  qustion">@PastSurvey.RecommendedProducts</div>
+                                <div class="col-md-12  col-sm-12 col-xs-12">
+                                    <div class="mCustomScrollbar custom-scroll-common">
+                                        <div id="divRecommendedProduct">
+                                            <ul class="list-recommendation" data-bind="foreach:RecommendationList">
+                                                <li>
+                                                    <div class="row">
+                                                        <div class=" col-md-10 col-sm-10 col-xs-12">
+                                                            <div class="desc">
+                                                                <!--ko if:RecommendedCount != null && RecommendedCount != "" && $root.isNotNumberSlider(AnswerTitle) && (DuplicateProductConstraint == "" || DuplicateProductConstraint == null)-->
+                                                                <h3 class="list-recommendation-product"><span data-bind="text:ProductName"></span></h3>
+                                                                <span data-bind="text:AnswerTitle" class="recommendedtext"></span>: <span class="recommendedtext" data-bind="text:' '+RecommendedCount +' units'"></span>
+                                                                <hr style="margin-top: 10px; height: 1px; border-top: 2px solid #eee; ">
+                                                                <!--/ko-->
+                                                                <!--ko if:(RecommendedCount == null || RecommendedCount == "") && $root.isNotNumberSlider(AnswerTitle) && (DuplicateProductConstraint == "" || DuplicateProductConstraint == null)-->
+                                                                <h3 class="list-recommendation-product"><span data-bind="text:ProductName"></span></h3>
+                                                                <!--/ko-->
+                                                                <!--ko if:!$root.isNotNumberSlider(AnswerTitle) && (DuplicateProductConstraint == "" || DuplicateProductConstraint == null)-->
+                                                                <h3 class="list-recommendation-product"><span data-bind="text:ProductName"></span></h3>
+                                                                <span class="recommendedtext" data-bind="text:RecommendedCount"></span> units
+                                                                <hr style="margin-top: 10px; height: 1px; border-top: 2px solid #eee;">
+                                                                <!--/ko-->
+                                                                <!--ko if:DuplicateProductConstraint != "" && DuplicateProductConstraint != null -->
+                                                                <h3 class="list-recommendation-product"><span data-bind="text:ProductName"></span></h3>
+                                                                <span class="recommendedtext" data-bind="html:$root.GetProductConstraint(AnswerTitle+': '+ RecommendedCount,DuplicateProductConstraint)"></span>
+                                                                <hr style="margin-top: 10px; height: 1px; border-top: 2px solid #eee; ">
+                                                                <!--/ko-->
+                                                                <b>Product Description</b><br />
+                                                                <span data-bind="html:ProductDescription"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" col-md-2 col-sm-2 col-xs-12">
+                                                            <div class="img-area">
+                                                                <!--ko if:ProductMainImage != null && ProductMainImage != ""-->
+                                                                <img data-bind="attr:{src:ProductMainImage}" class="img-responsive" />
+                                                                <!--/ko-->
+                                                                <!--ko if:ProductMainImage == null || ProductMainImage == ""-->
+                                                                <img src="~/Contents/images/prod-img1.png" class="img-responsive" />
+                                                                <!--/ko-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div id="divNoResultFound" style="display:none" class="content-container">
+                                            <p> @PastSurvey.NoProducts</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#SurveyCarousel" role="button" data-slide="prev" id="LeftButton">
+                            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                            <span class="sr-only">@PastSurvey.Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#SurveyCarousel" role="button" data-slide="next" id="RightButton">
+                            <span class="glyphicon glyphicon-menu-right" aria-hidden="true" id="RightSpan"></span>
+                            <span class="sr-only">@PastSurvey.Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

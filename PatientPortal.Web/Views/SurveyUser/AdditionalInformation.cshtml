@@ -1,0 +1,168 @@
+﻿@using PatientPortal.Web.Utilities;
+@using PatientPortal.Resource.SurveyUser;
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<!-- Content Area Start -->
+<div class="content-area" id="divAditionalInfo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="page-header">
+                            <h1>
+                                @AdditionalInformation.MultiFamilyHousing
+                            </h1>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="content-container">
+                    <div id="divAdditionalInfo">
+                        <p>@AdditionalInformation.ProvideDetails</p>
+                        <div class="mCustomScrollbar custom-scroll-common">
+                            <div class="paddingR25">
+                                <div class="grey-area">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-6 col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" id="BusinessNameInput" class="form-control" maxlength="50" placeholder="@AdditionalInformation.BusinessName"
+                                                       data-bind="value:userDetailModel.BusinessName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" id="FirstNameInput" class="form-control" maxlength="25" placeholder="@AdditionalInformation.FirstName" data-bind="value:userDetailModel.FirstName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" id="LastNameInput" class="form-control" maxlength="25" placeholder="@AdditionalInformation.LastName" data-bind="value:userDetailModel.LastName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 col-md-12">
+                                            <div class="form-group">
+                                                <select class="form-control" id="StateInput" data-bind="options: States,optionsText:'Name',optionsValue:'Id',optionsCaption:'Select a state',value:userDetailModel.StateId,event:{change:GetTerritoriesEmail}"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-6 col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" id="ZipCodeInput" class="form-control" maxlength="10" placeholder="@AdditionalInformation.ZipCode" data-bind="value:userDetailModel.ZipCode">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" id="PhoneNumberInput" class="form-control" placeholder="Phone Number" maxlength="14" data-bind="textInput:userDetailModel.PhoneNumber">
+                                                <span class="validationMessage" data-bind="validationMessage: userDetailModel.PhoneNumber"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <input type="email" id="EmailIdInput" class="form-control" maxlength="254" placeholder="@AdditionalInformation.Email" data-bind="value:userDetailModel.EmailId,event:{blur:CheckUserEmail}">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <span class="custom-checkbox-small active" id="chkAdvisorContact">
+                                            <input type="checkbox" name="MultiSelect" checked class="checkbox" />
+                                        </span>
+                                        @AdditionalInformation.SecurityAdvisorContact
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <span class="custom-checkbox-small active" id="chkPDFDownload">
+                                            <input type="checkbox" name="MultiSelect" checked class="checkbox" />
+                                        </span>
+                                        @AdditionalInformation.RecommendedSolution
+                                    </label>
+                                </div>
+                                @if (HttpContext.Current.Session["User"] == null || (((HttpContext.Current.Session["User"] as PatientPortal.DTOModel.UserDTO)).RoleDTO).Type != "SurveyUser")
+                                {
+                                    <div class="checkbox">
+                                        <label>
+                                            <span class="custom-checkbox-small active" id="chkRegisterUser">
+                                                <input type="checkbox" name="MultiSelect" checked class="checkbox" />
+                                            </span>
+                                            @AdditionalInformation.CreateSite
+                                        </label>
+                                    </div>
+                                }
+
+                                <div class="checkbox">
+                                    <label>
+                                        <span class="custom-checkbox-small active" id="chkPromotional">
+                                            <input type="checkbox" checked name="MultiSelect" class="checkbox" />
+                                        </span>
+                                        @AdditionalInformation.Promotional
+                                    </label>
+                                </div>
+
+                                <div class="form-element">
+                                    <button type="button" class="btn btn-primary pull-right" data-bind="click:SaveAdditionalInfo">@AdditionalInformation.Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="hidden" id="aFileDownload" href="" download="">download</a>
+                    <div id="divThankYouMessage" style="display:none">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Window -->
+    <div class="modal fade" id="LoginModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span type="button" class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+                    <h4 class="modal-title text-left" id="myModalLabel">@AdditionalInformation.Registration</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="loginDiv">
+                        <form class="form-horizontal">
+                            <div class="signin-form">
+                                <div class="form-group">
+                                    <label for="username" class="col-md-4 col-sm-12 col-xs-12 control-label">@AdditionalInformation.UserName</label>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <input type="text" class="form-control" id="username" readonly data-bind="value:userDetailModel.EmailId" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-md-4 col-sm-12 col-xs-12 control-label">@AdditionalInformation.Password</label>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <input type="password" class="form-control" id="passwordRegister" maxlength="15" placeholder="@AdditionalInformation.EnterPassword" data-bind="value:userDetailModel.Password" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-md-4 col-sm-12 col-xs-12 control-label">@AdditionalInformation.ConfirmPassword</label>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <input type="password" class="form-control" maxlength="15" id="confirmpassword" placeholder="@AdditionalInformation.EnterConfirmPassword" data-bind="value:userDetailModel.ConfirmPassword" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-4 col-md-6 col-sm-12 col-xs-12">
+                                        <button type="submit" class="btn btn-default" data-bind="click:SaveLoginAdditionalInfo">@AdditionalInformation.Register</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="loginSuccessDiv" class="hidden">
+                        @AdditionalInformation.UserSuccessFirst <a href="~/login/"> @AdditionalInformation.Login</a> <br />
+                        @AdditionalInformation.UserSuccessSecond
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

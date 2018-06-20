@@ -1,0 +1,10 @@
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\bin\debug\Company.Project.Entities.dll.config
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\bin\debug\Company.Project.Entities.dll
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\bin\debug\Company.Project.Entities.pdb
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\bin\debug\Company.Project.Shared.dll
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\bin\debug\Microsoft.Practices.Unity.dll
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\bin\debug\Microsoft.Practices.Unity.Configuration.dll
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\bin\debug\Company.Project.Shared.pdb
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\obj\Debug\Company.Project.Entities.csprojResolveAssemblyReference.cache
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\obj\Debug\Company.Project.Entities.dll
+F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Entities\obj\Debug\Company.Project.Entities.pdb

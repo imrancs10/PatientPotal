@@ -1,0 +1,2 @@
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Web\obj\Release\PatientPortal.Web.csprojAssemblyReference.cache
+C:\Users\sheikhimran\Desktop\Project\Source Code\YaleConversion\YaleNexTouch.Web\obj\Release\PatientPortal.Web.csproj.CoreCompileInputs.cache
