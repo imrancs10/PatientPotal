@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using PatientPortal.BAL.Login;
+using PatientPortal.Global;
+
+namespace PatientPortal.Controllers
+{
+    public class LoginController : CommonController
+    {
+        // GET: Login
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult GetLogin(string username,string password)
+        {
+            LoginDetails _details = new LoginDetails();
+            string _response = string.Empty;
+            Enums.LoginMessage message=_details.GetLogin(username, password);
+            if (message == Enums.LoginMessage.Authenticated)
+            {
+                return View("~/views/home/dashboard.cshtml");
+            }
+            else
+            {
+                SetAlertMessage(LoginResponse(message), "Login Response");
+                return View("index");
+            }
+        }
+    }
+}

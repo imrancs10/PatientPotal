@@ -1,6 +1,0 @@
-F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Shared\bin\Debug\Company.Project.Shared.dll
-F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Shared\bin\Debug\Company.Project.Shared.pdb
-F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Shared\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
-F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Shared\bin\Debug\Microsoft.Practices.Unity.dll
-F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Shared\obj\Debug\Company.Project.Shared.dll
-F:\Tasks\Design\Framework\With_Layers_Tiers_DI_UnitTest\Company.Project\Company.Project.Shared\obj\Debug\Company.Project.Shared.pdb

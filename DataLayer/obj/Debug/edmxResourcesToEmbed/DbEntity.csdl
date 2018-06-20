@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PatientPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Gbl_Master_Login">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="LastLogin" Type="DateTime" Precision="3" />
+    <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Gbl_Master_User" Relationship="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_Login" ToRole="Gbl_Master_User" />
+  </EntityType>
+  <EntityContainer Name="PatientPortalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Gbl_Master_Login" EntityType="Self.Gbl_Master_Login" />
+    <EntitySet Name="Gbl_Master_User" EntityType="PatientPortalModel.Gbl_Master_User" />
+    <AssociationSet Name="FK_Gbl_Master_Login_Gbl_Master_User" Association="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User">
+      <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+      <End Role="Gbl_Master_Login" EntitySet="Gbl_Master_Login" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Gbl_Master_User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordHash" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="DoB" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MobileNumber" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
+    <Property Name="IsdCode" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Gbl_Master_Login" Relationship="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Login" />
+  </EntityType>
+  <Association Name="FK_Gbl_Master_Login_Gbl_Master_User">
+    <End Type="PatientPortalModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+    <End Type="PatientPortalModel.Gbl_Master_Login" Role="Gbl_Master_Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gbl_Master_User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Gbl_Master_Login">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PatientPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Gbl_Master_Login">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="LastLogin" Type="datetime" />
+          <Property Name="IsBlocked" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Gbl_Master_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="250" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="DoB" Type="datetime" Nullable="false" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="IsdCode" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Gbl_Master_Login_Gbl_Master_User">
+          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
+          <End Role="Gbl_Master_Login" Type="Self.Gbl_Master_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Login">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PatientPortalModelStoreContainer">
+          <EntitySet Name="Gbl_Master_Login" EntityType="Self.Gbl_Master_Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gbl_Master_User" EntityType="Self.Gbl_Master_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Gbl_Master_Login_Gbl_Master_User" Association="Self.FK_Gbl_Master_Login_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Login" EntitySet="Gbl_Master_Login" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PatientPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gbl_Master_Login">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Gbl_Master_User" Relationship="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_Login" ToRole="Gbl_Master_User" />
+        </EntityType>
+        <EntityContainer Name="PatientPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gbl_Master_Login" EntityType="Self.Gbl_Master_Login" />
+          <EntitySet Name="Gbl_Master_User" EntityType="PatientPortalModel.Gbl_Master_User" />
+          <AssociationSet Name="FK_Gbl_Master_Login_Gbl_Master_User" Association="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Login" EntitySet="Gbl_Master_Login" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Gbl_Master_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="DoB" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="IsdCode" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Gbl_Master_Login" Relationship="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Login" />
+        </EntityType>
+        <Association Name="FK_Gbl_Master_Login_Gbl_Master_User">
+          <End Type="PatientPortalModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="PatientPortalModel.Gbl_Master_Login" Role="Gbl_Master_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Login">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PatientPortalModelStoreContainer" CdmEntityContainer="PatientPortalEntities">
+          <EntitySetMapping Name="Gbl_Master_Login">
+            <EntityTypeMapping TypeName="PatientPortalModel.Gbl_Master_Login">
+              <MappingFragment StoreEntitySet="Gbl_Master_Login">
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gbl_Master_User">
+            <EntityTypeMapping TypeName="PatientPortalModel.Gbl_Master_User">
+              <MappingFragment StoreEntitySet="Gbl_Master_User">
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsdCode" ColumnName="IsdCode" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

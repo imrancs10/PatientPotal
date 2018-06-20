@@ -1,0 +1,10 @@
+D:\MonitoringApp\PatientPortal\DataLayer\bin\Debug\DataLayer.dll.config
+D:\MonitoringApp\PatientPortal\DataLayer\bin\Debug\DataLayer.dll
+D:\MonitoringApp\PatientPortal\DataLayer\bin\Debug\DataLayer.pdb
+D:\MonitoringApp\PatientPortal\DataLayer\bin\Debug\EntityFramework.dll
+D:\MonitoringApp\PatientPortal\DataLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\MonitoringApp\PatientPortal\DataLayer\bin\Debug\EntityFramework.xml
+D:\MonitoringApp\PatientPortal\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\MonitoringApp\PatientPortal\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+D:\MonitoringApp\PatientPortal\DataLayer\obj\Debug\DataLayer.dll
+D:\MonitoringApp\PatientPortal\DataLayer\obj\Debug\DataLayer.pdb
