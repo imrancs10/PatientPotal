@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs/PatientPortal/v15/Server/sqlite3
+/PatientPortal/bin/DataLayer.dll.config
+*.CopyComplete
