@@ -8,6 +8,7 @@ using System.Data.Entity;
 
 namespace PatientPortal.BAL.Login
 {
+    //login BAL
     public class LoginDetails
     {
         PatientPortalEntities _db = null;
