@@ -22,3 +22,12 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.anchor-color-white {
+    color: #fff;
+    text-decoration:none;
+}
+.anchor-color-white:hover{
+    color: #fff;
+    text-decoration: none;
+}
