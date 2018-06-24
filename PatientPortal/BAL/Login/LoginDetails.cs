@@ -8,7 +8,6 @@ using System.Data.Entity;
 
 namespace PatientPortal.BAL.Login
 {
-    //login BAL
     public class LoginDetails
     {
         PatientPortalEntities _db = null;
@@ -18,13 +17,13 @@ namespace PatientPortal.BAL.Login
         /// </summary>
         /// <param name="UserName">Username</param>
         /// <param name="Password">Password</param>
-        /// <returns>Emuns</returns>
+        /// <returns>Enums</returns>
         public Enums.LoginMessage GetLogin(string UserName, string Password)
         {
             string _passwordHash = Utility.GetHashString(Password);
             _db = new PatientPortalEntities();
 
-            var _userRow = _db.Gbl_Master_User.Where(x => x.Username.Equals(UserName) && x.PasswordHash.Equals(_passwordHash) && x.IsDeleted).FirstOrDefault();
+            var _userRow = _db.Gbl_Master_User.Where(x => x.Username.Equals(UserName) && x.PasswordHash.Equals(_passwordHash) && x.IsDeleted==false).FirstOrDefault();
 
             if (_userRow != null)
             {
@@ -41,7 +40,6 @@ namespace PatientPortal.BAL.Login
                         _userLogin.LastLogin = DateTime.Now;
                         _db.Entry(_userLogin).State = EntityState.Modified;
                         _db.SaveChanges();
-                        return Enums.LoginMessage.Authenticated;
                     }
                 }
                 else
@@ -56,8 +54,14 @@ namespace PatientPortal.BAL.Login
                     _newLogin.UserId = _userRow.UserId;
                     _db.Entry(_newLogin).State = EntityState.Added;
                     _db.SaveChanges();
-                    return Enums.LoginMessage.Authenticated;
                 }
+                UserData.UserId = _userRow.UserId;
+                UserData.Username = _userRow.Username;
+                UserData.FirstName = _userRow.FirstName;
+                UserData.MiddleName = _userRow.MiddleName;
+                UserData.LastName = _userRow.LastName;
+                UserData.Email = _userRow.EmailId;
+                return Enums.LoginMessage.Authenticated;
             }
             else
                 return Enums.LoginMessage.InvalidCreadential;

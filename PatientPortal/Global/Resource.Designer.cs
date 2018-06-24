@@ -61,11 +61,38 @@ namespace PatientPortal.Global {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server didn&apos;t return any response.
+        ///   Looks up a localized string similar to No response from server.
         /// </summary>
         internal static string Common_NoResponseFromServer {
             get {
                 return ResourceManager.GetString("Common_NoResponseFromServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data  already exists.
+        /// </summary>
+        internal static string Crud_DataAlreadyExist {
+            get {
+                return ResourceManager.GetString("Crud_DataAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data has not been saved.
+        /// </summary>
+        internal static string Crud_DataNotSaved {
+            get {
+                return ResourceManager.GetString("Crud_DataNotSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data has been saved.
+        /// </summary>
+        internal static string Crud_DataSaved {
+            get {
+                return ResourceManager.GetString("Crud_DataSaved", resourceCulture);
             }
         }
         

@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace PatientPortal.Controllers
 {
-    public class HomeController : CommonController
+    public class AdminController : CommonController
     {
-        // GET: Home
-        public ActionResult Dashboard()
+        // GET: Admin
+        public ActionResult Index()
         {
             return View();
         }

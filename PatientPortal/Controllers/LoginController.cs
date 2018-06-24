@@ -21,13 +21,14 @@ namespace PatientPortal.Controllers
             LoginDetails _details = new LoginDetails();
             string _response = string.Empty;
             Enums.LoginMessage message=_details.GetLogin(username, password);
+            _response = LoginResponse(message);
             if (message == Enums.LoginMessage.Authenticated)
             {
-                return View("~/views/home/dashboard.cshtml");
+                return View("~/Views/home/dashboard.cshtml");
             }
             else
             {
-                SetAlertMessage(LoginResponse(message), "Login Response");
+                SetAlertMessage(_response, "Login Response");
                 return View("index");
             }
         }

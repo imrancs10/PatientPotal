@@ -118,7 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Common_NoResponseFromServer" xml:space="preserve">
-    <value>Server didn't return any response</value>
+    <value>No response from server</value>
+  </data>
+  <data name="Crud_DataAlreadyExist" xml:space="preserve">
+    <value>Data  already exists</value>
+  </data>
+  <data name="Crud_DataNotSaved" xml:space="preserve">
+    <value>Data has not been saved</value>
+  </data>
+  <data name="Crud_DataSaved" xml:space="preserve">
+    <value>Data has been saved</value>
   </data>
   <data name="Login_InvalidCredential" xml:space="preserve">
     <value>Provided Credentials are invalid</value>
