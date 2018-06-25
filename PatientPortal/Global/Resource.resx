@@ -123,11 +123,23 @@
   <data name="Crud_DataAlreadyExist" xml:space="preserve">
     <value>Data  already exists</value>
   </data>
+  <data name="Crud_DataDelete" xml:space="preserve">
+    <value>Data delete from database</value>
+  </data>
   <data name="Crud_DataNotSaved" xml:space="preserve">
     <value>Data has not been saved</value>
   </data>
+  <data name="Crud_DataNotUpdated" xml:space="preserve">
+    <value>Data has not been updated</value>
+  </data>
   <data name="Crud_DataSaved" xml:space="preserve">
     <value>Data has been saved</value>
+  </data>
+  <data name="Crud_DataUpdated" xml:space="preserve">
+    <value>Data has been updated</value>
+  </data>
+  <data name="Crud_NotDelete" xml:space="preserve">
+    <value>Data has not been deleted</value>
   </data>
   <data name="Login_InvalidCredential" xml:space="preserve">
     <value>Provided Credentials are invalid</value>

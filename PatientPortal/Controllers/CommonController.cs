@@ -25,6 +25,16 @@ namespace PatientPortal.Controllers
                 return Global.Resource.Crud_DataSaved;
             else if (inputMessage == Enums.CrudStatus.NotSaved)
                 return Global.Resource.Crud_DataNotSaved;
+            else if (inputMessage == Enums.CrudStatus.Deleted)
+                return Global.Resource.Crud_DataDelete;
+            else if (inputMessage == Enums.CrudStatus.NotDeleted)
+                return Global.Resource.Crud_NotDelete;
+            else if (inputMessage == Enums.CrudStatus.Updated)
+                return Global.Resource.Crud_DataUpdated;
+            else if (inputMessage == Enums.CrudStatus.NotUpdated)
+                return Global.Resource.Crud_DataNotUpdated;
+            else if (inputMessage == Enums.CrudStatus.NotSaved)
+                return Global.Resource.Crud_DataNotSaved;
             else
                 return Resource.Common_NoResponseFromServer;
         }

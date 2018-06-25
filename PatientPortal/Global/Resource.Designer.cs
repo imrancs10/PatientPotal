@@ -79,6 +79,15 @@ namespace PatientPortal.Global {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data delete from database.
+        /// </summary>
+        internal static string Crud_DataDelete {
+            get {
+                return ResourceManager.GetString("Crud_DataDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data has not been saved.
         /// </summary>
         internal static string Crud_DataNotSaved {
@@ -88,11 +97,38 @@ namespace PatientPortal.Global {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data has not been updated.
+        /// </summary>
+        internal static string Crud_DataNotUpdated {
+            get {
+                return ResourceManager.GetString("Crud_DataNotUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data has been saved.
         /// </summary>
         internal static string Crud_DataSaved {
             get {
                 return ResourceManager.GetString("Crud_DataSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data has been updated.
+        /// </summary>
+        internal static string Crud_DataUpdated {
+            get {
+                return ResourceManager.GetString("Crud_DataUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data has not been deleted.
+        /// </summary>
+        internal static string Crud_NotDelete {
+            get {
+                return ResourceManager.GetString("Crud_NotDelete", resourceCulture);
             }
         }
         
