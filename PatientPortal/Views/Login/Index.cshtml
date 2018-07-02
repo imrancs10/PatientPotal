@@ -1,128 +1,37 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Patient Portal</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Patient Portal", "Index", "Login", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        <div class="innercontentDashboard">
-            <div class="row">
-                <div class="col-md-8">
-                    <div style="margin-bottom:20px">
-                        <img src="~/img/banner1.jpg" style="width:100%" />
-                    </div>
-                </div>
-                <div class="col-md-4" style="height: 500px; border-left: 1px solid gray;">
-                    <div id="loginContainer" class="dialog dialog-effect-in">
-                        <p style="color:deepskyblue;font-size:20px">Welcome To Patient Portal</p>
-                        <div class="dialog-front">
-                            <div class="dialog-content">
-                                <form id="login_form" class="dialog-form" action="/login/getlogin" method="POST">
-                                    <fieldset>
-                                        <legend>Log in</legend>
-                                        <div class="form-group">
-                                            <label for="user_username" class="control-label">Username:</label>
-                                            <input type="text" id="user_username" class="form-control" name="username" autofocus />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="user_password" class="control-label">Password:</label>
-                                            <input type="password" id="user_password" class="form-control" name="password" />
-                                        </div>
-                                        @*<div class="text-center pad-top-20">
-                                                <p>Have you forgotten your<br><a href="#" class="link"><strong>username</strong></a> or <a href="#" class="link"><strong>password</strong></a>?</p>
-                                            </div>*@
-                                        <div class="pad-top-20 pad-btm-20">
-                                            <input type="submit" class="btn btn-primary btn-block btn-lg" value="Continue">
-                                        </div>
-                                        @*<div class="text-center">
-                                                <p>Do you wish to register<br> for <a href="#" class="link user-actions"><strong>a new account</strong></a>?</p>
-                                            </div>*@
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr class="text-center navbar-fixed-bottom" />
-    <footer class="text-center navbar-fixed-bottom">
-        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
-    </footer>
-    @if (TempData["Alert_Title"] != null)
-    {
-        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
-            @if (TempData["Alert_Message"] != null)
-            {
-                <p>@TempData["Alert_Message"].ToString()</p>
-            }
-            else
-            {
-                <p>Success..!</p>
-            }
-        </div>
-    }
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @*@RenderSection("scripts", required: false)*@
-    <script src="~/Scripts/jquery-ui.js"></script>
-    <script>
-        $(function () {
-            $("#dialog").dialog({
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "OK": function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+
+<div id="loginContainer" class="dialog dialog-effect-in">
+    <div class="dialog-front">
+        <div class="dialog-content">
+            <form id="login_form" class="dialog-form" action="/login/getlogin" method="POST">
+                <fieldset>
+                    <legend>Log in</legend>
+                    <div class="form-group">
+                        <label for="user_username" class="control-label">Username:</label>
+                        <input type="text" id="user_username" class="form-control" name="username" autofocus />
+                    </div>
+                    <div class="form-group">
+                        <label for="user_password" class="control-label">Password:</label>
+                        <input type="password" id="user_password" class="form-control" name="password" />
+                    </div>
+                    <div class="text-center pad-top-20">
+                        <p>Have you forgotten your<br><a href="#" class="link"><strong>username</strong></a> or <a href="#" class="link"><strong>password</strong></a>?</p>
+                    </div>
+                    <div class="pad-top-20 pad-btm-20">
+                        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Continue">
+                    </div>
+                    <div class="text-center">
+                        <p>Do you wish to register<br> for <a href="#" class="link user-actions"><strong>a new account</strong></a>?</p>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script src="~/Scripts/App/Login/Login.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

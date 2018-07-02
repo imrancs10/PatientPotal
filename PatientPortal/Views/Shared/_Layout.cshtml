@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Patient Portal</title>
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -79,7 +79,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        
+
     </div>
     <hr class="text-center navbar-fixed-bottom" />
     <footer class="text-center navbar-fixed-bottom">
@@ -99,8 +99,15 @@
         </div>
     }
    
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+
     <script>
-        $(function () {
+        $(function () {           
+
             $("#dialog").dialog({
                 resizable: false,
                 height: "auto",

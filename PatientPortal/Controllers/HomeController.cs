@@ -13,10 +13,5 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
-
-        public ActionResult Appointment()
-        {
-            return View();
-        }
     }
 }

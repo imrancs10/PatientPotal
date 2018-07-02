@@ -29,6 +29,36 @@ namespace PatientPortal.BAL.Masters
             else
                 return Enums.CrudStatus.DataAlreadyExist;
         }
+        public Enums.CrudStatus EditDept(string deptName,int deptId)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _deptRow = _db.Departments.Where(x => x.DepartmentID.Equals(deptId)).FirstOrDefault();
+            if (_deptRow != null)
+            {
+                _deptRow.DepartmentName = deptName;
+                _db.Entry(_deptRow).State = EntityState.Modified;
+                _effectRow = _db.SaveChanges();
+                return _effectRow > 0 ? Enums.CrudStatus.Updated : Enums.CrudStatus.NotUpdated;
+            }
+            else
+                return Enums.CrudStatus.DataNotFound;
+        }
+        public Enums.CrudStatus DeleteDept(int deptId)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _deptRow = _db.Departments.Where(x => x.DepartmentID.Equals(deptId)).FirstOrDefault();
+            if (_deptRow != null)
+            {
+                _db.Departments.Remove(_deptRow);
+                //_db.Entry(_deptRow).State = EntityState.Deleted;
+                _effectRow = _db.SaveChanges();
+                return _effectRow > 0 ? Enums.CrudStatus.Deleted : Enums.CrudStatus.NotDeleted;
+            }
+            else
+                return Enums.CrudStatus.DataNotFound;
+        }
 
         public List<DepartmentModel> DepartmentList()
         {

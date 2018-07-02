@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PatientPortal.Global;
+using PatientPortal.BAL.Masters;
 
 namespace PatientPortal.Controllers
 {
@@ -43,6 +44,12 @@ namespace PatientPortal.Controllers
         {
             TempData["Alert_Message"] = message;
             TempData["Alert_Title"] = title;
+        }
+
+        public JsonResult GetDepartments()
+        {
+            DepartmentDetails _details = new DepartmentDetails();
+            return Json(_details.DepartmentList(), JsonRequestBehavior.AllowGet);
         }
     }
 }
