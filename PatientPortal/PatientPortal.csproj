@@ -235,6 +235,8 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\Appointment.cshtml" />
     <Content Include="Views\Masters\AddDepartments.cshtml" />
+    <Content Include="Views\Masters\AddDepartment.cshtml" />
+    <Content Include="Views\Masters\AddDoctors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
