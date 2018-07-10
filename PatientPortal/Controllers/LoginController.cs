@@ -16,11 +16,11 @@ namespace PatientPortal.Controllers
             return View();
         }
 
-        public ActionResult GetLogin(string username,string password)
+        public ActionResult GetLogin(string username, string password)
         {
             LoginDetails _details = new LoginDetails();
             string _response = string.Empty;
-            Enums.LoginMessage message=_details.GetLogin(username, password);
+            Enums.LoginMessage message = _details.GetLogin(username, password);
             _response = LoginResponse(message);
             if (message == Enums.LoginMessage.Authenticated)
             {
@@ -31,6 +31,13 @@ namespace PatientPortal.Controllers
                 SetAlertMessage(_response, "Login Response");
                 return View("index");
             }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.Clear();
+            return View("index");
         }
     }
 }
