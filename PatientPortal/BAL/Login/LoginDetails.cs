@@ -23,7 +23,7 @@ namespace PatientPortal.BAL.Login
             string _passwordHash = Utility.GetHashString(Password);
             _db = new PatientPortalEntities();
 
-            var _userRow = _db.Gbl_Master_User.Where(x => x.Username.Equals(UserName) && x.PasswordHash.Equals(_passwordHash) && x.IsDeleted==false).FirstOrDefault();
+            var _userRow = _db.Gbl_Master_User.Where(x => x.Username.Equals(UserName) && x.PasswordHash.Equals(_passwordHash) && x.IsDeleted == false).FirstOrDefault();
 
             if (_userRow != null)
             {

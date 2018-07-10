@@ -13,7 +13,7 @@ namespace PatientPortal.Controllers
         public string LoginResponse(Enums.LoginMessage inputMessage)
         {
             if (inputMessage == Enums.LoginMessage.InvalidCreadential)
-                return Global.Resource.Login_InvalidCredential;
+                return Resource.Login_InvalidCredential;
             else
                 return Global.Resource.Common_NoResponseFromServer;
         }
