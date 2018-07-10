@@ -4,13 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PatientPortal.BAL.Masters;
+using PatientPortal.Models.Masters;
 
 namespace PatientPortal.Controllers
 {
     public class MastersController : CommonController
     {
         DepartmentDetails _details = null;
-        // GET: Masters
+        public ActionResult AddSchedule()
+        {
+            return View();
+        }
+
         public ActionResult AddDepartments()
         {
             return View();
@@ -74,6 +79,33 @@ namespace PatientPortal.Controllers
         {
             DoctorDetails _details = new DoctorDetails();
             return Json(_details.DoctorList(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SaveSchedule(ScheduleModel model)
+        {
+            ScheduleDetails  _details = new ScheduleDetails();
+            return Json(CrudResponse(_details.SaveSchedule(model)), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult EditSchedule(ScheduleModel model)
+        {
+            ScheduleDetails _details = new ScheduleDetails();
+            return Json(CrudResponse(_details.EditSchedule(model)), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteSchedule(ScheduleModel model)
+        {
+            ScheduleDetails _details = new ScheduleDetails();
+
+            return Json(CrudResponse(_details.DeleteSchedule(model.ScheduleId )), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetSchedule()
+        {
+            ScheduleDetails _details = new ScheduleDetails();
+            return Json(_details.ScheduleList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

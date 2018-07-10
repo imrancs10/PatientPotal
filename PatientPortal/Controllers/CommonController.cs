@@ -5,11 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using PatientPortal.Global;
 using PatientPortal.BAL.Masters;
+using PatientPortal.BAL.Commom;
 
 namespace PatientPortal.Controllers
 {
     public class CommonController : Controller
     {
+        CommonDetails _details = null;
+
         public string LoginResponse(Enums.LoginMessage inputMessage)
         {
             if (inputMessage == Enums.LoginMessage.InvalidCreadential)
@@ -50,6 +53,12 @@ namespace PatientPortal.Controllers
         {
             DepartmentDetails _details = new DepartmentDetails();
             return Json(_details.DepartmentList(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDaysList()
+        {
+            _details = new CommonDetails();
+            return Json(_details.DaysList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -79,7 +79,7 @@ utility.alert.alertType.error = "Error";
 utility.alert.alertType.info = "Information";
 utility.alert.alertType.success = "Success";
 
-utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback) {
+utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback,htmlData) {
     var urls = app.urls[methodUrl];
     urls = urls === undefined ? methodUrl : urls;
     utility.ajax.helper(urls, function (data) {
@@ -89,7 +89,10 @@ utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback) {
             $(data).each(function (ind, ele) {
                 var Value = value === undefined ? ele["Value"] : ele[value];
                 var Text = text === undefined ? ele["Text"] : ele[text];
-                ddl.append('<option value=' + Value + '>' + Text + '</option>');
+                if(typeof htmlData==undefined)
+                    ddl.append('<option value=' + Value + '>' + Text + '</option>');
+                else
+                    ddl.append('<option value=' + Value + ' data-id="' + ele[htmlData] + '">' + Text + '</option>');
             });
         }
         else
