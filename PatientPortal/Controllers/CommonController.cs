@@ -49,7 +49,7 @@ namespace PatientPortal.Controllers
             TempData["Alert_Title"] = title;
         }
 
-        public JsonResult GetDepartments()
+        public virtual JsonResult GetDepartments()
         {
             DepartmentDetails _details = new DepartmentDetails();
             return Json(_details.DepartmentList(), JsonRequestBehavior.AllowGet);

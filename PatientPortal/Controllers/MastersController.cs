@@ -34,7 +34,7 @@ namespace PatientPortal.Controllers
             return Json(CrudResponse(_details.SaveDept(deptName)), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult EditDepartment(string deptName,int deptId)
+        public JsonResult EditDepartment(string deptName, int deptId)
         {
             _details = new DepartmentDetails();
 
@@ -47,25 +47,25 @@ namespace PatientPortal.Controllers
 
             return Json(CrudResponse(_details.DeleteDept(deptId)), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetDepartments()
+        public override JsonResult GetDepartments()
         {
             _details = new DepartmentDetails();
-            return Json(_details.DepartmentList(),JsonRequestBehavior.AllowGet);
+            return Json(_details.DepartmentList(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult SaveDoctor(string doctorName,int deptId)
+        public JsonResult SaveDoctor(string doctorName, int deptId)
         {
             DoctorDetails _details = new DoctorDetails();
 
-            return Json(CrudResponse(_details.SaveDoctor(doctorName,deptId)), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.SaveDoctor(doctorName, deptId)), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult EditDoctor(string deptName, int deptId, int docId)
         {
             DoctorDetails _details = new DoctorDetails();
-            return Json(CrudResponse(_details.EditDoctor(deptName, deptId,docId)), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.EditDoctor(deptName, deptId, docId)), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -84,7 +84,7 @@ namespace PatientPortal.Controllers
         [HttpPost]
         public JsonResult SaveSchedule(ScheduleModel model)
         {
-            ScheduleDetails  _details = new ScheduleDetails();
+            ScheduleDetails _details = new ScheduleDetails();
             return Json(CrudResponse(_details.SaveSchedule(model)), JsonRequestBehavior.AllowGet);
         }
 
@@ -100,12 +100,19 @@ namespace PatientPortal.Controllers
         {
             ScheduleDetails _details = new ScheduleDetails();
 
-            return Json(CrudResponse(_details.DeleteSchedule(model.ScheduleId )), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.DeleteSchedule(model.ScheduleId)), JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetSchedule()
         {
             ScheduleDetails _details = new ScheduleDetails();
             return Json(_details.ScheduleList(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.Clear();
+            return RedirectToAction("Dashboard", "Home");
         }
     }
 }

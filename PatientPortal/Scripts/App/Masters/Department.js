@@ -55,7 +55,8 @@ department.addNew = function () {
                             '<button type="button" class="btn btn-secondary" onclick="department.cancel(this)">Cancel</button>' +
                         '</div></td>';
         tr = tr + td + '</tr>';
-        $(tbody).append(tr);
+        $("#deptTable tr:first").after(tr);
+        //$(tbody).append(tr);
     }
 }
 
@@ -115,6 +116,7 @@ department.save = function (row) {
     var url = app.urls.departmentSave;
     utility.ajax.helperWithData(url, { deptName: deptName }, function (data) {
         if (data = 'Data has been saved') {
+            $(row).parent().parent().parent()[0].remove();
             utility.alert.setAlert(utility.alert.alertType.success, 'Data has been saved');
             department.getData();
         }

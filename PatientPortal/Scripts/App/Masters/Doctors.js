@@ -28,7 +28,8 @@ doctor.addNew = function () {
                             '<button type="button" class="btn btn-secondary" onclick="doctor.cancel(this)">Cancel</button>' +
                         '</div></td>';
         tr = tr + td + '</tr>';
-        $(tbody).append(tr);
+        //$(tbody).append(tr);
+        $("#doctorTable tr:first").after(tr);
     }
 }
 
@@ -84,6 +85,7 @@ doctor.save = function (row) {
 
             utility.ajax.helperWithData(url, param, function (data) {
                 if (data = 'Data has been saved') {
+                    $(row).parent().parent().parent()[0].remove();
                     utility.alert.setAlert(utility.alert.alertType.success, 'Data has been saved');
                     doctor.getData();
                 }

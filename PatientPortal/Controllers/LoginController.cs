@@ -34,11 +34,5 @@ namespace PatientPortal.Controllers
             }
         }
 
-        public ActionResult Logout()
-        {
-            Session.Abandon();
-            Session.Clear();
-            return View("index");
-        }
     }
 }
