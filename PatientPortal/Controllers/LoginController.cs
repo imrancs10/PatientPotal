@@ -13,6 +13,7 @@ namespace PatientPortal.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            ViewData["LoginPage"] = true;
             return View();
         }
 
@@ -24,7 +25,7 @@ namespace PatientPortal.Controllers
             _response = LoginResponse(message);
             if (message == Enums.LoginMessage.Authenticated)
             {
-                return View("~/Views/home/dashboard.cshtml");
+                return RedirectToAction("AddDepartments", "Masters");
             }
             else
             {
