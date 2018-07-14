@@ -9,4 +9,4 @@ bin
 /PatientPortal/bin/DataLayer.dll.config
 *.CopyComplete
 /.vs/PatientPortal/DesignTimeBuild/.dtbcache
-
+packages/*
