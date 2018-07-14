@@ -62,10 +62,10 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult EditDoctor(string deptName, int deptId, int docId)
+        public JsonResult EditDoctor(string doctorName, int deptId, int docId)
         {
             DoctorDetails _details = new DoctorDetails();
-            return Json(CrudResponse(_details.EditDoctor(deptName, deptId, docId)), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.EditDoctor(doctorName, deptId, docId)), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

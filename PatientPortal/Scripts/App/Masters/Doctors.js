@@ -127,15 +127,16 @@ doctor.update = function (row) {
     var mainContainer = $(row).parent().parent().parent();
     var docName = $(mainContainer).find('input[type="text"]').val();
     var deptId = $(mainContainer).find('select').find(':selected').val();
-
+    var doctorId = $(row).data('docid');
     if (deptId != null && typeof deptId !== undefined && deptId !== '') {
 
         if (docName != null && typeof docName !== undefined && docName !== '') {
 
-            var url = app.urls.doctorSave;
+            var url = app.urls.doctorEdit;
             var param = {};
             param.doctorName = docName;
             param.deptId = deptId;
+            param.docId = doctorId;
 
             utility.ajax.helperWithData(url, param, function (data) {
                 if (data = 'Data has been updated') {

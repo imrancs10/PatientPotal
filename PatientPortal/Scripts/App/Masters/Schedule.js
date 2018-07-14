@@ -105,7 +105,7 @@ schedule.save = function (row) {
                         if (data == 'Data has been saved') {
                             $(row).parent().parent().parent()[0].remove();
                             utility.alert.setAlert(utility.alert.alertType.success, 'Data has been saved');
-                            doctor.getData();
+                            schedule.getData();
                         }
                     });
                 }
@@ -154,7 +154,7 @@ schedule.edit = function (row) {
         $(daytd).find('select').val(rowData.DayId);
         $(timefrom).find('select').val($(timefrom).find('select option:contains("' + rowData.TimeFrom + '")').val());
         $(timeto).find('select').val($(timeto).find('select option:contains("' + rowData.TimeTo + '")').val());
-        $(row).parent().prepend('<button type="button" id="btnUpdate" class="btn btn-secondary" data-id="' + rowData.DoctorScheduleDayID + '" onclick="schedule.update(this)">Update</button>');
+        $(row).parent().prepend('<button type="button" id="btnUpdate" class="btn btn-secondary" data-id="' + rowData.DoctorScheduleID + '" onclick="schedule.update(this)">Update</button>');
         $(row).parent().append('<button type="button" class="btn btn-secondary" onclick="schedule.cancelEdit(this)">cancel</button>');
         $(row).remove();
     }
@@ -173,7 +173,7 @@ schedule.update = function (row) {
     param.TimeTo = $(ddlNewTimeTo).find(':selected').val();
     param.TimeFromMeridiumId = $(ddlNewTimeFrom).find(':selected').data('meridiumid');
     param.TimeToMeridiumId = $(ddlNewTimeTo).find(':selected').data('meridiumid');
-    param.ScheduleId = $(row).parent().data('data').DoctorScheduleDayID;
+    param.ScheduleId = $(row).parent().data('data').DoctorScheduleID;
 
     if (param.DoctorId != null && typeof param.DoctorId !== undefined && param.DoctorId !== '') {
 
@@ -238,7 +238,7 @@ schedule.delete = function (row) {
     param.TimeTo = $(ddlNewTimeTo).find(':selected').val();
     param.TimeFromMeridiumId = $(ddlNewTimeFrom).find(':selected').data('meridiumid');
     param.TimeToMeridiumId = $(ddlNewTimeTo).find(':selected').data('meridiumid');
-    param.ScheduleId = $(row).parent().data('data').DoctorScheduleDayID;
+    param.ScheduleId = $(row).parent().data('data').DoctorScheduleID;
     var url = app.urls.scheduleDelete;
     utility.ajax.helperWithData(url, param, function (data) {
         if (data == 'Data delete from database') {
