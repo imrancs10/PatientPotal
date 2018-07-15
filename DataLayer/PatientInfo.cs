@@ -11,7 +11,8 @@ namespace DataLayer
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class PatientInfo
     {
         public int PatientId { get; set; }
@@ -30,7 +31,6 @@ namespace DataLayer
         public string Religion { get; set; }
         public Nullable<int> DepartmentId { get; set; }
         public string OTP { get; set; }
-    
         public virtual Department Department { get; set; }
     }
 }

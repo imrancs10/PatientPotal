@@ -19,7 +19,7 @@
     <script src="~/Scripts/App/Global/App.js"></script>
     <script src="~/Scripts/App/Global/Utility.js"></script>
     <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
-    @*<script src="~/Scripts/App/Login/Login.js"></script>*@
+    <script src="~/Scripts/App/Login/Login.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -64,12 +64,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="user_password" class="control-label">Password:</label>
-                                        <input type="password" id="user_password" class="form-control" name="password" @disabledLogin/>
+                                        <input type="password" id="user_password" class="form-control" name="password" @disabledLogin />
                                     </div>
                                     <div class="form-group">
                                         <label for="user_OTP" class="control-label">Verification Code:</label>
                                         <div>
-                                            <input type="text" id="user_OTP" class="form-control" name="OTP" style="float:left;width:100px;" @disabledOTP/>
+                                            <input type="text" id="user_OTP" class="form-control" name="OTP" style="float:left;width:100px;" @disabledOTP />
                                         </div>
                                         <div>
                                             @if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
@@ -92,7 +92,7 @@
                 <div id="loginContainer" class="dialog dialog-effect-in" style="width:420px">
                     <div class="dialog-front">
                         <div class="dialog-content">
-                            <form id="register_form" class="dialog-form" action="/login/register" method="POST">
+                            <form id="register_form" class="dialog-form" action="/home/register" method="POST">
                                 <fieldset>
                                     <legend style="background-color:lightgoldenrodyellow;text-align:center;">
                                         <font style="font-size:18px">REGISTER AN ACCOUNT</font><br />
@@ -102,21 +102,21 @@
                                     </legend>
                                     <div class="form-group">
                                         <label for="register_mobile" class="control-label">Enter Your Mobile No:</label>
-                                        <input type="text" id="register_mobile" class="form-control" name="registermobile" />
+                                        <input type="text" id="register_mobile" class="form-control" name="registermobile" maxlength="10" onkeypress="return isNumber(event)" />
                                     </div>
                                     <div class="form-group">
                                         <div class="col-xs-6" style="padding-left:0px">
                                             <label for="register_password" class="control-label">Password:</label>
-                                            <input type="password" id="register_password" class="form-control" name="registerpassword" />
+                                            <input type="password" id="register_password" class="form-control" name="registerpassword" maxlength="12" />
                                         </div>
                                         <div class="col-xs-6">
                                             <label for="register_confirmpassword" class="control-label">Re-enter Password:</label>
-                                            <input type="password" id="register_confirmpassword" class="form-control" name="registerconfirmpassword" />
+                                            <input type="password" id="register_confirmpassword" class="form-control" name="registerconfirmpassword" maxlength="12"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="register_email" class="control-label">Email:</label>
-                                        <input type="text" id="register_email" class="form-control" name="registeremail" />
+                                        <input type="email" id="register_email" class="form-control" name="registeremail" />
                                     </div>
                                     <div class="pad-top-20 pad-btm-20">
                                         <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register">
@@ -152,23 +152,6 @@
     <div id="alertModel" style="display:none;" title="">
         <p></p>
     </div>
-
-    <script>
-        $(function () {
-
-            $("#dialog").dialog({
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "OK": function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 </html>
 
