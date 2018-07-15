@@ -11,7 +11,7 @@ namespace DataLayer
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class DoctorSchedule
     {
         public int DoctorScheduleID { get; set; }
@@ -21,6 +21,7 @@ namespace DataLayer
         public Nullable<int> TimeFromMeridiemID { get; set; }
         public Nullable<int> TimeTo { get; set; }
         public Nullable<int> TimeToMeridiemID { get; set; }
+    
         public virtual DayMaster DayMaster { get; set; }
         public virtual Doctor Doctor { get; set; }
         public virtual MeridiemMaster MeridiemMaster { get; set; }

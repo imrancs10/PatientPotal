@@ -80,6 +80,27 @@
           <Property Name="MeridiemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MeridiemValue" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="PatientInfo">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="PinCode" Type="int" />
+          <Property Name="Religion" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="OTP" Type="varchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_Doctor_Doctor">
           <End Role="Department" Type="Self.Department" Multiplicity="1" />
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
@@ -152,6 +173,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientInfo_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfo">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PatientPortalModelStoreContainer">
           <EntitySet Name="DayMaster" EntityType="Self.DayMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
@@ -160,6 +193,7 @@
           <EntitySet Name="Gbl_Master_Login" EntityType="Self.Gbl_Master_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_User" EntityType="Self.Gbl_Master_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeridiemMaster" EntityType="Self.MeridiemMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Doctor_Doctor" Association="Self.FK_Doctor_Doctor">
             <End Role="Department" EntitySet="Department" />
             <End Role="Doctor" EntitySet="Doctor" />
@@ -184,6 +218,10 @@
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_Master_Login" EntitySet="Gbl_Master_Login" />
           </AssociationSet>
+          <AssociationSet Name="FK_PatientInfo_Department" Association="Self.FK_PatientInfo_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="PatientInfo" EntitySet="PatientInfo" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -197,6 +235,7 @@
           <EntitySet Name="Gbl_Master_Login" EntityType="PatientPortalModel.Gbl_Master_Login" />
           <EntitySet Name="Gbl_Master_User" EntityType="PatientPortalModel.Gbl_Master_User" />
           <EntitySet Name="MeridiemMasters" EntityType="PatientPortalModel.MeridiemMaster" />
+          <EntitySet Name="PatientInfoes" EntityType="PatientPortalModel.PatientInfo" />
           <AssociationSet Name="FK_DoctorScheduleDay_DayMaster1" Association="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1">
             <End Role="DayMaster" EntitySet="DayMasters" />
             <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
@@ -204,6 +243,10 @@
           <AssociationSet Name="FK_Doctor_Doctor" Association="PatientPortalModel.FK_Doctor_Doctor">
             <End Role="Department" EntitySet="Departments" />
             <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfo_Department" Association="PatientPortalModel.FK_PatientInfo_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
           </AssociationSet>
           <AssociationSet Name="FK_DoctorScheduleDay_DoctorSchedule" Association="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule">
             <End Role="Doctor" EntitySet="Doctors" />
@@ -237,6 +280,7 @@
           <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Doctors" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
+          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -309,6 +353,28 @@
           <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
           <NavigationProperty Name="DoctorSchedules1" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
         </EntityType>
+        <EntityType Name="PatientInfo">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PinCode" Type="Int32" />
+          <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
+          <Property Name="OTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <Association Name="FK_DoctorScheduleDay_DayMaster1">
           <End Type="PatientPortalModel.DayMaster" Role="DayMaster" Multiplicity="0..1" />
           <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
@@ -330,6 +396,18 @@
             </Principal>
             <Dependent Role="Doctor">
               <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfo_Department">
+          <End Type="PatientPortalModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfo">
+              <PropertyRef Name="DepartmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -381,7 +459,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -469,6 +547,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PatientInfoes">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
+              <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -492,15 +592,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram DiagramId="96d87482f862457a932ad65ffd2427a1" Name="Diagram1">
-        <EntityTypeShape EntityType="PatientPortalModel.DayMaster" Width="1.5" PointX="0.75" PointY="11" />
-        <EntityTypeShape EntityType="PatientPortalModel.Department" Width="1.5" PointX="1.5" PointY="8.5" />
-        <EntityTypeShape EntityType="PatientPortalModel.Doctor" Width="1.5" PointX="0.75" PointY="5.25" />
-        <EntityTypeShape EntityType="PatientPortalModel.DoctorSchedule" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_Login" Width="1.5" PointX="8" PointY="1.625" />
-        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_User" Width="1.5" PointX="5.75" PointY="1" />
-        <EntityTypeShape EntityType="PatientPortalModel.MeridiemMaster" Width="1.5" PointX="0.75" PointY="1.625" />
+        <EntityTypeShape EntityType="PatientPortalModel.DayMaster" Width="1.5" PointX="3" PointY="10.125" />
+        <EntityTypeShape EntityType="PatientPortalModel.Department" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="PatientPortalModel.Doctor" Width="1.5" PointX="3" PointY="1.75" />
+        <EntityTypeShape EntityType="PatientPortalModel.DoctorSchedule" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_Login" Width="1.5" PointX="8" PointY="6.625" />
+        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_User" Width="1.5" PointX="5.75" PointY="6" />
+        <EntityTypeShape EntityType="PatientPortalModel.MeridiemMaster" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientInfo" Width="1.5" PointX="3" PointY="4.5" />
         <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1" />
         <AssociationConnector Association="PatientPortalModel.FK_Doctor_Doctor" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientInfo_Department" />
         <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" />
         <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster" />
         <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1" />

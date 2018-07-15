@@ -6,12 +6,18 @@ using System.Web.Mvc;
 using PatientPortal.Global;
 using PatientPortal.BAL.Masters;
 using PatientPortal.BAL.Commom;
+using PatientPortal.Infrastructure.Authentication;
 
 namespace PatientPortal.Controllers
 {
     public class CommonController : Controller
     {
         CommonDetails _details = null;
+
+        protected virtual new CustomPrincipal User
+        {
+            get { return HttpContext.User as CustomPrincipal; }
+        }
 
         public string LoginResponse(Enums.LoginMessage inputMessage)
         {

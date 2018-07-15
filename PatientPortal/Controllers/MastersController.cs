@@ -82,7 +82,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveSchedule(ScheduleModel model)
+        public JsonResult SaveSchedule(ScheduleModel model) 
         {
             ScheduleDetails _details = new ScheduleDetails();
             return Json(CrudResponse(_details.SaveSchedule(model)), JsonRequestBehavior.AllowGet);

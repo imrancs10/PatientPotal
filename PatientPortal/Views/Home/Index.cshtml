@@ -1,0 +1,174 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using PatientPortal.Global
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Patient Portal Management system</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+    @*<script src="~/Scripts/App/Login/Login.js"></script>*@
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%;padding-left:400px;font-weight:bold">
+                @Html.ActionLink("Patient Portal Information System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div>
+            <div class="col-xs-6">
+                <div id="loginContainer" class="dialog dialog-effect-in" style="width:420px">
+                    <div class="dialog-front">
+                        <div class="dialog-content">
+                            <form id="login_form" class="dialog-form" action="" method="POST">
+                                <fieldset>
+                                    <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                        <font style="font-size:18px">LOGIN TO YOUR ACCOUNT</font><br />
+                                        <font style="font-size:13px">
+                                            We will send verification code to confirm access to this number.<br />
+                                            Standerd text messaging rates apply.
+                                        </font>
+                                    </legend>
+                                    @{
+                                        string disabledOTP = "";
+                                        string disabledLogin = "";
+                                        if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
+                                        {
+                                            disabledOTP = "disabled";
+                                            disabledLogin = "";
+                                        }
+                                        else
+                                        {
+                                            disabledOTP = "";
+                                            disabledLogin = "disabled";
+                                        }
+                                    }
+                                    <div class="form-group">
+                                        <label for="user_username" class="control-label">User Id:</label>
+                                        <input type="text" id="user_username" class="form-control" name="username" autofocus @disabledLogin />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_password" class="control-label">Password:</label>
+                                        <input type="password" id="user_password" class="form-control" name="password" @disabledLogin/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_OTP" class="control-label">Verification Code:</label>
+                                        <div>
+                                            <input type="text" id="user_OTP" class="form-control" name="OTP" style="float:left;width:100px;" @disabledOTP/>
+                                        </div>
+                                        <div>
+                                            @if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
+                                            {
+                                                <input type="submit" name="action:getotp" class="btn btn-primary btn-block btn-lg" value="Get OTP" style="float:right;width:100px;">
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" name="action:getlogin" class="btn btn-primary btn-block btn-lg" value="Login" style="float:right;width:100px;">
+                                            }
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div id="loginContainer" class="dialog dialog-effect-in" style="width:420px">
+                    <div class="dialog-front">
+                        <div class="dialog-content">
+                            <form id="register_form" class="dialog-form" action="/login/register" method="POST">
+                                <fieldset>
+                                    <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                        <font style="font-size:18px">REGISTER AN ACCOUNT</font><br />
+                                        <font style="font-size:13px">
+                                            Fill the form below to signup your account.
+                                        </font>
+                                    </legend>
+                                    <div class="form-group">
+                                        <label for="register_mobile" class="control-label">Enter Your Mobile No:</label>
+                                        <input type="text" id="register_mobile" class="form-control" name="registermobile" />
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-6" style="padding-left:0px">
+                                            <label for="register_password" class="control-label">Password:</label>
+                                            <input type="password" id="register_password" class="form-control" name="registerpassword" />
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label for="register_confirmpassword" class="control-label">Re-enter Password:</label>
+                                            <input type="password" id="register_confirmpassword" class="form-control" name="registerconfirmpassword" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="register_email" class="control-label">Email:</label>
+                                        <input type="text" id="register_email" class="form-control" name="registeremail" />
+                                    </div>
+                                    <div class="pad-top-20 pad-btm-20">
+                                        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register">
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+
+    <script>
+        $(function () {
+
+            $("#dialog").dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
