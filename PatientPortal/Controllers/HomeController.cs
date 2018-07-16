@@ -52,7 +52,11 @@ namespace PatientPortal.Controllers
                 Session["PatientId"] = result.PatientId;
                 return RedirectToAction("Index", new { actionName = "otp" });
             }
-            return View("Index");
+            else
+            {
+                SetAlertMessage("User Not Found", "Login");
+                return View("Index");
+            }
         }
         [MultipleButton(Name = "action", Argument = "getlogin")]
         [HttpPost]
