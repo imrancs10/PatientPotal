@@ -49,9 +49,10 @@ namespace PatientPortal.Controllers
                 sendMessageStrategy.SendMessages();
                 PatientInfo info = new PatientInfo() { PatientId = result.PatientId, OTP = verificationCode };
                 _details.UpdatePatientDetail(info);
+                Session["PatientId"] = result.PatientId;
+                return RedirectToAction("Index", new { actionName = "otp" });
             }
-            Session["PatientId"] = result.PatientId;
-            return RedirectToAction("Index", new { actionName = "otp" });
+            return View("Index");
         }
         [MultipleButton(Name = "action", Argument = "getlogin")]
         [HttpPost]
