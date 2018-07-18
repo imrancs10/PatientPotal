@@ -47,6 +47,7 @@ namespace PatientPortal.Controllers
 
             return Json(CrudResponse(_details.DeleteDept(deptId)), JsonRequestBehavior.AllowGet);
         }
+
         public override JsonResult GetDepartments()
         {
             _details = new DepartmentDetails();

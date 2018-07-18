@@ -3,19 +3,41 @@
     ViewBag.Title = "GetAppointments";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<script src="~/Scripts/App/Masters/Department.js"></script>
+<script src="~/Scripts/App/Appointment/Appoint.js"></script>
 <div class="row" style="margin-top:50px;">
     <div class="col-sm-12 col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">Department List</div>
             <div class="panel-body">
                <div class="pp-card">
-                   <div class="col-md-2">
-                       <span>1</span>
+                  <div class="form-group">
+                      <label>Department</label>
+                      <select class="form-control" id="ddlDepartments">
+                          <option value="">Select Department</option>
+                      </select>
+                  </div>
+                   <div class="form-group">
+                       <label>Doctor</label>
+                       <select class="form-control" id="ddlDoctors">
+                           <option value="">Select Doctor</option>
+                       </select>
                    </div>
-                   <div class="col-md-10"></div>
                </div>
+                <div class="pp-card">
+                    <table class="table table-bordered table-hover table-responsive text-center" id="doctorTable">
+                        <thead>
+                            <tr>
+                                <th style="width:10%">Sr. No.</th>
+                                <th name="DoctorName">Doctor</th>
+                                <th name="DepartmentName">Departments</th>
+                                <th style="width:20%">
+                                    <input type="button" class="btn btn-primary" onclick="doctor.addNew()" name="btnAdd" value="Add New Doctor" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

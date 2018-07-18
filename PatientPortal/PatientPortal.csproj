@@ -162,6 +162,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BAL\Appointments\AppointDetails.cs" />
     <Compile Include="BAL\Commom\CommonDetails.cs" />
     <Compile Include="BAL\Login\LoginDetails.cs" />
     <Compile Include="BAL\Masters\DepartmentDetails.cs" />
@@ -216,6 +217,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\179349.png" />
+    <Content Include="img\179350.png" />
+    <Content Include="img\179351.png" />
+    <Content Include="img\179352.png" />
+    <Content Include="img\banner1.jpg" />
+    <Content Include="img\pp.jpg" />
+    <Content Include="Scripts\App\Appointment\Appoint.js" />
     <Content Include="Scripts\App\Global\App.js" />
     <Content Include="Scripts\App\Global\Utility.js" />
     <Content Include="Scripts\App\Login\Login.js" />
@@ -266,7 +274,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
