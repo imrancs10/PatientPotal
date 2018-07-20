@@ -16,10 +16,10 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeptWiseDoctorScheduleList(int deptId=0)
+        public JsonResult DeptWiseDoctorScheduleList(int deptId=0,int year=0,int month=0)
         {
             AppointDetails _details = new AppointDetails();
-            return Json(_details.DeptWiseDoctorScheduleList(deptId), JsonRequestBehavior.AllowGet);
+            return Json(_details.DeptWiseDoctorScheduleList(deptId,year,month), JsonRequestBehavior.AllowGet);
         }
     }
 }

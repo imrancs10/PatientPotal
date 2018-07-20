@@ -3,6 +3,7 @@
 utility.ajax = {};
 utility.table = {};
 utility.alert = {};
+utility.global={};
 utility.ajax.errorCall = function (x,y,z) {
 
 }
@@ -79,6 +80,10 @@ utility.alert.alertType.error = "Error";
 utility.alert.alertType.info = "Information";
 utility.alert.alertType.success = "Success";
 
+utility.global.getDaysArray = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+utility.global.getFullDaysArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+utility.global.getMonthArray = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
 utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback,htmlData) {
     var urls = app.urls[methodUrl];
     urls = urls === undefined ? methodUrl : urls;
@@ -125,4 +130,23 @@ utility.bindDdlByAjaxWithParam = function (methodUrl, ddlId, param, text, value,
         if (callback !== undefined)
             callback();
     });
+}
+
+
+Date.prototype.monthDays = function () {
+    var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
+    return d.getDate();
+}
+
+Date.prototype.getCustomDetails = function (year, month) {
+    var obj = {};
+    var date = new Date(year, month + 1, 0);
+    var monthStartDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var monthEndDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    obj.totalDays = date.getDate();
+    obj.firstDayName = utility.global.getDaysArray[monthStartDay.getDay()];
+    obj.lastDayName = utility.global.getDaysArray[monthEndDay.getDay()];
+    obj.firstDayIndex = monthStartDay.getDay();
+    obj.lastDayIndex = monthEndDay.getDay();
+    return obj;
 }
