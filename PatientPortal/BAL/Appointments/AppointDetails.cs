@@ -25,7 +25,7 @@ namespace PatientPortal.BAL.Appointments
                              docSchedule.DoctorID,
                              docSchedule.Doctor.DoctorName,
                              docSchedule.Doctor.Department.DepartmentName,
-                             docSchedule.DoctorScheduleDayID,
+                             docSchedule.DoctorScheduleID,
                              TimeFrom = docSchedule.TimeFrom + (docSchedule.TimeFromMeridiemID == 1 ? " AM" : " PM"),
                              TimeTo = docSchedule.TimeTo + (docSchedule.TimeToMeridiemID == 1 ? " AM" : " PM"),
                              docSchedule.TimeFromMeridiemID,
