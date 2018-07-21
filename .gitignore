@@ -10,3 +10,11 @@ bin
 *.CopyComplete
 /.vs/PatientPortal/DesignTimeBuild/.dtbcache
 packages/*
+/PatientPortal/Properties/PublishProfiles
+/PatientPortal/obj/Release/TransformWebConfig
+/PatientPortal/obj/Release/TempPE
+/.vs/PatientPortal/v15
+/DataLayer/obj/Release/edmxResourcesToEmbed
+/DataLayer/obj/Release
+/PatientPortal/obj/Release
+*.user

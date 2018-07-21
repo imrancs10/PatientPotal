@@ -1,0 +1,134 @@
+﻿@using PatientPortal.Infrastructure.Authentication;
+@model DataLayer.PatientInfo
+
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+<link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+<script src="~/Scripts/App/Login/Login.js"></script>
+<div class="container body-content">
+    <div id="loginContainer" class="dialog dialog-effect-in" style="width:620px">
+        <div class="dialog-front">
+            <div class="dialog-content">
+                <form id="login_form" class="dialog-form" action="UpdateProfile" method="POST">
+                    <fieldset>
+                        <legend style="background-color:lightgoldenrodyellow;text-align:center;font-size:14px">
+                            <p class="text-left" style="width:40%;float:left"><strong>View Profile : @((User as CustomPrincipal).FirstName)</strong></p>
+                            <p class="text-right" style="width:40%;float:right"><strong>Registration No : @((User as CustomPrincipal).Id) </strong></p>
+                        </legend>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="firstname" class="control-label"> first name</label>
+                                @Html.EditorFor(model => model.FirstName, new { @class = "form-control", @id = "firstname", @name = "firstname" })
+                                @*<input type="text" id="firstname" class="form-control" name="firstname" autofocus />*@
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="middlename" class="control-label">middle name</label>
+                                @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @id = "middlename", @class = "form-control", @name = "middlename" } })
+                                @*<input type="text" id="middlename" class="form-control" name="middlename" />*@
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="lastname" class="control-label">last name</label>
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @id = "lastname", @class = "form-control", @name = "lastname" } })
+                                @*<input type="text" id="lastname" class="form-control" name="lastname" />*@
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="DOB" class="control-label">Date of Birth</label>
+                                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @type = "date", @id = "DOB", @class = "form-control", @name = "DOB" } })
+                                @*<input type="date" id="DOB" class="form-control" name="DOB" />*@
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Gender" class="control-label">Gender</label>
+                                <select id="Gender" class="form-control" name="Gender">
+                                    <option value="Select">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="mobilenumber" class="control-label">Mobile No</label>
+                                @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @id = "mobilenumber", @class = "form-control", @name = "mobilenumber", @maxlength = "10", @onkeypress = "return isNumber(event)" } })
+                                @*<input type="text" id="mobilenumber" class="form-control" name="mobilenumber" maxlength="10" onkeypress="return isNumber(event)" />*@
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email" class="control-label">Email</label>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @id = "email", @class = "form-control", @name = "email" } })
+                                @*<input type="text" id="email" class="form-control" name="email" />*@
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="address" class="control-label">Address</label>
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @id = "address", @class = "form-control", @name = "address" } })
+                                @*<input type="text" id="address" class="form-control" name="address" />*@
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="city" class="control-label">City</label>
+                                <select id="city" class="form-control" name="city">
+                                    <option value="Select">Select</option>
+                                    <option value="Lucknow">Lucknow</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Allahabad">Allahabad</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="country" class="control-label">Country</label>
+                                <select id="country" class="form-control" name="country">
+                                    <option value="Select">Select</option>
+                                    <option value="India">India</option>
+                                    <option value="USA">USA</option>
+                                    <option value="Australia">Australia</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="pincode" class="control-label">Pin Code</label>
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @id = "pincode", @class = "form-control", @name = "pincode", @maxlength = "6", @onkeypress = "return isNumber(event)" } })
+                                @*<input type="text" id="pincode" class="form-control" name="pincode" maxlength="6" onkeypress="return isNumber(event)" />*@
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="religion" class="control-label">Religion</label>
+                                <select id="religion" class="form-control" name="religion">
+                                    <option value="Select">Select</option>
+                                    <option value="Hinduism">Hinduism</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Christianity">Christianity</option>
+                                    <option value="Sikhism">Sikhism</option>
+                                    <option value="Buddhism">Buddhism</option>
+                                    <option value="Jainism">Jainism</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="department" class="control-label">Department</label>
+                                <select id="department" class="form-control" name="department">
+                                    <option value="Select">Select</option>
+                                    <option value="Hinduism">Hinduism</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Christianity">Christianity</option>
+                                    <option value="Sikhism">Sikhism</option>
+                                    <option value="Buddhism">Buddhism</option>
+                                    <option value="Jainism">Jainism</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input type="submit" name="updateprofile" class="btn btn-primary btn-block btn-lg" value="Update" style="float:right;width:100px;">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

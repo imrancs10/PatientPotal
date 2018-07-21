@@ -148,7 +148,7 @@ namespace PatientPortal.Controllers
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     setUserClaim((PatientInfo)result["data"]);
-                    
+
                     return RedirectToAction("Dashboard");
                 }
                 else
@@ -157,6 +157,28 @@ namespace PatientPortal.Controllers
                     return RedirectToAction("Index");
                 }
             }
+        }
+
+        public ActionResult MyProfile()
+        {
+            
+            PatientDetails _details = new PatientDetails();
+            if (User == null)
+            {
+                SetAlertMessage("User has been logged out", "Update Profile");
+                return RedirectToAction("Index");
+            }
+            var result = _details.GetPatientDetailById(User.Id);
+            if (result == null)
+            {
+                SetAlertMessage("User not found", "Update Profile");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewData.Model = result;
+            }
+            return View();
         }
     }
 }
