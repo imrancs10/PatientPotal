@@ -15,7 +15,7 @@ namespace PatientPortal.BAL.Masters
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
-            var _deptRow = _db.DoctorSchedules.Where(x =>x.DoctorScheduleID.Equals(model.ScheduleId)).FirstOrDefault();
+            var _deptRow = _db.DoctorSchedules.Where(x =>x.DoctorScheduleDayID.Equals(model.ScheduleId)).FirstOrDefault();
             if (_deptRow == null)
             {
                 DoctorSchedule _newDoc = new DoctorSchedule();
@@ -36,7 +36,7 @@ namespace PatientPortal.BAL.Masters
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
-            var _docRow = _db.DoctorSchedules.Where(x => x.DoctorScheduleID.Equals(model.ScheduleId)).FirstOrDefault();
+            var _docRow = _db.DoctorSchedules.Where(x => x.DoctorScheduleDayID.Equals(model.ScheduleId)).FirstOrDefault();
             if (_docRow != null)
             {
                 _docRow.DayID = model.DayId;
@@ -56,7 +56,7 @@ namespace PatientPortal.BAL.Masters
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
-            var _docRow = _db.DoctorSchedules.Where(x => x.DoctorScheduleID.Equals(docId)).FirstOrDefault();
+            var _docRow = _db.DoctorSchedules.Where(x => x.DoctorScheduleDayID.Equals(docId)).FirstOrDefault();
             if (_docRow != null)
             {
                 _db.DoctorSchedules.Remove(_docRow);
@@ -80,7 +80,7 @@ namespace PatientPortal.BAL.Masters
                              docSchedule.DoctorID,
                              docSchedule.Doctor.DoctorName,
                              docSchedule.Doctor.Department.DepartmentName,
-                             docSchedule.DoctorScheduleID,
+                             docSchedule.DoctorScheduleDayID,
                              TimeFrom=docSchedule.TimeFrom + (docSchedule.TimeFromMeridiemID==1?" AM":" PM"),
                              TimeTo=docSchedule.TimeTo + (docSchedule.TimeToMeridiemID == 1 ? " AM" : " PM"),
                              docSchedule.TimeFromMeridiemID,

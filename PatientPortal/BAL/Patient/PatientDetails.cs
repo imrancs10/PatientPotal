@@ -16,8 +16,8 @@ namespace PatientPortal.BAL.Patient
         public PatientInfo GetPatientDetail(string UserId, string Password)
         {
             _db = new PatientPortalEntities();
-
-            return _db.PatientInfoes.Where(x => (x.Email.Equals(UserId) || x.MobileNumber.Equals(UserId)) && x.Password.Equals(Password)).FirstOrDefault();
+            string hashPassword = Utility.GetHashString(Password);
+            return _db.PatientInfoes.Where(x => (x.Email.Equals(UserId) || x.MobileNumber.Equals(UserId)) && x.Password.Equals(hashPassword)).FirstOrDefault();
         }
 
         public PatientInfo GetPatientDetailById(int Id)

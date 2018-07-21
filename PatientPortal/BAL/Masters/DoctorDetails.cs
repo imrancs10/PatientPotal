@@ -60,12 +60,13 @@ namespace PatientPortal.BAL.Masters
             else
                 return Enums.CrudStatus.DataNotFound;
         }
-        public List<DoctorModel> DoctorList()
+        public List<DoctorModel> DoctorList(int deptId=0)
         {
             _db = new PatientPortalEntities();
             var _list = (from doc in _db.Doctors
                          from dept in _db.Departments.Where(x=>x.DepartmentID.Equals(doc.DepartmentID))
                          orderby dept.DepartmentName
+                         where deptId==0 || deptId.Equals(doc.DepartmentID)
                          select new DoctorModel
                          {
                              DoctorName = doc.DoctorName,

@@ -7,6 +7,7 @@ app.urls = {};
 
 app.urls.commonDepartmentList = '/common/GetDepartments';
 app.urls.commonGetDaysList = '/common/GetDaysList';
+app.urls.commonGetDoctorList = '/common/GetDoctorList';
 
 app.urls.departmentList = '/masters/GetDepartments';
 app.urls.departmentSave = '/masters/SaveDepartment';
@@ -22,3 +23,5 @@ app.urls.scheduleList = '/masters/GetSchedule';
 app.urls.scheduleSave = '/masters/SaveSchedule';
 app.urls.scheduleEdit = '/masters/EditSchedule';
 app.urls.scheduleDelete = '/masters/DeleteSchedule';
+
+app.urls.appointmentdeptWiseDoctorScheduleList = "/Appointment/deptWiseDoctorScheduleList";

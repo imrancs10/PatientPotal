@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "GetAppointments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/App/Appointment/Appoint.js"></script>
+<div class="row" style="margin-top:50px;">
+    <div class="col-sm-12 col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Department List</div>
+            <div class="panel-body">
+                <div class="pp-card">
+                    <div class="form-group">
+                        <label>Department</label>
+                        <select class="form-control" id="ddlDepartments">
+                            <option value="">Select Department</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pp-card">
+                    <table class="table table-bordered table-responsive text-center" id="appointTable">
+                        <thead>
+                            <tr>
+                                <th colspan="7">
+                                    <div class="btn-group pull-left" role="group" aria-label="...">
+                                        <button type="button"  class="btn btn-default" id="lblmonthyear">Previous</button>
+                                        <button type="button" id="btnToday" class="btn btn-info">Today</button>
+                                    </div>
+                                    <div class="btn-group pull-right" role="group" aria-label="...">
+                                        <button type="button" id="premonth" class="btn btn-default">Previous</button>
+                                        <button type="button" class="btn btn-success">Available</button>
+                                        <button type="button" class="btn btn-danger">Not Available</button>
+                                        <button type="button" class="btn btn-warning">Holiday</button>
+                                        <button type="button" id="nextmonth" class="btn btn-default" data-currentmonth="0">Next>></button>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="cal-header">SUN</td>
+                                <td class="cal-header">MON</td>
+                                <td class="cal-header">TUE</td>
+                                <td class="cal-header">WED</td>
+                                <td class="cal-header">THU</td>
+                                <td class="cal-header">FRI</td>
+                                <td class="cal-header">SAT</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>               
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .cal-available{
+    border: 1px solid gray;
+    line-height: 17px;
+    max-width: 80%;
+    border-radius: 5px;
+    padding: 0 5px;
+    text-align: right;
+    font-size: 11px;
+    float: right;
+    background-color:#5cb85c;
+    
+    color:white;
+    }
+
+    .cal-not-available{
+    border: 1px solid gray;
+    line-height: 17px;
+    max-width: 80%;
+    border-radius: 5px;
+    padding: 0 5px;
+    text-align: right;
+    font-size: 11px;
+    float: right;
+    background-color:#d2322d;
+    color:white;
+    }
+
+    .cal-date{
+        font-size: x-large;
+    }
+
+    .cal-header{
+        /*background-color:#4b8bda;*/
+        color:black;
+        font-weight:bold
+    }
+
+    table tbody tr td{
+        border:1px solid black !important;
+    }
+
+     table thead tr th{
+        border:1px solid black !important;
+    }
+
+      table thead tr td{
+        border:1px solid black !important;
+    }
+     table tbody tr
+     {
+          border:1px solid black  !important;
+     }
+
+</style>
+
+
