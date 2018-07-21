@@ -1,0 +1,206 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using PatientPortal.Global
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Patient Portal Management system</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Login/Login.js"></script>
+</head>
+<body>
+    @{
+        string disabledOTP = "";
+        string disabledLogin = "";
+        if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
+        {
+            disabledOTP = "disabled";
+            disabledLogin = "";
+        }
+        else
+        {
+            disabledOTP = "";
+            disabledLogin = "disabled";
+        }
+    }
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%">
+                @Html.ActionLink("Patient Portal Information System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="float:right">
+                    @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div id="loginContainer" class="dialog dialog-effect-in" style="width:650px">
+            <div class="dialog-front">
+                <div class="dialog-content">
+                    <form id="register_form" class="dialog-form" action="" method="POST">
+                        <fieldset>
+                            <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                <font style="font-size:18px">REGISTER AN ACCOUNT</font><br />
+                                <font style="font-size:13px">
+                                    Fill the form below to signup your account.
+                                </font>
+                            </legend>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="firstname" class="control-label"> first name</label>
+                                    <input type="text" id="firstname" class="form-control" name="firstname" autofocus @disabledLogin />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="middlename" class="control-label">middle name</label>
+                                    <input type="text" id="middlename" class="form-control" name="middlename" @disabledLogin />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="lastname" class="control-label">last name</label>
+                                    <input type="text" id="lastname" class="form-control" name="lastname" @disabledLogin />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="DOB" class="control-label">Date of Birth</label>
+                                    <input type="date" id="DOB" class="form-control" name="DOB" @disabledLogin />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="Gender" class="control-label">Gender</label>
+                                    <select id="Gender" class="form-control" name="Gender" @disabledLogin>
+                                        <option value="Select">Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="mobilenumber" class="control-label">Mobile No</label>
+                                    <input type="text" id="mobilenumber" class="form-control" name="mobilenumber" maxlength="10" onkeypress="return isNumber(event)" @disabledLogin />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="email" class="control-label">Email</label>
+                                    <input type="text" id="email" class="form-control" name="email" @disabledLogin />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="address" class="control-label">Address</label>
+                                    <input type="text" id="address" class="form-control" name="address" @disabledLogin />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="city" class="control-label">City</label>
+                                    <select id="city" class="form-control" name="city" @disabledLogin>
+                                        <option value="Select">Select</option>
+                                        <option value="Lucknow">Lucknow</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Allahabad">Allahabad</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="country" class="control-label">Country</label>
+                                    <select id="country" class="form-control" name="country" @disabledLogin>
+                                        <option value="Select">Select</option>
+                                        <option value="India">India</option>
+                                        <option value="USA">USA</option>
+                                        <option value="Australia">Australia</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="pincode" class="control-label">Pin Code</label>
+                                    <input type="text" id="pincode" class="form-control" name="pincode" maxlength="6" onkeypress="return isNumber(event)" @disabledLogin />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="religion" class="control-label">Religion</label>
+                                    <select id="religion" class="form-control" name="religion" @disabledLogin>
+                                        <option value="Select">Select</option>
+                                        <option value="Hinduism">Hinduism</option>
+                                        <option value="Islam">Islam</option>
+                                        <option value="Christianity">Christianity</option>
+                                        <option value="Sikhism">Sikhism</option>
+                                        <option value="Buddhism">Buddhism</option>
+                                        <option value="Jainism">Jainism</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="department" class="control-label">Department</label>
+                                    <select id="department" class="form-control" name="department" @disabledLogin>
+                                        @*<option value="Select">Select</option>
+                                        <option value="Hinduism">Hinduism</option>
+                                        <option value="Islam">Islam</option>
+                                        <option value="Christianity">Christianity</option>
+                                        <option value="Sikhism">Sikhism</option>
+                                        <option value="Buddhism">Buddhism</option>
+                                        <option value="Jainism">Jainism</option>*@
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user_OTP" class="control-label">Verification Code:</label>
+                                <div>
+                                    <input type="text" id="user_OTP" class="form-control" name="OTP" style="float:left;width:150px;" @disabledOTP />
+                                </div>
+                                <div>
+                                    @if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
+                                    {
+                                        <input type="submit" name="action:getotp" class="btn btn-primary btn-block btn-lg" value="Get OTP" style="float:right;width:150px;">
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" name="action:verifyOTP" class="btn btn-primary btn-block btn-lg" value="Continue" style="float:right;width:150px;">
+                                    }
+                                </div>
+                            </div>
+                            <div class="pad-top-20 pad-btm-20">
+
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+</body>
+</html>
+

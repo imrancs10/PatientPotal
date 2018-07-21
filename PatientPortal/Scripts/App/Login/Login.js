@@ -24,3 +24,10 @@ $(function () {
         }
     });
 });
+
+$(document).ready(function () {
+    utility.bindDdlByAjax(app.urls.commonDepartmentList, 'department', 'DeparmentName', 'DepartmentId', function () {
+        //
+    });
+
+});

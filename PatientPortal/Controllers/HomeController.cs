@@ -7,6 +7,7 @@ using PatientPortal.Infrastructure.Authentication;
 using PatientPortal.Infrastructure.Utility;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -19,14 +20,36 @@ namespace PatientPortal.Controllers
 {
     public class HomeController : CommonController
     {
-        // GET: Home
         [CustomAuthorize]
         public ActionResult Dashboard()
         {
             return View();
         }
 
-        public ActionResult Index(string actionName)
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetPatientLogin(string username, string password)
+        {
+            PatientDetails _details = new PatientDetails();
+            var result = _details.GetPatientDetail(username, password);
+            if (result != null)
+            {
+                Session["PatientId"] = result.PatientId;
+                setUserClaim(result);
+                return RedirectToAction("Dashboard");
+            }
+            else
+            {
+                SetAlertMessage("User Not Found", "Login");
+                return View("Index");
+            }
+        }
+
+        public ActionResult Register(string actionName)
         {
             if (actionName != "otp")
             {
@@ -37,46 +60,110 @@ namespace PatientPortal.Controllers
 
         [MultipleButton(Name = "action", Argument = "getotp")]
         [HttpPost]
-        public ActionResult GetPatientOTP(string username, string password)
+        public ActionResult GetPatientOTP(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department)
         {
-            PatientDetails _details = new PatientDetails();
-            var result = _details.GetPatientDetail(username, password);
-            if (result != null)
+            string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            if (mobilenumber.Trim().Length != 10)
+            {
+                SetAlertMessage("Please Enter correct Mobile Number", "Register");
+                return RedirectToAction("Index");
+            }
+            else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
+            {
+                SetAlertMessage("Please Enter correct Email Address", "Register");
+                return RedirectToAction("Index");
+            }
+            else
             {
                 string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
-                Message msg = new Message() { MessageTo = result.Email, MessageNameTo = result.FirstName + " " + result.MiddleName + (string.IsNullOrWhiteSpace(result.MiddleName) ? "" : " ") + result.LastName, OTP = verificationCode };
-                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
-                sendMessageStrategy.SendMessages();
-                PatientInfo info = new PatientInfo() { PatientId = result.PatientId, OTP = verificationCode };
-                _details.UpdatePatientDetail(info);
-                Session["PatientId"] = result.PatientId;
-                return RedirectToAction("Index", new { actionName = "otp" });
-            }
-            else
-            {
-                SetAlertMessage("User Not Found", "Login");
-                return View("Index");
+                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode);
+                if (result["status"].ToString() == CrudStatus.Saved.ToString())
+                {
+                    Message msg = new Message()
+                    {
+                        MessageTo = email,
+                        MessageNameTo = firstname + " " + middlename + (string.IsNullOrWhiteSpace(middlename) ? "" : " ") + lastname,
+                        OTP = verificationCode
+                    };
+                    ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                    sendMessageStrategy.SendMessages();
+                    Session["otp"] = verificationCode;
+                    return RedirectToAction("Register", new { actionName = "otp" });
+                }
+                else
+                {
+                    SetAlertMessage("User is already register", "Register");
+                    return RedirectToAction("Register");
+                }
             }
         }
-        [MultipleButton(Name = "action", Argument = "getlogin")]
+
+        [MultipleButton(Name = "action", Argument = "verifyOTP")]
         [HttpPost]
-        public ActionResult GetPatientLogin(string OTP)
+        public ActionResult verifyOTP(string OTP)
         {
-            PatientDetails _details = new PatientDetails();
-            var result = _details.VerifyPatientOTP(Convert.ToInt32(Session["PatientId"]), OTP);
-            if (result)
+            if (Convert.ToString(Session["otp"]) == OTP)
             {
-                PatientInfo info = new PatientInfo() { PatientId = Convert.ToInt32(Session["PatientId"]), OTP = null };
-                info = _details.UpdatePatientDetail(info);
-                Session["PatientId"] = null;
-                setUserClaim(info);
-                return RedirectToAction("Dashboard");
+                return PaymentTransaction();
             }
             else
             {
-                SetAlertMessage("OTP is not match", "Login Response");
-                return RedirectToAction("Index", new { actionName = "otp" });
+                SetAlertMessage("OTP not matched", "Register");
+                return RedirectToAction("Register");
             }
+        }
+
+        private ActionResult PaymentTransaction()
+        {
+            string MerchantId = Convert.ToString(ConfigurationManager.AppSettings["MerchantId"]);
+            string EncryptKey = Convert.ToString(ConfigurationManager.AppSettings["EncryptKey"]);
+            string TransactionAmount = Convert.ToString(ConfigurationManager.AppSettings["TransactionAmount"]);
+            string ResponseUrl = Convert.ToString(ConfigurationManager.AppSettings["ResponseUrl"]);
+            try
+            {
+                com.awl.MerchantToolKit.ReqMsgDTO objReqMsgDTO;
+                objReqMsgDTO = new com.awl.MerchantToolKit.ReqMsgDTO();
+                objReqMsgDTO.OrderId = VerificationCodeGeneration.GenerateDeviceVerificationCode();
+                objReqMsgDTO.Mid = MerchantId;
+                objReqMsgDTO.Enckey = EncryptKey;
+                objReqMsgDTO.MeTransReqType = "Registration";
+                objReqMsgDTO.TrnAmt = TransactionAmount;
+                objReqMsgDTO.RecurrPeriod = "";
+                objReqMsgDTO.RecurrDay = "";
+                objReqMsgDTO.ResponseUrl = ResponseUrl;
+                objReqMsgDTO.TrnRemarks = "Registration fee";
+                objReqMsgDTO.TrnCurrency = "INR";
+                objReqMsgDTO.AddField1 = "";
+                objReqMsgDTO.AddField2 = "";
+                objReqMsgDTO.AddField3 = "";
+                objReqMsgDTO.AddField4 = "";
+                objReqMsgDTO.AddField5 = "";
+                objReqMsgDTO.AddField6 = "";
+                objReqMsgDTO.AddField7 = "";
+                objReqMsgDTO.AddField8 = "";
+                string Message;
+                com.awl.MerchantToolKit.AWLMEAPI objawlmerchantkit = new com.awl.MerchantToolKit.AWLMEAPI();
+                objawlmerchantkit.generateTrnReqMsg(objReqMsgDTO);
+                Message = objReqMsgDTO.ReqMsg;
+                Session["Message"] = Message;
+                Session["MID"] = objReqMsgDTO.Mid;
+                return RedirectToAction("TransactionPay");
+            }
+            catch (Exception ex)
+            {
+                SetAlertMessage("There Was Some Error Processing.....Please Check The Data you have Entered", "Transaction");
+                return RedirectToAction("Register");
+            }
+        }
+
+        public ActionResult TransactionPay()
+        {
+            return View();
+        }
+
+        public ActionResult TransactionResponse(object result)
+        {
+            return View();
         }
         private void setUserClaim(PatientInfo info)
         {
@@ -117,51 +204,9 @@ namespace PatientPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Register(string registermobile, string registerpassword, string registerconfirmpassword, string registeremail)
-        {
-            string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
-            if (registermobile.Trim().Length != 10)
-            {
-                SetAlertMessage("Please Enter correct Mobile Number", "Register");
-                return RedirectToAction("Index");
-            }
-            else if (registerpassword.Trim() != registerconfirmpassword.Trim())
-            {
-                SetAlertMessage("Confirm Password not match with Password", "Register");
-                return RedirectToAction("Index");
-            }
-            else if (!Regex.IsMatch(registeremail, emailRegEx, RegexOptions.IgnoreCase))
-            {
-                SetAlertMessage("Please Enter correct Email Address", "Register");
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                PatientDetails _details = new PatientDetails();
-                PatientInfo info = new PatientInfo()
-                {
-                    MobileNumber = registermobile.Trim(),
-                    Password = registerpassword.Trim(),
-                    Email = registeremail.Trim()
-                };
-                var result = _details.RegisterPatientDetail(info);
-                if (result["status"].ToString() == CrudStatus.Saved.ToString())
-                {
-                    setUserClaim((PatientInfo)result["data"]);
-
-                    return RedirectToAction("Dashboard");
-                }
-                else
-                {
-                    SetAlertMessage("User is already register", "Register");
-                    return RedirectToAction("Index");
-                }
-            }
-        }
-
         public ActionResult MyProfile()
         {
-            
+
             PatientDetails _details = new PatientDetails();
             if (User == null)
             {
@@ -179,6 +224,29 @@ namespace PatientPortal.Controllers
                 ViewData.Model = result;
             }
             return View();
+        }
+        private static Dictionary<string, object> SavePatientInfo(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode)
+        {
+            PatientDetails _details = new PatientDetails();
+            PatientInfo info = new PatientInfo()
+            {
+                FirstName = firstname,
+                MiddleName = middlename,
+                LastName = lastname,
+                DOB = Convert.ToDateTime(DOB),
+                Gender = Gender,
+                MobileNumber = mobilenumber.Trim(),
+                Email = email.Trim(),
+                Address = address,
+                City = city,
+                Country = country,
+                PinCode = Convert.ToInt32(pincode),
+                Religion = religion,
+                OTP = verificationCode,
+                DepartmentId = Convert.ToInt32(department)
+            };
+            var result = _details.RegisterPatientDetail(info);
+            return result;
         }
     }
 }

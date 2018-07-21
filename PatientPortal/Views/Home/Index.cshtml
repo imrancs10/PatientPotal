@@ -24,107 +24,42 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header" style="width:100%;padding-left:400px;font-weight:bold">
+            <div class="navbar-header" style="width:100%">
                 @Html.ActionLink("Patient Portal Information System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                <div style="float:right">
+                    @Html.ActionLink("Register", "Register", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
             </div>
         </div>
     </div>
     <div class="container body-content">
-        <div>
-            <div class="col-xs-6">
-                <div id="loginContainer" class="dialog dialog-effect-in" style="width:420px">
-                    <div class="dialog-front">
-                        <div class="dialog-content">
-                            <form id="login_form" class="dialog-form" action="" method="POST">
-                                <fieldset>
-                                    <legend style="background-color:lightgoldenrodyellow;text-align:center;">
-                                        <font style="font-size:18px">LOGIN TO YOUR ACCOUNT</font><br />
-                                        <font style="font-size:13px">
-                                            We will send verification code to confirm access to this number.<br />
-                                            Standerd text messaging rates apply.
-                                        </font>
-                                    </legend>
-                                    @{
-                                        string disabledOTP = "";
-                                        string disabledLogin = "";
-                                        if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
-                                        {
-                                            disabledOTP = "disabled";
-                                            disabledLogin = "";
-                                        }
-                                        else
-                                        {
-                                            disabledOTP = "";
-                                            disabledLogin = "disabled";
-                                        }
-                                    }
-                                    <div class="form-group">
-                                        <label for="user_username" class="control-label">User Id:</label>
-                                        <input type="text" id="user_username" class="form-control" name="username" autofocus @disabledLogin />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="user_password" class="control-label">Password:</label>
-                                        <input type="password" id="user_password" class="form-control" name="password" @disabledLogin />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="user_OTP" class="control-label">Verification Code:</label>
-                                        <div>
-                                            <input type="text" id="user_OTP" class="form-control" name="OTP" style="float:left;width:100px;" @disabledOTP />
-                                        </div>
-                                        <div>
-                                            @if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
-                                            {
-                                                <input type="submit" name="action:getotp" class="btn btn-primary btn-block btn-lg" value="Get OTP" style="float:right;width:100px;">
-                                            }
-                                            else
-                                            {
-                                                <input type="submit" name="action:getlogin" class="btn btn-primary btn-block btn-lg" value="Login" style="float:right;width:100px;">
-                                            }
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6">
-                <div id="loginContainer" class="dialog dialog-effect-in" style="width:420px">
-                    <div class="dialog-front">
-                        <div class="dialog-content">
-                            <form id="register_form" class="dialog-form" action="/home/register" method="POST">
-                                <fieldset>
-                                    <legend style="background-color:lightgoldenrodyellow;text-align:center;">
-                                        <font style="font-size:18px">REGISTER AN ACCOUNT</font><br />
-                                        <font style="font-size:13px">
-                                            Fill the form below to signup your account.
-                                        </font>
-                                    </legend>
-                                    <div class="form-group">
-                                        <label for="register_mobile" class="control-label">Enter Your Mobile No:</label>
-                                        <input type="text" id="register_mobile" class="form-control" name="registermobile" maxlength="10" onkeypress="return isNumber(event)" />
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-6" style="padding-left:0px">
-                                            <label for="register_password" class="control-label">Password:</label>
-                                            <input type="password" id="register_password" class="form-control" name="registerpassword" maxlength="12" />
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <label for="register_confirmpassword" class="control-label">Re-enter Password:</label>
-                                            <input type="password" id="register_confirmpassword" class="form-control" name="registerconfirmpassword" maxlength="12"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="register_email" class="control-label">Email:</label>
-                                        <input type="email" id="register_email" class="form-control" name="registeremail" />
-                                    </div>
-                                    <div class="pad-top-20 pad-btm-20">
-                                        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register">
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
+        <div id="loginContainer" class="dialog dialog-effect-in" style="width:420px">
+            <div class="dialog-front">
+                <div class="dialog-content">
+                    <form id="login_form" class="dialog-form" action="/home/GetPatientLogin" method="POST">
+                        <fieldset>
+                            <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                <font style="font-size:18px">LOGIN TO YOUR ACCOUNT</font><br />
+                                <font style="font-size:13px">
+                                    We will send verification code to confirm access to this number.<br />
+                                    Standerd text messaging rates apply.
+                                </font>
+                            </legend>
+
+                            <div class="form-group">
+                                <label for="user_username" class="control-label">User Id:</label>
+                                <input type="text" id="user_username" class="form-control" name="username" autofocus />
+                            </div>
+                            <div class="form-group">
+                                <label for="user_password" class="control-label">Password:</label>
+                                <input type="password" id="user_password" class="form-control" name="password" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" style="float:right;width:100px;">
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </div>

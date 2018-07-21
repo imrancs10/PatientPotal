@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TransactionPay</title>
+    <script type="text/javascript">
+        function PostData() {
+            document.getElementById("form1").submit();
+        }
+    </script>
+</head>
+<body onload = "PostData()">
+<form id="form1" action="https://cgt.in.worldline.com/ipg/doMEPayRequest" runat="server" method="post">
+    <div>
+        <asp:Literal runat="server" ID="ltrPostData"></asp:Literal>
+        <br />
+        <asp:Label runat="server" ID="lbl"> Please Do not close and Refresh Browser</asp:Label>
+    </div>
+</form>
+</body>
+</html>
