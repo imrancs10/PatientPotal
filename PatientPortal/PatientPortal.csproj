@@ -44,8 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="com.awl.MerchantToolKit">
-      <HintPath>C:\Users\sheikhimran\Downloads\Sample_Kit_Updated\Sample_Kit_Updated\RequestAndResponse\bin\com.awl.MerchantToolKit.dll</HintPath>
+    <Reference Include="com.awl.MerchantToolKit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalAssembly\com.awl.MerchantToolKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure">
@@ -56,8 +57,9 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RequestAndResponse">
-      <HintPath>C:\Users\sheikhimran\Downloads\Sample_Kit_Updated\Sample_Kit_Updated\RequestAndResponse\bin\RequestAndResponse.dll</HintPath>
+    <Reference Include="RequestAndResponse, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalAssembly\RequestAndResponse.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -219,6 +221,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dashboard.css" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="ExternalAssembly\com.awl.MerchantToolKit.dll" />
+    <Content Include="ExternalAssembly\RequestAndResponse.dll" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
