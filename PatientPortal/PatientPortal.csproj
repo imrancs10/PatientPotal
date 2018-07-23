@@ -283,6 +283,7 @@
     <Content Include="Views\Appointment\GetAppointments.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\TransactionPay.cshtml" />
+    <Content Include="Views\Home\TransactionResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
