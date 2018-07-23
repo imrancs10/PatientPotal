@@ -126,12 +126,12 @@ namespace PatientPortal.Controllers
                 objReqMsgDTO.OrderId = VerificationCodeGeneration.GenerateDeviceVerificationCode();
                 objReqMsgDTO.Mid = MerchantId;
                 objReqMsgDTO.Enckey = EncryptKey;
-                objReqMsgDTO.MeTransReqType = "Registration";
+                objReqMsgDTO.MeTransReqType = "S";
                 objReqMsgDTO.TrnAmt = TransactionAmount;
                 objReqMsgDTO.RecurrPeriod = "";
                 objReqMsgDTO.RecurrDay = "";
                 objReqMsgDTO.ResponseUrl = ResponseUrl;
-                objReqMsgDTO.TrnRemarks = "Registration fee";
+                objReqMsgDTO.TrnRemarks = "Test";
                 objReqMsgDTO.TrnCurrency = "INR";
                 objReqMsgDTO.AddField1 = "";
                 objReqMsgDTO.AddField2 = "";
@@ -158,6 +158,8 @@ namespace PatientPortal.Controllers
 
         public ActionResult TransactionPay()
         {
+            //ViewData["TransactionMesage"] = "<input type=\"hidden\" name=\"merchantRequest\" id=\"merchantRequest\" value=\"" + Session["Message"] + "\"     />		<input type=\"hidden\" name=\"MID\" id=\"MID\" value=" + Session["MID"] + " /> ";
+
             return View();
         }
 
