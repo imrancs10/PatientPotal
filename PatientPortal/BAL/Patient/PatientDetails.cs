@@ -78,7 +78,7 @@ namespace PatientPortal.BAL.Patient
             _db = new PatientPortalEntities();
             Dictionary<string, object> result = new Dictionary<string, object>();
             int _effectRow = 0;
-            var _deptRow = _db.PatientTransactions.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+            var _deptRow = _db.PatientTransactions.Where(x => x.PatientId == info.PatientId).FirstOrDefault();
             if (_deptRow == null)
             {
                 _db.Entry(info).State = EntityState.Added;

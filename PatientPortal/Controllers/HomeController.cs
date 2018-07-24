@@ -189,7 +189,7 @@ namespace PatientPortal.Controllers
                     RegistrationNumber = serialNumber,
                     PatientId = patientId
                 };
-                _details.UpdatePatientDetail(info);
+                info = _details.UpdatePatientDetail(info);
 
                 PatientTransaction transaction = new PatientTransaction()
                 {
@@ -217,6 +217,7 @@ namespace PatientPortal.Controllers
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
+                return RedirectToAction("Index");
             }
             else
             {
