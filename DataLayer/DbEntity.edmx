@@ -85,6 +85,7 @@
             <PropertyRef Name="PatientId" />
           </Key>
           <Property Name="PatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="14" />
           <Property Name="MobileNumber" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
@@ -100,6 +101,19 @@
           <Property Name="Religion" Type="varchar" MaxLength="50" />
           <Property Name="DepartmentId" Type="int" />
           <Property Name="OTP" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PatientTransaction">
+          <Key>
+            <PropertyRef Name="PatientTransactionId" />
+          </Key>
+          <Property Name="PatientTransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="varchar" MaxLength="50" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="PatientId" Type="int" />
+          <Property Name="TransactionNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ResponseCode" Type="varchar" MaxLength="50" />
+          <Property Name="StatusCode" Type="varchar" MaxLength="50" />
+          <Property Name="TransactionDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_Doctor_Doctor">
           <End Role="Department" Type="Self.Department" Multiplicity="1" />
@@ -185,6 +199,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientTransaction_PatientInfo">
+          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
+          <End Role="PatientTransaction" Type="Self.PatientTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfo">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientTransaction">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PatientPortalModelStoreContainer">
           <EntitySet Name="DayMaster" EntityType="Self.DayMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
@@ -194,6 +220,7 @@
           <EntitySet Name="Gbl_Master_User" EntityType="Self.Gbl_Master_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeridiemMaster" EntityType="Self.MeridiemMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientTransaction" EntityType="Self.PatientTransaction" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Doctor_Doctor" Association="Self.FK_Doctor_Doctor">
             <End Role="Department" EntitySet="Department" />
             <End Role="Doctor" EntitySet="Doctor" />
@@ -222,6 +249,10 @@
             <End Role="Department" EntitySet="Department" />
             <End Role="PatientInfo" EntitySet="PatientInfo" />
           </AssociationSet>
+          <AssociationSet Name="FK_PatientTransaction_PatientInfo" Association="Self.FK_PatientTransaction_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfo" />
+            <End Role="PatientTransaction" EntitySet="PatientTransaction" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -236,6 +267,7 @@
           <EntitySet Name="Gbl_Master_User" EntityType="PatientPortalModel.Gbl_Master_User" />
           <EntitySet Name="MeridiemMasters" EntityType="PatientPortalModel.MeridiemMaster" />
           <EntitySet Name="PatientInfoes" EntityType="PatientPortalModel.PatientInfo" />
+          <EntitySet Name="PatientTransactions" EntityType="PatientPortalModel.PatientTransaction" />
           <AssociationSet Name="FK_DoctorScheduleDay_DayMaster1" Association="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1">
             <End Role="DayMaster" EntitySet="DayMasters" />
             <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
@@ -263,6 +295,10 @@
           <AssociationSet Name="FK_Gbl_Master_Login_Gbl_Master_User" Association="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_Master_Login" EntitySet="Gbl_Master_Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientTransaction_PatientInfo" Association="PatientPortalModel.FK_PatientTransaction_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientTransaction" EntitySet="PatientTransactions" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="DayMaster">
@@ -358,6 +394,7 @@
             <PropertyRef Name="PatientId" />
           </Key>
           <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -372,8 +409,23 @@
           <Property Name="PinCode" Type="Int32" />
           <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DepartmentId" Type="Int32" />
-          <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
           <Property Name="OTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
+          <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
+        </EntityType>
+        <EntityType Name="PatientTransaction">
+          <Key>
+            <PropertyRef Name="PatientTransactionId" />
+          </Key>
+          <Property Name="PatientTransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="PatientId" Type="Int32" />
+          <Property Name="TransactionNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientTransaction" ToRole="PatientInfo" />
         </EntityType>
         <Association Name="FK_DoctorScheduleDay_DayMaster1">
           <End Type="PatientPortalModel.DayMaster" Role="DayMaster" Multiplicity="0..1" />
@@ -456,6 +508,18 @@
             </Principal>
             <Dependent Role="Gbl_Master_Login">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientTransaction_PatientInfo">
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientTransaction" Role="PatientTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfo">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientTransaction">
+              <PropertyRef Name="PatientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -565,7 +629,22 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientTransactions">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientTransaction">
+              <MappingFragment StoreEntitySet="PatientTransaction">
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PatientTransactionId" ColumnName="PatientTransactionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -592,22 +671,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram DiagramId="96d87482f862457a932ad65ffd2427a1" Name="Diagram1">
-        <EntityTypeShape EntityType="PatientPortalModel.DayMaster" Width="1.5" PointX="3" PointY="10.125" />
-        <EntityTypeShape EntityType="PatientPortalModel.Department" Width="1.5" PointX="0.75" PointY="4.375" />
-        <EntityTypeShape EntityType="PatientPortalModel.Doctor" Width="1.5" PointX="3" PointY="1.75" />
-        <EntityTypeShape EntityType="PatientPortalModel.DoctorSchedule" Width="1.5" PointX="5.25" PointY="1.25" />
-        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_Login" Width="1.5" PointX="8" PointY="6.625" />
-        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_User" Width="1.5" PointX="5.75" PointY="6" />
-        <EntityTypeShape EntityType="PatientPortalModel.MeridiemMaster" Width="1.5" PointX="3" PointY="12.5" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientInfo" Width="1.5" PointX="3" PointY="4.5" />
-        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1" />
-        <AssociationConnector Association="PatientPortalModel.FK_Doctor_Doctor" />
-        <AssociationConnector Association="PatientPortalModel.FK_PatientInfo_Department" />
-        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" />
-        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster" />
-        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1" />
-        <AssociationConnector Association="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" />
-      </Diagram>
+        </Diagram>
     </Diagrams>
   </Designer>
 </edmx:Edmx>

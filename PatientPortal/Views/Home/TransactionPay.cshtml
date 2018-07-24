@@ -18,11 +18,8 @@
 <body onload="PostData()">
     <form id="form1" action="https://cgt.in.worldline.com/ipg/doMEPayRequest" runat="server" method="post">
         <div>
-            @*@if (ViewData["TransactionMesage"] != null)
-                {*@
             <input type="hidden" name="merchantRequest" id="merchantRequest" value=@Session["Message"] />
             <input type="hidden" name="MID" id="MID" value=@Session["MID"] />
-            @*  *@}
             <asp:Literal runat="server" ID="ltrPostData"></asp:Literal>
             <br />
             <asp:Label runat="server" ID="lbl"> Please Do not close and Refresh Browser</asp:Label>

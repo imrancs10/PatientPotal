@@ -19,16 +19,11 @@ namespace PatientPortal.Infrastructure
             string HostEmailPassword = Convert.ToString(ConfigurationManager.AppSettings["HostEmailPassword"]);
             string HostAddress = Convert.ToString(ConfigurationManager.AppSettings["HostAddress"]);
             int HostPort = Convert.ToInt32(ConfigurationManager.AppSettings["HostPort"]);
-
-
             var fromAddress = new MailAddress(hostEmail, HostEmailName);
             var toAddress = new MailAddress(msg.MessageTo, string.IsNullOrEmpty(msg.MessageNameTo) ? "User" : msg.MessageNameTo);
-            const string subject = "Verify Mobile Number";
-            string body = "Hi ," +
-                                "As you requested, here is a OTP : " + msg.OTP + " you can use to verify your mobile number." +
-                                "If you need further assistance, please call our 24 x 7 call center toll free at 000-000-0000." +
-                                "Thank You," +
-                                "Patient Portal Information System Customer Support";
+            string subject = msg.Subject;
+            string body = msg.Body;
+
             var smtp = new SmtpClient
             {
                 Host = HostAddress,

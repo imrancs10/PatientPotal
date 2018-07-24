@@ -1,4 +1,5 @@
-﻿using DataLayer;
+﻿using com.awl.MerchantToolKit;
+using DataLayer;
 using PatientPortal.BAL.Login;
 using PatientPortal.BAL.Patient;
 using PatientPortal.Global;
@@ -83,11 +84,18 @@ namespace PatientPortal.Controllers
                     {
                         MessageTo = email,
                         MessageNameTo = firstname + " " + middlename + (string.IsNullOrWhiteSpace(middlename) ? "" : " ") + lastname,
-                        OTP = verificationCode
+                        OTP = verificationCode,
+                        Subject = "Verify Mobile Number",
+                        Body = "Hi ," +
+                            "As you requested, here is a OTP : " + verificationCode + " you can use to verify your mobile number." +
+                            "If you need further assistance, please call our 24 x 7 call center toll free at 000-000-0000." +
+                            "Thank You," +
+                            "Patient Portal Information System Customer Support"
                     };
                     ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                     sendMessageStrategy.SendMessages();
                     Session["otp"] = verificationCode;
+                    Session["PatientId"] = ((PatientInfo)result["data"]).PatientId;
                     return RedirectToAction("Register", new { actionName = "otp" });
                 }
                 else
@@ -119,10 +127,11 @@ namespace PatientPortal.Controllers
             string EncryptKey = Convert.ToString(ConfigurationManager.AppSettings["EncryptKey"]);
             string TransactionAmount = Convert.ToString(ConfigurationManager.AppSettings["TransactionAmount"]);
             string ResponseUrl = Convert.ToString(ConfigurationManager.AppSettings["ResponseUrl"]);
+            string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             try
             {
-                com.awl.MerchantToolKit.ReqMsgDTO objReqMsgDTO;
-                objReqMsgDTO = new com.awl.MerchantToolKit.ReqMsgDTO();
+                ReqMsgDTO objReqMsgDTO;
+                objReqMsgDTO = new ReqMsgDTO();
                 objReqMsgDTO.OrderId = VerificationCodeGeneration.GenerateDeviceVerificationCode();
                 objReqMsgDTO.Mid = MerchantId;
                 objReqMsgDTO.Enckey = EncryptKey;
@@ -130,7 +139,7 @@ namespace PatientPortal.Controllers
                 objReqMsgDTO.TrnAmt = TransactionAmount;
                 objReqMsgDTO.RecurrPeriod = "";
                 objReqMsgDTO.RecurrDay = "";
-                objReqMsgDTO.ResponseUrl = ResponseUrl;
+                objReqMsgDTO.ResponseUrl = baseUrl + ResponseUrl;
                 objReqMsgDTO.TrnRemarks = "Test";
                 objReqMsgDTO.TrnCurrency = "INR";
                 objReqMsgDTO.AddField1 = "";
@@ -142,7 +151,7 @@ namespace PatientPortal.Controllers
                 objReqMsgDTO.AddField7 = "";
                 objReqMsgDTO.AddField8 = "";
                 string Message;
-                com.awl.MerchantToolKit.AWLMEAPI objawlmerchantkit = new com.awl.MerchantToolKit.AWLMEAPI();
+                AWLMEAPI objawlmerchantkit = new AWLMEAPI();
                 objawlmerchantkit.generateTrnReqMsg(objReqMsgDTO);
                 Message = objReqMsgDTO.ReqMsg;
                 Session["Message"] = Message;
@@ -158,13 +167,62 @@ namespace PatientPortal.Controllers
 
         public ActionResult TransactionPay()
         {
-            //ViewData["TransactionMesage"] = "<input type=\"hidden\" name=\"merchantRequest\" id=\"merchantRequest\" value=\"" + Session["Message"] + "\"     />		<input type=\"hidden\" name=\"MID\" id=\"MID\" value=" + Session["MID"] + " /> ";
-
             return View();
         }
 
-        public ActionResult TransactionResponse(object result)
+        public ActionResult TransactionResponse()
         {
+            string EncryptKey = Convert.ToString(ConfigurationManager.AppSettings["EncryptKey"]);
+            ResMsgDTO objResMsgDTO = new ResMsgDTO();
+            if (Request.Form["merchantResponse"] != null)
+            {
+
+                string merchantResponse = Request.Form["merchantResponse"];
+                AWLMEAPI transact = new AWLMEAPI();
+                objResMsgDTO = transact.parseTrnResMsg(merchantResponse, EncryptKey);
+
+                PatientDetails _details = new PatientDetails();
+                string serialNumber = VerificationCodeGeneration.GetSerialNumber();
+                int patientId = (int)Session["PatientId"];
+                PatientInfo info = new PatientInfo()
+                {
+                    RegistrationNumber = serialNumber,
+                    PatientId = patientId
+                };
+                _details.UpdatePatientDetail(info);
+
+                PatientTransaction transaction = new PatientTransaction()
+                {
+                    PatientId = info.PatientId,
+                    Amount = Convert.ToInt32(objResMsgDTO.TrnAmt),
+                    OrderId = objResMsgDTO.OrderId,
+                    ResponseCode = objResMsgDTO.ResponseCode,
+                    StatusCode = objResMsgDTO.StatusCode,
+                    TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
+                    TransactionNumber = objResMsgDTO.PgMeTrnRefNo
+                };
+                _details.SavePatientTransaction(transaction);
+
+                Message msg = new Message()
+                {
+                    MessageTo = info.Email,
+                    MessageNameTo = info.FirstName + " " + info.MiddleName + (string.IsNullOrWhiteSpace(info.MiddleName) ? "" : " ") + info.LastName,
+                    Subject = "Registration Created",
+                    Body = "Hi ," +
+                           "As you requested, here registration is created, your registration number is : " + serialNumber + " you can use to create your Password by clicking on below URL." +
+                           "If you need further assistance, please call our 24 x 7 call center toll free at 000-000-0000." +
+                           "Thank You," +
+                           "Patient Portal Information System Customer Support"
+                };
+
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+            }
+            else
+            {
+                //lblMessage.ForeColor = System.Drawing.Color.Red;
+                //lblMessage.Text = "No Data Can be Displayed......Session is Null";
+            }
             return View();
         }
         private void setUserClaim(PatientInfo info)

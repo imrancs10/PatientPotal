@@ -11,11 +11,17 @@ namespace DataLayer
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class PatientInfo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PatientInfo()
+        {
+            this.PatientTransactions = new HashSet<PatientTransaction>();
+        }
+    
         public int PatientId { get; set; }
+        public string RegistrationNumber { get; set; }
         public string MobileNumber { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
@@ -31,6 +37,9 @@ namespace DataLayer
         public string Religion { get; set; }
         public Nullable<int> DepartmentId { get; set; }
         public string OTP { get; set; }
+    
         public virtual Department Department { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientTransaction> PatientTransactions { get; set; }
     }
 }

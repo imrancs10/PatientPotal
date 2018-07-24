@@ -24,7 +24,7 @@ namespace PatientPortal.BAL.Patient
         {
             _db = new PatientPortalEntities();
 
-            return _db.PatientInfoes.Where(x =>x.PatientId.Equals(Id)).FirstOrDefault();
+            return _db.PatientInfoes.Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
         }
         public PatientInfo UpdatePatientDetail(PatientInfo info)
         {
@@ -33,6 +33,7 @@ namespace PatientPortal.BAL.Patient
             if (_patientRow != null)
             {
                 _patientRow.OTP = info.OTP;
+                _patientRow.RegistrationNumber = info.RegistrationNumber;
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();
             }
@@ -56,6 +57,28 @@ namespace PatientPortal.BAL.Patient
             Dictionary<string, object> result = new Dictionary<string, object>();
             int _effectRow = 0;
             var _deptRow = _db.PatientInfoes.Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
+            if (_deptRow == null)
+            {
+                _db.Entry(info).State = EntityState.Added;
+                _effectRow = _db.SaveChanges();
+                result.Add("status", CrudStatus.Saved.ToString());
+                result.Add("data", info);
+                return result;
+            }
+            else
+            {
+                result.Add("status", CrudStatus.DataAlreadyExist.ToString());
+                result.Add("data", _deptRow);
+                return result;
+            }
+        }
+
+        public Dictionary<string, object> SavePatientTransaction(PatientTransaction info)
+        {
+            _db = new PatientPortalEntities();
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            int _effectRow = 0;
+            var _deptRow = _db.PatientTransactions.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
             if (_deptRow == null)
             {
                 _db.Entry(info).State = EntityState.Added;

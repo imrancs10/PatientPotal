@@ -19,5 +19,7 @@ namespace PatientPortal.Infrastructure
             objemail.Send(_msg);
         }
 
+
+
     }
 }

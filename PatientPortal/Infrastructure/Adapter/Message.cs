@@ -9,7 +9,8 @@ namespace PatientPortal.Infrastructure
     {
         public string MessageTo { get; set; }
         public string MessageNameTo { get; set; }
-
         public string OTP { get; set; }
+        public string Subject { get; set; }
+        public string Body { get; set; }
     }
 }
