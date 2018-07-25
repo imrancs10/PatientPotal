@@ -40,7 +40,8 @@ namespace PatientPortal.BAL.Patient
             if (_patientRow != null)
             {
                 _patientRow.OTP = info.OTP;
-                _patientRow.RegistrationNumber = info.RegistrationNumber;
+                _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
+                _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; ;
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();
             }
