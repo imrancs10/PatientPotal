@@ -23,7 +23,7 @@
             @if (string.IsNullOrWhiteSpace(UserData.FirstName) && Convert.ToBoolean(ViewData["LoginPage"]) != true)
             {
                 <div class="navbar-header" style="width:100%">
-                    @Html.ActionLink("Patient Portal", "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Patient Portal", "AddDepartments", "Masters", new { area = "" }, new { @class = "navbar-brand" })
 
                     <div style="float:right">
                         @Html.ActionLink("Login", "Index", "Login", new { area = "" }, new { @class = "navbar-brand" })
@@ -33,7 +33,7 @@
             else
             {
                 <div class="navbar-header">
-                    @Html.ActionLink("Patient Portal", "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Patient Portal", "AddDepartments", "Masters", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
             }
             <div class="navbar-collapse collapse">
@@ -64,7 +64,7 @@
                                                 <p class="text-left"><strong>@UserData.FirstName @UserData.MiddleName @UserData.LastName</strong></p>
                                                 <p class="text-left small">@UserData.Email</p>
                                                 <p class="text-left">
-                                                    <a href="#" class="btn btn-primary btn-block btn-sm" style="width:90%">View Profile</a>
+                                                    @*<a href="#" class="btn btn-primary btn-block btn-sm" style="width:90%">View Profile</a>*@
                                                 </p>
                                             </div>
                                         </div>
