@@ -37,7 +37,8 @@ namespace PatientPortal.Infrastructure
             using (var message = new MailMessage(fromAddress, toAddress)
             {
                 Subject = subject,
-                Body = body
+                Body = body,
+                IsBodyHtml = true
             })
             {
                 smtp.SendCompleted += (s, e) =>

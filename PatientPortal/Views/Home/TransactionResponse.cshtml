@@ -3,15 +3,105 @@
     Layout = null;
 }
 
+@using PatientPortal.Global
+@using DataLayer;
 <!DOCTYPE html>
-
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>TransactionResponse</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Patient Portal Management system</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Login/Login.js"></script>
 </head>
 <body>
-    <div> 
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%">
+                @Html.ActionLink("Patient Portal Information System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                <div style="float:right">
+                    @Html.ActionLink("Login", "Login", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div id="loginContainer" class="dialog dialog-effect-in" style="width:420px">
+            <div class="dialog-front">
+                <div class="dialog-content">
+                    @if (ViewData["TransactionSuccessResult"] != null)
+                    {
+                        var result = (PatientTransaction)ViewData["TransactionSuccessResult"];
+                        <form id="login_form" class="dialog-form">
+                            <fieldset>
+                                <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                    <font style="font-size:18px">Transaction Response</font><br />
+                                    <font style="font-size:13px">
+                                        <b>Your Transaction is successful</b><br />
+                                        We have sent you your registration Number along with Create new password link.<br />
+                                        Kindly click on that link to create your password
+                                    </font>
+                                </legend>
+
+                                <div class="form-group">
+                                    <label for="registrationnumber" class="control-label">Registration Number:</label>
+                                    <label id="registrationnumber" class="form-control" name="registrationnumber">@result.OrderId</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="amount" class="control-label">Transaction Amount:</label>
+                                    <label id="amount" class="form-control" name="amount">@result.Amount</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="refenceno" class="control-label">Transaction Referance No:</label>
+                                    <label id="refenceno" class="form-control" name="refenceno">@result.TransactionNumber</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date" class="control-label">Transaction Date:</label>
+                                    <label id="date" class="form-control" name="date">@result.TransactionDate</label>
+                                </div>
+                            </fieldset>
+                        </form>
+                    }
+                    else
+                    {
+                        <label class="control-label">There Was Some Error in transaction Processing.....Please Check The Data you have Entered</label>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
     </div>
 </body>
 </html>
+

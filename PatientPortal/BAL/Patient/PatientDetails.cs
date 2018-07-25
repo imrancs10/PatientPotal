@@ -16,9 +16,16 @@ namespace PatientPortal.BAL.Patient
         public PatientInfo GetPatientDetail(string UserId, string Password)
         {
             _db = new PatientPortalEntities();
-            string hashPassword = Utility.GetHashString(Password);
-            return _db.PatientInfoes.Where(x => (x.Email.Equals(UserId) || x.MobileNumber.Equals(UserId)) && x.Password.Equals(hashPassword)).FirstOrDefault();
+            //string hashPassword = Utility.GetHashString(Password);
+            return _db.PatientInfoes.Where(x => x.RegistrationNumber == UserId && x.Password == Password).FirstOrDefault();
         }
+
+        public PatientInfo GetPatientDetailByRegistrationNumber(string UserId)
+        {
+            _db = new PatientPortalEntities();
+            return _db.PatientInfoes.Where(x => x.RegistrationNumber == UserId).FirstOrDefault();
+        }
+
 
         public PatientInfo GetPatientDetailById(int Id)
         {
@@ -39,6 +46,7 @@ namespace PatientPortal.BAL.Patient
             }
             return _patientRow;
         }
+
         public bool VerifyPatientOTP(int patientId, string OTP)
         {
             _db = new PatientPortalEntities();
@@ -78,7 +86,7 @@ namespace PatientPortal.BAL.Patient
             _db = new PatientPortalEntities();
             Dictionary<string, object> result = new Dictionary<string, object>();
             int _effectRow = 0;
-            var _deptRow = _db.PatientTransactions.Where(x => x.PatientId == info.PatientId).FirstOrDefault();
+            var _deptRow = _db.PatientTransactions.Include(x => x.PatientInfo).Where(x => x.PatientId == info.PatientId).FirstOrDefault();
             if (_deptRow == null)
             {
                 _db.Entry(info).State = EntityState.Added;

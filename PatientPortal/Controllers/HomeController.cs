@@ -86,11 +86,7 @@ namespace PatientPortal.Controllers
                         MessageNameTo = firstname + " " + middlename + (string.IsNullOrWhiteSpace(middlename) ? "" : " ") + lastname,
                         OTP = verificationCode,
                         Subject = "Verify Mobile Number",
-                        Body = "Hi ," +
-                            "As you requested, here is a OTP : " + verificationCode + " you can use to verify your mobile number." +
-                            "If you need further assistance, please call our 24 x 7 call center toll free at 000-000-0000." +
-                            "Thank You," +
-                            "Patient Portal Information System Customer Support"
+                        Body = EmailHelper.GetDeviceVerificationEmail(firstname, middlename, lastname, verificationCode)
                     };
                     ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                     sendMessageStrategy.SendMessages();
@@ -169,7 +165,38 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult CreatePassword(string registrationNumber)
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult CreatePassword(string password, string confirmpassword)
+        {
+            if (password.Trim() != confirmpassword.Trim())
+            {
+                SetAlertMessage("Password and Confirm Password are not match", "password Create");
+                return View();
+            }
+            else
+            {
+                string regNo = Convert.ToString(Request.QueryString["registrationNumber"]);
+                PatientDetails _details = new PatientDetails();
+                var result = _details.GetPatientDetailByRegistrationNumber(regNo);
+                if (result != null)
+                {
+                    result.Password = password.Trim();
+                    _details.UpdatePatientDetail(result);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    SetAlertMessage("Your Registration Number is Incorrect,Kindly contact the administrator", "password Create");
+                    return View();
+                }
+            }
+        }
         public ActionResult TransactionResponse()
         {
             string EncryptKey = Convert.ToString(ConfigurationManager.AppSettings["EncryptKey"]);
@@ -203,28 +230,28 @@ namespace PatientPortal.Controllers
                 };
                 _details.SavePatientTransaction(transaction);
 
+                string passwordCreateURL = "CreatePassword?registrationNumber=" + serialNumber;
+                string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+
                 Message msg = new Message()
                 {
                     MessageTo = info.Email,
                     MessageNameTo = info.FirstName + " " + info.MiddleName + (string.IsNullOrWhiteSpace(info.MiddleName) ? "" : " ") + info.LastName,
                     Subject = "Registration Created",
-                    Body = "Hi ," +
-                           "As you requested, here registration is created, your registration number is : " + serialNumber + " you can use to create your Password by clicking on below URL." +
-                           "If you need further assistance, please call our 24 x 7 call center toll free at 000-000-0000." +
-                           "Thank You," +
-                           "Patient Portal Information System Customer Support"
+                    Body = EmailHelper.GetRegistrationSuccessEmail(info.FirstName, info.MiddleName, info.LastName, serialNumber, baseUrl + passwordCreateURL)
                 };
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
-                return RedirectToAction("Index");
+                transaction.OrderId = serialNumber;
+                ViewData["TransactionSuccessResult"] = transaction;
+                return View();
             }
             else
             {
-                //lblMessage.ForeColor = System.Drawing.Color.Red;
-                //lblMessage.Text = "No Data Can be Displayed......Session is Null";
+                SetAlertMessage("There Was Some Error in transaction Processing.....Please Check The Data you have Entered", "Transaction");
+                return View();
             }
-            return View();
         }
         private void setUserClaim(PatientInfo info)
         {

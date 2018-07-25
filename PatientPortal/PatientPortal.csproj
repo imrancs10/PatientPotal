@@ -206,6 +206,7 @@
     <Compile Include="Infrastructure\Authentication\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Infrastructure\Authentication\ICustomPrincipal.cs" />
     <Compile Include="Infrastructure\Utility\BaseViewPage.cs" />
+    <Compile Include="Infrastructure\Utility\EmailHelper.cs" />
     <Compile Include="Infrastructure\Utility\VerificationCodeGeneration.cs" />
     <Compile Include="Models\Common\CommonModel.cs" />
     <Compile Include="Models\Masters\DepartmentModel.cs" />
@@ -284,6 +285,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\TransactionPay.cshtml" />
     <Content Include="Views\Home\TransactionResponse.cshtml" />
+    <Content Include="Views\Home\CreatePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
