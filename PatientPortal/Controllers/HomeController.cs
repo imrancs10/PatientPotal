@@ -168,11 +168,12 @@ namespace PatientPortal.Controllers
         [HttpGet]
         public ActionResult CreatePassword(string registrationNumber)
         {
+            ViewData["registrationNumber"] = registrationNumber;
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreatePassword(string password, string confirmpassword)
+        public ActionResult CreatePassword(string password, string confirmpassword,string registrationNumber)
         {
             if (password.Trim() != confirmpassword.Trim())
             {
@@ -181,9 +182,8 @@ namespace PatientPortal.Controllers
             }
             else
             {
-                string regNo = Convert.ToString(Request.QueryString["registrationNumber"]);
                 PatientDetails _details = new PatientDetails();
-                var result = _details.GetPatientDetailByRegistrationNumber(regNo);
+                var result = _details.GetPatientDetailByRegistrationNumber(registrationNumber);
                 if (result != null)
                 {
                     result.Password = password.Trim();
@@ -230,7 +230,7 @@ namespace PatientPortal.Controllers
                 };
                 _details.SavePatientTransaction(transaction);
 
-                string passwordCreateURL = "CreatePassword?registrationNumber=" + serialNumber;
+                string passwordCreateURL = "Home/CreatePassword?registrationNumber=" + serialNumber;
                 string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
 
                 Message msg = new Message()

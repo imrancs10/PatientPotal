@@ -11,7 +11,7 @@ namespace PatientPortal.Infrastructure.Utility
         public static string GetDeviceVerificationEmail(string firstname, string middlename, string lastname, string verificationCode)
         {
             string body = string.Format("Hi {0} {1} {2}<br/>", firstname, middlename, lastname);
-            body += "As you requested, here is a OTP is : <b>" + verificationCode + "</b> you can use to verify your mobile number.<br/>";
+            body += "As you requested, here is a OTP is : <b>" + verificationCode + "</b> you can use to verify your mobile number.<br/><br/>";
             body += "Thank You,<br/>";
             body += "Patient Portal Information System Customer Support";
             return body;
