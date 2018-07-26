@@ -96,21 +96,16 @@ utility.global.get24FormarTime = function (time) {
 utility.global.timeSplitter = function (minTime, maxTime, minSeed) {
     minSeed = minSeed > 60 ? 30 : (minSeed < 1 ? 30 : minSeed);
     var time = [];
-    time.push(minTime);
-    var minHour = utility.global.get24FormarTime(minTime).hour*60;
-    var maxHour = utility.global.get24FormarTime(maxTime).hour*60;
-    for (var i = minHour; i <= maxHour; i+=60) {
+    var minTimeObj = utility.global.get24FormarTime(minTime);
+    var maxTimeObj = utility.global.get24FormarTime(maxTime);
+    var minMins = minTimeObj.hour * 60;
+    var maxMins = maxTimeObj.hour * 60;
+    time.push(minTimeObj.hour + ':' + minTimeObj.minutes + (minTimeObj.hour>11?' PM':' AM'));
+    for (var i = minMins; i <= maxMins; i+=60) {
         for (var j = minSeed; j <= 60; j += minSeed) {
-           // if (((minHour) + j) % 60 != 0 && j > 0) {
-            time.push((((minHour + j) % 60)==0?((minHour / 60)+1):(minHour/60)) + ':' + (((minHour + j) % 60)==0?'00':((minHour + j) % 60)) + ' ' + ((minHour / 60) > 11 ? 'PM' : 'AM'));
-                
-            //}
-            //else {
-            //  //  minHour += 60;
-            //   // break;
-            //}
+            time.push((((minMins + j) % 60)==0?((minMins / 60)+1):(minMins/60)) + ':' + (((minMins + j) % 60)==0?'00':((minMins + j) % 60)) + ' ' + ((minMins / 60) > 11 ? 'PM' : 'AM'));                
         }
-        minHour += 60;
+        minMins += 60;
     }
     return time;
 }
@@ -180,5 +175,8 @@ Date.prototype.getCustomDetails = function (year, month) {
     obj.lastDayName = utility.global.getDaysArray[monthEndDay.getDay()];
     obj.firstDayIndex = monthStartDay.getDay();
     obj.lastDayIndex = monthEndDay.getDay();
+    obj.currentYear = date.getFullYear();
+    obj.currentMonth = date.getMonth() + 1;
+    obj.getDateString = date.toDateString();
     return obj;
 }

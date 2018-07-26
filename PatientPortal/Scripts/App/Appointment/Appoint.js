@@ -96,14 +96,14 @@ appointment.bindCalendar = function (year, month) {
                     day += 1;
                     if (day == currentDate && inpuYear == date.getFullYear() && inpuMonth == date.getMonth())
                         if (availableDoctor>0)
-                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="btn-info getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
+                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear+'-'+dateObj.currentMonth+'-'+day) + '" class="btn-info getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
                         else
                         {
                             tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="btn-info getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
                         }
                     else
                         if (availableDoctor > 0)
-                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
+                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
                         else
                             tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
                 }
@@ -124,6 +124,8 @@ $(document).on('click', '.getApp', function () {
     $('.step1').hide();
     $('.step2').hide();
     $('.step3').show();
+    $('#spanDepartment').text('Department : '+$('#ddlDepartments').find(':selected').text());
+    $('#spanDate').text('Date : '+new Date($(this).data('date')).toDateString());
     appointment.binddoctor($(this).data('day'));
 });
 $(document).on('click', '#btnStep2', function () {
@@ -141,6 +143,21 @@ $(document).on('click', '#btnStep1', function () {
 $(document).on('click', '.timelabel', function () {
     $(this).parent().parent().parent().find('.timelabelActive').removeClass('timelabelActive');
     $(this).addClass('timelabelActive');
+    var param = {};
+    param.AppointmentDateFrom = ($('#spanDate').text().trim() + ' ' + ($(this).text().trim().split(' - ')[0]).split(' ')[0]).replace('Date : ','');
+    param.AppointmentDateTo = ($('#spanDate').text().trim() + ' ' + ($(this).text().trim().split(' - ')[1]).split(' ')[0]).replace('Date : ','');
+    param.DoctorId = $(this).parent().parent().data('doctorid');
+    $('#btnGetAppointment').data('data', param);
+    $('#selectAppointmant').text('You have selected appointment for ' + $(this).parent().parent().find('td:eq(1)').text().trim() + ' on ' + $('#spanDate').text().trim() + ' ' + $(this).text().trim());
+});
+
+$(document).on('click', '#btnGetAppointment', function () {
+    utility.ajax.helperWithData(app.urls.appointmentSaveAppointment, $(this).data('data'), function(data) {
+        if (data = 'Data has been saved')
+        {
+            utility.alert.setAlert(utility.alert.alertType.success, 'Your appointment has been booked');
+        }
+    })
 });
 
 appointment.binddoctor = function (day) {
@@ -151,10 +168,11 @@ appointment.binddoctor = function (day) {
         doctorList = data;
         var table = $('#appointDoctorTable tbody');
         var srno = 1;
-        var tr = '<tr>';
+        var tr = '';
         $(table).empty();
 
         $(doctorList).each(function (ind, ele) {
+            tr += '<tr data-doctorid="' + ele[0].DoctorID + '">';
             tr += '<td>' + srno + '</td>';
             tr += '<td>' + ele[0].DoctorName + '</td>';
             tr += '<td>' + Timelist(ele) + '</td>';
@@ -172,7 +190,7 @@ function Timelist(ele) {
     $(ele).each(function (ind1,ele1) {
         var tList  = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, 30);
         for (var i = 1; i < tList.length - 1; i++) {
-            html += '<div class="timelabel">' + tList[i - 1] + '-' + tList[i] + '</div>';
+            html += '<div class="timelabel" title="' + tList[i - 1] + ' - ' + tList[i] + '">' + tList[i - 1] + ' - ' + tList[i] + '</div>';
         }
     });
 

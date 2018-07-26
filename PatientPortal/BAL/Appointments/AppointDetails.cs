@@ -1,6 +1,8 @@
 ﻿using DataLayer;
+using PatientPortal.Global;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -25,9 +27,9 @@ namespace PatientPortal.BAL.Appointments
                              docSchedule.DoctorID,
                              docSchedule.Doctor.DoctorName,
                              docSchedule.Doctor.Department.DepartmentName,
-                             docSchedule.DoctorScheduleID,
-                             TimeFrom = docSchedule.TimeFrom + (docSchedule.TimeFromMeridiemID == 1 ? " AM" : " PM"),
-                             TimeTo = docSchedule.TimeTo + (docSchedule.TimeToMeridiemID == 1 ? " AM" : " PM"),
+                             docSchedule.DoctorScheduleDayID,
+                             TimeFrom = docSchedule.TimeFrom + (docSchedule.TimeFromMeridiemID == 1 ? ":00 AM" : ":00 PM"),
+                             TimeTo = docSchedule.TimeTo + (docSchedule.TimeToMeridiemID == 1 ? ":00 AM" : ":00 PM"),
                              docSchedule.TimeFromMeridiemID,
                              docSchedule.TimeToMeridiemID
                          }).GroupBy(x => x.DayName).ToList();
@@ -47,13 +49,33 @@ namespace PatientPortal.BAL.Appointments
                              docSchedule.DoctorID,
                              docSchedule.Doctor.DoctorName,
                              docSchedule.Doctor.Department.DepartmentName,
-                             docSchedule.DoctorScheduleID,
+                             docSchedule.DoctorScheduleDayID,
                              TimeFrom = docSchedule.TimeFrom + (docSchedule.TimeFromMeridiemID == 1 ? ":00 AM" : ":00 PM"),
                              TimeTo = docSchedule.TimeTo + (docSchedule.TimeToMeridiemID == 1 ? ":00 AM" : ":00 PM"),
                              docSchedule.TimeFromMeridiemID,
                              docSchedule.TimeToMeridiemID
                          }).GroupBy(x => x.DoctorName).ToList();
             return _list;
+        }
+        public Enums.CrudStatus SaveAppointment(AppointmentInfo model)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _deptRow = _db.AppointmentInfoes.Where(x => x.AppointmentId.Equals(model.AppointmentId)).FirstOrDefault();
+            if (_deptRow == null)
+            {
+                AppointmentInfo _newAppointment = new AppointmentInfo();
+                _newAppointment.AppointmentDateFrom = model.AppointmentDateFrom;
+                _newAppointment.AppointmentDateTo = model.AppointmentDateTo;
+                _newAppointment.CreatedDate = DateTime.Now;
+                _newAppointment.DoctorId = model.DoctorId;
+                _newAppointment.PatientId = model.PatientId;
+                _db.Entry(_newAppointment).State = EntityState.Added;
+                _effectRow = _db.SaveChanges();
+                return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
+            }
+            else
+                return Enums.CrudStatus.DataAlreadyExist;
         }
     }
 }
