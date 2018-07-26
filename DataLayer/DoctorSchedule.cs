@@ -14,7 +14,7 @@ namespace DataLayer
     
     public partial class DoctorSchedule
     {
-        public int DoctorScheduleDayID { get; set; }
+        public int DoctorScheduleID { get; set; }
         public Nullable<int> DoctorID { get; set; }
         public Nullable<int> DayID { get; set; }
         public Nullable<int> TimeFrom { get; set; }

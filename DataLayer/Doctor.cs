@@ -17,6 +17,7 @@ namespace DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Doctor()
         {
+            this.AppointmentInfoes = new HashSet<AppointmentInfo>();
             this.DoctorSchedules = new HashSet<DoctorSchedule>();
         }
     
@@ -24,6 +25,8 @@ namespace DataLayer
         public string DoctorName { get; set; }
         public int DepartmentID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorSchedule> DoctorSchedules { get; set; }

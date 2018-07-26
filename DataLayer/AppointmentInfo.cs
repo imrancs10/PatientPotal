@@ -12,17 +12,17 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class PatientTransaction
+    public partial class AppointmentInfo
     {
-        public int PatientTransactionId { get; set; }
-        public string OrderId { get; set; }
-        public Nullable<int> Amount { get; set; }
-        public Nullable<int> PatientId { get; set; }
-        public string TransactionNumber { get; set; }
-        public string ResponseCode { get; set; }
-        public string StatusCode { get; set; }
-        public Nullable<System.DateTime> TransactionDate { get; set; }
+        public int AppointmentId { get; set; }
+        public int PatientId { get; set; }
+        public int DoctorId { get; set; }
+        public System.DateTime AppointmentDateFrom { get; set; }
+        public System.DateTime AppointmentDateTo { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedBy { get; set; }
     
+        public virtual Doctor Doctor { get; set; }
         public virtual PatientInfo PatientInfo { get; set; }
     }
 }

@@ -19,31 +19,32 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeptWiseDoctorScheduleList(int deptId=0,int year=0,int month=0)
+        public JsonResult DeptWiseDoctorScheduleList(int deptId = 0, int year = 0, int month = 0)
         {
             AppointDetails _details = new AppointDetails();
-            return Json(_details.DeptWiseDoctorScheduleList(deptId,year,month), JsonRequestBehavior.AllowGet);
+            return Json(_details.DeptWiseDoctorScheduleList(deptId, year, month), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult DayWiseDoctorScheduleList(int deptId, string day)
         {
             AppointDetails _details = new AppointDetails();
-            return Json(_details.DayWiseDoctorScheduleList(deptId,day), JsonRequestBehavior.AllowGet);
+            return Json(_details.DayWiseDoctorScheduleList(deptId, day), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult SaveAppointment(AppointmentInfo model,string doctorname,string deptname)
+        public JsonResult SaveAppointment(AppointmentInfo model, string doctorname, string deptname)
         {
             AppointDetails _details = new AppointDetails();
             model.PatientId = Convert.ToInt32(Session["PatientId"].ToString());
-            PatientInfo data = (PatientInfo)Session["PatientData"];
+            //PatientInfo data = (PatientInfo)Session["PatientData"];
+            var user = User;
             Message msg = new Message()
             {
-                MessageTo = data.Email,
-                MessageNameTo = data.FirstName + " " + data.MiddleName + (string.IsNullOrWhiteSpace(data.MiddleName) ? "" : " ") + data.LastName,
+                MessageTo = user.Email,
+                MessageNameTo = user.FirstName + " " + user.MiddleName + (string.IsNullOrWhiteSpace(user.MiddleName) ? "" : " ") + user.LastName,
                 Subject = "Appointment Booking Confirmation",
-                Body = EmailHelper.GetAppointmentSuccessEmail(data.FirstName, data.MiddleName, data.LastName, doctorname,model.AppointmentDateFrom,deptname)
+                Body = EmailHelper.GetAppointmentSuccessEmail(user.FirstName, user.MiddleName, user.LastName, doctorname, model.AppointmentDateFrom, deptname)
             };
             ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
             sendMessageStrategy.SendMessages();
