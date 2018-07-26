@@ -40,6 +40,7 @@ namespace PatientPortal.Controllers
             if (result != null)
             {
                 Session["PatientId"] = result.PatientId;
+                Session["PatientData"] = result;
                 setUserClaim(result);
                 return RedirectToAction("Dashboard");
             }

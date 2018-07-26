@@ -5,23 +5,26 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0169ed1805d34f57a5a7354245f240f6" Name="Diagram1">
-        <EntityTypeShape EntityType="PatientPortalModel.DayMaster" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PatientPortalModel.Department" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PatientPortalModel.Doctor" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PatientPortalModel.DoctorSchedule" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_Login" Width="1.5" PointX="10" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_User" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PatientPortalModel.MeridiemMaster" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientInfo" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientTransaction" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
-        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1" ManuallyRouted="false" />
-        <AssociationConnector Association="PatientPortalModel.FK_Doctor_Doctor" ManuallyRouted="false" />
-        <AssociationConnector Association="PatientPortalModel.FK_PatientInfo_Department" ManuallyRouted="false" />
-        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" ManuallyRouted="false" />
-        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster" ManuallyRouted="false" />
-        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1" ManuallyRouted="false" />
-        <AssociationConnector Association="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" ManuallyRouted="false" />
-        <AssociationConnector Association="PatientPortalModel.FK_PatientTransaction_PatientInfo" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PatientPortalModel.AppointmentInfo" Width="1.5" PointX="5.25" PointY="4.25" />
+        <EntityTypeShape EntityType="PatientPortalModel.DayMaster" Width="1.5" PointX="6" PointY="12.25" />
+        <EntityTypeShape EntityType="PatientPortalModel.Department" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="PatientPortalModel.Doctor" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="PatientPortalModel.DoctorSchedule" Width="1.5" PointX="8.25" PointY="4.25" />
+        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_Login" Width="1.5" PointX="11" PointY="9.625" />
+        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_User" Width="1.5" PointX="8.75" PointY="9.125" />
+        <EntityTypeShape EntityType="PatientPortalModel.MeridiemMaster" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientInfo" Width="1.5" PointX="3" PointY="7.625" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientTransaction" Width="1.5" PointX="5.25" PointY="8.75" />
+        <AssociationConnector Association="PatientPortalModel.FK_AppointmentInfo_Doctor" />
+        <AssociationConnector Association="PatientPortalModel.FK_AppointmentInfo_PatientInfo" />
+        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1" />
+        <AssociationConnector Association="PatientPortalModel.FK_Doctor_Doctor" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientInfo_Department" />
+        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" />
+        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster" />
+        <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1" />
+        <AssociationConnector Association="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_Login" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientTransaction_PatientInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

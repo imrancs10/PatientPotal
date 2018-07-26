@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using PatientPortal.BAL.Appointments;
 using DataLayer;
+using PatientPortal.Infrastructure;
+using PatientPortal.Infrastructure.Utility;
 
 namespace PatientPortal.Controllers
 {
@@ -31,10 +33,20 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveAppointment(AppointmentInfo model)
+        public JsonResult SaveAppointment(AppointmentInfo model,string doctorname,string deptname)
         {
             AppointDetails _details = new AppointDetails();
             model.PatientId = Convert.ToInt32(Session["PatientId"].ToString());
+            PatientInfo data = (PatientInfo)Session["PatientData"];
+            Message msg = new Message()
+            {
+                MessageTo = data.Email,
+                MessageNameTo = data.FirstName + " " + data.MiddleName + (string.IsNullOrWhiteSpace(data.MiddleName) ? "" : " ") + data.LastName,
+                Subject = "Appointment Booking Confirmation",
+                Body = EmailHelper.GetAppointmentSuccessEmail(data.FirstName, data.MiddleName, data.LastName, doctorname,model.AppointmentDateFrom,deptname)
+            };
+            ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+            sendMessageStrategy.SendMessages();
             return Json(CrudResponse(_details.SaveAppointment(model)), JsonRequestBehavior.AllowGet);
         }
     }

@@ -145,8 +145,10 @@ $(document).on('click', '.timelabel', function () {
     $(this).addClass('timelabelActive');
     var param = {};
     param.AppointmentDateFrom = ($('#spanDate').text().trim() + ' ' + ($(this).text().trim().split(' - ')[0]).split(' ')[0]).replace('Date : ','');
-    param.AppointmentDateTo = ($('#spanDate').text().trim() + ' ' + ($(this).text().trim().split(' - ')[1]).split(' ')[0]).replace('Date : ','');
+    param.AppointmentDateTo = ($('#spanDate').text().trim() + ' ' + ($(this).text().trim().split(' - ')[1]).split(' ')[0]).replace('Date : ', '');
+    param.doctorname = $(this).parent().parent().find('td:eq(1)').text().trim();
     param.DoctorId = $(this).parent().parent().data('doctorid');
+    param.deptname = $('#spanDepartment').text().split(' : ')[1];
     $('#btnGetAppointment').data('data', param);
     $('#selectAppointmant').text('You have selected appointment for ' + $(this).parent().parent().find('td:eq(1)').text().trim() + ' on ' + $('#spanDate').text().trim() + ' ' + $(this).text().trim());
 });
