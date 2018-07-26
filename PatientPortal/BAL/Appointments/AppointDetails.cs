@@ -25,12 +25,34 @@ namespace PatientPortal.BAL.Appointments
                              docSchedule.DoctorID,
                              docSchedule.Doctor.DoctorName,
                              docSchedule.Doctor.Department.DepartmentName,
-                             docSchedule.DoctorScheduleID,
+                             docSchedule.DoctorScheduleDayID,
                              TimeFrom = docSchedule.TimeFrom + (docSchedule.TimeFromMeridiemID == 1 ? " AM" : " PM"),
                              TimeTo = docSchedule.TimeTo + (docSchedule.TimeToMeridiemID == 1 ? " AM" : " PM"),
                              docSchedule.TimeFromMeridiemID,
                              docSchedule.TimeToMeridiemID
                          }).GroupBy(x => x.DayName).ToList();
+            return _list;
+        }
+        public IEnumerable<object> DayWiseDoctorScheduleList(int deptId, string day)
+        {
+            _db = new PatientPortalEntities();
+            var _list = (from docSchedule in _db.DoctorSchedules
+
+                         orderby docSchedule.DoctorID
+                         where docSchedule.Doctor.DepartmentID.Equals(deptId) && docSchedule.DayMaster.DayName.ToLower().Equals(day.ToLower())
+                         select new
+                         {
+                             DayId = docSchedule.DayID,
+                             docSchedule.DayMaster.DayName,
+                             docSchedule.DoctorID,
+                             docSchedule.Doctor.DoctorName,
+                             docSchedule.Doctor.Department.DepartmentName,
+                             docSchedule.DoctorScheduleDayID,
+                             TimeFrom = docSchedule.TimeFrom + (docSchedule.TimeFromMeridiemID == 1 ? ":00 AM" : ":00 PM"),
+                             TimeTo = docSchedule.TimeTo + (docSchedule.TimeToMeridiemID == 1 ? ":00 AM" : ":00 PM"),
+                             docSchedule.TimeFromMeridiemID,
+                             docSchedule.TimeToMeridiemID
+                         }).GroupBy(x => x.DoctorName).ToList();
             return _list;
         }
     }

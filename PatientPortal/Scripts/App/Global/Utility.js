@@ -3,8 +3,8 @@
 utility.ajax = {};
 utility.table = {};
 utility.alert = {};
-utility.global={};
-utility.ajax.errorCall = function (x,y,z) {
+utility.global = {};
+utility.ajax.errorCall = function (x, y, z) {
 
 }
 utility.ajax.options = {
@@ -12,7 +12,7 @@ utility.ajax.options = {
     method: "POST",
     contentType: 'application/json',
     error: utility.ajax.errorCall(),
-    success:''
+    success: ''
 };
 
 utility.ajax.helper = function (url, success, error) {
@@ -22,16 +22,15 @@ utility.ajax.helper = function (url, success, error) {
     else
         throw new Error('success should be a function');
 
-    if (typeof error !== undefined && typeof error === 'function')
-    {
+    if (typeof error !== undefined && typeof error === 'function') {
         utility.ajax.options.error = error;
     }
 
-    utility.ajax.options.url = url;    
+    utility.ajax.options.url = url;
 
     $.ajax(utility.ajax.options);
 }
-utility.ajax.helperWithData = function (url,data, success, error) {
+utility.ajax.helperWithData = function (url, data, success, error) {
     if (typeof success === 'function') {
         utility.ajax.options.success = success;
     }
@@ -56,20 +55,19 @@ utility.alert.setAlert = function (title, msg) {
         $(model).attr('title', title);
         $(model).find('p').empty().append(msg).show();
 
-         $("#alertModel").dialog({
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "OK": function () {
-                        $(this).dialog("close");
-                    }
+        $("#alertModel").dialog({
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "OK": function () {
+                    $(this).dialog("close");
                 }
-            });
+            }
+        });
     }
-    else
-    {
+    else {
         throw new Error('msg is required');
     }
 }
@@ -83,8 +81,42 @@ utility.alert.alertType.success = "Success";
 utility.global.getDaysArray = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 utility.global.getFullDaysArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 utility.global.getMonthArray = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+utility.global.get24FormarTime = function (time) {
+    var hours = Number(time.match(/^(\d+)/)[1]);
+    var minutes = Number(time.match(/:(\d+)/)[1]);
+    var AMPM = time.match(/\s(.*)$/)[1];
+    if (AMPM == "PM" && hours < 12) hours = hours + 12;
+    if (AMPM == "AM" && hours == 12) hours = hours - 12;
+    var sHours = hours.toString();
+    var sMinutes = minutes.toString();
+    if (hours < 10) sHours = "0" + sHours;
+    if (minutes < 10) sMinutes = "0" + sMinutes;
+    return { hour: sHours, minutes: sMinutes };
+}
+utility.global.timeSplitter = function (minTime, maxTime, minSeed) {
+    minSeed = minSeed > 60 ? 30 : (minSeed < 1 ? 30 : minSeed);
+    var time = [];
+    time.push(minTime);
+    var minHour = utility.global.get24FormarTime(minTime).hour*60;
+    var maxHour = utility.global.get24FormarTime(maxTime).hour*60;
+    for (var i = minHour; i <= maxHour; i+=60) {
+        for (var j = minSeed; j <= 60; j += minSeed) {
+           // if (((minHour) + j) % 60 != 0 && j > 0) {
+            time.push((((minHour + j) % 60)==0?((minHour / 60)+1):(minHour/60)) + ':' + (((minHour + j) % 60)==0?'00':((minHour + j) % 60)) + ' ' + ((minHour / 60) > 11 ? 'PM' : 'AM'));
+                
+            //}
+            //else {
+            //  //  minHour += 60;
+            //   // break;
+            //}
+        }
+        minHour += 60;
+    }
+    return time;
+}
 
-utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback,htmlData) {
+
+utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback, htmlData) {
     var urls = app.urls[methodUrl];
     urls = urls === undefined ? methodUrl : urls;
     utility.ajax.helper(urls, function (data) {
@@ -94,7 +126,7 @@ utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback,htmlDa
             $(data).each(function (ind, ele) {
                 var Value = value === undefined ? ele["Value"] : ele[value];
                 var Text = text === undefined ? ele["Text"] : ele[text];
-                if(typeof htmlData==undefined)
+                if (typeof htmlData == undefined)
                     ddl.append('<option value=' + Value + '>' + Text + '</option>');
                 else
                     ddl.append('<option value=' + Value + ' data-id="' + ele[htmlData] + '">' + Text + '</option>');

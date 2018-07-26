@@ -25,3 +25,4 @@ app.urls.scheduleEdit = '/masters/EditSchedule';
 app.urls.scheduleDelete = '/masters/DeleteSchedule';
 
 app.urls.appointmentdeptWiseDoctorScheduleList = "/Appointment/deptWiseDoctorScheduleList";
+app.urls.appointmentdayWiseDoctorScheduleList = "/Appointment/DayWiseDoctorScheduleList";

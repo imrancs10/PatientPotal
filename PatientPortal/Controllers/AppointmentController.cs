@@ -21,5 +21,12 @@ namespace PatientPortal.Controllers
             AppointDetails _details = new AppointDetails();
             return Json(_details.DeptWiseDoctorScheduleList(deptId,year,month), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult DayWiseDoctorScheduleList(int deptId, string day)
+        {
+            AppointDetails _details = new AppointDetails();
+            return Json(_details.DayWiseDoctorScheduleList(deptId,day), JsonRequestBehavior.AllowGet);
+        }
     }
 }

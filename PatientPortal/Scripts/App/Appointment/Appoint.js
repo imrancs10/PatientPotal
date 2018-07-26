@@ -19,7 +19,19 @@ $(document).ready(function () {
 
 $(document).on('change', '#ddlDepartments', function () {
     var deptId = $(this).find(':selected').val();
-    appointment.bindCalendar();
+    if (deptId != '') {
+        appointment.bindCalendar();
+        $('.step1').hide();
+        $('.step2').show();
+        $('.step3').hide();
+        $('#spanDeptName').text($(this).find(':selected').html().trim());
+    }
+    else
+    {
+        utility.alert.setAlert(utility.alert.alertType.warning, 'Please select department');
+        $('.step2').hide();
+        $('.step3').hide();
+    }
 });
 
 $(document).on('click', '#nextmonth', function () {
@@ -61,7 +73,7 @@ appointment.bindCalendar = function (year, month) {
     var index = 0;
     var day = 0;
     var rowLength = 5;
-    var deptId = $('#ddlDepartments').find(':selected').val()
+    var deptId = $('#ddlDepartments').find(':selected').val();
 
     //empty table 
 
@@ -70,6 +82,7 @@ appointment.bindCalendar = function (year, month) {
     rowLength = dateObj.firstDayIndex == 6 && dateObj.totalDays > 29 ? rowLength + 1 : rowLength;
     utility.ajax.helperWithData(app.urls.appointmentdeptWiseDoctorScheduleList, { deptId: deptId }, function (data) {
         var totalAvailable = [];
+        $('#btnStep2').data('data', data);
         $(data).each(function(ind,ele) {
             if (ele.length > 0) {
                 totalAvailable[utility.global.getFullDaysArray.indexOf(ele[0].DayName)] = ele.length;
@@ -83,16 +96,16 @@ appointment.bindCalendar = function (year, month) {
                     day += 1;
                     if (day == currentDate && inpuYear == date.getFullYear() && inpuMonth == date.getMonth())
                         if (availableDoctor>0)
-                            tr += '<td class="btn-info"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
+                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="btn-info getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
                         else
                         {
-                            tr += '<td class="btn-info"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
+                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="btn-info getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
                         }
                     else
                         if (availableDoctor > 0)
-                            tr += '<td><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
+                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
                         else
-                            tr += '<td><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
+                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
                 }
                 else if ((index == 0 && j < dateObj.firstDayIndex) || day >= dateObj.totalDays)
                     tr += '<td></td>';
@@ -105,4 +118,64 @@ appointment.bindCalendar = function (year, month) {
     });
   
 
+}
+
+$(document).on('click', '.getApp', function () {
+    $('.step1').hide();
+    $('.step2').hide();
+    $('.step3').show();
+    appointment.binddoctor($(this).data('day'));
+});
+$(document).on('click', '#btnStep2', function () {
+    $('.step2').show();
+    $('.step1').hide();
+    $('.step3').hide();
+});
+
+$(document).on('click', '#btnStep1', function () {
+    $('.step2').hide();
+    $('.step1').show();
+    $('.step3').hide();
+});
+
+$(document).on('click', '.timelabel', function () {
+    $(this).parent().parent().parent().find('.timelabelActive').removeClass('timelabelActive');
+    $(this).addClass('timelabelActive');
+});
+
+appointment.binddoctor = function (day) {
+    var data = $('#btnStep2').data('data');
+    var deptId = $('#ddlDepartments').find(':selected').val();
+    var doctorList = [];
+    utility.ajax.helperWithData(app.urls.appointmentdayWiseDoctorScheduleList, { deptId: deptId, day: day }, function (data) {
+        doctorList = data;
+        var table = $('#appointDoctorTable tbody');
+        var srno = 1;
+        var tr = '<tr>';
+        $(table).empty();
+
+        $(doctorList).each(function (ind, ele) {
+            tr += '<td>' + srno + '</td>';
+            tr += '<td>' + ele[0].DoctorName + '</td>';
+            tr += '<td>' + Timelist(ele) + '</td>';
+            tr += '</tr>';
+            srno+=1;
+        });
+
+        $(table).append(tr);
+    });
+}
+
+function Timelist(ele) {
+    
+    var html = '';
+    $(ele).each(function (ind1,ele1) {
+        var tList  = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, 30);
+        for (var i = 1; i < tList.length - 1; i++) {
+            html += '<div class="timelabel">' + tList[i - 1] + '-' + tList[i] + '</div>';
+        }
+    });
+
+    return html;
+   
 }
