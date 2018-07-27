@@ -6,7 +6,7 @@ var appointment = {};
 
 $(document).ready(function () {
     utility.bindDdlByAjax(app.urls.commonDepartmentList, 'ddlDepartments', 'DeparmentName', 'DepartmentId');
-    appointment.bindCalendar();
+    //appointment.bindCalendar();
     var date = new Date();
     $('#lblmonthyear').text(utility.global.getMonthArray[date.getMonth()] + ', ' + date.getFullYear());
 });
@@ -26,8 +26,7 @@ $(document).on('change', '#ddlDepartments', function () {
         $('.step3').hide();
         $('#spanDeptName').text($(this).find(':selected').html().trim());
     }
-    else
-    {
+    else {
         utility.alert.setAlert(utility.alert.alertType.warning, 'Please select department');
         $('.step2').hide();
         $('.step3').hide();
@@ -39,12 +38,12 @@ $(document).on('click', '#nextmonth', function () {
     currentMonth = isNaN(currentMonth) ? 0 : currentMonth;
     $('#nextmonth').data('currentmonth', (currentMonth + 1));
     var newDate = new Date();
-    newDate.setMonth((newDate.getMonth()+currentMonth + 1));
+    newDate.setMonth((newDate.getMonth() + currentMonth + 1));
     appointment.bindCalendar(newDate.getFullYear(), newDate.getMonth());
     $('#lblmonthyear').text(utility.global.getMonthArray[newDate.getMonth()] + ', ' + newDate.getFullYear());
 });
 
-$(document).on('click', '#btnToday', function () {   
+$(document).on('click', '#btnToday', function () {
     var newDate = new Date();
     appointment.bindCalendar(newDate.getFullYear(), newDate.getMonth());
     $('#lblmonthyear').text(utility.global.getMonthArray[newDate.getMonth()] + ', ' + newDate.getFullYear());
@@ -56,7 +55,7 @@ $(document).on('click', '#premonth', function () {
     currentMonth = isNaN(currentMonth) ? 0 : currentMonth;
     $('#nextmonth').data('currentmonth', (currentMonth - 1));
     var newDate = new Date();
-    newDate.setMonth((newDate.getMonth() + currentMonth -1));
+    newDate.setMonth((newDate.getMonth() + currentMonth - 1));
     appointment.bindCalendar(newDate.getFullYear(), newDate.getMonth());
     $('#lblmonthyear').text(utility.global.getMonthArray[newDate.getMonth()] + ', ' + newDate.getFullYear());
 });
@@ -83,7 +82,7 @@ appointment.bindCalendar = function (year, month) {
     utility.ajax.helperWithData(app.urls.appointmentdeptWiseDoctorScheduleList, { deptId: deptId }, function (data) {
         var totalAvailable = [];
         $('#btnStep2').data('data', data);
-        $(data).each(function(ind,ele) {
+        $(data).each(function (ind, ele) {
             if (ele.length > 0) {
                 totalAvailable[utility.global.getFullDaysArray.indexOf(ele[0].DayName)] = ele.length;
             }
@@ -94,18 +93,24 @@ appointment.bindCalendar = function (year, month) {
                 var availableDoctor = totalAvailable[j] === undefined ? 0 : totalAvailable[j];
                 if ((index == 0 && j >= dateObj.firstDayIndex) || (index > 0 && day < dateObj.totalDays)) {
                     day += 1;
-                    if (day == currentDate && inpuYear == date.getFullYear() && inpuMonth == date.getMonth())
-                        if (availableDoctor>0)
-                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear+'-'+dateObj.currentMonth+'-'+day) + '" class="btn-info getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
-                        else
-                        {
-                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="btn-info getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
+                    if ((dateObj.currentMonth >= dateObj.todayMonth && dateObj.currentYear >= dateObj.todayYear && day >= dateObj.todayDate) || (dateObj.currentMonth > dateObj.todayMonth && dateObj.currentYear >= dateObj.todayYear)) {
+                        if (day == currentDate && inpuYear == date.getFullYear() && inpuMonth == date.getMonth()) {
+                            if (availableDoctor > 0)
+                                tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="btn-info getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
+                            else {
+                                tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="btn-info getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
+                            }
                         }
-                    else
-                        if (availableDoctor > 0)
-                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
-                        else
-                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
+                        else {
+                            if (availableDoctor > 0)
+                                tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="getApp"><div class="cal-date">' + day + '</div><div class="cal-available">Available : ' + availableDoctor + '</div></td>';
+                            else
+                                tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
+                        }
+                    }
+                    else {
+                        tr += '<td style="background:gray"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + 0 + '</div></td>';
+                    }
                 }
                 else if ((index == 0 && j < dateObj.firstDayIndex) || day >= dateObj.totalDays)
                     tr += '<td></td>';
@@ -116,7 +121,7 @@ appointment.bindCalendar = function (year, month) {
 
         $(tbody).append(tr);
     });
-  
+
 
 }
 
@@ -124,8 +129,8 @@ $(document).on('click', '.getApp', function () {
     $('.step1').hide();
     $('.step2').hide();
     $('.step3').show();
-    $('#spanDepartment').text('Department : '+$('#ddlDepartments').find(':selected').text());
-    $('#spanDate').text('Date : '+new Date($(this).data('date')).toDateString());
+    $('#spanDepartment').text('Department : ' + $('#ddlDepartments').find(':selected').text());
+    $('#spanDate').text('Date : ' + new Date($(this).data('date')).toDateString());
     appointment.binddoctor($(this).data('day'));
 });
 $(document).on('click', '#btnStep2', function () {
@@ -144,7 +149,7 @@ $(document).on('click', '.timelabel', function () {
     $(this).parent().parent().parent().find('.timelabelActive').removeClass('timelabelActive');
     $(this).addClass('timelabelActive');
     var param = {};
-    param.AppointmentDateFrom = ($('#spanDate').text().trim() + ' ' + ($(this).text().trim().split(' - ')[0]).split(' ')[0]).replace('Date : ','');
+    param.AppointmentDateFrom = ($('#spanDate').text().trim() + ' ' + ($(this).text().trim().split(' - ')[0]).split(' ')[0]).replace('Date : ', '');
     param.AppointmentDateTo = ($('#spanDate').text().trim() + ' ' + ($(this).text().trim().split(' - ')[1]).split(' ')[0]).replace('Date : ', '');
     param.doctorname = $(this).parent().parent().find('td:eq(1)').text().trim();
     param.DoctorId = $(this).parent().parent().data('doctorid');
@@ -154,9 +159,8 @@ $(document).on('click', '.timelabel', function () {
 });
 
 $(document).on('click', '#btnGetAppointment', function () {
-    utility.ajax.helperWithData(app.urls.appointmentSaveAppointment, $(this).data('data'), function(data) {
-        if (data = 'Data has been saved')
-        {
+    utility.ajax.helperWithData(app.urls.appointmentSaveAppointment, $(this).data('data'), function (data) {
+        if (data = 'Data has been saved') {
             utility.alert.setAlert(utility.alert.alertType.success, 'Your appointment has been booked');
             $('.timelabelActive').removeClass('timelabelActive');
             $('#selectAppointmant').text();
@@ -181,7 +185,7 @@ appointment.binddoctor = function (day) {
             tr += '<td>' + ele[0].DoctorName + '</td>';
             tr += '<td>' + Timelist(ele) + '</td>';
             tr += '</tr>';
-            srno+=1;
+            srno += 1;
         });
 
         $(table).append(tr);
@@ -189,15 +193,15 @@ appointment.binddoctor = function (day) {
 }
 
 function Timelist(ele) {
-    
+
     var html = '';
-    $(ele).each(function (ind1,ele1) {
-        var tList  = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, 30);
+    $(ele).each(function (ind1, ele1) {
+        var tList = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, 30);
         for (var i = 1; i < tList.length - 1; i++) {
             html += '<div class="timelabel" title="' + tList[i - 1] + ' - ' + tList[i] + '">' + tList[i - 1] + ' - ' + tList[i] + '</div>';
         }
     });
 
     return html;
-   
+
 }

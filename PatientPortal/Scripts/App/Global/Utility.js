@@ -178,6 +178,9 @@ Date.prototype.getCustomDetails = function (year, month) {
     obj.currentYear = date.getFullYear();
     obj.currentMonth = date.getMonth() + 1;
     obj.getDateString = date.toDateString();
+    obj.todayDate = new Date().getDate();
+    obj.todayMonth = new Date().getMonth()+1;
+    obj.todayYear = new Date().getFullYear();
     return obj;
 }
 
