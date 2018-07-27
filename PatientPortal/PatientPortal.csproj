@@ -232,6 +232,7 @@
     <Content Include="img\179350.png" />
     <Content Include="img\179351.png" />
     <Content Include="img\179352.png" />
+    <Content Include="img\ajax-loader.gif" />
     <Content Include="img\banner1.jpg" />
     <Content Include="img\pp.jpg" />
     <Content Include="Scripts\App\Appointment\Appoint.js" />

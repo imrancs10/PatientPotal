@@ -158,6 +158,8 @@ $(document).on('click', '#btnGetAppointment', function () {
         if (data = 'Data has been saved')
         {
             utility.alert.setAlert(utility.alert.alertType.success, 'Your appointment has been booked');
+            $('.timelabelActive').removeClass('timelabelActive');
+            $('#selectAppointmant').text();
         }
     })
 });

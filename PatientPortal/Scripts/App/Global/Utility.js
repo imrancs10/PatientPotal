@@ -180,3 +180,11 @@ Date.prototype.getCustomDetails = function (year, month) {
     obj.getDateString = date.toDateString();
     return obj;
 }
+
+$(document).ajaxStart(function () {
+    $('.ajaxloader').show();
+});
+
+$(document).ajaxComplete(function () {
+    $('.ajaxloader').hide();
+});
