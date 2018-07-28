@@ -113,7 +113,7 @@ namespace PatientPortal.Controllers
         {
             Session.Abandon();
             Session.Clear();
-            return RedirectToAction("Dashboard", "Home");
+            return RedirectToAction("Index", "Login");
         }
     }
 }
