@@ -235,6 +235,7 @@
     <Content Include="img\ajax-loader.gif" />
     <Content Include="img\banner1.jpg" />
     <Content Include="img\pp.jpg" />
+    <Content Include="img\ppp.png" />
     <Content Include="Scripts\App\Appointment\Appoint.js" />
     <Content Include="Scripts\App\Global\App.js" />
     <Content Include="Scripts\App\Global\Utility.js" />
