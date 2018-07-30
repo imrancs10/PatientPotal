@@ -109,7 +109,7 @@ appointment.bindCalendar = function (year, month) {
                         }
                     }
                     else {
-                        tr += '<td style="background:gray"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + 0 + '</div></td>';
+                        tr += '<td style="background:#a2a2a285" title="Date already passed"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + 0 + '</div></td>';
                     }
                 }
                 else if ((index == 0 && j < dateObj.firstDayIndex) || day >= dateObj.totalDays)
@@ -159,46 +159,85 @@ $(document).on('click', '.timelabel', function () {
 });
 
 $(document).on('click', '#btnGetAppointment', function () {
-    utility.ajax.helperWithData(app.urls.appointmentSaveAppointment, $(this).data('data'), function (data) {
-        if (data = 'Data has been saved') {
-            utility.alert.setAlert(utility.alert.alertType.success, 'Your appointment has been booked');
-            $('.timelabelActive').removeClass('timelabelActive');
-            $('#selectAppointmant').text();
-        }
-    })
+    if ($(this).data('data') != '') {
+        utility.ajax.helperWithData(app.urls.appointmentSaveAppointment, $(this).data('data'), function (data) {
+            if (data = 'Data has been saved') {
+                utility.alert.setAlert(utility.alert.alertType.success, 'Your appointment has been booked');
+                $('.timelabelActive').addClass('Bookedtimelabel').removeClass('timelabel').removeClass('timelabelActive');
+                $('#selectAppointmant').text();
+                $('#btnGetAppointment').data('data','')
+            }
+        });
+    }
+    else
+    {
+        utility.alert.setAlert(utility.alert.alertType.warning, 'Please select the appointment time');
+    }
 });
 
 appointment.binddoctor = function (day) {
     var data = $('#btnStep2').data('data');
     var deptId = $('#ddlDepartments').find(':selected').val();
     var doctorList = [];
-    utility.ajax.helperWithData(app.urls.appointmentdayWiseDoctorScheduleList, { deptId: deptId, day: day }, function (data) {
-        doctorList = data;
+    utility.ajax.helperWithData(app.urls.appointmentdayWiseDoctorScheduleList, { deptId: deptId, day: day }, function (doctorListdata) {
+        utility.ajax.helperWithData(app.urls.appointmentDateWiseDoctorAppointmentList, { date: new Date($('#spanDate').text().trim().split(' : ')[1]) }, function (AppointmentListdata) { 
+        doctorList = doctorListdata;
         var table = $('#appointDoctorTable tbody');
         var srno = 1;
         var tr = '';
         $(table).empty();
 
         $(doctorList).each(function (ind, ele) {
+            var appList = $(AppointmentListdata).filter(function(ind,listele) {
+                if (listele[0].DoctorId == ele[0].DoctorID)
+                    return listele;
+            });
             tr += '<tr data-doctorid="' + ele[0].DoctorID + '">';
             tr += '<td>' + srno + '</td>';
             tr += '<td>' + ele[0].DoctorName + '</td>';
-            tr += '<td>' + Timelist(ele) + '</td>';
+            tr += '<td>' + Timelist(ele, appList) + '</td>';
             tr += '</tr>';
             srno += 1;
         });
 
         $(table).append(tr);
+        });
     });
 }
 
-function Timelist(ele) {
-
+function Timelist(ele, appList) {
+    appList = appList.length > 0 ? appList : [{'a':0}];
     var html = '';
-    $(ele).each(function (ind1, ele1) {
-        var tList = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, 30);
-        for (var i = 1; i < tList.length - 1; i++) {
-            html += '<div class="timelabel" title="' + tList[i - 1] + ' - ' + tList[i] + '">' + tList[i - 1] + ' - ' + tList[i] + '</div>';
+    $(ele).each(function (ind1, ele1) {       
+            var tList = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, 30);
+            for (var i = 1; i < tList.length - 1; i++) {
+              
+                    var availableAppTime = tList[i - 1] + ' - ' + tList[i];
+                    //if (bookedAppTime == availableAppTime && html.indexOf('<div class="timelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>') > -1)
+                    //{
+                    //    html.replace('<div class="timelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>', '<div class="Bookedtimelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>')
+                    //}
+                    //else if (html.indexOf(availableAppTime) == -1 && ((ele.AppointmentDateFrom && bookedAppTime != availableAppTime) || (ele.AppointmentDateFrom === undefined && bookedAppTime === undefined))) {
+                    //    html += '<div class="timelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>';
+                    //}
+                    //else if (html.indexOf(availableAppTime) == -1 && bookedAppTime)
+                    //{
+                    //    html += '<div class="Bookedtimelabel" title="' + tList[i - 1] + ' - ' + tList[i] + '">' + availableAppTime + '</div>';
+                    //}
+                // });
+
+                    html += '<div class="timelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>';
+            }
+       
+    });
+    $(appList[0]).each(function (ind, ele) {
+        if (ele.AppointmentDateFrom) {
+            var fromtime = new Date(parseInt(ele.AppointmentDateFrom.substr(6))).toTimeString().substr(0, 5);
+            var totime = new Date(parseInt(ele.AppointmentDateTo.substr(6))).toTimeString().substr(0, 5);
+            var bookedAppTime = (parseInt(fromtime.substr(0, 2)) > 11 ? fromtime + ' PM' : fromtime + ' AM') + ' - ' + (parseInt(totime.substr(0, 2)) > 11 ? totime + ' PM' : totime + ' AM');
+            if (html.indexOf('<div class="timelabel" title="' + bookedAppTime + '">' + bookedAppTime + '</div>') > -1) {
+                html = html.replace('<div class="timelabel" title="' + bookedAppTime + '">' + bookedAppTime + '</div>', '<div class="Bookedtimelabel" title="' + bookedAppTime + '">' + bookedAppTime + '</div>')
+            }
         }
     });
 

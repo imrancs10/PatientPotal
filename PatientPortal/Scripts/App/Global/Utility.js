@@ -103,7 +103,7 @@ utility.global.timeSplitter = function (minTime, maxTime, minSeed) {
     time.push(minTimeObj.hour + ':' + minTimeObj.minutes + (minTimeObj.hour>11?' PM':' AM'));
     for (var i = minMins; i <= maxMins; i+=60) {
         for (var j = minSeed; j <= 60; j += minSeed) {
-            time.push((((minMins + j) % 60)==0?((minMins / 60)+1):(minMins/60)) + ':' + (((minMins + j) % 60)==0?'00':((minMins + j) % 60)) + ' ' + ((minMins / 60) > 11 ? 'PM' : 'AM'));                
+            time.push((((minMins + j) % 60) == 0 ? ((minMins / 60) + 1) : (minMins / 60)) + ':' + (((minMins + j) % 60) == 0 ? '00' : ((minMins + j) % 60)) + ' ' + ((((minMins + j) % 60) == 0 ? ((minMins / 60) + 1) : (minMins / 60))>=12 ? 'PM' : 'AM'));
         }
         minMins += 60;
     }

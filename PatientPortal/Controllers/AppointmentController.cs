@@ -33,6 +33,13 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
+        public JsonResult DateWiseDoctorAppointmentList(DateTime date)
+        {
+            AppointDetails _details = new AppointDetails();
+            return Json(_details.DateWiseDoctorAppointmentList(date), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult SaveAppointment(AppointmentInfo model, string doctorname, string deptname)
         {
             AppointDetails _details = new AppointDetails();

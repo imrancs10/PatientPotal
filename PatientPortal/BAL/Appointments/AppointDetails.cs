@@ -57,6 +57,24 @@ namespace PatientPortal.BAL.Appointments
                          }).GroupBy(x => x.DoctorName).ToList();
             return _list;
         }
+        public IEnumerable<object> DateWiseDoctorAppointmentList(DateTime date)
+        {
+            _db = new PatientPortalEntities();
+            var _list = (from docAppointment in _db.AppointmentInfoes
+
+                         orderby docAppointment.DoctorId
+                         where DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom)<= date && DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) >= date.Date
+                         select new
+                         {
+                            docAppointment.AppointmentDateFrom,
+                             docAppointment.AppointmentDateTo,
+                             docAppointment.AppointmentId,
+                             docAppointment.DoctorId,
+                             docAppointment.Doctor.DoctorName,
+                             docAppointment.PatientId
+                         }).OrderBy(x=>x.AppointmentDateFrom).GroupBy(x => x.DoctorId).ToList();
+            return _list;
+        }
         public Enums.CrudStatus SaveAppointment(AppointmentInfo model)
         {
             _db = new PatientPortalEntities();
