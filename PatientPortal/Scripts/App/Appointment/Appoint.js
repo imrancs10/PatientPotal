@@ -193,8 +193,8 @@ appointment.binddoctor = function (day) {
                     return listele;
             });
             tr += '<tr data-doctorid="' + ele[0].DoctorID + '">';
-            tr += '<td>' + srno + '</td>';
-            tr += '<td>' + ele[0].DoctorName + '</td>';
+            tr += '<td style="padding: 3%;">' + srno + '</td>';
+            tr += '<td style="padding: 3%;">' + ele[0].DoctorName + '</td>';
             tr += '<td>' + Timelist(ele, appList) + '</td>';
             tr += '</tr>';
             srno += 1;
@@ -210,23 +210,9 @@ function Timelist(ele, appList) {
     var html = '';
     $(ele).each(function (ind1, ele1) {       
             var tList = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, 30);
-            for (var i = 1; i < tList.length - 1; i++) {
-              
+            for (var i = 1; i < tList.length - 1; i++) {              
                     var availableAppTime = tList[i - 1] + ' - ' + tList[i];
-                    //if (bookedAppTime == availableAppTime && html.indexOf('<div class="timelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>') > -1)
-                    //{
-                    //    html.replace('<div class="timelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>', '<div class="Bookedtimelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>')
-                    //}
-                    //else if (html.indexOf(availableAppTime) == -1 && ((ele.AppointmentDateFrom && bookedAppTime != availableAppTime) || (ele.AppointmentDateFrom === undefined && bookedAppTime === undefined))) {
-                    //    html += '<div class="timelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>';
-                    //}
-                    //else if (html.indexOf(availableAppTime) == -1 && bookedAppTime)
-                    //{
-                    //    html += '<div class="Bookedtimelabel" title="' + tList[i - 1] + ' - ' + tList[i] + '">' + availableAppTime + '</div>';
-                    //}
-                // });
-
-                    html += '<div class="timelabel" title="' + availableAppTime + '">' + availableAppTime + '</div>';
+                    html += '<div class="timelabel" title="' + availableAppTime + ' slot available for booking">' + availableAppTime + '</div>';
             }
        
     });
@@ -235,8 +221,10 @@ function Timelist(ele, appList) {
             var fromtime = new Date(parseInt(ele.AppointmentDateFrom.substr(6))).toTimeString().substr(0, 5);
             var totime = new Date(parseInt(ele.AppointmentDateTo.substr(6))).toTimeString().substr(0, 5);
             var bookedAppTime = (parseInt(fromtime.substr(0, 2)) > 11 ? fromtime + ' PM' : fromtime + ' AM') + ' - ' + (parseInt(totime.substr(0, 2)) > 11 ? totime + ' PM' : totime + ' AM');
-            if (html.indexOf('<div class="timelabel" title="' + bookedAppTime + '">' + bookedAppTime + '</div>') > -1) {
-                html = html.replace('<div class="timelabel" title="' + bookedAppTime + '">' + bookedAppTime + '</div>', '<div class="Bookedtimelabel" title="' + bookedAppTime + '">' + bookedAppTime + '</div>')
+            var oldString = '<div class="timelabel" title="' + bookedAppTime + ' slot available for booking">' + bookedAppTime + '</div>';
+            var newString = '<div class="Bookedtimelabel" title="' + bookedAppTime + ' slot already booked">' + bookedAppTime + '</div>';
+            if (html.indexOf(oldString) > -1) {
+                html = html.replace(oldString, newString);
             }
         }
     });
