@@ -62,23 +62,23 @@ namespace PatientPortal.Controllers
 
         [MultipleButton(Name = "action", Argument = "getotp")]
         [HttpPost]
-        public ActionResult GetPatientOTP(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department)
+        public ActionResult GetPatientOTP(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (mobilenumber.Trim().Length != 10)
             {
                 SetAlertMessage("Please Enter correct Mobile Number", "Register");
-                return RedirectToAction("Index");
+                return RedirectToAction("Register");
             }
             else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
             {
                 SetAlertMessage("Please Enter correct Email Address", "Register");
-                return RedirectToAction("Index");
+                return RedirectToAction("Register");
             }
             else
             {
                 string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
-                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode);
+                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     Message msg = new Message()
@@ -174,7 +174,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePassword(string password, string confirmpassword,string registrationNumber)
+        public ActionResult CreatePassword(string password, string confirmpassword, string registrationNumber)
         {
             if (password.Trim() != confirmpassword.Trim())
             {
@@ -314,7 +314,7 @@ namespace PatientPortal.Controllers
             }
             return View();
         }
-        private static Dictionary<string, object> SavePatientInfo(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode)
+        private static Dictionary<string, object> SavePatientInfo(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state)
         {
             PatientDetails _details = new PatientDetails();
             PatientInfo info = new PatientInfo()
@@ -329,10 +329,11 @@ namespace PatientPortal.Controllers
                 Address = address,
                 City = city,
                 Country = country,
-                PinCode = Convert.ToInt32(pincode),
+                PinCode = int.TryParse(pincode, out int pin) ? pin : 0,
                 Religion = religion,
                 OTP = verificationCode,
-                DepartmentId = Convert.ToInt32(department)
+                DepartmentId = Convert.ToInt32(department),
+                State = state
             };
             var result = _details.RegisterPatientDetail(info);
             return result;

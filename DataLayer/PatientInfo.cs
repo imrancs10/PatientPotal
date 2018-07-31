@@ -38,6 +38,7 @@ namespace DataLayer
         public string Religion { get; set; }
         public Nullable<int> DepartmentId { get; set; }
         public string OTP { get; set; }
+        public string State { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }

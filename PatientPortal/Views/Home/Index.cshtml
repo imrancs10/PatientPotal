@@ -28,12 +28,12 @@
                 @Html.ActionLink("Patient Portal Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 
                 @*<div style="float:right">
-            @Html.ActionLink("Register", "Register", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>*@
+                        @Html.ActionLink("Register", "Register", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>*@
             </div>
         </div>
     </div>
-    
+
     <div class="container1">
         @*<div class="col-md-8 col-md-offset-2 col-sm-12 no-padding-sm">*@
         <div class="col-md-12 loginpage-container">
@@ -51,7 +51,7 @@
 
             <div class="col-md-4 no-padding logintoggle">
                 <form id="login_form" class="dialog-form" action="/home/GetPatientLogin" method="POST">
-                    <div class="login-page-section">
+                    <div class="login-page-section" style="min-height:350px;">
                         <small class="loginpage-alert lv-alert alert-success text-center" style="display:none;font-weight: 600;">
                         </small>
                         <h3 style="text-align:center;font-size:18px;font-weight:700;color:#434142">Login to Your Account</h3>
@@ -69,14 +69,14 @@
                             <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" style="float:left;width:300px;">
                         </div>
                         @*<input type="hidden" name="emailidfor" value="">
-                        <input type="hidden" name="emaillinktype" value="">
-                        <input type="hidden" name="getpreurl" value="login.html">
-                        <input type="hidden" name="auser" value="">
-                        <div class="form-group">
-                            <div class="src_field_box">
-                                <button type="submit" onclick="Home.login(event);" id="LoginBTN" class="btn btn-lg btn-primary btn-block ripplelink">LOGIN</button>
-                            </div>
-                        </div>*@
+                            <input type="hidden" name="emaillinktype" value="">
+                            <input type="hidden" name="getpreurl" value="login.html">
+                            <input type="hidden" name="auser" value="">
+                            <div class="form-group">
+                                <div class="src_field_box">
+                                    <button type="submit" onclick="Home.login(event);" id="LoginBTN" class="btn btn-lg btn-primary btn-block ripplelink">LOGIN</button>
+                                </div>
+                            </div>*@
                         <div class="login-forgot-link" style="">
                             <ul class="list-inline">
                                 <li><a href="javascript:void(0);" id="showforgotpass">Forgot Password?</a></li>
@@ -96,69 +96,69 @@
                 </div>
             </div>
             @*<div class="col-md-6 no-padding forgotpasstoggle" style="display:none;">
-                <div class="login-page-section">
-                    <div id="forget_pwd_wrapper">
-                        <p class="text-center"><img src="../assets/images/forgot.gif" width="200" alt="" /></p>
-                        <h2>Forgot Your Password?</h2>
-                        <p>Don't worry, it happens to the best of us.</p>
-                        <div class="form-group mt-10">
-                            <div class="src_field_box">
-                                <input type="email" name="forgot_email" id="forgot_email" class="login-page-input" placeholder="Email Address" onkeydown="keyPress()">
-                                <small class="lv-alert alert-danger" id="errForgot" style='display:none'></small>
+                    <div class="login-page-section">
+                        <div id="forget_pwd_wrapper">
+                            <p class="text-center"><img src="../assets/images/forgot.gif" width="200" alt="" /></p>
+                            <h2>Forgot Your Password?</h2>
+                            <p>Don't worry, it happens to the best of us.</p>
+                            <div class="form-group mt-10">
+                                <div class="src_field_box">
+                                    <input type="email" name="forgot_email" id="forgot_email" class="login-page-input" placeholder="Email Address" onkeydown="keyPress()">
+                                    <small class="lv-alert alert-danger" id="errForgot" style='display:none'></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="src_field_box">
+                                    <button type="button" id="btn_forgot" class="btn btn-lg btn-primary btn-block ripplelink" onclick="javascript:return forgot_password()">SUBMIT</button>
+                                </div>
+                            </div>
+                            <div class="login-forgot-link">
+                                <ul class="list-inline">
+                                    <li><a href="javascript:void(0);" id="showlogin" class="backtolog"><i class="fa fa-arrow-left"></i> Back to Login</a></li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="src_field_box">
-                                <button type="button" id="btn_forgot" class="btn btn-lg btn-primary btn-block ripplelink" onclick="javascript:return forgot_password()">SUBMIT</button>
-                            </div>
-                        </div>
-                        <div class="login-forgot-link">
-                            <ul class="list-inline">
-                                <li><a href="javascript:void(0);" id="showlogin" class="backtolog"><i class="fa fa-arrow-left"></i> Back to Login</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="forget_password_success" style="display:none;margin-top:14%;">
+                        <div id="forget_password_success" style="display:none;margin-top:14%;">
 
-                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
-                        <small class="loginpage-alert lv-alert alert-success text-center" style=";font-weight: 600;">
-                            <span id="spn_forget_pwd_success"></span>
-                        </small>
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                            <small class="loginpage-alert lv-alert alert-success text-center" style=";font-weight: 600;">
+                                <span id="spn_forget_pwd_success"></span>
+                            </small>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 no-padding reactitoggle" style="display:none;">
-                <div class="login-page-section">
-                    <div id="resend_mail_wrapper">
-                        <p class="text-center"><img src="../assets/images/activation_new.svg" width="170" alt="" /></p>
-                        <h2>Resend Activation Email</h2>
-                        <p>Don't worry, it happens to the best of us.</p>
-                        <div class="form-group mt-10">
-                            <div class="src_field_box">
-                                <input type="email" name="resend_activation_email" id="resend_activation_email" class="login-page-input" placeholder="Email Address" value="" onkeydown="keyPress()">
-                                <small class="lv-alert alert-danger" id="errResend" style='display:none'></small>
+                <div class="col-md-6 no-padding reactitoggle" style="display:none;">
+                    <div class="login-page-section">
+                        <div id="resend_mail_wrapper">
+                            <p class="text-center"><img src="../assets/images/activation_new.svg" width="170" alt="" /></p>
+                            <h2>Resend Activation Email</h2>
+                            <p>Don't worry, it happens to the best of us.</p>
+                            <div class="form-group mt-10">
+                                <div class="src_field_box">
+                                    <input type="email" name="resend_activation_email" id="resend_activation_email" class="login-page-input" placeholder="Email Address" value="" onkeydown="keyPress()">
+                                    <small class="lv-alert alert-danger" id="errResend" style='display:none'></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="src_field_box">
+                                    <button type="button" id="btn_resend" class="btn btn-lg btn-primary btn-block ripplelink" onclick="javascript:return resend_activation()">SEND</button>
+                                </div>
+                            </div>
+                            <div class="login-forgot-link">
+                                <ul class="list-inline">
+                                    <li><a href="javascript:void(0);" id="showlogin2" class="backtolog"><i class="fa fa-arrow-left"></i> Back to Login</a></li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="src_field_box">
-                                <button type="button" id="btn_resend" class="btn btn-lg btn-primary btn-block ripplelink" onclick="javascript:return resend_activation()">SEND</button>
-                            </div>
-                        </div>
-                        <div class="login-forgot-link">
-                            <ul class="list-inline">
-                                <li><a href="javascript:void(0);" id="showlogin2" class="backtolog"><i class="fa fa-arrow-left"></i> Back to Login</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="resend_mail_success" style="display:none;margin-top:14%;">
+                        <div id="resend_mail_success" style="display:none;margin-top:14%;">
 
-                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
-                        <small class="loginpage-alert lv-alert alert-success text-center" style=";font-weight: 600;">
-                            <span id="spn_resend_mail_success"></span>
-                        </small>
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                            <small class="loginpage-alert lv-alert alert-success text-center" style=";font-weight: 600;">
+                                <span id="spn_resend_mail_success"></span>
+                            </small>
+                        </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
         </div>
         @*</div>*@
     </div>
