@@ -85,6 +85,15 @@
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="ModifiedAt" Type="datetime" />
         </EntityType>
+        <EntityType Name="HospitalDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HospitalName" Type="varchar" MaxLength="500" />
+          <Property Name="HospitalLogo" Type="varbinary(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="MeridiemMaster">
           <Key>
             <PropertyRef Name="MeridiemID" />
@@ -256,6 +265,7 @@
           <EntitySet Name="DoctorSchedule" EntityType="Self.DoctorSchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_Login" EntityType="Self.Gbl_Master_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_User" EntityType="Self.Gbl_Master_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HospitalDetail" EntityType="Self.HospitalDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeridiemMaster" EntityType="Self.MeridiemMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientTransaction" EntityType="Self.PatientTransaction" Schema="dbo" store:Type="Tables" />
@@ -618,7 +628,17 @@
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientTransaction" EntitySet="PatientTransactions" />
           </AssociationSet>
+          <EntitySet Name="HospitalDetails" EntityType="PatientPortalModel.HospitalDetail" />
         </EntityContainer>
+        <EntityType Name="HospitalDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HospitalLogo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -755,6 +775,16 @@
                 <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
                 <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HospitalDetails">
+            <EntityTypeMapping TypeName="PatientPortalModel.HospitalDetail">
+              <MappingFragment StoreEntitySet="HospitalDetail">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="HospitalLogo" ColumnName="HospitalLogo" />
+                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

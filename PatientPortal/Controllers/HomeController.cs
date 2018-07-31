@@ -53,14 +53,13 @@ namespace PatientPortal.Controllers
 
         public ActionResult Register(string actionName)
         {
-            if (actionName != "otp")
+            if (actionName == "getotpscreen")
             {
-                ViewData["LoginAction"] = "OTP";
+                ViewData["registerAction"] = "getotpscreen";
             }
             return View();
         }
 
-        [MultipleButton(Name = "action", Argument = "getotp")]
         [HttpPost]
         public ActionResult GetPatientOTP(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department)
         {
@@ -93,7 +92,7 @@ namespace PatientPortal.Controllers
                     sendMessageStrategy.SendMessages();
                     Session["otp"] = verificationCode;
                     Session["PatientId"] = ((PatientInfo)result["data"]).PatientId;
-                    return RedirectToAction("Register", new { actionName = "otp" });
+                    return RedirectToAction("Register", new { actionName = "getotpscreen" });
                 }
                 else
                 {
@@ -103,7 +102,6 @@ namespace PatientPortal.Controllers
             }
         }
 
-        [MultipleButton(Name = "action", Argument = "verifyOTP")]
         [HttpPost]
         public ActionResult verifyOTP(string OTP)
         {
@@ -114,7 +112,7 @@ namespace PatientPortal.Controllers
             else
             {
                 SetAlertMessage("OTP not matched", "Register");
-                return RedirectToAction("Register");
+                return RedirectToAction("Register", new { actionName = "getotpscreen" });
             }
         }
 
@@ -189,6 +187,7 @@ namespace PatientPortal.Controllers
                 {
                     result.Password = password.Trim();
                     _details.UpdatePatientDetail(result);
+                    SetAlertMessage("Password Created Successfully, please login.", "Password Create");
                     return RedirectToAction("Index");
                 }
                 else

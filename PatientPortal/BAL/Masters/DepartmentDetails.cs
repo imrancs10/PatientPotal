@@ -29,7 +29,7 @@ namespace PatientPortal.BAL.Masters
             else
                 return Enums.CrudStatus.DataAlreadyExist;
         }
-        public Enums.CrudStatus EditDept(string deptName,int deptId)
+        public Enums.CrudStatus EditDept(string deptName, int deptId)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;

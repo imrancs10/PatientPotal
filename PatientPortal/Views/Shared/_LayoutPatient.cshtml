@@ -1,12 +1,24 @@
 ﻿@using PatientPortal.Global
 @using PatientPortal.Infrastructure.Utility;
 @using PatientPortal.Infrastructure.Authentication;
+@using DataLayer;
+@using PatientPortal.Controllers;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Patient Portal Management system</title>
+    <title>@ViewBag.Title -@hospitalName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -22,7 +34,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                @Html.ActionLink("Patient Portal", "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(hospitalName, "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 @if ((User as CustomPrincipal) != null)

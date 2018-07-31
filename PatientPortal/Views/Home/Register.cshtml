@@ -4,12 +4,24 @@
 }
 
 @using PatientPortal.Global
+@using PatientPortal.Controllers;
+@using DataLayer;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Patient Portal Management system</title>
+    <title>@ViewBag.Title - @hospitalName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -23,23 +35,16 @@
 </head>
 <body>
     @{
-        string disabledOTP = "";
-        string disabledLogin = "";
-        if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
+        bool registerPage = false;
+        if (Convert.ToString(ViewData["registerAction"]) != "getotpscreen")
         {
-            disabledOTP = "disabled";
-            disabledLogin = "";
-        }
-        else
-        {
-            disabledOTP = "";
-            disabledLogin = "disabled";
+            registerPage = true;
         }
     }
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header" style="width:100%">
-                @Html.ActionLink("Patient Portal Information System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <div style="float:right">
                     @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
@@ -50,141 +55,140 @@
         <div class="container mobile-padding-lr0 ">
             <div class="col-md-8 col-md-offset-21 col-sm-12 no-padding-sm register-main">
                 <div class="col-md-12 RegisterPage-container">
-                    <form id="register_form" class="form-horizontal" action="" method="post" autocomplete="off">
-                        <h2>Register an Account</h2>
-                        <p style="margin-bottom:0px;">Fill the form below to signup your account </p>
-                        <div class="register-form mt10">
-                            <div class="form-group">
-                                <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>First Name</span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" value="" name="firstname" required data-valid="required" class="register-input" id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off" @disabledLogin>
+
+                    @if (registerPage == true)
+                    {
+                        <form id="register_form" class="form-horizontal" action="GetPatientOTP" method="post" autocomplete="off">
+                            <h2>Register an Account</h2>
+                            <p style="margin-bottom:0px;">Fill the form below to signup your account </p>
+                            <hr>
+                            <div class="register-form mt10">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>First Name</span></label>
+                                    <div class="col-md-8 col-sm-12 col-xs-12">
+                                        <input type="text" value="" name="firstname" required data-valid="required" class="register-input" id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Middle Name</span></label>
+                                    <div class="col-md-8 col-sm-12 col-xs-12">
+                                        <input type="text" value="" name="middlename" data-valid="required" class="register-input" id="middlename" placeholder="Enter Middle Name " maxlength="50" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Last Name</span></label>
+                                    <div class="col-md-8 col-sm-12 col-xs-12">
+                                        <input type="text" class="register-input" required id="lastname" placeholder="Enter Last Name " value="" name="lastname" data-valid="required" maxlength="50" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="control-label col-md-4 col-sm-12 col-xs-12">Email address</label>
+                                    <div class="col-md-8 col-sm-12 col-xs-12">
+                                        <input name="email" id="email" class="common-input" required placeholder="Enter your email address" maxlength='50' type="email" autocomplete="off" value="" data-valid="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobile" class="control-label col-md-4 col-sm-12 col-xs-12">Mobile Number</label>
+                                    <div class="col-md-4 col-sm-6 col-xs-6">
+                                        <input id="mobilenumber" class="common-input" required name="mobilenumber" placeholder="Enter Mobile Number" autocomplete="off" onkeypress="return isNumber(event)" value="" type="text" maxlength="10" data-valid="required" data-type="phone" minlength="10">
+                                    </div>
                                 </div>
                             </div>
+                            <hr>
                             <div class="form-group">
-                                <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Middle Name</span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" value="" name="middlename" data-valid="required" class="register-input" id="middlename" placeholder="Enter Middle Name " maxlength="50" autocomplete="off" @disabledLogin>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Last Name</span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" class="register-input" required id="lastname" placeholder="Enter Last Name " value="" name="lastname" data-valid="required" maxlength="50" autocomplete="off" @disabledLogin>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="control-label col-md-4 col-sm-12 col-xs-12">Email address</label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input name="email" id="email" class="common-input" required placeholder="Enter your email address" maxlength='50' type="email" autocomplete="off" value="" data-valid="required" @disabledLogin>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="mobile" class="control-label col-md-4 col-sm-12 col-xs-12">Mobile Number</label>
+                                <label for="gender" class="control-label col-md-4 col-sm-12 col-xs-12">Gender</label>
                                 <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <input id="mobilenumber" class="common-input" required name="mobilenumber" placeholder="Enter Mobile Number" autocomplete="off" onkeypress="return isNumber(event)" value="" type="text" maxlength="10" data-valid="required" data-type="phone" minlength="10" @disabledLogin>
+                                    <select id="Gender" class="form-control" name="Gender" required>
+                                        <option value="Select">Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
                                 </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <label for="gender" class="control-label col-md-4 col-sm-12 col-xs-12">Gender</label>
-                            <div class="col-md-4 col-sm-6 col-xs-6">
-                                <select id="Gender" class="form-control" name="Gender" @disabledLogin required>
-                                    <option value="Select">Select</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
+                            <div class="form-group">
+                                <label for="DOB" class="control-label col-md-4 col-sm-12 col-xs-12">Date of Birth</label>
+                                <div class="col-md-4 col-sm-6 col-xs-6">
+                                    <input type="date" id="DOB" class="form-control" name="DOB" required maxlength="8" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="DOB" class="control-label col-md-4 col-sm-12 col-xs-12">Date of Birth</label>
-                            <div class="col-md-4 col-sm-6 col-xs-6">
-                                <input type="date" id="DOB" class="form-control" name="DOB" required maxlength="8" @disabledLogin />
+                            <div class="form-group">
+                                <label for="Address" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Address</span> </label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <input type="text" value="" name="address" data-valid="required" class="register-input" id="address" placeholder="Enter Address " maxlength="50" autocomplete="off">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Address" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Address</span> </label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <input type="text" value="" name="address" data-valid="required" class="register-input" id="address" placeholder="Enter Address " maxlength="50" autocomplete="off" @disabledLogin>
+                            <div class="form-group">
+                                <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">Country</label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" id="country" name="country" data-valid="required"></select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">Country</label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" id="country" name="country" data-valid="required" @disabledLogin></select>
+                            <div class="form-group" id="state_val">
+                                <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">State</label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" id="state" name="state" data-live-search="true" data-valid="required"></select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" id="state_val">
-                            <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">State</label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" id="state" name="state" data-live-search="true" data-valid="required" @disabledLogin></select>
+                            <div class="form-group" id="show_city">
+                                <label for="City" class="control-label col-md-4 col-sm-12 col-xs-12">City</label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" name="city" id="city"></select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" id="show_city">
-                            <label for="City" class="control-label col-md-4 col-sm-12 col-xs-12">City</label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" name="city" id="city" @disabledLogin></select>
+                            <div class="form-group">
+                                <label for="Pin Code" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Pin Code</span></label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <input type="text" class="register-input" id="pincode" placeholder="Enter Pin Code " value="" name="pincode" data-valid="required" maxlength="6" onkeypress="return isNumber(event)" autocomplete="off">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Pin Code" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Pin Code</span></label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <input type="text" class="register-input" id="pincode" placeholder="Enter Pin Code " value="" name="pincode" data-valid="required" maxlength="6" onkeypress="return isNumber(event)" autocomplete="off" @disabledLogin>
+                            <div class="form-group" id="resi_status">
+                                <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department</span> </label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" name="department" id="department"></select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" id="resi_status">
-                            <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department</span> </label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" name="department" id="department" @disabledLogin></select>
+                            <div class="form-group">
+                                <label for="Religion" class="control-label col-md-4 col-sm-12 col-xs-12">Religion</label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" id="religion" name="religion" data-live-search="true" data-valid="required">
+                                        <option value="">Select</option>
+                                        <option value="739" title="Hindu">Hindu</option>
+                                        <option value="744" title="Jain">Jain</option>
+                                        <option value="740" title="Muslim">Muslim</option>
+                                        <option value="742" title="Sikh">Sikh</option>
+                                        <option value="741" title="Christian">Christian</option>
+                                        <option value="748" title="Spiritual">Spiritual</option>
+                                        <option value="743" title="Parsi">Parsi</option>
+                                        <option value="746" title="Jewish">Jewish</option>
+                                        <option value="745" title="Buddhist">Buddhist</option>
+                                        <option value="1090" title="No Religion">No Religion</option>
+                                        <option value="749" title="Other">Other</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Religion" class="control-label col-md-4 col-sm-12 col-xs-12">Religion</label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" id="religion" name="religion" data-live-search="true" data-valid="required" @disabledLogin>
-                                    <option value="">Select</option>
-                                    <option value="739" title="Hindu">Hindu</option>
-                                    <option value="744" title="Jain">Jain</option>
-                                    <option value="740" title="Muslim">Muslim</option>
-                                    <option value="742" title="Sikh">Sikh</option>
-                                    <option value="741" title="Christian">Christian</option>
-                                    <option value="748" title="Spiritual">Spiritual</option>
-                                    <option value="743" title="Parsi">Parsi</option>
-                                    <option value="746" title="Jewish">Jewish</option>
-                                    <option value="745" title="Buddhist">Buddhist</option>
-                                    <option value="1090" title="No Religion">No Religion</option>
-                                    <option value="749" title="Other">Other</option>
-                                </select>
+                            <hr />
+                            <div class="form-group">
+                                <input type="submit" name="getotp" class="btn btn-primary btn-blue btn-block btn-lg" value="Get OTP" style="float:right;width:200px;">
                             </div>
-                        </div>
-                        <hr />
-                        <div class="form-group">
-                            <label for="user_OTP" class="control-label">Verification Code:</label>
-                            <div>
-                                <input type="text" id="user_OTP" class="form-control" name="OTP" style="float:left;width:150px;" @disabledOTP />
+                        </form>
+                    }
+                    else
+                    {
+                        <form id="register_form" class="form-horizontal" action="verifyOTP" method="post" autocomplete="off">
+                            <h2>Verify OTP</h2>
+                            <p style="margin-bottom:0px;">Verify Your OTP and this brings you to Payment Page</p>
+                            <hr />
+                            <div class="form-group">
+                                <label for="user_OTP" class="control-label col-md-4 col-sm-12 col-xs-12"><span>OTP</span></label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <input type="text" class="register-input" id="user_OTP" placeholder="OTP" value="" name="OTP" data-valid="required">
+                                </div>
                             </div>
-                            <div>
-                                @if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
-                                {
-                                    <input type="submit" name="action:getotp" class="btn btn-primary btn-blue btn-block btn-lg" value="Get OTP" style="float:right;width:200px;">
-                                }
-                                else
-                                {
-                                    <input type="submit" name="action:verifyOTP" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:150px;">
-                                }
+                            <div class="form-group">
+                                <input type="submit" name="verifyOTP" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:200px;">
                             </div>
-                        </div>
-                        @*<div class="form-group">
-            <label for="State" class="control-label dis-none col-md-5 col-sm-12 col-xs-12">&nbsp;</label>
-            <div class="col-md-7 col-sm-12 col-xs-12 mt10">
-                <span class="accept-policy">By submitting you agree to our <span><a href="#" target="_blank">Privacy Policy</a> and <a href="#" target="_blank"> T&amp;C.</a></span></span>
-                <button type="submit" onclick="NewAccount.Screen.Parentfull.submit(event);" class="btn btn-primary btn-block btn-lg ripplelink">Signup</button>
-
-            </div>
-
-        </div>*@
-
-                    </form>
+                        </form>
+                    }
                 </div>
 
             </div>
@@ -208,25 +212,25 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label for="firstname" class="control-label"> first name</label>
-                                        <input type="text" id="firstname" class="form-control" name="firstname" autofocus @disabledLogin />
+                                        <input type="text" id="firstname" class="form-control" name="firstname" autofocus  />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="middlename" class="control-label">middle name</label>
-                                        <input type="text" id="middlename" class="form-control" name="middlename" @disabledLogin />
+                                        <input type="text" id="middlename" class="form-control" name="middlename"  />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="lastname" class="control-label">last name</label>
-                                        <input type="text" id="lastname" class="form-control" name="lastname" @disabledLogin />
+                                        <input type="text" id="lastname" class="form-control" name="lastname"  />
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="DOB" class="control-label">Date of Birth</label>
-                                        <input type="date" id="DOB" class="form-control" name="DOB" @disabledLogin />
+                                        <input type="date" id="DOB" class="form-control" name="DOB"  />
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="Gender" class="control-label">Gender</label>
-                                        <select id="Gender" class="form-control" name="Gender" @disabledLogin>
+                                        <select id="Gender" class="form-control" name="Gender" >
                                             <option value="Select">Select</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -236,21 +240,21 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="mobilenumber" class="control-label">Mobile No</label>
-                                        <input type="text" id="mobilenumber" class="form-control" name="mobilenumber" maxlength="10" onkeypress="return isNumber(event)" @disabledLogin />
+                                        <input type="text" id="mobilenumber" class="form-control" name="mobilenumber" maxlength="10" onkeypress="return isNumber(event)"  />
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="email" class="control-label">Email</label>
-                                        <input type="text" id="email" class="form-control" name="email" @disabledLogin />
+                                        <input type="text" id="email" class="form-control" name="email"  />
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="address" class="control-label">Address</label>
-                                        <input type="text" id="address" class="form-control" name="address" @disabledLogin />
+                                        <input type="text" id="address" class="form-control" name="address"  />
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="city" class="control-label">City</label>
-                                        <select id="city" class="form-control" name="city" @disabledLogin>
+                                        <select id="city" class="form-control" name="city" >
                                             <option value="Select">Select</option>
                                             <option value="Lucknow">Lucknow</option>
                                             <option value="Delhi">Delhi</option>
@@ -261,7 +265,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="country" class="control-label">Country</label>
-                                        <select id="country" class="form-control" name="country" @disabledLogin>
+                                        <select id="country" class="form-control" name="country" >
                                             <option value="Select">Select</option>
                                             <option value="India">India</option>
                                             <option value="USA">USA</option>
@@ -270,13 +274,13 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="pincode" class="control-label">Pin Code</label>
-                                        <input type="text" id="pincode" class="form-control" name="pincode" maxlength="6" onkeypress="return isNumber(event)" @disabledLogin />
+                                        <input type="text" id="pincode" class="form-control" name="pincode" maxlength="6" onkeypress="return isNumber(event)"  />
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="religion" class="control-label">Religion</label>
-                                        <select id="religion" class="form-control" name="religion" @disabledLogin>
+                                        <select id="religion" class="form-control" name="religion" >
                                             <option value="Select">Select</option>
                                             <option value="Hinduism">Hinduism</option>
                                             <option value="Islam">Islam</option>
@@ -288,7 +292,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="department" class="control-label">Department</label>
-                                        <select id="department" class="form-control" name="department" @disabledLogin>
+                                        <select id="department" class="form-control" name="department" >
                                             @*<option value="Select">Select</option>
                                             <option value="Hinduism">Hinduism</option>
                                             <option value="Islam">Islam</option>

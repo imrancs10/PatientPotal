@@ -4,12 +4,24 @@
 }
 
 @using PatientPortal.Global
+@using PatientPortal.Controllers;
+@using DataLayer;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Patient Portal Management System</title>
+    <title>@ViewBag.Title - @hospitalName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -25,11 +37,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header" style="width:100%">
-                @Html.ActionLink("Patient Portal Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-
-                @*<div style="float:right">
-                        @Html.ActionLink("Register", "Register", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>*@
+                @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
         </div>
     </div>
@@ -40,11 +48,13 @@
             <div class="col-md-8 no-padding">
                 <div class="col-md-12 no-padding">
 
-                    <div class="col-md-6 no-padding loginpage-leftimg hidden-xs"><img src="../img/p1.jpg" class="img-responsive" alt="banner" /></div>
+                    <div class="col-md-6 no-padding loginpage-leftimg hidden-xs">
+                        <img src="@imgsrc" class="img-responsive" alt="banner" />
+                    </div>
                     <div class="col-md-6 no-padding loginpage-leftimg hidden-xs">
                         <img src="../img/p2.jpg" class="img-responsive" alt="banner" />
                         @*<h2 style="font-size:3vw; color: dodgerblue;">Welcome To</h2>
-        <p style="font-size:1.5vw;">Ram Manohar Lohiya Hospital<br>Lucknow</p>*@
+                            <p style="font-size:1.5vw;">Ram Manohar Lohiya Hospital<br>Lucknow</p>*@
                     </div>
                 </div>
                 <div class="loginpage-leftimg hidden-xs"><img src="../img/banner-bg.jpg" class="img-responsive" alt="banner" /></div>
