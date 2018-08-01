@@ -1,0 +1,132 @@
+﻿@using System.Web.Script.Services;
+@using Newtonsoft;
+@using PatientPortal.Infrastructure.Authentication;
+@{
+    ViewBag.Title = "PatientProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/App/Appointment/PatientProfile.js"></script>
+<div class="row" style="margin-top:50px;">
+    <div class="col-sm-12 col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Patient Profile</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-2 col-lg-2">
+                        <img id="profileimage" />
+                    </div>
+                    @{
+                        HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                        CustomPrincipalSerializeModel json = Newtonsoft.Json.JsonConvert.DeserializeObject<CustomPrincipalSerializeModel>(ticket.UserData);
+                       
+                    <div class="col-sm-10 col-lg-10">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <div>@json.FirstName @json.MiddleName @json.LastName</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile</label>
+                                <div>@json.Mobile</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <div>@json.Email</div>
+                            </div>
+                            <div class="form-group">
+                                <label>DOB</label>
+                                <div>@json.DOB</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <div>@json.Gender</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile</label>
+                                <div>@json.Mobile</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <div></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile</label>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">My Appointment
+                            <a href="/Appointment/GetAppointments" class="btn btn-success pull-right" style="margin-top: -6px;">Book New Appointment</a>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-bordered table-responsive table-striped" id="tbleappointment">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr. No.</th>
+                                            <th>Date</th>
+                                            <th>Department</th>
+                                            <th>Consultant</th>
+                                            <th>Slot</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">My Visit</div>
+                            <div class="panel-body">
+                                <table class="table table-bordered table-responsive table-striped" id="tblevisit">
+                                   <thead>
+                                       <tr>
+                                           <th>Sr. No.</th>
+                                           <th>Visit Date</th>
+                                           <th>Department</th>
+                                           <th>Consultant Doctor</th>
+                                       </tr>
+                                   </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #profileimage {
+        width: 120px;
+        height: 150px;
+        box-shadow: 3px 3px 3px #8080803b;
+        border-radius: 4px;
+        border: 1px solid #8080803d;
+    }
+
+    .form-group {
+        margin-bottom: 6px !important;
+    }
+
+        .form-group div {
+            font-size: 11px;
+        }
+
+        .form-group label {
+            margin-bottom: 0px !important;
+            font-weight: 550 !important;
+        }
+</style>
