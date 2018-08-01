@@ -53,8 +53,8 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RequestAndResponse, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -237,11 +237,15 @@
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner.jpg" />
     <Content Include="img\banner1.jpg" />
+    <Content Include="img\p1.jpg" />
+    <Content Include="img\p2.jpg" />
     <Content Include="img\pp.jpg" />
     <Content Include="img\pp1.jpg" />
+    <Content Include="img\pp11.jpg" />
     <Content Include="img\ppp.png" />
     <Content Include="img\triangle-down.svg" />
     <Content Include="Scripts\App\Appointment\Appoint.js" />
+    <Content Include="Scripts\App\Appointment\PatientProfile.js" />
     <Content Include="Scripts\App\Global\App.js" />
     <Content Include="Scripts\App\Global\Utility.js" />
     <Content Include="Scripts\App\Login\Login.js" />
@@ -297,6 +301,7 @@
     <Content Include="Views\Home\TransactionResponse.cshtml" />
     <Content Include="Views\Home\CreatePassword.cshtml" />
     <Content Include="Views\Masters\HospitalDetail.cshtml" />
+    <Content Include="Views\Appointment\PatientProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
