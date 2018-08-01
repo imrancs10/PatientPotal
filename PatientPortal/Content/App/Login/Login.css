@@ -139,6 +139,12 @@ p {
     text-transform: none;
     font-weight: normal;
 }
+.divider {
+    width: 5px;
+    height: auto;
+    display: inline-block;
+    /*style ="float:left; width:450px"*/
+}
 .register-main input {
     background: #fff;
     color: #3a3a3a;
