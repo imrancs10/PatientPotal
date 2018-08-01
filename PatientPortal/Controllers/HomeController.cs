@@ -42,7 +42,7 @@ namespace PatientPortal.Controllers
                 Session["PatientId"] = result.PatientId;
                 //Session["PatientData"] = result;
                 setUserClaim(result);
-                return RedirectToAction("PatientProfile", "Appointment");
+                return RedirectToAction("Dashboard");
             }
             else
             {
