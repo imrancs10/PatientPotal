@@ -234,9 +234,13 @@
     <Content Include="img\179351.png" />
     <Content Include="img\179352.png" />
     <Content Include="img\ajax-loader.gif" />
+    <Content Include="img\banner-bg.jpg" />
+    <Content Include="img\banner.jpg" />
     <Content Include="img\banner1.jpg" />
     <Content Include="img\pp.jpg" />
+    <Content Include="img\pp1.jpg" />
     <Content Include="img\ppp.png" />
+    <Content Include="img\triangle-down.svg" />
     <Content Include="Scripts\App\Appointment\Appoint.js" />
     <Content Include="Scripts\App\Global\App.js" />
     <Content Include="Scripts\App\Global\Utility.js" />
