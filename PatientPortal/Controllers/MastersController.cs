@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataLayer;
 using PatientPortal.BAL.Masters;
 using PatientPortal.Models.Masters;
 
@@ -83,7 +84,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveSchedule(ScheduleModel model) 
+        public JsonResult SaveSchedule(ScheduleModel model)
         {
             ScheduleDetails _details = new ScheduleDetails();
             return Json(CrudResponse(_details.SaveSchedule(model)), JsonRequestBehavior.AllowGet);
@@ -114,6 +115,41 @@ namespace PatientPortal.Controllers
             Session.Abandon();
             Session.Clear();
             return RedirectToAction("Index", "Login");
+        }
+
+        public ActionResult HospitalDetail()
+        {
+            HospitalDetails details = new HospitalDetails();
+            ViewData["hospitals"] = details.GetAllHospitalDetail();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult HospitalDetail(string name, HttpPostedFileBase File1)
+        {
+            HospitalDetail hospital = new HospitalDetail();
+            if (File1 != null && File1.ContentLength > 0)
+            {
+                hospital.HospitalName = name;
+                hospital.HospitalLogo = new byte[File1.ContentLength];
+                File1.InputStream.Read(hospital.HospitalLogo, 0, File1.ContentLength);
+                HospitalDetails details = new HospitalDetails();
+                details.SaveHospital(hospital);
+                SetAlertMessage("Hospital detail saved", "Hospital Entry");
+                return RedirectToAction("HospitalDetail");
+            }
+            else
+            {
+                SetAlertMessage("Hospital detail not saved", "Hospital Entry");
+                return RedirectToAction("HospitalDetail");
+            }
+        }
+        public ActionResult DeleteHospital(string Id)
+        {
+            int.TryParse(Id, out int id);
+            HospitalDetails details = new HospitalDetails();
+            details.DeleteHospitalDetail(id);
+            return RedirectToAction("HospitalDetail");
         }
     }
 }

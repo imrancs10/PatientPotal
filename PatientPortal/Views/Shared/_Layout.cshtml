@@ -39,11 +39,12 @@
             <div class="navbar-collapse collapse">
                 @if (!string.IsNullOrWhiteSpace(UserData.FirstName))
                 {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Department", "AddDepartments", "Masters")</li>
-                        <li>@Html.ActionLink("Doctor", "AddDoctors", "Masters")</li>
-                        <li>@Html.ActionLink("Doctor Schedule", "AddSchedule", "Masters")</li>
-                    </ul>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Department", "AddDepartments", "Masters")</li>
+                    <li>@Html.ActionLink("Doctor", "AddDoctors", "Masters")</li>
+                    <li>@Html.ActionLink("Doctor Schedule", "AddSchedule", "Masters")</li>
+                    <li>@Html.ActionLink("Hospital Detail", "HospitalDetail", "Masters")</li>
+                </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -1,4 +1,6 @@
-﻿using PatientPortal.Infrastructure.Authentication;
+﻿using DataLayer;
+using PatientPortal.BAL.Masters;
+using PatientPortal.Infrastructure.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,12 @@ namespace PatientPortal.Infrastructure.Utility
         {
             get { return base.User as CustomPrincipal; }
         }
+
+        public virtual HospitalDetail GetHospitalDetail()
+        {
+            HospitalDetails _details = new HospitalDetails();
+            return _details.GetHospitalDetail();
+        }
     }
 
     public abstract class BaseViewPage<TModel> : WebViewPage<TModel>
@@ -20,6 +28,11 @@ namespace PatientPortal.Infrastructure.Utility
         public virtual new CustomPrincipal User
         {
             get { return base.User as CustomPrincipal; }
+        }
+        public virtual HospitalDetail GetHospitalDetail()
+        {
+            HospitalDetails _details = new HospitalDetails();
+            return _details.GetHospitalDetail();
         }
     }
 }

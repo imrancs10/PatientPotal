@@ -173,6 +173,7 @@
     <Compile Include="BAL\Appointments\AppointDetails.cs" />
     <Compile Include="BAL\Commom\CommonDetails.cs" />
     <Compile Include="BAL\Login\LoginDetails.cs" />
+    <Compile Include="BAL\Masters\HospitalDetails.cs" />
     <Compile Include="BAL\Masters\DepartmentDetails.cs" />
     <Compile Include="BAL\Masters\DoctorDetails.cs" />
     <Compile Include="BAL\Masters\ScheduleDetails.cs" />
@@ -249,6 +250,9 @@
     <Content Include="Scripts\App\Masters\Schedule.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Json\countries.json" />
+    <Content Include="Json\states.json" />
+    <Content Include="Json\cities.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -292,6 +296,7 @@
     <Content Include="Views\Home\TransactionPay.cshtml" />
     <Content Include="Views\Home\TransactionResponse.cshtml" />
     <Content Include="Views\Home\CreatePassword.cshtml" />
+    <Content Include="Views\Masters\HospitalDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

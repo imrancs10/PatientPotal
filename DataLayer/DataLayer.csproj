@@ -87,6 +87,9 @@
     <Compile Include="Gbl_Master_User.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="HospitalDetail.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="MeridiemMaster.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>

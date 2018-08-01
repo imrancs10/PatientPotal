@@ -4,12 +4,24 @@
 }
 
 @using PatientPortal.Global
+@using PatientPortal.Controllers;
+@using DataLayer;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Patient Portal Management system</title>
+    <title>@ViewBag.Title - @hospitalName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -23,23 +35,16 @@
 </head>
 <body>
     @{
-        string disabledOTP = "";
-        string disabledLogin = "";
-        if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
+        bool registerPage = false;
+        if (Convert.ToString(ViewData["registerAction"]) != "getotpscreen")
         {
-            disabledOTP = "disabled";
-            disabledLogin = "";
-        }
-        else
-        {
-            disabledOTP = "";
-            disabledLogin = "disabled";
+            registerPage = true;
         }
     }
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header" style="width:100%">
-                @Html.ActionLink("Patient Portal Information System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <div style="float:right">
                     @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
@@ -50,812 +55,265 @@
         <div class="container mobile-padding-lr0 ">
             <div class="col-md-8 col-md-offset-21 col-sm-12 no-padding-sm register-main">
                 <div class="col-md-12 RegisterPage-container">
-                    <form id="register_form" class="form-horizontal" action="" method="post" autocomplete="off">
-                        <h2>Register an Account</h2>
-                        <p style="margin-bottom:0px;">Fill the form below to signup your account </p>
 
-
-                        <div class="register-form mt10">
-                            <div class="form-group">
-                                <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>First Name</span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" value="" name="firstname" data-valid="required" class="register-input" id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off" @disabledLogin>
-
+                    @if (registerPage == true)
+                    {
+                        <form id="register_form" class="form-horizontal" action="GetPatientOTP" method="post" autocomplete="off">
+                            <h2>Register an Account</h2>
+                            <p style="margin-bottom:0px;">Fill the form below to signup your account </p>
+                            <hr>
+                            <div class="register-form mt10">
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>First Name</span></label>
+                                    <div class="col-md-8 col-sm-12 col-xs-12">
+                                        <input type="text" value="" name="firstname" required data-valid="required" class="register-input" id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Middle Name</span></label>
+                                    <div class="col-md-8 col-sm-12 col-xs-12">
+                                        <input type="text" value="" name="middlename" data-valid="required" class="register-input" id="middlename" placeholder="Enter Middle Name " maxlength="50" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Last Name</span></label>
+                                    <div class="col-md-8 col-sm-12 col-xs-12">
+                                        <input type="text" class="register-input" required id="lastname" placeholder="Enter Last Name " value="" name="lastname" data-valid="required" maxlength="50" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="control-label col-md-4 col-sm-12 col-xs-12">Email address</label>
+                                    <div class="col-md-8 col-sm-12 col-xs-12">
+                                        <input name="email" id="email" class="common-input" required placeholder="Enter your email address" maxlength='50' type="email" autocomplete="off" value="" data-valid="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobile" class="control-label col-md-4 col-sm-12 col-xs-12">Mobile Number</label>
+                                    <div class="col-md-4 col-sm-6 col-xs-6">
+                                        <input id="mobilenumber" class="common-input" required name="mobilenumber" placeholder="Enter Mobile Number" autocomplete="off" onkeypress="return isNumber(event)" value="" type="text" maxlength="10" data-valid="required" data-type="phone" minlength="10">
+                                    </div>
                                 </div>
                             </div>
+                            <hr>
                             <div class="form-group">
-                                <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Middle Name</span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" value="" name="middlename" data-valid="required" class="register-input" id="middlename" placeholder="Enter Middle Name " maxlength="50" autocomplete="off" @disabledLogin>
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Last Name</span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" class="register-input" id="lastname" placeholder="Enter Last Name " value="" name="lastname" data-valid="required" maxlength="50" autocomplete="off" @disabledLogin>
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="control-label col-md-4 col-sm-12 col-xs-12">Email address</label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input name="email" id="email" class="common-input" placeholder="Enter your email address" maxlength='50' type="email" autocomplete="off" value="" data-valid="required" @disabledLogin>
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="mobile" class="control-label col-md-4 col-sm-12 col-xs-12">Mobile Number</label>
+                                <label for="gender" class="control-label col-md-4 col-sm-12 col-xs-12">Gender</label>
                                 <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <input id="mobilenumber" class="common-input" name="mobilenumber" placeholder="Enter Mobile Number" autocomplete="off" onkeypress="return isNumber(event)" value="" type="text" maxlength="10" data-valid="required" data-type="phone" minlength="10" @disabledLogin>
-
-
-                                </div>
-                            </div>
-
-
-                        </div>
-
-
-                        <hr>
-                        <h4></h4>
-
-
-                        <div class="form-group">
-                            <label for="gender" class="control-label col-md-4 col-sm-12 col-xs-12">Gender</label>
-                            <div class="col-md-4 col-sm-6 col-xs-6">
-
-                                <select id="Gender" class="form-control" name="Gender" @disabledLogin>
-                                    <option value="Select">Select</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-
-
-                        <div class="form-group">
-                            <label for="DOB" class="control-label col-md-4 col-sm-12 col-xs-12">Date of Birth</label>
-                            <div class="col-md-4 col-sm-6 col-xs-6">
-                                <input type="date" id="DOB" class="form-control" name="DOB" maxlength="8" @disabledLogin />
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">Country</label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" id="country" name="country" data-live-search="true" onchange="get_statevalue(this);" data-valid="required" @disabledLogin>
-                                    <option value="">Select</option>
-                                    <option data-countryid="100" value="India">India</option>
-
-                                    <option data-countryid="221" value="United Kingdom">United Kingdom</option>
-
-                                    <option data-countryid="222" value="United States">United States</option>
-
-                                    <option data-countryid="1" value="Afghanistan">Afghanistan</option>
-
-                                    <option data-countryid="2" value="2">Albania</option>
-
-                                    <option data-countryid="3" value="3">Algeria</option>
-
-                                    <option data-countryid="4" value="4">American Samoa</option>
-
-                                    <option data-countryid="5" value="5">Andorra</option>
-
-                                    <option data-countryid="6" value="6">Angola</option>
-
-                                    <option data-countryid="7" value="7">Anguilla</option>
-
-                                    <option data-countryid="8" value="8">Antarctica</option>
-
-                                    <option data-countryid="9" value="9">Antigua and Barbuda</option>
-
-                                    <option data-countryid="10" value="10">Argentina</option>
-
-                                    <option data-countryid="11" value="11">Armenia</option>
-
-                                    <option data-countryid="12" value="12">Aruba</option>
-
-                                    <option data-countryid="13" value="13">Australia</option>
-
-                                    <option data-countryid="14" value="14">Austria</option>
-
-                                    <option data-countryid="15" value="15">Azerbaidjan</option>
-
-                                    <option data-countryid="16" value="16">Bahamas</option>
-
-                                    <option data-countryid="17" value="17">Bahrain</option>
-
-                                    <option data-countryid="18" value="18">Bangladesh</option>
-
-                                    <option data-countryid="19" value="19">Barbados</option>
-
-                                    <option data-countryid="20" value="20">Belarus</option>
-
-                                    <option data-countryid="21" value="21">Belgium</option>
-
-                                    <option data-countryid="22" value="22">Belize</option>
-
-                                    <option data-countryid="23" value="23">Benin</option>
-
-                                    <option data-countryid="24" value="24">Bermuda</option>
-
-                                    <option data-countryid="35" value="35">Bhutan</option>
-
-                                    <option data-countryid="25" value="25">Bolivia</option>
-
-                                    <option data-countryid="26" value="26">Bosnia-Herzegovina</option>
-
-                                    <option data-countryid="27" value="27">Botswana</option>
-
-                                    <option data-countryid="28" value="28">Bouvet Island</option>
-
-                                    <option data-countryid="29" value="29">Brazil</option>
-
-                                    <option data-countryid="30" value="30">British Indian O. Terr.</option>
-
-                                    <option data-countryid="31" value="31">Brunei Darussalam</option>
-
-                                    <option data-countryid="32" value="32">Bulgaria</option>
-
-                                    <option data-countryid="33" value="33">Burkina Faso</option>
-
-                                    <option data-countryid="34" value="34">Burundi</option>
-
-                                    <option data-countryid="36" value="36">Cambodia</option>
-
-                                    <option data-countryid="37" value="37">Cameroon</option>
-
-                                    <option data-countryid="38" value="38">Canada</option>
-
-                                    <option data-countryid="39" value="39">Cape Verde</option>
-
-                                    <option data-countryid="40" value="40">Cayman Islands</option>
-
-                                    <option data-countryid="41" value="41">Central African Rep.</option>
-
-                                    <option data-countryid="42" value="42">Chad</option>
-
-                                    <option data-countryid="43" value="43">Chile</option>
-
-                                    <option data-countryid="44" value="44">China</option>
-
-                                    <option data-countryid="47" value="47">Colombia</option>
-
-                                    <option data-countryid="48" value="48">Comoros</option>
-
-                                    <option data-countryid="49" value="49">Congo</option>
-
-                                    <option data-countryid="50" value="50">Cook Islands</option>
-
-                                    <option data-countryid="51" value="51">Costa Rica</option>
-
-                                    <option data-countryid="53" value="53">Croatia</option>
-
-                                    <option data-countryid="54" value="54">Cuba</option>
-
-                                    <option data-countryid="55" value="55">Cyprus</option>
-
-                                    <option data-countryid="56" value="56">Czech Republic</option>
-
-                                    <option data-countryid="57" value="57">Czechoslovakia</option>
-
-                                    <option data-countryid="58" value="58">Denmark</option>
-
-                                    <option data-countryid="59" value="59">Djibouti</option>
-
-                                    <option data-countryid="60" value="60">Dominica</option>
-
-                                    <option data-countryid="62" value="62">Dominican Republic</option>
-
-                                    <option data-countryid="63" value="63">East Timor</option>
-
-                                    <option data-countryid="64" value="64">Ecuador</option>
-
-                                    <option data-countryid="65" value="65">Egypt</option>
-
-                                    <option data-countryid="66" value="66">El Salvador</option>
-
-                                    <option data-countryid="67" value="67">Equatorial Guinea</option>
-
-                                    <option data-countryid="68" value="68">Estonia</option>
-
-                                    <option data-countryid="69" value="69">Ethiopia</option>
-
-                                    <option data-countryid="70" value="70">Falkland Isl.(Malvinas)</option>
-
-                                    <option data-countryid="71" value="71">Faroe Islands</option>
-
-                                    <option data-countryid="72" value="72">Fiji</option>
-
-                                    <option data-countryid="73" value="73">Finland</option>
-
-                                    <option data-countryid="74" value="74">France</option>
-
-                                    <option data-countryid="75" value="75">France (European Ter.)</option>
-
-                                    <option data-countryid="76" value="76">French Southern Terr.</option>
-
-                                    <option data-countryid="77" value="77">Gabon</option>
-
-                                    <option data-countryid="78" value="78">Gambia</option>
-
-                                    <option data-countryid="79" value="79">Georgia</option>
-
-                                    <option data-countryid="80" value="80">Germany</option>
-
-                                    <option data-countryid="81" value="81">Ghana</option>
-
-                                    <option data-countryid="82" value="82">Gibraltar</option>
-
-                                    <option data-countryid="84" value="84">Greece</option>
-
-                                    <option data-countryid="85" value="85">Greenland</option>
-
-                                    <option data-countryid="86" value="86">Grenada</option>
-
-                                    <option data-countryid="87" value="87">Guadeloupe (Fr.)</option>
-
-                                    <option data-countryid="88" value="88">Guam (US)</option>
-
-                                    <option data-countryid="89" value="89">Guatemala</option>
-
-                                    <option data-countryid="90" value="90">Guinea</option>
-
-                                    <option data-countryid="91" value="91">Guinea Bissau</option>
-
-                                    <option data-countryid="92" value="92">Guyana</option>
-
-                                    <option data-countryid="93" value="93">Guyana (Fr.)</option>
-
-                                    <option data-countryid="94" value="94">Haiti</option>
-
-                                    <option data-countryid="95" value="95">Heard & McDonald Isl.</option>
-
-                                    <option data-countryid="96" value="96">Honduras</option>
-
-                                    <option data-countryid="97" value="97">Hong Kong</option>
-
-                                    <option data-countryid="98" value="98">Hungary</option>
-
-                                    <option data-countryid="99" value="99">Iceland</option>
-
-                                    <option data-countryid="101" value="101">Indonesia</option>
-
-                                    <option data-countryid="102" value="102">Iran</option>
-
-                                    <option data-countryid="103" value="103">Iraq</option>
-
-                                    <option data-countryid="104" value="104">Ireland</option>
-
-                                    <option data-countryid="105" value="105">Israel</option>
-
-                                    <option data-countryid="232" value="232">Italy</option>
-
-                                    <option data-countryid="106" value="106">Ivory Coast</option>
-
-                                    <option data-countryid="107" value="107">Jamaica</option>
-
-                                    <option data-countryid="108" value="108">Japan</option>
-
-                                    <option data-countryid="109" value="109">Jordan</option>
-
-                                    <option data-countryid="110" value="110">Kazakhstan</option>
-
-                                    <option data-countryid="111" value="111">Kenya</option>
-
-                                    <option data-countryid="113" value="113">Kiribati</option>
-
-                                    <option data-countryid="114" value="114">Korea (North)</option>
-
-                                    <option data-countryid="115" value="115">Korea (South)</option>
-
-                                    <option data-countryid="116" value="116">Kuwait</option>
-
-                                    <option data-countryid="112" value="112">kyrgyzstan</option>
-
-                                    <option data-countryid="117" value="117">Laos</option>
-
-                                    <option data-countryid="118" value="118">Latvia</option>
-
-                                    <option data-countryid="119" value="119">Lebanon</option>
-
-                                    <option data-countryid="120" value="120">Lesotho</option>
-
-                                    <option data-countryid="121" value="121">Liberia</option>
-
-                                    <option data-countryid="122" value="122">Libya</option>
-
-                                    <option data-countryid="123" value="123">Liechtenstein</option>
-
-                                    <option data-countryid="124" value="124">Lithuania</option>
-
-                                    <option data-countryid="125" value="125">Luxembourg</option>
-
-                                    <option data-countryid="126" value="126">Macau</option>
-
-                                    <option data-countryid="127" value="127">Madagascar</option>
-
-                                    <option data-countryid="128" value="128">Malawi</option>
-
-                                    <option data-countryid="129" value="129">Malaysia</option>
-
-                                    <option data-countryid="130" value="130">Maldives</option>
-
-                                    <option data-countryid="131" value="131">Mali</option>
-
-                                    <option data-countryid="132" value="132">Malta</option>
-
-                                    <option data-countryid="133" value="133">Marshall Islands</option>
-
-                                    <option data-countryid="134" value="134">Martinique (Fr.)</option>
-
-                                    <option data-countryid="135" value="135">Mauritania</option>
-
-                                    <option data-countryid="136" value="136">Mauritius</option>
-
-                                    <option data-countryid="137" value="137">Mexico</option>
-
-                                    <option data-countryid="138" value="138">Micronesia</option>
-
-                                    <option data-countryid="139" value="139">Moldova</option>
-
-                                    <option data-countryid="140" value="140">Monaco</option>
-
-                                    <option data-countryid="141" value="141">Mongolia</option>
-
-                                    <option data-countryid="142" value="142">Montserrat</option>
-
-                                    <option data-countryid="143" value="143">Morocco</option>
-
-                                    <option data-countryid="144" value="144">Mozambique</option>
-
-                                    <option data-countryid="145" value="145">Myanmar</option>
-
-                                    <option data-countryid="146" value="146">Namibia</option>
-
-                                    <option data-countryid="147" value="147">Nauru</option>
-
-                                    <option data-countryid="148" value="148">Nepal</option>
-
-                                    <option data-countryid="150" value="150">Netherland Antilles</option>
-
-                                    <option data-countryid="151" value="151">Netherlands</option>
-
-                                    <option data-countryid="152" value="152">Neutral Zone</option>
-
-                                    <option data-countryid="153" value="153">New Caledonia (Fr.)</option>
-
-                                    <option data-countryid="154" value="154">New Zealand</option>
-
-                                    <option data-countryid="155" value="155">Nicaragua</option>
-
-                                    <option data-countryid="156" value="156">Niger</option>
-
-                                    <option data-countryid="157" value="157">Nigeria</option>
-
-                                    <option data-countryid="158" value="158">Niue</option>
-
-                                    <option data-countryid="159" value="159">Norfolk Island</option>
-
-                                    <option data-countryid="160" value="160">Northern Mariana Isl.</option>
-
-                                    <option data-countryid="161" value="161">Norway</option>
-
-                                    <option data-countryid="162" value="162">Oman</option>
-
-                                    <option data-countryid="163" value="163">Pakistan</option>
-
-                                    <option data-countryid="164" value="164">Palau</option>
-
-                                    <option data-countryid="165" value="165">Panama</option>
-
-                                    <option data-countryid="166" value="166">Papua New Guinea</option>
-
-                                    <option data-countryid="167" value="167">Paraguay</option>
-
-                                    <option data-countryid="168" value="168">Peru</option>
-
-                                    <option data-countryid="169" value="169">Philippines</option>
-
-                                    <option data-countryid="170" value="170">Pitcairn Islands</option>
-
-                                    <option data-countryid="171" value="171">Poland</option>
-
-                                    <option data-countryid="172" value="172">Polynesia (Fr.)</option>
-
-                                    <option data-countryid="173" value="173">Portugal</option>
-
-                                    <option data-countryid="174" value="174">Qatar</option>
-
-                                    <option data-countryid="175" value="175">Reunion (Fr.)</option>
-
-                                    <option data-countryid="176" value="176">Romania</option>
-
-                                    <option data-countryid="177" value="177">Russian Federation</option>
-
-                                    <option data-countryid="178" value="178">Rwanda</option>
-
-                                    <option data-countryid="179" value="179">Saint Lucia</option>
-
-                                    <option data-countryid="180" value="180">Samoa</option>
-
-                                    <option data-countryid="181" value="181">San Marino</option>
-
-                                    <option data-countryid="182" value="182">Saudi Arabia</option>
-
-                                    <option data-countryid="183" value="183">Senegal</option>
-
-                                    <option data-countryid="184" value="184">Seychelles</option>
-
-                                    <option data-countryid="185" value="185">Sierra Leone</option>
-
-                                    <option data-countryid="186" value="186">Singapore</option>
-
-                                    <option data-countryid="187" value="187">Slovakia</option>
-
-                                    <option data-countryid="188" value="188">Slovenia</option>
-
-                                    <option data-countryid="189" value="189">Solomon Islands</option>
-
-                                    <option data-countryid="190" value="190">Somalia</option>
-
-                                    <option data-countryid="191" value="191">South Africa</option>
-
-                                    <option data-countryid="192" value="192">Spain</option>
-
-                                    <option data-countryid="193" value="193">St. Helena</option>
-
-                                    <option data-countryid="194" value="194">St. Pierre & Miquelon</option>
-
-                                    <option data-countryid="195" value="195">St. Tome and Principe</option>
-
-                                    <option data-countryid="196" value="196">St.Kitts Nevis Anguilla</option>
-
-                                    <option data-countryid="197" value="197">St.Vincent & Grenadines</option>
-
-                                    <option data-countryid="198" value="198">Sudan</option>
-
-                                    <option data-countryid="199" value="199">Suriname</option>
-
-                                    <option data-countryid="200" value="200">Svalbard</option>
-
-                                    <option data-countryid="201" value="201">Swaziland</option>
-
-                                    <option data-countryid="202" value="202">Sweden</option>
-
-                                    <option data-countryid="203" value="203">Switzerland</option>
-
-                                    <option data-countryid="204" value="204">Syria</option>
-
-                                    <option data-countryid="205" value="205">Tadjikistan</option>
-
-                                    <option data-countryid="206" value="206">Taiwan</option>
-
-                                    <option data-countryid="207" value="207">Tanzania</option>
-
-                                    <option data-countryid="208" value="208">Thailand</option>
-
-                                    <option data-countryid="209" value="209">Togo</option>
-
-                                    <option data-countryid="210" value="210">Tokelau</option>
-
-                                    <option data-countryid="211" value="211">Tonga</option>
-
-                                    <option data-countryid="212" value="212">Trinidad & Tobago</option>
-
-                                    <option data-countryid="213" value="213">Tunisia</option>
-
-                                    <option data-countryid="214" value="214">Turkey</option>
-
-                                    <option data-countryid="215" value="215">Turkmenistan</option>
-
-                                    <option data-countryid="216" value="216">Turks & Caicos Islands</option>
-
-                                    <option data-countryid="217" value="217">Tuvalu</option>
-
-                                    <option data-countryid="218" value="218">Uganda</option>
-
-                                    <option data-countryid="219" value="219">Ukraine</option>
-
-                                    <option data-countryid="220" value="220">United Arab Emirates</option>
-
-                                    <option data-countryid="223" value="223">Uruguay</option>
-
-                                    <option data-countryid="224" value="224">US Minor outlying Isl.</option>
-
-                                    <option data-countryid="225" value="225">Uzbekistan</option>
-
-                                    <option data-countryid="226" value="226">Vanuatu</option>
-
-                                    <option data-countryid="227" value="227">Vatican City State</option>
-
-                                    <option data-countryid="228" value="228">Venezuela</option>
-
-                                    <option data-countryid="229" value="229">Vietnam</option>
-
-                                    <option data-countryid="230" value="230">Virgin Islands (British)</option>
-
-                                    <option data-countryid="231" value="231">Zimbabwe</option>
-
-
-
-                                </select>
-
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Address" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Address</span> </label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <input type="text" value="" name="address" data-valid="required" class="register-input" id="address" placeholder="Enter Address " maxlength="50" autocomplete="off" @disabledLogin>
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Pin Code" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Pin Code</span></label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <input type="text" class="register-input" id="pincode" placeholder="Enter Pin Code " value="" name="pincode" data-valid="required" maxlength="6" onkeypress="return isNumber(event)" autocomplete="off" @disabledLogin>
-
-                            </div>
-                        </div>
-                        <div class="form-group" id="state_val">
-                            <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">State</label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" id="state" name="state" data-live-search="true" data-valid="required" @disabledLogin>
-                                    <option value="">Select</option>
-                                    <option value="1" title="Andhra Pradesh">Andhra Pradesh</option>
-                                    <option value="2" title="Arunachal Pradesh">Arunachal Pradesh</option>
-                                    <option value="3" title="Assam">Assam</option>
-                                    <option value="4" title="Bihar">Bihar</option>
-                                    <option value="5" title="Chandigarh">Chandigarh</option>
-                                    <option value="6" title="Chhattisgarh">Chhattisgarh</option>
-                                    <option value="7" title="Dadra and Nagar">Dadra and Nagar</option>
-                                    <option value="8" title="Daman and Diu">Daman and Diu</option>
-                                    <option value="9" title="Delhi">Delhi</option>
-                                    <option value="10" title="Goa">Goa</option>
-                                    <option value="11" title="Gujarat">Gujarat</option>
-                                    <option value="12" title="Haryana">Haryana</option>
-                                    <option value="13" title="Himachal Pradesh">Himachal Pradesh</option>
-                                    <option value="14" title="Jammu & Kashmir">Jammu & Kashmir</option>
-                                    <option value="15" title="Jharkhand">Jharkhand</option>
-                                    <option value="16" title="Karnataka">Karnataka</option>
-                                    <option value="17" title="Kerala">Kerala</option>
-                                    <option value="18" title="LakshadweepIsland">LakshadweepIsland</option>
-                                    <option value="19" title="Madhya Pradesh">Madhya Pradesh</option>
-                                    <option value="20" title="Maharashtra">Maharashtra</option>
-                                    <option value="21" title="Manipur">Manipur</option>
-                                    <option value="22" title="Meghalaya">Meghalaya</option>
-                                    <option value="23" title="Mizoram">Mizoram</option>
-                                    <option value="24" title="Nagaland">Nagaland</option>
-                                    <option value="25" title="Orissa">Orissa</option>
-                                    <option value="26" title="Pondicherry">Pondicherry</option>
-                                    <option value="27" title="Punjab">Punjab</option>
-                                    <option value="28" title="Rajasthan">Rajasthan</option>
-                                    <option value="29" title="Sikkim">Sikkim</option>
-                                    <option value="30" title="Tamil Nadu">Tamil Nadu</option>
-                                    <option value="31" title="Tripura">Tripura</option>
-                                    <option value="32" title="Uttar Pradesh">Uttar Pradesh</option>
-                                    <option value="33" title="Uttaranchal">Uttaranchal</option>
-                                    <option value="34" title="West Bengal">West Bengal</option>
-                                    <option value="35" title="Andaman&Nicobar">Andaman&Nicobar</option>
-                                    <option value="103" title="Telangana">Telangana</option>
-
-                                </select>
-
-                            </div>
-                        </div>
-
-                        <div class="disloadingstat" id="apply_loading">
-                            <div class="spinner">
-                                <div class="bounce1" style="background:#cd3162;width:10px;height:10px"></div>
-                                <div class="bounce2" style="background:#fbbb38;width:10px;height:10px"></div>
-                                <div class="bounce3" style="background:#cd3162;width:10px;height:10px"></div>
-                            </div>
-                        </div>
-                        <div class="form-group" id="show_city">
-                            <label for="City" class="control-label col-md-4 col-sm-12 col-xs-12">City</label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" name="city" id="city" @disabledLogin>
-                                    <option value="">Select</option>
-                                    <option value="Allahabad">Allahabad</option>
-                                    <option value="Agra">Agra</option>
-                                    <option value="Baghpat">Baghpat</option>
-                                    <option value="Gorakhpur">Gorakhpur</option>
-                                    <option value="Kanpur">Kanpur</option>
-                                    <option value="Lucknow">Lucknow</option>
-                                    <option value="Barabanki">Barabanki</option>
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="form-group" id="resi_status">
-                            <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department</span> </label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" name="department" id="department" @disabledLogin></select>
-
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="Religion" class="control-label col-md-4 col-sm-12 col-xs-12">Religion</label>
-                            <div class="col-md-7 col-sm-12 col-xs-12">
-                                <select class="common-input selectval" id="religion" name="religion" data-live-search="true" data-valid="required" @disabledLogin>
-
-                                    <option value="">Select</option>
-                                    <option value="739" title="Hindu">Hindu</option>
-                                    <option value="744" title="Jain">Jain</option>
-                                    <option value="740" title="Muslim">Muslim</option>
-                                    <option value="742" title="Sikh">Sikh</option>
-                                    <option value="741" title="Christian">Christian</option>
-                                    <option value="748" title="Spiritual">Spiritual</option>
-                                    <option value="743" title="Parsi">Parsi</option>
-                                    <option value="746" title="Jewish">Jewish</option>
-                                    <option value="745" title="Buddhist">Buddhist</option>
-                                    <option value="1090" title="No Religion">No Religion</option>
-                                    <option value="749" title="Other">Other</option>
-
-                                </select>
-
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="form-group">
-                            <label for="user_OTP" class="control-label">Verification Code:</label>
-                            <div>
-                                <input type="text" id="user_OTP" class="form-control" name="OTP" style="float:left;width:150px;" @disabledOTP />
-                            </div>
-                            <div>
-                                @if (Convert.ToString(ViewData["LoginAction"]) == "OTP")
-                                {
-                                    <input type="submit" name="action:getotp" class="btn btn-primary btn-blue btn-block btn-lg" value="Get OTP" style="float:right;width:200px;">
-                                }
-                                else
-                                {
-                                    <input type="submit" name="action:verifyOTP" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:150px;">
-                                }
-                            </div>
-                        </div>
-                        @*<div class="form-group">
-            <label for="State" class="control-label dis-none col-md-5 col-sm-12 col-xs-12">&nbsp;</label>
-            <div class="col-md-7 col-sm-12 col-xs-12 mt10">
-                <span class="accept-policy">By submitting you agree to our <span><a href="#" target="_blank">Privacy Policy</a> and <a href="#" target="_blank"> T&amp;C.</a></span></span>
-                <button type="submit" onclick="NewAccount.Screen.Parentfull.submit(event);" class="btn btn-primary btn-block btn-lg ripplelink">Signup</button>
-
-            </div>
-
-        </div>*@
-
-                    </form>
-</div>
-                    
-                </div>
-
-            </div>
-        </div>
-
-    
-    @*<div class="container body-content">
-        <div id="loginContainer" class="dialog dialog-effect-in" style="width:650px">
-            <div class="dialog-front">
-                <div class="dialog-content">
-                    <form id="register_form" class="dialog-form" action="" method="POST">
-                        <fieldset>
-                            <legend style="background-color:#428bca;text-align:center;color:#ffffff;">
-                                <font style="font-size:18px">REGISTER AN ACCOUNT</font><br />
-                                <font style="font-size:13px">
-                                    Fill the form below to signup your account.
-                                </font>
-                            </legend>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="firstname" class="control-label"> first name</label>
-                                    <input type="text" id="firstname" class="form-control" name="firstname" autofocus @disabledLogin />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="middlename" class="control-label">middle name</label>
-                                    <input type="text" id="middlename" class="form-control" name="middlename" @disabledLogin />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="lastname" class="control-label">last name</label>
-                                    <input type="text" id="lastname" class="form-control" name="lastname" @disabledLogin />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="DOB" class="control-label">Date of Birth</label>
-                                    <input type="date" id="DOB" class="form-control" name="DOB" @disabledLogin />
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="Gender" class="control-label">Gender</label>
-                                    <select id="Gender" class="form-control" name="Gender" @disabledLogin>
+                                    <select id="Gender" class="form-control" name="Gender" required>
                                         <option value="Select">Select</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="mobilenumber" class="control-label">Mobile No</label>
-                                    <input type="text" id="mobilenumber" class="form-control" name="mobilenumber" maxlength="10" onkeypress="return isNumber(event)" @disabledLogin />
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="email" class="control-label">Email</label>
-                                    <input type="text" id="email" class="form-control" name="email" @disabledLogin />
+                            <div class="form-group">
+                                <label for="DOB" class="control-label col-md-4 col-sm-12 col-xs-12">Date of Birth</label>
+                                <div class="col-md-4 col-sm-6 col-xs-6">
+                                    <input type="date" id="DOB" class="form-control" name="DOB" required maxlength="8" />
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="address" class="control-label">Address</label>
-                                    <input type="text" id="address" class="form-control" name="address" @disabledLogin />
+                            <div class="form-group">
+                                <label for="Address" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Address</span> </label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <input type="text" value="" name="address" data-valid="required" class="register-input" id="address" placeholder="Enter Address " maxlength="50" autocomplete="off">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="city" class="control-label">City</label>
-                                    <select id="city" class="form-control" name="city" @disabledLogin>
-                                        <option value="Select">Select</option>
-                                        <option value="Lucknow">Lucknow</option>
-                                        <option value="Delhi">Delhi</option>
-                                        <option value="Allahabad">Allahabad</option>
+                            </div>
+                            <div class="form-group">
+                                <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">Country</label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" id="country" name="country" data-valid="required"></select>
+                                </div>
+                            </div>
+                            <div class="form-group" id="state_val">
+                                <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">State</label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" id="state" name="state" data-live-search="true" data-valid="required"></select>
+                                </div>
+                            </div>
+                            <div class="form-group" id="show_city">
+                                <label for="City" class="control-label col-md-4 col-sm-12 col-xs-12">City</label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" name="city" id="city"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Pin Code" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Pin Code</span></label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <input type="text" class="register-input" id="pincode" placeholder="Enter Pin Code " value="" name="pincode" data-valid="required" maxlength="6" onkeypress="return isNumber(event)" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group" id="resi_status">
+                                <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department</span> </label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" name="department" id="department"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Religion" class="control-label col-md-4 col-sm-12 col-xs-12">Religion</label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <select class="common-input selectval" id="religion" name="religion" data-live-search="true" data-valid="required">
+                                        <option value="">Select</option>
+                                        <option value="739" title="Hindu">Hindu</option>
+                                        <option value="744" title="Jain">Jain</option>
+                                        <option value="740" title="Muslim">Muslim</option>
+                                        <option value="742" title="Sikh">Sikh</option>
+                                        <option value="741" title="Christian">Christian</option>
+                                        <option value="748" title="Spiritual">Spiritual</option>
+                                        <option value="743" title="Parsi">Parsi</option>
+                                        <option value="746" title="Jewish">Jewish</option>
+                                        <option value="745" title="Buddhist">Buddhist</option>
+                                        <option value="1090" title="No Religion">No Religion</option>
+                                        <option value="749" title="Other">Other</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="country" class="control-label">Country</label>
-                                    <select id="country" class="form-control" name="country" @disabledLogin>
-                                        <option value="Select">Select</option>
-                                        <option value="India">India</option>
-                                        <option value="USA">USA</option>
-                                        <option value="Australia">Australia</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="pincode" class="control-label">Pin Code</label>
-                                    <input type="text" id="pincode" class="form-control" name="pincode" maxlength="6" onkeypress="return isNumber(event)" @disabledLogin />
+                            <hr />
+                            <div class="form-group">
+                                <input type="submit" name="getotp" class="btn btn-primary btn-blue btn-block btn-lg" value="Get OTP" style="float:right;width:200px;">
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <form id="register_form" class="form-horizontal" action="verifyOTP" method="post" autocomplete="off">
+                            <h2>Verify OTP</h2>
+                            <p style="margin-bottom:0px;">Verify Your OTP and this brings you to Payment Page</p>
+                            <hr />
+                            <div class="form-group">
+                                <label for="user_OTP" class="control-label col-md-4 col-sm-12 col-xs-12"><span>OTP</span></label>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <input type="text" class="register-input" id="user_OTP" placeholder="OTP" value="" name="OTP" data-valid="required">
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="religion" class="control-label">Religion</label>
-                                    <select id="religion" class="form-control" name="religion" @disabledLogin>
-                                        <option value="Select">Select</option>
-                                        <option value="Hinduism">Hinduism</option>
-                                        <option value="Islam">Islam</option>
-                                        <option value="Christianity">Christianity</option>
-                                        <option value="Sikhism">Sikhism</option>
-                                        <option value="Buddhism">Buddhism</option>
-                                        <option value="Jainism">Jainism</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="department" class="control-label">Department</label>
-                                    <select id="department" class="form-control" name="department" @disabledLogin>
-                                        @*<option value="Select">Select</option>
-                                        <option value="Hinduism">Hinduism</option>
-                                        <option value="Islam">Islam</option>
-                                        <option value="Christianity">Christianity</option>
-                                        <option value="Sikhism">Sikhism</option>
-                                        <option value="Buddhism">Buddhism</option>
-                                        <option value="Jainism">Jainism</option>
-    </select>
-    </div>
+                            <div class="form-group">
+                                <input type="submit" name="verifyOTP" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:200px;">
+                            </div>
+                        </form>
+                    }
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
-    
-    <div class="pad-top-20 pad-btm-20">
 
-    </div>
-    </fieldset>
-    </form>
-    </div>
-    </div>
-    </div>
-    </div>*@
+    @*<div class="container body-content">
+            <div id="loginContainer" class="dialog dialog-effect-in" style="width:650px">
+                <div class="dialog-front">
+                    <div class="dialog-content">
+                        <form id="register_form" class="dialog-form" action="" method="POST">
+                            <fieldset>
+                                <legend style="background-color:#428bca;text-align:center;color:#ffffff;">
+                                    <font style="font-size:18px">REGISTER AN ACCOUNT</font><br />
+                                    <font style="font-size:13px">
+                                        Fill the form below to signup your account.
+                                    </font>
+                                </legend>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="firstname" class="control-label"> first name</label>
+                                        <input type="text" id="firstname" class="form-control" name="firstname" autofocus  />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="middlename" class="control-label">middle name</label>
+                                        <input type="text" id="middlename" class="form-control" name="middlename"  />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="lastname" class="control-label">last name</label>
+                                        <input type="text" id="lastname" class="form-control" name="lastname"  />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="DOB" class="control-label">Date of Birth</label>
+                                        <input type="date" id="DOB" class="form-control" name="DOB"  />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="Gender" class="control-label">Gender</label>
+                                        <select id="Gender" class="form-control" name="Gender" >
+                                            <option value="Select">Select</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="mobilenumber" class="control-label">Mobile No</label>
+                                        <input type="text" id="mobilenumber" class="form-control" name="mobilenumber" maxlength="10" onkeypress="return isNumber(event)"  />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="email" class="control-label">Email</label>
+                                        <input type="text" id="email" class="form-control" name="email"  />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="address" class="control-label">Address</label>
+                                        <input type="text" id="address" class="form-control" name="address"  />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="city" class="control-label">City</label>
+                                        <select id="city" class="form-control" name="city" >
+                                            <option value="Select">Select</option>
+                                            <option value="Lucknow">Lucknow</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Allahabad">Allahabad</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="country" class="control-label">Country</label>
+                                        <select id="country" class="form-control" name="country" >
+                                            <option value="Select">Select</option>
+                                            <option value="India">India</option>
+                                            <option value="USA">USA</option>
+                                            <option value="Australia">Australia</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="pincode" class="control-label">Pin Code</label>
+                                        <input type="text" id="pincode" class="form-control" name="pincode" maxlength="6" onkeypress="return isNumber(event)"  />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="religion" class="control-label">Religion</label>
+                                        <select id="religion" class="form-control" name="religion" >
+                                            <option value="Select">Select</option>
+                                            <option value="Hinduism">Hinduism</option>
+                                            <option value="Islam">Islam</option>
+                                            <option value="Christianity">Christianity</option>
+                                            <option value="Sikhism">Sikhism</option>
+                                            <option value="Buddhism">Buddhism</option>
+                                            <option value="Jainism">Jainism</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="department" class="control-label">Department</label>
+                                        <select id="department" class="form-control" name="department" >
+                                            @*<option value="Select">Select</option>
+                                            <option value="Hinduism">Hinduism</option>
+                                            <option value="Islam">Islam</option>
+                                            <option value="Christianity">Christianity</option>
+                                            <option value="Sikhism">Sikhism</option>
+                                            <option value="Buddhism">Buddhism</option>
+                                            <option value="Jainism">Jainism</option>
+        </select>
+        </div>
+        </div>
+
+
+        <div class="pad-top-20 pad-btm-20">
+
+        </div>
+        </fieldset>
+        </form>
+        </div>
+        </div>
+        </div>
+        </div>*@
     <hr class="text-center navbar-fixed-bottom" />
     <footer class="text-center navbar-fixed-bottom">
         <p>&copy; @DateTime.Now.Year - Patient Portal</p>

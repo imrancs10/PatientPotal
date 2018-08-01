@@ -7,6 +7,10 @@ utility.global = {};
 utility.ajax.errorCall = function (x, y, z) {
 
 }
+
+var getUrl = window.location;
+utility.baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
+
 utility.ajax.options = {
     url: '',
     method: "POST",
