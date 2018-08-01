@@ -29,5 +29,14 @@ namespace PatientPortal.Global
             DataNotFound,
             DataAlreadyExist
         }
+
+        public enum JsonResult
+        {
+            Data_NotFound=100,
+            Invalid_DataId = 101,
+            Data_Expire=102,
+            Success=103,
+            Unsuccessful
+        }
     }
 }

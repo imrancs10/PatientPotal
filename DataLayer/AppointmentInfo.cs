@@ -20,7 +20,11 @@ namespace DataLayer
         public System.DateTime AppointmentDateFrom { get; set; }
         public System.DateTime AppointmentDateTo { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public Nullable<System.DateTime> ModifiedBy { get; set; }
+        public int ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public bool IsCancelled { get; set; }
+        public Nullable<System.DateTime> CancelDate { get; set; }
+        public string CancelReason { get; set; }
     
         public virtual Doctor Doctor { get; set; }
         public virtual PatientInfo PatientInfo { get; set; }

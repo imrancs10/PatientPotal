@@ -32,9 +32,9 @@ namespace DataLayer
         public virtual DbSet<DoctorSchedule> DoctorSchedules { get; set; }
         public virtual DbSet<Gbl_Master_Login> Gbl_Master_Login { get; set; }
         public virtual DbSet<Gbl_Master_User> Gbl_Master_User { get; set; }
+        public virtual DbSet<HospitalDetail> HospitalDetails { get; set; }
         public virtual DbSet<MeridiemMaster> MeridiemMasters { get; set; }
         public virtual DbSet<PatientInfo> PatientInfoes { get; set; }
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
-        public virtual DbSet<HospitalDetail> HospitalDetails { get; set; }
     }
 }

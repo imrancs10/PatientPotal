@@ -261,6 +261,10 @@ namespace PatientPortal.Controllers
             serializeModel.MiddleName = info.MiddleName;
             serializeModel.LastName = info.LastName;
             serializeModel.Email = info.Email;
+            serializeModel.DOB = info.DOB == null ? DateTime.MinValue : Convert.ToDateTime(info.DOB);
+            serializeModel.Gender = info.Gender;
+            serializeModel.Mobile = info.MobileNumber;
+
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -316,6 +320,7 @@ namespace PatientPortal.Controllers
         private static Dictionary<string, object> SavePatientInfo(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state)
         {
             PatientDetails _details = new PatientDetails();
+            int pinResult = 0;
             PatientInfo info = new PatientInfo()
             {
                 FirstName = firstname,
@@ -328,7 +333,7 @@ namespace PatientPortal.Controllers
                 Address = address,
                 City = city,
                 Country = country,
-                PinCode = int.TryParse(pincode, out int pin) ? pin : 0,
+                PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0,
                 Religion = religion,
                 OTP = verificationCode,
                 DepartmentId = Convert.ToInt32(department),

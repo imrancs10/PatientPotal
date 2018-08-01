@@ -7,6 +7,7 @@ using PatientPortal.BAL.Appointments;
 using DataLayer;
 using PatientPortal.Infrastructure;
 using PatientPortal.Infrastructure.Utility;
+using PatientPortal.Global;
 
 namespace PatientPortal.Controllers
 {
@@ -56,6 +57,46 @@ namespace PatientPortal.Controllers
             ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
             sendMessageStrategy.SendMessages();
             return Json(CrudResponse(_details.SaveAppointment(model)), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetPatientAppointmentList()
+        {
+            AppointDetails _details = new AppointDetails();
+            int _patientId = 0;
+            string _sessionPatienId = Session["PatientId"]==null?"0": Session["PatientId"].ToString();
+            Dictionary<int, string> result = new Dictionary<int, string>();
+            if (int.TryParse(_sessionPatienId, out _patientId))
+            {                
+                return Json(_details.PatientAppointmentList(_patientId), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                result.Add((int)Enums.JsonResult.Invalid_DataId, "Patient Id is invalid");
+                return Json(result.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult CancelAppointment(int appointmentId,string CancelReason)
+        {
+            AppointDetails _details = new AppointDetails();
+            int PatientId = 0;
+            Dictionary<int, string> result = new Dictionary<int, string>();
+            if (int.TryParse(Session["PatientId"].ToString(), out PatientId))
+            {
+                return Json(_details.CancelAppointment(PatientId, appointmentId,CancelReason).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                result.Add((int)Enums.JsonResult.Invalid_DataId, "Patient Id is invalid");
+                return Json(result.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult PatientProfile()
+        {
+            return View();
         }
     }
 }

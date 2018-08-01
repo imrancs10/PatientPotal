@@ -28,3 +28,6 @@ app.urls.appointmentdeptWiseDoctorScheduleList = "/Appointment/deptWiseDoctorSch
 app.urls.appointmentdayWiseDoctorScheduleList = "/Appointment/DayWiseDoctorScheduleList";
 app.urls.appointmentDateWiseDoctorAppointmentList = "/Appointment/DateWiseDoctorAppointmentList";
 app.urls.appointmentSaveAppointment = "/Appointment/SaveAppointment";
+
+app.urls.appointmentGetPatientAppointmentList = "/Appointment/GetPatientAppointmentList";
+app.urls.appointmentCancelAppointment = "/Appointment/CancelAppointment";

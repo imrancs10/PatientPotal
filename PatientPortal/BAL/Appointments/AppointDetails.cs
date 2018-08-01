@@ -11,7 +11,7 @@ namespace PatientPortal.BAL.Appointments
     public class AppointDetails
     {
         PatientPortalEntities _db = null;
-        public IEnumerable<object> DeptWiseDoctorScheduleList(int deptId=0,int year=0,int month=0)
+        public IEnumerable<object> DeptWiseDoctorScheduleList(int deptId = 0, int year = 0, int month = 0)
         {
             _db = new PatientPortalEntities();
             year = year == 0 ? DateTime.Now.Year : year;
@@ -63,16 +63,16 @@ namespace PatientPortal.BAL.Appointments
             var _list = (from docAppointment in _db.AppointmentInfoes
 
                          orderby docAppointment.DoctorId
-                         where DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom)<= date && DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) >= date.Date
+                         where DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) <= date && DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom) >= date.Date
                          select new
                          {
-                            docAppointment.AppointmentDateFrom,
+                             docAppointment.AppointmentDateFrom,
                              docAppointment.AppointmentDateTo,
                              docAppointment.AppointmentId,
                              docAppointment.DoctorId,
                              docAppointment.Doctor.DoctorName,
                              docAppointment.PatientId
-                         }).OrderBy(x=>x.AppointmentDateFrom).GroupBy(x => x.DoctorId).ToList();
+                         }).OrderBy(x => x.AppointmentDateFrom).GroupBy(x => x.DoctorId).ToList();
             return _list;
         }
         public Enums.CrudStatus SaveAppointment(AppointmentInfo model)
@@ -94,6 +94,62 @@ namespace PatientPortal.BAL.Appointments
             }
             else
                 return Enums.CrudStatus.DataAlreadyExist;
+        }
+        public IEnumerable<object> PatientAppointmentList(int _patientId)
+        {
+            _db = new PatientPortalEntities();
+            var _list = (from docAppointment in _db.AppointmentInfoes
+
+                         orderby docAppointment.DoctorId
+                         where docAppointment.PatientInfo.PatientId.Equals(_patientId)
+
+                         select new
+                         {
+                             docAppointment.AppointmentDateFrom,
+                             docAppointment.IsCancelled,
+                             docAppointment.CancelDate,
+                             docAppointment.CancelReason,
+                             docAppointment.Doctor.DepartmentID,
+                             docAppointment.Doctor.Department.DepartmentName,
+                             docAppointment.AppointmentDateTo,
+                             docAppointment.AppointmentId,
+                             docAppointment.DoctorId,
+                             docAppointment.Doctor.DoctorName,
+                             docAppointment.PatientId,
+                             PatientName = docAppointment.PatientInfo.FirstName + " " +  docAppointment.PatientInfo.MiddleName + " " + docAppointment.PatientInfo.LastName
+                         }).OrderBy(x => x.AppointmentDateFrom).ToList();
+            return _list;
+        }
+        public Dictionary<int, string> CancelAppointment(int _patientId,int _appId,string CancelReason="")
+        {
+            int _priorCancelTime = 0;
+            Dictionary<int, string> result = new Dictionary<int, string>();
+            int.TryParse(Utility.GetAppSettingKey("AppointmentCancelInAdvanceMinuts"), out _priorCancelTime);
+            _db = new PatientPortalEntities();
+            var app = _db.AppointmentInfoes.Where(x => x.PatientId.Equals(_patientId) && x.AppointmentId.Equals(_appId)).FirstOrDefault();
+            if(app!=null)
+            {
+                if (app.AppointmentDateFrom >= DateTime.Now.AddMinutes(-_priorCancelTime))
+                {
+                    app.CancelDate = DateTime.Now;
+                    app.CancelReason = CancelReason;
+                    app.ModifiedBy = _patientId;
+                    app.ModifiedDate = DateTime.Now;
+                    app.IsCancelled = true;
+                    _db.Entry(app).State = EntityState.Modified;
+                    int _rowCount = _db.SaveChanges();
+                    if(_rowCount>0)
+                        result.Add((int)Enums.JsonResult.Success, "Appointment has been cancelled");
+                    else
+                        result.Add((int)Enums.JsonResult.Unsuccessful, "Appointment has not been cancelled");
+                }
+                else
+                {
+                    result.Add((int)Enums.JsonResult.Data_Expire, "You can't cancel the appointment " + _priorCancelTime + " minute(s) prior scheduled time");
+                }
+            }
+
+            return result;
         }
     }
 }

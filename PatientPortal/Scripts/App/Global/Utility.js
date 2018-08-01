@@ -19,7 +19,7 @@ utility.ajax.options = {
     success: ''
 };
 
-utility.ajax.helper = function (url, success, error) {
+utility.ajax.helper = function (url, success, error,method) {
     if (typeof success === 'function') {
         utility.ajax.options.success = success;
     }
@@ -30,11 +30,12 @@ utility.ajax.helper = function (url, success, error) {
         utility.ajax.options.error = error;
     }
 
+    utility.ajax.options.method = method === undefined ? utility.ajax.options.method : method;
     utility.ajax.options.url = url;
 
     $.ajax(utility.ajax.options);
 }
-utility.ajax.helperWithData = function (url, data, success, error) {
+utility.ajax.helperWithData = function (url, data, success, error, method) {
     if (typeof success === 'function') {
         utility.ajax.options.success = success;
     }
@@ -44,7 +45,7 @@ utility.ajax.helperWithData = function (url, data, success, error) {
     if (typeof error !== undefined && typeof error === 'function') {
         utility.ajax.options.error = error;
     }
-
+    utility.ajax.options.method = method === undefined ? "POST" : method;
     utility.ajax.options.url = url;
     utility.ajax.options.data = JSON.stringify(data);
     utility.ajax.options.dataType = 'json';
@@ -185,6 +186,27 @@ Date.prototype.getCustomDetails = function (year, month) {
     obj.todayDate = new Date().getDate();
     obj.todayMonth = new Date().getMonth()+1;
     obj.todayYear = new Date().getFullYear();
+    return obj;
+}
+
+Date.prototype.compareDate = function (date1, date2) {
+    date1 = new Date(date1);
+    date2 = new Date(date2);
+    var day1 = date1.getDate();
+    var month1 = date1.getMonth() + 1;
+    var year1 = date1.getFullYear();
+    var day2 = date2.getDate();
+    var month2 = date2.getMonth() + 1;
+    var year2 = date2.getFullYear();
+    var obj={};
+    obj.isMonthSame = month1 === month2,
+    obj.isDaySame = day1 === day2,
+    obj.isYearSame = year1 == year2,
+    obj.isDateSame = month1 === month2 ? (day1 === day2 ? (year1 == year2 ? true : false) : false) : false;
+    obj.isDateLessOrEqual = month1 <= month2 ? (day1 <= day2 ? (year1 <= year2 ? true : false) : false) : false;
+    obj.isDateLess = month1 < month2 ? true : (day1 < day2 ? true : (year1 < year2 ? true : false));
+    obj.isDateGreaterOrEqual = month1 >= month2 ? (day1 >= day2 ? (year1 >= year2 ? true : false) : false) : false;
+    obj.isDateGreater = month1 > month2 ? (day1 > day2 ? (year1 > year2 ? true : false) : false) : false;
     return obj;
 }
 

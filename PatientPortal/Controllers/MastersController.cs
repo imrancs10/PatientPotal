@@ -146,9 +146,10 @@ namespace PatientPortal.Controllers
         }
         public ActionResult DeleteHospital(string Id)
         {
-            int.TryParse(Id, out int id);
+            int result = 0;
+            int.TryParse(Id, out result);
             HospitalDetails details = new HospitalDetails();
-            details.DeleteHospitalDetail(id);
+            details.DeleteHospitalDetail(result);
             return RedirectToAction("HospitalDetail");
         }
     }
