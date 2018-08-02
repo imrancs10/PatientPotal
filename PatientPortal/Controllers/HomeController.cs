@@ -257,14 +257,19 @@ namespace PatientPortal.Controllers
         {
             CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
             serializeModel.Id = info.PatientId;
-            serializeModel.FirstName = info.FirstName;
-            serializeModel.MiddleName = info.MiddleName;
-            serializeModel.LastName = info.LastName;
-            serializeModel.Email = info.Email;
-            serializeModel.DOB = info.DOB == null ? DateTime.MinValue : Convert.ToDateTime(info.DOB);
-            serializeModel.Gender = info.Gender;
-            serializeModel.Mobile = info.MobileNumber;
-
+            serializeModel.FirstName = string.IsNullOrEmpty(info.FirstName) ? string.Empty : info.FirstName;
+            serializeModel.MiddleName = string.IsNullOrEmpty(info.MiddleName) ? string.Empty : info.MiddleName;
+            serializeModel.LastName = string.IsNullOrEmpty(info.LastName) ? string.Empty : info.LastName;
+            serializeModel.Email = string.IsNullOrEmpty(info.Email) ? string.Empty : info.Email;
+            serializeModel.DOB = info.DOB == null ? DateTime.MinValue : info.DOB;
+            serializeModel.Gender = string.IsNullOrEmpty(info.Gender) ? string.Empty : info.Gender;
+            serializeModel.Mobile = string.IsNullOrEmpty(info.MobileNumber) ? string.Empty : info.MobileNumber;
+            serializeModel.Address = string.IsNullOrEmpty(info.Address) ? string.Empty : info.Address;
+            serializeModel.City = string.IsNullOrEmpty(info.City) ? string.Empty : info.City;
+            serializeModel.State = string.IsNullOrEmpty(info.State) ? string.Empty : info.State;
+            serializeModel.Country = string.IsNullOrEmpty(info.Country) ? string.Empty : info.Country;
+            serializeModel.PINCode = string.IsNullOrEmpty(info.PinCode.ToString()) ? string.Empty : info.PinCode.ToString();
+            serializeModel.RegistrationNo = info.RegistrationNumber;
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
