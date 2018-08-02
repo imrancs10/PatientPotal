@@ -17,7 +17,7 @@ namespace PatientPortal.BAL.Patient
         {
             _db = new PatientPortalEntities();
             //string hashPassword = Utility.GetHashString(Password);
-            return _db.PatientInfoes.Where(x => x.RegistrationNumber == UserId && x.Password == Password).FirstOrDefault();
+            return _db.PatientInfoes.Include(x => x.Department).Where(x => x.RegistrationNumber == UserId && x.Password == Password).FirstOrDefault();
         }
 
         public PatientInfo GetPatientDetailByRegistrationNumber(string UserId)

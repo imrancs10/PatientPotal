@@ -270,6 +270,8 @@ namespace PatientPortal.Controllers
             serializeModel.Country = string.IsNullOrEmpty(info.Country) ? string.Empty : info.Country;
             serializeModel.PINCode = string.IsNullOrEmpty(info.PinCode.ToString()) ? string.Empty : info.PinCode.ToString();
             serializeModel.RegistrationNo = info.RegistrationNumber;
+            serializeModel.Religion = info.Religion;
+            serializeModel.Department = info.Department != null ? info.Department.DepartmentName : "";
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 

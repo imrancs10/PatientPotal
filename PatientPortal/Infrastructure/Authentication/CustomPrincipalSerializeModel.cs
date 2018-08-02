@@ -21,5 +21,8 @@ namespace PatientPortal.Infrastructure.Authentication
         public string State { get; set; }
         public string Country { get; set; }
         public string PINCode { get; set; }
+        public string Religion { get; set; }
+        public string Department { get; set; }
+
     }
 }
