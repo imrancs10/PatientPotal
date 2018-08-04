@@ -237,7 +237,6 @@
     <Content Include="img\ajax-loader.gif" />
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner.jpg" />
-    <Content Include="img\banner1.jpg" />
     <Content Include="img\p1.jpg" />
     <Content Include="img\p2.jpg" />
     <Content Include="img\pp.jpg" />
@@ -291,7 +290,6 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\Appointment.cshtml" />
     <Content Include="Views\Masters\AddDepartments.cshtml" />
-    <Content Include="Views\Masters\AddDepartment.cshtml" />
     <Content Include="Views\Masters\AddDoctors.cshtml" />
     <Content Include="Views\Masters\AddSchedule.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
