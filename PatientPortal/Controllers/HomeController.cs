@@ -6,6 +6,7 @@ using PatientPortal.Global;
 using PatientPortal.Infrastructure;
 using PatientPortal.Infrastructure.Authentication;
 using PatientPortal.Infrastructure.Utility;
+using PatientPortal.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -77,7 +78,7 @@ namespace PatientPortal.Controllers
             else
             {
                 string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
-                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state);
+                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, 0);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     Message msg = new Message()
@@ -303,28 +304,55 @@ namespace PatientPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult MyProfile()
+        public ActionResult MyProfile(string actionName)
         {
-
-            PatientDetails _details = new PatientDetails();
+            if (!string.IsNullOrEmpty(actionName))
+            {
+                ViewData["Action"] = "Edit";
+            }
             if (User == null)
             {
                 SetAlertMessage("User has been logged out", "Update Profile");
                 return RedirectToAction("Index");
             }
-            var result = _details.GetPatientDetailById(User.Id);
-            if (result == null)
+            var patient = GetPatientInfo();
+            if (patient != null)
             {
-                SetAlertMessage("User not found", "Update Profile");
-                return RedirectToAction("Index");
+                ViewData["PatientData"] = patient;
             }
             else
             {
-                ViewData.Model = result;
+                SetAlertMessage("User not found", "Update Profile");
+                return RedirectToAction("Index");
+
             }
             return View();
         }
-        private static Dictionary<string, object> SavePatientInfo(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state)
+
+        private PatientInfoModel GetPatientInfo()
+        {
+            PatientDetails _details = new PatientDetails();
+            var result = _details.GetPatientDetailById(User.Id);
+            PatientInfoModel model = new PatientInfoModel
+            {
+                Address = result.Address,
+                City = result.City,
+                Country = result.Country,
+                Department = result.Department.DepartmentName,
+                DOB = result.DOB,
+                Email = result.Email,
+                FirstName = result.FirstName,
+                Gender = result.Gender,
+                LastName = result.LastName,
+                MiddleName = result.MiddleName,
+                MobileNumber = result.MobileNumber,
+                PinCode = result.PinCode,
+                Religion = result.Religion,
+                State = result.State
+            };
+            return model;
+        }
+        private static Dictionary<string, object> SavePatientInfo(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, int patientId)
         {
             PatientDetails _details = new PatientDetails();
             int pinResult = 0;
@@ -346,8 +374,45 @@ namespace PatientPortal.Controllers
                 DepartmentId = Convert.ToInt32(department),
                 State = state
             };
-            var result = _details.RegisterPatientDetail(info);
+            if (patientId > 0)
+                info.PatientId = patientId;
+            var result = _details.CreateOrUpdatePatientDetail(info);
             return result;
+        }
+        public ActionResult EditProfile()
+        {
+            ViewData["Action"] = "Edit";
+            return RedirectToAction("MyProfile", new { actionName = "Edit" });
+        }
+
+        [HttpPost]
+        public ActionResult UpdateProfile(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department)
+        {
+            string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            if (mobilenumber.Trim().Length != 10)
+            {
+                SetAlertMessage("Please Enter correct Mobile Number", "Register");
+                return RedirectToAction("Register");
+            }
+            else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
+            {
+                SetAlertMessage("Please Enter correct Email Address", "Register");
+                return RedirectToAction("Register");
+            }
+            else
+            {
+                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, Convert.ToInt32(User.Id));
+                if (result["status"].ToString() == CrudStatus.Saved.ToString())
+                {
+                    return RedirectToAction("MyProfile");
+                }
+                else
+                {
+                    SetAlertMessage("Profile Not updated", "MyProfile");
+                    ViewData["Action"] = "Edit";
+                    return RedirectToAction("MyProfile", new { actionName = "Edit" });
+                }
+            }
         }
     }
 }

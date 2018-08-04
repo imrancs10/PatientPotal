@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                             <div class="form-group" id="resi_status">
-                                <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department</span> </label>
+                                <label for="department" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department</span> </label>
                                 <div class="col-md-7 col-sm-12 col-xs-12">
                                     <select class="common-input selectval" name="department" id="department"></select>
                                 </div>
@@ -152,17 +152,16 @@
                                 <div class="col-md-7 col-sm-12 col-xs-12">
                                     <select class="common-input selectval" id="religion" name="religion" data-live-search="true" data-valid="required">
                                         <option value="">Select</option>
-                                        <option value="739" title="Hindu">Hindu</option>
-                                        <option value="744" title="Jain">Jain</option>
-                                        <option value="740" title="Muslim">Muslim</option>
-                                        <option value="742" title="Sikh">Sikh</option>
-                                        <option value="741" title="Christian">Christian</option>
-                                        <option value="748" title="Spiritual">Spiritual</option>
-                                        <option value="743" title="Parsi">Parsi</option>
-                                        <option value="746" title="Jewish">Jewish</option>
-                                        <option value="745" title="Buddhist">Buddhist</option>
-                                        <option value="1090" title="No Religion">No Religion</option>
-                                        <option value="749" title="Other">Other</option>
+                                        <option value="Hindu" title="Hindu">Hindu</option>
+                                        <option value="Jain" title="Jain">Jain</option>
+                                        <option value="Muslim" title="Muslim">Muslim</option>
+                                        <option value="Sikh" title="Sikh">Sikh</option>
+                                        <option value="Christian" title="Christian">Christian</option>
+                                        <option value="Spiritual" title="Spiritual">Spiritual</option>
+                                        <option value="Parsi" title="Parsi">Parsi</option>
+                                        <option value="Jewish" title="Jewish">Jewish</option>
+                                        <option value="Buddhist" title="Buddhist">Buddhist</option>
+                                        <option value="Other" title="Other">Other</option>
                                     </select>
                                 </div>
                             </div>
@@ -190,130 +189,10 @@
                         </form>
                     }
                 </div>
-
             </div>
-
         </div>
     </div>
 
-
-    @*<div class="container body-content">
-            <div id="loginContainer" class="dialog dialog-effect-in" style="width:650px">
-                <div class="dialog-front">
-                    <div class="dialog-content">
-                        <form id="register_form" class="dialog-form" action="" method="POST">
-                            <fieldset>
-                                <legend style="background-color:#428bca;text-align:center;color:#ffffff;">
-                                    <font style="font-size:18px">REGISTER AN ACCOUNT</font><br />
-                                    <font style="font-size:13px">
-                                        Fill the form below to signup your account.
-                                    </font>
-                                </legend>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="firstname" class="control-label"> first name</label>
-                                        <input type="text" id="firstname" class="form-control" name="firstname" autofocus  />
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="middlename" class="control-label">middle name</label>
-                                        <input type="text" id="middlename" class="form-control" name="middlename"  />
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="lastname" class="control-label">last name</label>
-                                        <input type="text" id="lastname" class="form-control" name="lastname"  />
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="DOB" class="control-label">Date of Birth</label>
-                                        <input type="date" id="DOB" class="form-control" name="DOB"  />
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="Gender" class="control-label">Gender</label>
-                                        <select id="Gender" class="form-control" name="Gender" >
-                                            <option value="Select">Select</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="mobilenumber" class="control-label">Mobile No</label>
-                                        <input type="text" id="mobilenumber" class="form-control" name="mobilenumber" maxlength="10" onkeypress="return isNumber(event)"  />
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="email" class="control-label">Email</label>
-                                        <input type="text" id="email" class="form-control" name="email"  />
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="address" class="control-label">Address</label>
-                                        <input type="text" id="address" class="form-control" name="address"  />
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="city" class="control-label">City</label>
-                                        <select id="city" class="form-control" name="city" >
-                                            <option value="Select">Select</option>
-                                            <option value="Lucknow">Lucknow</option>
-                                            <option value="Delhi">Delhi</option>
-                                            <option value="Allahabad">Allahabad</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="country" class="control-label">Country</label>
-                                        <select id="country" class="form-control" name="country" >
-                                            <option value="Select">Select</option>
-                                            <option value="India">India</option>
-                                            <option value="USA">USA</option>
-                                            <option value="Australia">Australia</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="pincode" class="control-label">Pin Code</label>
-                                        <input type="text" id="pincode" class="form-control" name="pincode" maxlength="6" onkeypress="return isNumber(event)"  />
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="religion" class="control-label">Religion</label>
-                                        <select id="religion" class="form-control" name="religion" >
-                                            <option value="Select">Select</option>
-                                            <option value="Hinduism">Hinduism</option>
-                                            <option value="Islam">Islam</option>
-                                            <option value="Christianity">Christianity</option>
-                                            <option value="Sikhism">Sikhism</option>
-                                            <option value="Buddhism">Buddhism</option>
-                                            <option value="Jainism">Jainism</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="department" class="control-label">Department</label>
-                                        <select id="department" class="form-control" name="department" >
-                                            @*<option value="Select">Select</option>
-                                            <option value="Hinduism">Hinduism</option>
-                                            <option value="Islam">Islam</option>
-                                            <option value="Christianity">Christianity</option>
-                                            <option value="Sikhism">Sikhism</option>
-                                            <option value="Buddhism">Buddhism</option>
-                                            <option value="Jainism">Jainism</option>
-        </select>
-        </div>
-        </div>
-
-
-        <div class="pad-top-20 pad-btm-20">
-
-        </div>
-        </fieldset>
-        </form>
-        </div>
-        </div>
-        </div>
-        </div>*@
     <hr class="text-center navbar-fixed-bottom" />
     <footer class="text-center navbar-fixed-bottom">
         <p>&copy; @DateTime.Now.Year - Patient Portal</p>

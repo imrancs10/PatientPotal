@@ -31,7 +31,7 @@ namespace PatientPortal.BAL.Patient
         {
             _db = new PatientPortalEntities();
 
-            return _db.PatientInfoes.Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
+            return _db.PatientInfoes.Include(x => x.Department).Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
         }
         public PatientInfo UpdatePatientDetail(PatientInfo info)
         {
@@ -60,25 +60,62 @@ namespace PatientPortal.BAL.Patient
                 return false;
         }
 
-        public Dictionary<string, object> RegisterPatientDetail(PatientInfo info)
+        public Dictionary<string, object> CreateOrUpdatePatientDetail(PatientInfo info)
         {
             _db = new PatientPortalEntities();
             Dictionary<string, object> result = new Dictionary<string, object>();
             int _effectRow = 0;
-            var _deptRow = _db.PatientInfoes.Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
-            if (_deptRow == null)
+            if (info.PatientId > 0)
             {
-                _db.Entry(info).State = EntityState.Added;
-                _effectRow = _db.SaveChanges();
-                result.Add("status", CrudStatus.Saved.ToString());
-                result.Add("data", info);
-                return result;
+                var _patientRow = _db.PatientInfoes.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+                if (_patientRow != null)
+                {
+                    _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
+                    _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; ;
+                    _patientRow.Address = info.Address;
+                    _patientRow.City = info.City;
+                    _patientRow.Country = info.Country;
+                    _patientRow.DepartmentId = info.DepartmentId;
+                    _patientRow.DOB = info.DOB;
+                    _patientRow.Email = info.Email;
+                    _patientRow.FirstName = info.FirstName;
+                    _patientRow.Gender = info.Gender;
+                    _patientRow.LastName = info.LastName;
+                    _patientRow.MiddleName = info.MiddleName;
+                    _patientRow.MobileNumber = info.MobileNumber;
+                    _patientRow.PinCode = info.PinCode;
+                    _patientRow.Religion = info.Religion;
+                    _patientRow.State = info.State;
+                    _db.Entry(_patientRow).State = EntityState.Modified;
+                    _db.SaveChanges();
+                    result.Add("status", CrudStatus.Saved.ToString());
+                    result.Add("data", info);
+                    return result;
+                }
+                else
+                {
+                    result.Add("status", CrudStatus.NotSaved.ToString());
+                    result.Add("data", info);
+                    return result;
+                }
             }
             else
             {
-                result.Add("status", CrudStatus.DataAlreadyExist.ToString());
-                result.Add("data", _deptRow);
-                return result;
+                var _deptRow = _db.PatientInfoes.Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
+                if (_deptRow == null)
+                {
+                    _db.Entry(info).State = EntityState.Added;
+                    _effectRow = _db.SaveChanges();
+                    result.Add("status", CrudStatus.Saved.ToString());
+                    result.Add("data", info);
+                    return result;
+                }
+                else
+                {
+                    result.Add("status", CrudStatus.DataAlreadyExist.ToString());
+                    result.Add("data", _deptRow);
+                    return result;
+                }
             }
         }
 
