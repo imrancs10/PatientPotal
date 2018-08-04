@@ -59,8 +59,8 @@
                                         <div>@json.Address</div>
                                     </div>
                                     <div class="form-group">
-                                        <label>City</label>
-                                        <div id="cityLabel"></div>
+                                        <label>State</label>
+                                        <div id="stateLabel"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4 col-lg-4">
@@ -81,8 +81,8 @@
                                         <div>@json.PinCode</div>
                                     </div>
                                     <div class="form-group">
-                                        <label>State</label>
-                                        <div id="stateLabel"></div>
+                                        <label>City</label>
+                                        <div id="cityLabel"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4 col-lg-4">
@@ -145,9 +145,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>City</label>
+                                            <label>State</label>
                                             <div>
-                                                <select class="form-control" name="city" id="city"></select>
+                                                <select class="form-control" id="state" name="state" data-live-search="true" data-valid="required"></select>
                                             </div>
                                         </div>
                                     </div>
@@ -193,9 +193,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>State</label>
+                                            <label>City</label>
                                             <div>
-                                                <select class="form-control" id="state" name="state" data-live-search="true" data-valid="required"></select>
+                                                <select class="form-control" name="city" id="city"></select>
                                             </div>
                                         </div>
                                     </div>
@@ -231,13 +231,15 @@
                                         <div class="form-group">
                                             <label></label>
                                             <div>
-                                                <input type="submit" name="Update" class="btn btn-warning pull-right" value="Update" style="float:right;width:200px;">
+                                                <div>
+                                                    <input type="submit" name="Update" class="btn btn-warning pull-right" value="Update">
+                                                    <a href="/Home/MyProfile" class="btn btn-warning pull-right" style="margin:0 20px;">Cancel</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-
                         }
                     </div>
                 </div>
