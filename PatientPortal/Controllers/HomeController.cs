@@ -318,6 +318,10 @@ namespace PatientPortal.Controllers
             var patient = GetPatientInfo();
             if (patient != null)
             {
+                User.FirstName = patient.FirstName;
+                User.MiddleName = patient.MiddleName;
+                User.LastName = patient.LastName;
+                User.Email = patient.Email;
                 ViewData["PatientData"] = patient;
             }
             else
@@ -335,6 +339,7 @@ namespace PatientPortal.Controllers
             var result = _details.GetPatientDetailById(User.Id);
             PatientInfoModel model = new PatientInfoModel
             {
+                RegistrationNumber = result.RegistrationNumber,
                 Address = result.Address,
                 City = result.City,
                 Country = result.Country,
