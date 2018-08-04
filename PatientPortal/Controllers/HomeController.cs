@@ -450,7 +450,8 @@ namespace PatientPortal.Controllers
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
-                return RedirectToAction("Index");
+                ViewData["msg"] = "We have Sent you an Email for reset password link.";
+                return View();
             }
         }
     }
