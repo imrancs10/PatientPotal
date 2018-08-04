@@ -43,7 +43,7 @@ namespace PatientPortal.Infrastructure.Utility
         {
             string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
             body += "As you requested, you can use to create your Password by clicking on below URL.<br/>";
-            body += "<br/><b></b>" + link + "<br/><br/>";
+            body += "<br/><b></b>" +  link + "<br/><br/>";
             body += "Thank You,<br/>";
             body += "Patient Portal Information System Customer Support";
             return body;
