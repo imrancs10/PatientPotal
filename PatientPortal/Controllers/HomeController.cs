@@ -419,5 +419,39 @@ namespace PatientPortal.Controllers
                 }
             }
         }
+
+        public ActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgetPassword(string registernumber)
+        {
+            PatientDetails _detail = new PatientDetails();
+            var patient = _detail.GetPatientDetailByRegistrationNumber(registernumber);
+            if (patient == null)
+            {
+                SetAlertMessage("Registration number is not Correct.", "Forget Password");
+                return View();
+            }
+            else
+            {
+                string passwordCreateURL = "Home/CreatePassword?registrationNumber=" + registernumber;
+                string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+
+                Message msg = new Message()
+                {
+                    MessageTo = patient.Email,
+                    MessageNameTo = patient.FirstName + " " + patient.MiddleName + (string.IsNullOrWhiteSpace(patient.MiddleName) ? "" : " ") + patient.LastName,
+                    Subject = "Forget Password",
+                    Body = EmailHelper.GetForgetPasswordEmail(patient.FirstName, patient.MiddleName, patient.LastName, registernumber, baseUrl + passwordCreateURL)
+                };
+
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
