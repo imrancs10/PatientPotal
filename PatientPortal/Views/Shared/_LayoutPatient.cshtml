@@ -41,7 +41,7 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="">
             <div class="navbar-header">
                 @Html.ActionLink(hospitalName, "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
@@ -101,7 +101,7 @@
     </div>
     <header id="hoe-header" hoe-lpanel-effect="shrink">
         <div class="hoe-left-header">
-            <a href="#"><i class="fa fa-graduation-cap"></i> <span>Patient Portal</span></a>
+            <a href="#"><i class="far fa-prescription"></i> <span>Patient Portal</span></a>
             <span class="hoe-sidebar-toggle"><a href="#"></a></span>
         </div>
 
@@ -167,12 +167,44 @@
                     </a>
                 </li>
                 <li>
-                    <a href="~/Appointment/PatientProfile">
+                    <a href="javascript:void(0)">
                         <i class="fa fa-bar-chart"></i>
                         <span class="menu-text">EMR</span>
-                        <span class="label sul">New</span>
                         <span class="selected"></span>
                     </a>
+                    <ul class="hoe-sub-menu" style="display: none;">
+                        <li>
+                            <a href="~/Appointment/getAppointment">
+                                <span class="menu-text">Appointment</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/Appointment/PatientProfile">
+                                <span class="menu-text">Patient Profile</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span class="menu-text">User Profile</span>
+                                <span class="label sul">Updated</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span class="menu-text">Team Member</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span class="menu-text">Time Line</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="~/Appointment/GetAppointments">
