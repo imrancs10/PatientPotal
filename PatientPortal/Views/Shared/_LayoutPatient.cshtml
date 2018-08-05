@@ -4,7 +4,7 @@
 @using DataLayer;
 @using PatientPortal.Controllers;
 @{
-     var hospital = GetHospitalDetail();
+    var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
     string imgsrc = "../img/p1.jpg";
     if (hospital != null && hospital.HospitalLogo != null)
