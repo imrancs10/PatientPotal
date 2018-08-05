@@ -4,7 +4,7 @@
 @using DataLayer;
 @using PatientPortal.Controllers;
 @{
-    var hospital = GetHospitalDetail();
+     var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
     string imgsrc = "../img/p1.jpg";
     if (hospital != null && hospital.HospitalLogo != null)
@@ -28,7 +28,15 @@
     <link href="~/Content/jquery-ui.css" rel="stylesheet" />
     <script src="~/Scripts/App/Global/App.js"></script>
     <script src="~/Scripts/App/Global/Utility.js"></script>
-
+    <link href="~/Content/hoe.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/hoe-horizontal-navigation.css" rel="stylesheet" />
+    <link href="~/Content/header.css" rel="stylesheet" />
+    <link href="~/Content/hoe-overlay-effect.css" rel="stylesheet" />
+    <link href="~/Content/hoe-push-effect.css" rel="stylesheet" />
+    <link href="~/Content/hoe-rightsidebar.css" rel="stylesheet" />
+    <link href="~/Content/hoe-shrink-effect.css" rel="stylesheet" />
+    <link href="~/Content/hoe-theme-color.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -90,8 +98,91 @@
             </div>
         </div>
     </div>
+    <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
+        <aside id="hoe-left-panel" hoe-position-type="absolute">
+            <div class="profile-box">
+                <div class="media">
+                    <a class="pull-left" href="user-profile.html">
+                        <img class="img-circle" src="images/avatar-1.jpg">
+                    </a>
+                    <div class="media-body">
+                        <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>
+                        <small>Patient</small>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav panel-list">
+                <li class="nav-level">Navigation</li>
+                <li class="active">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-tachometer"></i>
+                        <span class="menu-text">Dashboard</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-tachometer"></i>
+                        <span class="menu-text">Home</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-bar-chart"></i>
+                        <span class="menu-text">EMR</span>
+                        <span class="label sul">New</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-bar-chart"></i>
+                        <span class="menu-text">Make Payment</span>
+                        <span class="label sul">New</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-bar-chart"></i>
+                        <span class="menu-text">Account Statement</span>
+                        <span class="label sul">New</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-bar-chart"></i>
+                        <span class="menu-text">Pending Orders</span>
+                        <span class="label sul">New</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-bar-chart"></i>
+                        <span class="menu-text">Reports</span>
+                        <span class="label sul">New</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-bar-chart"></i>
+                        <span class="menu-text">Receipt</span>
+                        <span class="label sul">New</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <section id="main-content" style="min-height: 222px;">
+            @RenderBody()
+        </section>
+    </div>
     <div class="container body-content">
-        @RenderBody()
+     
     </div>
     <hr class="text-center navbar-fixed-bottom" />
     <footer class="text-center navbar-fixed-bottom">

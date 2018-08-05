@@ -48,11 +48,11 @@
         <div class="col-sm-12 col-lg-12">
             <div class="panel panel-primary" style="width:50%;margin:0 auto">
                 <div class="panel-heading">
-                    Forget Password
+                    Forget User Id
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <form id="form" class="form-horizontal" action="ForgetPassword" method="post" autocomplete="off">
+                        <form id="form" class="form-horizontal" action="ForgetUserID" method="post" autocomplete="off">
                             <div class="col-sm-12 col-lg-12">
                                 @if (!string.IsNullOrEmpty(Convert.ToString(ViewData["msg"])))
                                 {
@@ -66,10 +66,10 @@
                                 {
                                     <div class="col-sm-12 col-lg-12">
                                         <div class="form-group">
-                                            <label>Enter Registration Number</label>
+                                            <label>Enter Mobile Number/Email Id</label>
                                             <div>
-                                                <input type="text" value="" name="registernumber" required data-valid="required" class="form-control"
-                                                       id="registernumber" placeholder="Register Number" autocomplete="off" />
+                                                <input type="text" value="" name="emailmobile" required data-valid="required" class="form-control"
+                                                       id="emailmobile" placeholder="Mobile Number/Email" autocomplete="off" />
                                             </div>
                                         </div>
                                         <div class="form-group">

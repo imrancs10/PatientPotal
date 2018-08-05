@@ -79,19 +79,10 @@
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" style="float:left;width:300px;">
                         </div>
-                        @*<input type="hidden" name="emailidfor" value="">
-                            <input type="hidden" name="emaillinktype" value="">
-                            <input type="hidden" name="getpreurl" value="login.html">
-                            <input type="hidden" name="auser" value="">
-                            <div class="form-group">
-                                <div class="src_field_box">
-                                    <button type="submit" onclick="Home.login(event);" id="LoginBTN" class="btn btn-lg btn-primary btn-block ripplelink">LOGIN</button>
-                                </div>
-                            </div>*@
                         <div class="login-forgot-link" style="">
                             <ul class="list-inline">
                                 <li><a href="/Home/ForgetPassword" id="showforgotpass">Forgot Password?</a></li>
-                                <li><a href="javascript:void(0);" id="showforgotpass">Forgot User Id?</a></li>
+                                <li><a href="/Home/ForgetUserID" id="showforgotpass1">Forgot User Id?</a></li>
                             </ul>
                         </div>
                     </div>
@@ -172,36 +163,6 @@
         </div>
         @*</div>*@
     </div>
-    @*<div class="container body-content">
-            <div id="loginContainer" class="dialog dialog-effect-in" style="width:420px">
-                <div class="dialog-front">
-                    <div class="dialog-content">
-                        <form id="login_form" class="dialog-form" action="/home/GetPatientLogin" method="POST">
-                            <fieldset>
-                                <legend style="background-color:#428bca;text-align:center;color:#ffffff">
-                                    <font style="font-size:18px;font-family:'Times New Roman', Times, serif;border-bottom-color:white">LOGIN TO YOUR ACCOUNT</font><br />
-                                    <font style="font-size:13px">
-                                        If you have already registered, then enter UserId and Password.<br />
-                                        else click to online Registration.
-                                    </font>
-                                </legend>
-                                    <div class="form-group">
-                                            <label for="user_username" class="control-label">User Id:</label>
-                                            <input type="text" id="user_username" class="form-control" name="username" autofocus />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="user_password" class="control-label">Password:</label>
-                                            <input type="password" id="user_password" class="form-control" name="password" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" style="float:right;width:100px;">
-                                        </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>*@
     <hr class="text-center navbar-fixed-bottom" />
     <footer class="text-center navbar-fixed-bottom">
         <p>&copy; @DateTime.Now.Year - Patient Portal</p>
