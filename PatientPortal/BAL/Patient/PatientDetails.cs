@@ -39,6 +39,7 @@ namespace PatientPortal.BAL.Patient
 
             return _db.PatientInfoes.Include(x => x.Department).Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
         }
+
         public PatientInfo UpdatePatientDetail(PatientInfo info)
         {
             _db = new PatientPortalEntities();
@@ -47,7 +48,7 @@ namespace PatientPortal.BAL.Patient
             {
                 _patientRow.OTP = info.OTP;
                 _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
-                _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; ;
+                _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; 
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();
             }
