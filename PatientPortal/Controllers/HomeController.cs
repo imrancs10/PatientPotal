@@ -476,7 +476,7 @@ namespace PatientPortal.Controllers
                 {
                     MessageTo = patient.Email,
                     MessageNameTo = patient.FirstName + " " + patient.MiddleName + (string.IsNullOrWhiteSpace(patient.MiddleName) ? "" : " ") + patient.LastName,
-                    Subject = "Forget Password",
+                    Subject = "Forget UserID",
                     Body = EmailHelper.GetForgetUserIdEmail(patient.FirstName, patient.MiddleName, patient.LastName, patient.RegistrationNumber)
                 };
 
