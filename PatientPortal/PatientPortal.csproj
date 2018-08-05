@@ -223,6 +223,16 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dashboard.css" />
+    <Content Include="Content\extra.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\header.css" />
+    <Content Include="Content\hoe-horizontal-navigation.css" />
+    <Content Include="Content\hoe-overlay-effect.css" />
+    <Content Include="Content\hoe-push-effect.css" />
+    <Content Include="Content\hoe-rightsidebar.css" />
+    <Content Include="Content\hoe-shrink-effect.css" />
+    <Content Include="Content\hoe-theme-color.css" />
+    <Content Include="Content\hoe.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="ExternalAssembly\com.awl.MerchantToolKit.dll" />
     <Content Include="ExternalAssembly\RequestAndResponse.dll" />
@@ -235,6 +245,7 @@
     <Content Include="img\179351.png" />
     <Content Include="img\179352.png" />
     <Content Include="img\ajax-loader.gif" />
+    <Content Include="img\avatar-1.jpg" />
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner.jpg" />
     <Content Include="img\p1.jpg" />
