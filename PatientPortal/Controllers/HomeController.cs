@@ -486,5 +486,46 @@ namespace PatientPortal.Controllers
                 return View();
             }
         }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(string oldpassword, string newpassword, string confirmnewpassword)
+        {
+            if (newpassword.Trim() != confirmnewpassword.Trim())
+            {
+                SetAlertMessage("Password and Confirm Password are not match", "password Reset");
+                return View();
+            }
+            else
+            {
+                PatientDetails _details = new PatientDetails();
+                var result = _details.GetPatientDetailById(User.Id);
+                if (result != null)
+                {
+                    if (result.Password == oldpassword)
+                    {
+                        result.Password = newpassword.Trim();
+                        _details.UpdatePatientDetail(result);
+                        ViewData["msg"] = "Password reset Successfully, please login again.";
+                        return View();
+                    }
+                    else
+                    {
+                        SetAlertMessage("given Password is not correct", "Password Reset");
+                        return View();
+                    }
+
+                }
+                else
+                {
+                    SetAlertMessage("User Not found", "password Reset");
+                    return View();
+                }
+            }
+        }
     }
 }
