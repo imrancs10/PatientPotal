@@ -4,7 +4,7 @@
 @using DataLayer;
 @using PatientPortal.Controllers;
 @{
-     var hospital = GetHospitalDetail();
+    var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
     string imgsrc = "../img/p1.jpg";
     if (hospital != null && hospital.HospitalLogo != null)
@@ -135,9 +135,9 @@
                         <li><a href="#"><i class="fa fa-power-off"></i>Logout</a></li>
                     </ul>
                 </li>
-                <li class="dropdown hoe-rheader-submenu hidden-xs">
-                    <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
-                </li>
+                @*<li class="dropdown hoe-rheader-submenu hidden-xs">
+                        <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
+                    </li>*@
             </ul>
 
         </div>
