@@ -48,5 +48,14 @@ namespace PatientPortal.Infrastructure.Utility
             body += "Patient Portal Information System Customer Support";
             return body;
         }
+
+        public static string GetForgetUserIdEmail(string firstname, string middlename, string lastname, string registrationnumber)
+        {
+            string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
+            body += "As you requested, your registration number is : <b>" + registrationnumber + "</b>.<br/><br/>";
+            body += "Thank You,<br/>";
+            body += "Patient Portal Information System Customer Support";
+            return body;
+        }
     }
 }

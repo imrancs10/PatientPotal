@@ -450,7 +450,39 @@ namespace PatientPortal.Controllers
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
-                ViewData["msg"] = "We have Sent you an Email for reset password link.";
+                ViewData["msg"] = "We have Sent you an Email for reset password link.kindly check your email";
+                return View();
+            }
+        }
+
+        public ActionResult ForgetUserID()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgetUserID(string emailmobile)
+        {
+            PatientDetails _detail = new PatientDetails();
+            var patient = _detail.GetPatientDetailByMobileNumberOrEmail(emailmobile);
+            if (patient == null)
+            {
+                SetAlertMessage("Mobile number Or Email is not Correct.", "Forget User Id");
+                return View();
+            }
+            else
+            {
+                Message msg = new Message()
+                {
+                    MessageTo = patient.Email,
+                    MessageNameTo = patient.FirstName + " " + patient.MiddleName + (string.IsNullOrWhiteSpace(patient.MiddleName) ? "" : " ") + patient.LastName,
+                    Subject = "Forget Password",
+                    Body = EmailHelper.GetForgetUserIdEmail(patient.FirstName, patient.MiddleName, patient.LastName, patient.RegistrationNumber)
+                };
+
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+                ViewData["msg"] = "We have Sent you an Email that refering your registration number.kindly check your email";
                 return View();
             }
         }
