@@ -6,7 +6,7 @@
 @{
     var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
-    string imgsrc = "~/img/avatar-1.jpg";
+    string imgsrc = "../img/p1.jpg";
     if (hospital != null && hospital.HospitalLogo != null)
     {
         var base64 = Convert.ToBase64String(hospital.HospitalLogo);
@@ -14,7 +14,7 @@
     }
 
     var patientinfo = GetPatientInfo();
-    var photoSrc = "~/img/avatar-1.jpg";
+    var photoSrc = "../img/avatar-1.jpg";
     if (patientinfo != null && patientinfo.Photo != null && patientinfo.Photo.Length > 0)
     {
         var base64 = Convert.ToBase64String(patientinfo.Photo);
@@ -177,7 +177,7 @@
                         <span class="selected"></span>
                     </a>
                 </li>
-                <li>
+                <li class="hoe-has-menu">
                     <a href="javascript:void(0)">
                         <i class="fa fa-bar-chart"></i>
                         <span class="menu-text">EMR</span>
@@ -185,7 +185,7 @@
                     </a>
                     <ul class="hoe-sub-menu" style="display: none;">
                         <li>
-                            <a href="~/Appointment/getAppointment">
+                            <a href="~/Appointment/getAppointments">
                                 <span class="menu-text">Appointment</span>
                                 <span class="selected"></span>
                             </a>
