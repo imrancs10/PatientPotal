@@ -6,7 +6,7 @@
 @{
     var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
-    string imgsrc = "../img/p1.jpg";
+    string imgsrc = "~/img/avatar-1.jpg";
     if (hospital != null && hospital.HospitalLogo != null)
     {
         var base64 = Convert.ToBase64String(hospital.HospitalLogo);
