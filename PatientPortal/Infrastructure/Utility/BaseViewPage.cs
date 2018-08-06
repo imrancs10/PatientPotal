@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using PatientPortal.BAL.Appointments;
 using PatientPortal.BAL.Masters;
+using PatientPortal.BAL.Patient;
 using PatientPortal.Infrastructure.Authentication;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,12 @@ namespace PatientPortal.Infrastructure.Utility
         {
             AppointDetails _details = new AppointDetails();
             return _details.PatientAppointmentCount(User.Id);
+        }
+
+        public virtual PatientInfo GetPatientInfo()
+        {
+            PatientDetails _details = new PatientDetails();
+            return _details.GetPatientDetailById(User.Id);
         }
     }
 }

@@ -12,6 +12,17 @@
         var base64 = Convert.ToBase64String(hospital.HospitalLogo);
         imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
     }
+
+    var patientinfo = GetPatientInfo();
+    var photoSrc = "~/img/avatar-1.jpg";
+    if (patientinfo != null && patientinfo.Photo != null && patientinfo.Photo.Length > 0)
+    {
+        var base64 = Convert.ToBase64String(patientinfo.Photo);
+        photoSrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+
+
+
 }
 <!DOCTYPE html>
 <html>
@@ -110,7 +121,7 @@
             <ul class="right-navbar">
                 <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span><img class="img-circle " src="~/img/avatar-1.jpg"></span>
+                        <span><img class="img-circle " src="@photoSrc"></span>
                         <span>@((User as CustomPrincipal).FirstName)<i class=" fa fa-angle-down"></i></span>
                         @*<span>James <b>Bond</b> <i class=" fa fa-angle-down"></i></span>*@
                     </a>
@@ -143,7 +154,7 @@
             <div class="profile-box">
                 <div class="media">
                     <a class="pull-left" href="~/Home/MyProfile">
-                        <img class="img-circle" src="~/img/avatar-1.jpg">
+                        <img class="img-circle" src="@photoSrc">
                     </a>
                     <div class="media-body">
                         <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>

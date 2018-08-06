@@ -48,7 +48,7 @@ namespace PatientPortal.BAL.Patient
             {
                 _patientRow.OTP = info.OTP;
                 _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
-                _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; 
+                _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber;
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();
             }
@@ -93,6 +93,7 @@ namespace PatientPortal.BAL.Patient
                     _patientRow.PinCode = info.PinCode;
                     _patientRow.Religion = info.Religion;
                     _patientRow.State = info.State;
+                    _patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
                     _db.Entry(_patientRow).State = EntityState.Modified;
                     _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());

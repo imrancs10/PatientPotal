@@ -154,6 +154,12 @@ $(document).ready(function () {
             })
         });
     }
+
+    $("input:file").change(function () {
+        var fileName = $(this).val();
+        fileName = fileName.substring(fileName.indexOf('fakepath') + 9, fileName.length);
+        $("#filename").html(fileName);
+    });
 });
 
 function isNumber(evt) {

@@ -8,6 +8,8 @@ using DataLayer;
 using PatientPortal.Infrastructure;
 using PatientPortal.Infrastructure.Utility;
 using PatientPortal.Global;
+using PatientPortal.Models;
+using PatientPortal.BAL.Patient;
 
 namespace PatientPortal.Controllers
 {
@@ -96,7 +98,52 @@ namespace PatientPortal.Controllers
 
         public ActionResult PatientProfile()
         {
+            if (User == null)
+            {
+                SetAlertMessage("User has been logged out", "Update Profile");
+                return RedirectToAction("Index");
+            }
+            var patient = GetPatientInfo();
+            if (patient != null)
+            {
+                User.FirstName = patient.FirstName;
+                User.MiddleName = patient.MiddleName;
+                User.LastName = patient.LastName;
+                User.Email = patient.Email;
+                ViewData["PatientData"] = patient;
+            }
+            else
+            {
+                SetAlertMessage("User not found", "Update Profile");
+                return RedirectToAction("Index");
+
+            }
             return View();
+        }
+        private PatientInfoModel GetPatientInfo()
+        {
+            PatientDetails _details = new PatientDetails();
+            var result = _details.GetPatientDetailById(User.Id);
+            PatientInfoModel model = new PatientInfoModel
+            {
+                RegistrationNumber = result.RegistrationNumber,
+                Address = result.Address,
+                City = result.City,
+                Country = result.Country,
+                Department = result.Department.DepartmentName,
+                DOB = result.DOB,
+                Email = result.Email,
+                FirstName = result.FirstName,
+                Gender = result.Gender,
+                LastName = result.LastName,
+                MiddleName = result.MiddleName,
+                MobileNumber = result.MobileNumber,
+                PinCode = result.PinCode,
+                Religion = result.Religion,
+                State = result.State,
+                Photo = result.Photo
+            };
+            return model;
         }
     }
 }

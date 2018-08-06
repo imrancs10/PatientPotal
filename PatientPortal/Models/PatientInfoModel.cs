@@ -25,5 +25,6 @@ namespace PatientPortal.Models
         public string Department { get; set; }
         public string OTP { get; set; }
         public string State { get; set; }
+        public byte[] Photo { get; set; }
     }
 }
