@@ -116,18 +116,18 @@ namespace PatientPortal.BAL.Appointments
                              docAppointment.DoctorId,
                              docAppointment.Doctor.DoctorName,
                              docAppointment.PatientId,
-                             PatientName = docAppointment.PatientInfo.FirstName + " " +  docAppointment.PatientInfo.MiddleName + " " + docAppointment.PatientInfo.LastName
+                             PatientName = docAppointment.PatientInfo.FirstName + " " + docAppointment.PatientInfo.MiddleName + " " + docAppointment.PatientInfo.LastName
                          }).OrderBy(x => x.AppointmentDateFrom).ToList();
             return _list;
         }
-        public Dictionary<int, string> CancelAppointment(int _patientId,int _appId,string CancelReason="")
+        public Dictionary<int, string> CancelAppointment(int _patientId, int _appId, string CancelReason = "")
         {
             int _priorCancelTime = 0;
             Dictionary<int, string> result = new Dictionary<int, string>();
             int.TryParse(Utility.GetAppSettingKey("AppointmentCancelInAdvanceMinuts"), out _priorCancelTime);
             _db = new PatientPortalEntities();
             var app = _db.AppointmentInfoes.Where(x => x.PatientId.Equals(_patientId) && x.AppointmentId.Equals(_appId)).FirstOrDefault();
-            if(app!=null)
+            if (app != null)
             {
                 if (app.AppointmentDateFrom >= DateTime.Now.AddMinutes(-_priorCancelTime))
                 {
@@ -138,7 +138,7 @@ namespace PatientPortal.BAL.Appointments
                     app.IsCancelled = true;
                     _db.Entry(app).State = EntityState.Modified;
                     int _rowCount = _db.SaveChanges();
-                    if(_rowCount>0)
+                    if (_rowCount > 0)
                         result.Add((int)Enums.JsonResult.Success, "Appointment has been cancelled");
                     else
                         result.Add((int)Enums.JsonResult.Unsuccessful, "Appointment has not been cancelled");
@@ -150,6 +150,18 @@ namespace PatientPortal.BAL.Appointments
             }
 
             return result;
+        }
+
+        public int PatientAppointmentCount(int _patientId)
+        {
+            _db = new PatientPortalEntities();
+            var _list = (from docAppointment in _db.AppointmentInfoes
+                         where docAppointment.PatientInfo.PatientId.Equals(_patientId)
+                         && docAppointment.AppointmentDateFrom > DateTime.Now
+                         && docAppointment.IsCancelled == false
+                         select docAppointment
+                         ).ToList();
+            return _list.Count;
         }
     }
 }

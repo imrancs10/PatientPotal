@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using PatientPortal.BAL.Appointments;
 using PatientPortal.BAL.Masters;
 using PatientPortal.Infrastructure.Authentication;
 using System;
@@ -21,6 +22,11 @@ namespace PatientPortal.Infrastructure.Utility
             HospitalDetails _details = new HospitalDetails();
             return _details.GetHospitalDetail();
         }
+        public virtual int GetAppointmentCount()
+        {
+            AppointDetails _details = new AppointDetails();
+            return _details.PatientAppointmentCount(User.Id);
+        }
     }
 
     public abstract class BaseViewPage<TModel> : WebViewPage<TModel>
@@ -33,6 +39,12 @@ namespace PatientPortal.Infrastructure.Utility
         {
             HospitalDetails _details = new HospitalDetails();
             return _details.GetHospitalDetail();
+        }
+
+        public virtual int GetAppointmentCount()
+        {
+            AppointDetails _details = new AppointDetails();
+            return _details.PatientAppointmentCount(User.Id);
         }
     }
 }

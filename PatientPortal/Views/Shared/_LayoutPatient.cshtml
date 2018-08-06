@@ -49,51 +49,51 @@
                 @if ((User as CustomPrincipal) != null)
                 {
                     @*<ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Dashboard", "Dashboard", "Home")</li>
-                        <li>@Html.ActionLink("My Appointment", "PatientProfile", "Appointment")</li>
-                        <li>@Html.ActionLink("Doctor Schedule", "AddSchedule", "Masters")</li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span>
-                                <strong>@((User as CustomPrincipal).FirstName)</strong>
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                            </a>
-                            <ul class="dropdown-menu" style="width:240px">
-                                <li>
-                                    <div class="navbar-login">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <p class="text-center">
-                                                    <span class="glyphicon glyphicon-user icon-size"></span>
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <p class="text-left"><strong>@((User as CustomPrincipal).FirstName) @((User as CustomPrincipal).LastName)</strong></p>
-                                                <p class="text-left small">@((User as CustomPrincipal).Email)</p>
-                                                <p class="text-left">
-                                                    <a href="~/Home/MyProfile" class="btn btn-primary btn-block btn-sm" style="width:90%">View Profile</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="navbar-login navbar-login-session">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <p>
-                                                    <a href="~/Home/Logout" class="btn btn-danger btn-block" style="width:40%;float:right;margin-right:10px;">Logout</a>
-                                                </p>
+                            <li>@Html.ActionLink("Dashboard", "Dashboard", "Home")</li>
+                            <li>@Html.ActionLink("My Appointment", "PatientProfile", "Appointment")</li>
+                            <li>@Html.ActionLink("Doctor Schedule", "AddSchedule", "Masters")</li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <strong>@((User as CustomPrincipal).FirstName)</strong>
+                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="width:240px">
+                                    <li>
+                                        <div class="navbar-login">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <p class="text-center">
+                                                        <span class="glyphicon glyphicon-user icon-size"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <p class="text-left"><strong>@((User as CustomPrincipal).FirstName) @((User as CustomPrincipal).LastName)</strong></p>
+                                                    <p class="text-left small">@((User as CustomPrincipal).Email)</p>
+                                                    <p class="text-left">
+                                                        <a href="~/Home/MyProfile" class="btn btn-primary btn-block btn-sm" style="width:90%">View Profile</a>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>*@
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="navbar-login navbar-login-session">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <p>
+                                                        <a href="~/Home/Logout" class="btn btn-danger btn-block" style="width:40%;float:right;margin-right:10px;">Logout</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>*@
                 }
 
             </div>
@@ -118,23 +118,23 @@
                         <li><a href="~/Home/MyProfile"><i class="fa fa-user"></i>My Profile</a></li>
                         <li><a href="~/Home/ChangePassword"><i class="fa fa-calendar"></i>Change Password</a></li>
                         @*<li>
-            <a href="#">
-                <i class="fa fa-envelope"></i>My Inbox  <span class="badge badge-danger">
-                    3
-                </span>
-            </a>
-        </li>*@
+                                <a href="#">
+                                    <i class="fa fa-envelope"></i>My Inbox  <span class="badge badge-danger">
+                                        3
+                                    </span>
+                                </a>
+                            </li>*@
                         <li>
-                            <a href="~/Home/Dashboard">
-                                <i class="fa fa-lock"></i>My Tasks <span class="badge badge-success">
-                                6
+                            <a href="~/Appointment/PatientProfile">
+                                <i class="fa fa-lock"></i>My Appointment <span class="badge badge-success">
+                                    @GetAppointmentCount()
                                 </span>
                             </a>
                         </li>
                         <li><a href="~/Home/Logout"><i class="fa fa-power-off"></i>Logout</a></li>
                     </ul>
                 </li>
-             </ul>
+            </ul>
 
         </div>
     </header>
