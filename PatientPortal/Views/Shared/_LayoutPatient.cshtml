@@ -313,6 +313,13 @@
                 }
             });
         });
+        $('.hoe-sub-menu').parent().click(function () {
+            var ul = $(this).find('.hoe-sub-menu');
+            if ($(ul).is(':visible'))
+                $(ul).hide();
+            else
+                $(ul).show();
+        });
     </script>
 
     <div class="ajaxloader">
