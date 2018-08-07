@@ -93,6 +93,7 @@ namespace PatientPortal.BAL.Patient
                     _patientRow.PinCode = info.PinCode;
                     _patientRow.Religion = info.Religion;
                     _patientRow.State = info.State;
+                    _patientRow.FatherOrHusbandName = info.FatherOrHusbandName;
                     _patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
                     _db.Entry(_patientRow).State = EntityState.Modified;
                     _db.SaveChanges();

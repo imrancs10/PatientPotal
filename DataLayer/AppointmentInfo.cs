@@ -25,6 +25,7 @@ namespace DataLayer
         public Nullable<bool> IsCancelled { get; set; }
         public Nullable<System.DateTime> CancelDate { get; set; }
         public string CancelReason { get; set; }
+        public Nullable<bool> Reminder { get; set; }
     
         public virtual Doctor Doctor { get; set; }
         public virtual PatientInfo PatientInfo { get; set; }

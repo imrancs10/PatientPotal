@@ -40,6 +40,7 @@ namespace DataLayer
         public string OTP { get; set; }
         public string State { get; set; }
         public byte[] Photo { get; set; }
+        public string FatherOrHusbandName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }

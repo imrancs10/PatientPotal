@@ -20,6 +20,7 @@
           <Property Name="IsCancelled" Type="bit" />
           <Property Name="CancelDate" Type="datetime" />
           <Property Name="CancelReason" Type="nvarchar" MaxLength="500" />
+          <Property Name="Reminder" Type="bit" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -128,6 +129,7 @@
           <Property Name="OTP" Type="varchar" MaxLength="50" />
           <Property Name="State" Type="varchar" MaxLength="50" />
           <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="PatientTransaction">
           <Key>
@@ -389,6 +391,7 @@
           <Property Name="CancelReason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_AppointmentInfo_Doctor" FromRole="AppointmentInfo" ToRole="Doctor" />
           <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_AppointmentInfo_PatientInfo" FromRole="AppointmentInfo" ToRole="PatientInfo" />
+          <Property Name="Reminder" Type="Boolean" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -514,6 +517,7 @@
           <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FatherOrHusbandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PatientTransaction">
           <Key>
@@ -658,6 +662,7 @@
           <EntitySetMapping Name="AppointmentInfoes">
             <EntityTypeMapping TypeName="PatientPortalModel.AppointmentInfo">
               <MappingFragment StoreEntitySet="AppointmentInfo">
+                <ScalarProperty Name="Reminder" ColumnName="Reminder" />
                 <ScalarProperty Name="CancelReason" ColumnName="CancelReason" />
                 <ScalarProperty Name="CancelDate" ColumnName="CancelDate" />
                 <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
@@ -767,6 +772,7 @@
           <EntitySetMapping Name="PatientInfoes">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
               <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="OTP" ColumnName="OTP" />
