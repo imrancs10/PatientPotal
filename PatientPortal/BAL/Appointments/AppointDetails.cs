@@ -158,7 +158,7 @@ namespace PatientPortal.BAL.Appointments
             var _list = (from docAppointment in _db.AppointmentInfoes
                          where docAppointment.PatientInfo.PatientId.Equals(_patientId)
                          && docAppointment.AppointmentDateFrom > DateTime.Now
-                         && docAppointment.IsCancelled == false
+                         && (docAppointment.IsCancelled == false || docAppointment.IsCancelled == null)
                          select docAppointment
                          ).ToList();
             return _list.Count;

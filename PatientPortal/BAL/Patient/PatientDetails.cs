@@ -149,5 +149,14 @@ namespace PatientPortal.BAL.Patient
                 return result;
             }
         }
+
+        public bool SavePatientLoginHistory(PatientLoginHistory info)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            _db.Entry(info).State = EntityState.Added;
+            _effectRow = _db.SaveChanges();
+            return _effectRow > 0;
+        }
     }
 }
