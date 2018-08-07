@@ -45,11 +45,15 @@ namespace PatientPortal.Controllers
                 Session["PatientId"] = result.PatientId;
                 //Session["PatientData"] = result;
                 setUserClaim(result);
-                SaveLoginHistory();
+                SaveLoginHistory(result.PatientId);
                 return RedirectToAction("Dashboard");
             }
             else
             {
+                //if registration no found 
+                //increase login attept +1 update to db
+                //if(attept==4)
+                //update info with locked user
                 SetAlertMessage("User Not Found", "Login");
                 return View("Index");
             }
@@ -555,7 +559,7 @@ namespace PatientPortal.Controllers
             }
         }
 
-        private void SaveLoginHistory()
+        private void SaveLoginHistory(int patientId)
         {
             string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             if (string.IsNullOrEmpty(ipAddress))
@@ -564,7 +568,7 @@ namespace PatientPortal.Controllers
             }
             PatientLoginHistory history = new PatientLoginHistory
             {
-                PatientId = User.Id,
+                PatientId = patientId,
                 LoginDate = DateTime.Now,
                 IPAddress = ipAddress
             };
