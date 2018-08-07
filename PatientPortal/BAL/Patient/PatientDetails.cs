@@ -100,7 +100,7 @@ namespace PatientPortal.BAL.Patient
             int _effectRow = 0;
             if (info.PatientId > 0)
             {
-                var _patientRow = _db.PatientInfoes.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+                var _patientRow = _db.PatientInfoes.Include(x => x.Department).Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
                 if (_patientRow != null)
                 {
                     _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
@@ -124,7 +124,7 @@ namespace PatientPortal.BAL.Patient
                     _db.Entry(_patientRow).State = EntityState.Modified;
                     _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());
-                    result.Add("data", info);
+                    result.Add("data", _patientRow);
                     return result;
                 }
                 else
@@ -136,12 +136,13 @@ namespace PatientPortal.BAL.Patient
             }
             else
             {
-                var _deptRow = _db.PatientInfoes.Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
+                var _deptRow = _db.PatientInfoes.Include(x => x.Department).Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
                 if (_deptRow == null)
                 {
                     _db.Entry(info).State = EntityState.Added;
                     _effectRow = _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());
+                    info.Department = _db.PatientInfoes.Include(x => x.Department).FirstOrDefault().Department;
                     result.Add("data", info);
                     return result;
                 }

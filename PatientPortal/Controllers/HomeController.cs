@@ -43,18 +43,12 @@ namespace PatientPortal.Controllers
             if (result != null)
             {
                 Session["PatientId"] = result.PatientId;
-                //Session["PatientData"] = result;
                 setUserClaim(result);
                 SaveLoginHistory(result.PatientId);
                 return RedirectToAction("Dashboard");
             }
             else
             {
-                //if registration no found 
-                //increase login attept +1 update to db
-                //if(attept==4)
-                //update info with locked user
-                //check Registration exists or not
                 var registrationResult = _details.GetPatientDetailByRegistrationNumber(username);
                 if (registrationResult == null)
                 {
@@ -87,6 +81,12 @@ namespace PatientPortal.Controllers
         {
             if (actionName == "getotpscreen")
             {
+                if (Session["PatientId"] != null)
+                {
+                    var patient = GetPatientInfo(Convert.ToInt32(Session["PatientId"]));
+                    ViewData["PatientData"] = patient;
+                }
+
                 ViewData["registerAction"] = "getotpscreen";
             }
             return View();
@@ -356,7 +356,7 @@ namespace PatientPortal.Controllers
                 SetAlertMessage("User has been logged out", "Update Profile");
                 return RedirectToAction("Index");
             }
-            var patient = GetPatientInfo();
+            var patient = GetPatientInfo(User.Id);
             if (patient != null)
             {
                 User.FirstName = patient.FirstName;
@@ -369,15 +369,14 @@ namespace PatientPortal.Controllers
             {
                 SetAlertMessage("User not found", "Update Profile");
                 return RedirectToAction("Index");
-
             }
             return View();
         }
 
-        private PatientInfoModel GetPatientInfo()
+        private PatientInfoModel GetPatientInfo(int userId)
         {
             PatientDetails _details = new PatientDetails();
-            var result = _details.GetPatientDetailById(User.Id);
+            var result = _details.GetPatientDetailById(userId);
             PatientInfoModel model = new PatientInfoModel
             {
                 RegistrationNumber = result.RegistrationNumber,
