@@ -170,6 +170,16 @@ namespace PatientPortal.Controllers
         [HttpGet]
         public ActionResult CreatePassword(string registrationNumber)
         {
+            PatientDetails _details = new PatientDetails();
+            var result = _details.GetPatientDetailByRegistrationNumber(registrationNumber);
+            if (result != null)
+            {
+                if (!string.IsNullOrEmpty(result.Password))
+                {
+                    SetAlertMessage("You have already created your Password, please Login or use forget password to re-generate password.", "password Create");
+                    return RedirectToAction("Index");
+                }
+            }
             ViewData["registrationNumber"] = registrationNumber;
             return View();
         }
