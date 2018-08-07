@@ -301,7 +301,7 @@
     <script>
         $(document).ready(function () {
             $('li.active').removeClass('active');
-            $('a[href]').each(function (ind, ele) {
+            $('#hoeapp-container a[href]').each(function (ind, ele) {
                 if($(ele).attr('href').toLowerCase().indexOf(location.pathname.toLowerCase())>-1)
                 {
                     $(ele).parent().addClass('active');
