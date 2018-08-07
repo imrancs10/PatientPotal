@@ -39,7 +39,10 @@ $(document).ready(function () {
         // Populate dropdown with list of provinces
         $.getJSON(url, function (data) {
             $.each(data.countries, function (key, entry) {
-                dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
+                if (entry.name == 'India')
+                    dropdown.append($('<option selected="true"></option>').attr('value', entry.id).text(entry.name));
+                else
+                    dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
             })
         });
     }
@@ -49,7 +52,7 @@ $(document).ready(function () {
         var valueSelected = this.value;
         fillState(valueSelected)
     });
-
+    fillState(101);
     function fillState(countryId) {
         let dropdown = $('#state');
         dropdown.empty();

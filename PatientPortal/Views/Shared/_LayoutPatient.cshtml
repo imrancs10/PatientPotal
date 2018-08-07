@@ -51,233 +51,186 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="">
-            <div class="navbar-header">
-                @Html.ActionLink(hospitalName, "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                @if ((User as CustomPrincipal) != null)
-                {
-                    @*<ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Dashboard", "Dashboard", "Home")</li>
-                            <li>@Html.ActionLink("My Appointment", "PatientProfile", "Appointment")</li>
-                            <li>@Html.ActionLink("Doctor Schedule", "AddSchedule", "Masters")</li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    <strong>@((User as CustomPrincipal).FirstName)</strong>
-                                    <span class="glyphicon glyphicon-chevron-down"></span>
-                                </a>
-                                <ul class="dropdown-menu" style="width:240px">
-                                    <li>
-                                        <div class="navbar-login">
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    <p class="text-center">
-                                                        <span class="glyphicon glyphicon-user icon-size"></span>
-                                                    </p>
-                                                </div>
-                                                <div class="col-lg-8">
-                                                    <p class="text-left"><strong>@((User as CustomPrincipal).FirstName) @((User as CustomPrincipal).LastName)</strong></p>
-                                                    <p class="text-left small">@((User as CustomPrincipal).Email)</p>
-                                                    <p class="text-left">
-                                                        <a href="~/Home/MyProfile" class="btn btn-primary btn-block btn-sm" style="width:90%">View Profile</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <div class="navbar-login navbar-login-session">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <p>
-                                                        <a href="~/Home/Logout" class="btn btn-danger btn-block" style="width:40%;float:right;margin-right:10px;">Logout</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>*@
-                }
-
-            </div>
-        </div>
-    </div>
-    <header id="hoe-header" hoe-lpanel-effect="shrink">
-        <div class="hoe-left-header">
-            <a href="#"><i class="far fa-prescription"></i> <span>Patient Portal</span></a>
-            <span class="hoe-sidebar-toggle"><a href="#"></a></span>
-        </div>
-
-        <div class="hoe-right-header" hoe-position-type="relative">
-            <span class="hoe-sidebar-toggle"><a href="#"></a></span>
-            <ul class="right-navbar">
-                <li class="dropdown hoe-rheader-submenu hoe-header-profile">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span><img class="img-circle " src="@photoSrc"></span>
-                        <span>@((User as CustomPrincipal).FirstName)<i class=" fa fa-angle-down"></i></span>
-                        @*<span>James <b>Bond</b> <i class=" fa fa-angle-down"></i></span>*@
-                    </a>
-                    <ul class="dropdown-menu ">
-                        <li><a href="~/Home/MyProfile"><i class="fa fa-user"></i>My Profile</a></li>
-                        <li><a href="~/Home/ChangePassword"><i class="fa fa-calendar"></i>Change Password</a></li>
-                        @*<li>
-                                <a href="#">
-                                    <i class="fa fa-envelope"></i>My Inbox  <span class="badge badge-danger">
-                                        3
-                                    </span>
-                                </a>
-                            </li>*@
-                        <li>
-                            <a href="~/Appointment/PatientProfile">
-                                <i class="fa fa-lock"></i>My Appointment <span class="badge badge-success">
-                                    @GetAppointmentCount()
-                                </span>
-                            </a>
-                        </li>
-                        <li><a href="~/Home/Logout"><i class="fa fa-power-off"></i>Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-        </div>
-    </header>
-    <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
-        <aside id="hoe-left-panel" hoe-position-type="absolute">
-            <div class="profile-box">
-                <div class="media">
-                    <a class="pull-left" href="~/Home/MyProfile">
-                        <img class="img-circle" src="@photoSrc">
-                    </a>
-                    <div class="media-body">
-                        <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>
-                        <small>Patient</small>
-                    </div>
+    @if ((User as CustomPrincipal) != null)
+    {
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="">
+                <div class="navbar-header">
+                    @Html.ActionLink(hospitalName, "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
                 </div>
             </div>
-            <ul class="nav panel-list">
-                <li class="active">
-                    <a href="~/Home/Dashboard">
-                        <i class="fa fa-tachometer"></i>
-                        <span class="menu-text">Dashboard</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="~/Home/Dashboard">
-                        <i class="fa fa-tachometer"></i>
-                        <span class="menu-text">Home</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li class="hoe-has-menu">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-bar-chart"></i>
-                        <span class="menu-text">EMR</span>
-                        <span class="selected"></span>
-                    </a>
-                    <ul class="hoe-sub-menu" style="display: none;">
-                        <li>
-                            <a href="~/Appointment/getAppointments">
-                                <span class="menu-text">Appointment</span>
-                               
-                            </a>
-                        </li>
-                        <li>
-                            <a href="~/Appointment/PatientProfile">
-                                <span class="menu-text">Patient Profile</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <span class="menu-text">User Profile</span>
-                                <span class="label sul">Updated</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <span class="menu-text">Team Member</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <span class="menu-text">Time Line</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="~/Appointment/GetAppointments">
-                        <i class="fa fa-bar-chart"></i>
-                        <span class="menu-text">Book Appointments</span>
-                        <span class="label sul">New</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-bar-chart"></i>
-                        <span class="menu-text">Make Payment</span>
-                        <span class="label sul">New</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-bar-chart"></i>
-                        <span class="menu-text">Account Statement</span>
-                        <span class="label sul">New</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-bar-chart"></i>
-                        <span class="menu-text">Pending Orders</span>
-                        <span class="label sul">New</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-bar-chart"></i>
-                        <span class="menu-text">Reports</span>
-                        <span class="label sul">New</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-bar-chart"></i>
-                        <span class="menu-text">Receipt</span>
-                        <span class="label sul">New</span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-            </ul>
-        </aside>
-        <section id="main-content" style="min-height: 222px;">
-            @RenderBody()
-        </section>
-    </div>
-    <div class="container body-content">
+        </div>
+        <header id="hoe-header" hoe-lpanel-effect="shrink">
+            <div class="hoe-left-header">
+                <a href="#"><i class="far fa-prescription"></i> <span>Patient Portal</span></a>
+                <span class="hoe-sidebar-toggle"><a href="#"></a></span>
+            </div>
 
-    </div>
-    <hr class="text-center navbar-fixed-bottom" />
-    <footer class="text-center navbar-fixed-bottom">
-        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
-    </footer>
+            <div class="hoe-right-header" hoe-position-type="relative">
+                <span class="hoe-sidebar-toggle"><a href="#"></a></span>
+                <ul class="right-navbar">
+                    <li class="dropdown hoe-rheader-submenu hoe-header-profile">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span><img class="img-circle " src="@photoSrc"></span>
+                            <span>@((User as CustomPrincipal).FirstName)<i class=" fa fa-angle-down"></i></span>
+                            @*<span>James <b>Bond</b> <i class=" fa fa-angle-down"></i></span>*@
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li><a href="~/Home/MyProfile"><i class="fa fa-user"></i>My Profile</a></li>
+                            <li><a href="~/Home/ChangePassword"><i class="fa fa-calendar"></i>Change Password</a></li>
+                            @*<li>
+                                    <a href="#">
+                                        <i class="fa fa-envelope"></i>My Inbox  <span class="badge badge-danger">
+                                            3
+                                        </span>
+                                    </a>
+                                </li>*@
+                            <li>
+                                <a href="~/Appointment/PatientProfile">
+                                    <i class="fa fa-lock"></i>My Appointment <span class="badge badge-success">
+                                        @GetAppointmentCount()
+                                    </span>
+                                </a>
+                            </li>
+                            <li><a href="~/Home/Logout"><i class="fa fa-power-off"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </header>
+        <div id="hoeapp-container" hoe-color-type="lpanel-bg2" hoe-lpanel-effect="shrink">
+            <aside id="hoe-left-panel" hoe-position-type="absolute">
+                <div class="profile-box">
+                    <div class="media">
+                        <a class="pull-left" href="~/Home/MyProfile">
+                            <img class="img-circle" src="@photoSrc">
+                        </a>
+                        <div class="media-body">
+                            <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>
+                            <small>Patient</small>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav panel-list">
+                    <li class="active">
+                        <a href="~/Home/Dashboard">
+                            <i class="fa fa-tachometer"></i>
+                            <span class="menu-text">Dashboard</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Home/Dashboard">
+                            <i class="fa fa-tachometer"></i>
+                            <span class="menu-text">Home</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="hoe-has-menu">
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">EMR</span>
+                            <span class="selected"></span>
+                        </a>
+                        <ul class="hoe-sub-menu" style="display: none;">
+                            <li>
+                                <a href="~/Appointment/getAppointments">
+                                    <span class="menu-text">Appointment</span>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Appointment/PatientProfile">
+                                    <span class="menu-text">Patient Profile</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span class="menu-text">User Profile</span>
+                                    <span class="label sul">Updated</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span class="menu-text">Team Member</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span class="menu-text">Time Line</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="~/Appointment/GetAppointments">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Book Appointments</span>
+                            <span class="label sul">New</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Make Payment</span>
+                            <span class="label sul">New</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Account Statement</span>
+                            <span class="label sul">New</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Pending Orders</span>
+                            <span class="label sul">New</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Reports</span>
+                            <span class="label sul">New</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Receipt</span>
+                            <span class="label sul">New</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <section id="main-content" style="min-height: 222px;">
+                @RenderBody()
+            </section>
+        </div>
+        <div class="container body-content">
+
+        </div>
+        <hr class="text-center navbar-fixed-bottom" />
+        <footer class="text-center navbar-fixed-bottom">
+            <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+        </footer>
+    }
     @if (TempData["Alert_Title"] != null)
     {
         <div id="dialog" title="@TempData["Alert_Title"].ToString()">
@@ -302,8 +255,7 @@
         $(document).ready(function () {
             $('li.active').removeClass('active');
             $('#hoeapp-container a[href]').each(function (ind, ele) {
-                if($(ele).attr('href').toLowerCase().indexOf(location.pathname.toLowerCase())>-1)
-                {
+                if ($(ele).attr('href').toLowerCase().indexOf(location.pathname.toLowerCase()) > -1) {
                     $(ele).parent().addClass('active');
                 }
             });
@@ -352,9 +304,10 @@
                 top: 43%;
                 left: 45%;
             }
-            a{
-                text-decoration:none !important;
-            }
+
+        a {
+            text-decoration: none !important;
+        }
     </style>
 </body>
 </html>
