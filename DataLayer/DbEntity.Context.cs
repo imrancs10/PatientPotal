@@ -36,5 +36,6 @@ namespace DataLayer
         public virtual DbSet<MeridiemMaster> MeridiemMasters { get; set; }
         public virtual DbSet<PatientInfo> PatientInfoes { get; set; }
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
+        public virtual DbSet<PatientLoginHistory> PatientLoginHistories { get; set; }
     }
 }

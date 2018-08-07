@@ -45,6 +45,7 @@ namespace PatientPortal.Controllers
                 Session["PatientId"] = result.PatientId;
                 //Session["PatientData"] = result;
                 setUserClaim(result);
+                SaveLoginHistory();
                 return RedirectToAction("Dashboard");
             }
             else
@@ -53,6 +54,7 @@ namespace PatientPortal.Controllers
                 return View("Index");
             }
         }
+
 
         public ActionResult Register(string actionName)
         {
@@ -170,6 +172,16 @@ namespace PatientPortal.Controllers
         [HttpGet]
         public ActionResult CreatePassword(string registrationNumber)
         {
+            PatientDetails _details = new PatientDetails();
+            var result = _details.GetPatientDetailByRegistrationNumber(registrationNumber);
+            if (result != null)
+            {
+                if (!string.IsNullOrEmpty(result.Password))
+                {
+                    SetAlertMessage("You have already created your Password, please Login or use forget password to re-generate password.", "password Create");
+                    return RedirectToAction("Index");
+                }
+            }
             ViewData["registrationNumber"] = registrationNumber;
             return View();
         }
@@ -541,6 +553,23 @@ namespace PatientPortal.Controllers
                     return View();
                 }
             }
+        }
+
+        private void SaveLoginHistory()
+        {
+            string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrEmpty(ipAddress))
+            {
+                ipAddress = Request.ServerVariables["REMOTE_ADDR"];
+            }
+            PatientLoginHistory history = new PatientLoginHistory
+            {
+                PatientId = User.Id,
+                LoginDate = DateTime.Now,
+                IPAddress = ipAddress
+            };
+            PatientDetails detail = new PatientDetails();
+            detail.SavePatientLoginHistory(history);
         }
     }
 }
