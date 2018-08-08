@@ -27,7 +27,8 @@ namespace PatientPortal.Global
             Deleted,
             NotDeleted,
             DataNotFound,
-            DataAlreadyExist
+            DataAlreadyExist,
+            SessionExpired
         }
 
         public enum JsonResult
