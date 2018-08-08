@@ -56,7 +56,7 @@ $(document).ready(function () {
     function fillCountry() {
         let dropdown = $('#country');
         dropdown.empty();
-        dropdown.append('<option selected="true" disabled>Choose Country</option>');
+        dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         const url = utility.baseUrl + 'Json/countries.json';
         // Populate dropdown with list of provinces
@@ -76,7 +76,7 @@ $(document).ready(function () {
         var countryId = jsonData.Country;
         let dropdown = $('#state');
         dropdown.empty();
-        dropdown.append('<option selected="true" disabled>Choose State</option>');
+        dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         const url = utility.baseUrl + 'Json/states.json';
         // Populate dropdown with list of provinces
@@ -96,7 +96,7 @@ $(document).ready(function () {
         var stateId = jsonData.State;
         let dropdown = $('#city');
         dropdown.empty();
-        dropdown.append('<option selected="true" disabled>Choose City</option>');
+        dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         const url = utility.baseUrl + 'Json/cities.json';
         // Populate dropdown with list of provinces
@@ -122,7 +122,7 @@ $(document).ready(function () {
         dropdown.empty();
         let dropdownCity = $('#city');
         dropdownCity.empty();
-        dropdown.append('<option selected="true" disabled>Choose State</option>');
+        dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         const url = utility.baseUrl + 'Json/states.json';
         // Populate dropdown with list of provinces
@@ -144,7 +144,7 @@ $(document).ready(function () {
     function fillCityByStateId(stateId) {
         let dropdown = $('#city');
         dropdown.empty();
-        dropdown.append('<option selected="true" disabled>Choose City</option>');
+        dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         const url = utility.baseUrl + 'Json/cities.json';
         // Populate dropdown with list of provinces
