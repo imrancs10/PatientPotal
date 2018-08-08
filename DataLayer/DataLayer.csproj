@@ -78,6 +78,9 @@
     <Compile Include="Doctor.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="DoctorLeave.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="DoctorSchedule.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>

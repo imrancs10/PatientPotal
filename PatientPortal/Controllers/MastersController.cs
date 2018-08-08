@@ -152,5 +152,11 @@ namespace PatientPortal.Controllers
             details.DeleteHospitalDetail(result);
             return RedirectToAction("HospitalDetail");
         }
+
+        [HttpGet]
+        public ActionResult AddDoctorLeave()
+        {
+            return View();
+        }
     }
 }
