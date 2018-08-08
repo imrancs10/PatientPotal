@@ -46,31 +46,44 @@ namespace PatientPortal.Controllers
         public JsonResult SaveAppointment(AppointmentInfo model, string doctorname, string deptname)
         {
             AppointDetails _details = new AppointDetails();
-            model.PatientId = Convert.ToInt32(Session["PatientId"].ToString());
-            //PatientInfo data = (PatientInfo)Session["PatientData"];
-            var user = User;
-            Message msg = new Message()
+            string PatientId = Session["PatientId"] == null ? "0" : Session["PatientId"].ToString();
+            int pId = 0;
+            if (int.TryParse(PatientId, out pId))
             {
-                MessageTo = user.Email,
-                MessageNameTo = user.FirstName + " " + user.MiddleName + (string.IsNullOrWhiteSpace(user.MiddleName) ? "" : " ") + user.LastName,
-                Subject = "Appointment Booking Confirmation",
-                Body = EmailHelper.GetAppointmentSuccessEmail(user.FirstName, user.MiddleName, user.LastName, doctorname, model.AppointmentDateFrom, deptname)
-            };
-            ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
-            sendMessageStrategy.SendMessages();
-            return Json(CrudResponse(_details.SaveAppointment(model)), JsonRequestBehavior.AllowGet);
+                model.PatientId = pId;
+                //PatientInfo data = (PatientInfo)Session["PatientData"];
+                var user = User;               
+                Enums.CrudStatus result = _details.SaveAppointment(model);
+                if(result==Enums.CrudStatus.Saved)
+                {
+                    Message msg = new Message()
+                    {
+                        MessageTo = user.Email,
+                        MessageNameTo = user.FirstName + " " + user.MiddleName + (string.IsNullOrWhiteSpace(user.MiddleName) ? string.Empty : " ") + user.LastName,
+                        Subject = "Appointment Booking Confirmation",
+                        Body = EmailHelper.GetAppointmentSuccessEmail(user.FirstName, user.MiddleName, user.LastName, doctorname, model.AppointmentDateFrom, deptname)
+                    };
+                    ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                    sendMessageStrategy.SendMessages();
+                }
+                return Json(CrudResponse(result), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(CrudResponse(Enums.CrudStatus.SessionExpired), JsonRequestBehavior.AllowGet);
+            }
         }
 
-        [HttpGet]
-        public JsonResult GetPatientAppointmentList()
+        [AcceptVerbs(new string[] { "Get", "Post" })]
+        public JsonResult GetPatientAppointmentList(int year=0,int month=0)
         {
             AppointDetails _details = new AppointDetails();
             int _patientId = 0;
-            string _sessionPatienId = Session["PatientId"]==null?"0": Session["PatientId"].ToString();
+            string _sessionPatienId = Session["PatientId"] == null ? "0" : Session["PatientId"].ToString();
             Dictionary<int, string> result = new Dictionary<int, string>();
             if (int.TryParse(_sessionPatienId, out _patientId))
-            {                
-                return Json(_details.PatientAppointmentList(_patientId), JsonRequestBehavior.AllowGet);
+            {
+                return Json(_details.PatientAppointmentList(_patientId,year,month), JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -80,14 +93,14 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult CancelAppointment(int appointmentId,string CancelReason)
+        public JsonResult CancelAppointment(int appointmentId, string CancelReason)
         {
             AppointDetails _details = new AppointDetails();
             int PatientId = 0;
             Dictionary<int, string> result = new Dictionary<int, string>();
             if (int.TryParse(Session["PatientId"].ToString(), out PatientId))
             {
-                return Json(_details.CancelAppointment(PatientId, appointmentId,CancelReason).ToList(), JsonRequestBehavior.AllowGet);
+                return Json(_details.CancelAppointment(PatientId, appointmentId, CancelReason).ToList(), JsonRequestBehavior.AllowGet);
             }
             else
             {

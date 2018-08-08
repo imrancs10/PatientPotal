@@ -77,9 +77,11 @@ namespace PatientPortal.BAL.Appointments
         }
         public Enums.CrudStatus SaveAppointment(AppointmentInfo model)
         {
+            if (model.PatientId < 1)
+                return Enums.CrudStatus.SessionExpired;
             _db = new PatientPortalEntities();
             int _effectRow = 0;
-            var _deptRow = _db.AppointmentInfoes.Where(x => x.AppointmentId.Equals(model.AppointmentId)).FirstOrDefault();
+            var _deptRow = _db.AppointmentInfoes.Where(x => DbFunctions.TruncateTime(x.AppointmentDateFrom)==DbFunctions.TruncateTime(model.AppointmentDateFrom) && x.IsCancelled==false).FirstOrDefault();
             if (_deptRow == null)
             {
                 AppointmentInfo _newAppointment = new AppointmentInfo();
@@ -95,14 +97,15 @@ namespace PatientPortal.BAL.Appointments
             else
                 return Enums.CrudStatus.DataAlreadyExist;
         }
-        public IEnumerable<object> PatientAppointmentList(int _patientId)
+        public IEnumerable<object> PatientAppointmentList(int _patientId,int year=0,int month=0)
         {
             _db = new PatientPortalEntities();
             var _list = (from docAppointment in _db.AppointmentInfoes
 
                          orderby docAppointment.DoctorId
-                         where docAppointment.PatientInfo.PatientId.Equals(_patientId)
-
+                         where docAppointment.PatientInfo.PatientId.Equals(_patientId) && 
+                         (year==0 || docAppointment.AppointmentDateFrom.Year==year) &&
+                         (month == 0 || docAppointment.AppointmentDateFrom.Month == month)
                          select new
                          {
                              docAppointment.AppointmentDateFrom,

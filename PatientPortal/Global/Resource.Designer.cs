@@ -70,7 +70,7 @@ namespace PatientPortal.Global {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data  already exists.
+        ///   Looks up a localized string similar to Data already exists.
         /// </summary>
         internal static string Crud_DataAlreadyExist {
             get {
@@ -138,6 +138,15 @@ namespace PatientPortal.Global {
         internal static string Login_InvalidCredential {
             get {
                 return ResourceManager.GetString("Login_InvalidCredential", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Session has been expired.
+        /// </summary>
+        internal static string Session_Expired {
+            get {
+                return ResourceManager.GetString("Session_Expired", resourceCulture);
             }
         }
     }
