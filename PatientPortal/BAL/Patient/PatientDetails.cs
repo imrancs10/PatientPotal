@@ -17,7 +17,33 @@ namespace PatientPortal.BAL.Patient
         {
             _db = new PatientPortalEntities();
             //string hashPassword = Utility.GetHashString(Password);
-            return _db.PatientInfoes.Include(x => x.Department).Where(x => x.RegistrationNumber == UserId && x.Password == Password).FirstOrDefault();
+            var result = _db.PatientInfoes.Include(x => x.Department)
+                                    .Include(x => x.PatientLoginEntries)
+                                    .Where(x => x.RegistrationNumber == UserId && x.Password == Password)
+                                    .FirstOrDefault();
+
+            if (result != null)
+            {
+                var loginEntry = (from obj in result.PatientLoginEntries.AsEnumerable()
+                                  where obj.Locked == true
+                                    && obj.LoginAttemptDate.Value.Date == DateTime.Now.Date
+                                    && obj.PatientId == result.PatientId
+                                  select obj);
+
+                if (loginEntry.Count() == 0)
+                {
+                    //Reset Failed login history
+                    var _loginRow = _db.PatientLoginEntries.Where(x => x.PatientId == result.PatientId)
+                                                  .FirstOrDefault();
+                    if (_loginRow != null)
+                    {
+                        _db.PatientLoginEntries.Remove(_loginRow);
+                        _db.SaveChanges();
+                    }
+                    return result;
+                }
+            }
+            return null;
         }
 
         public PatientInfo GetPatientDetailByRegistrationNumber(string UserId)
@@ -157,6 +183,33 @@ namespace PatientPortal.BAL.Patient
             _db.Entry(info).State = EntityState.Added;
             _effectRow = _db.SaveChanges();
             return _effectRow > 0;
+        }
+
+        public PatientLoginEntry SavePatientLoginFailedHistory(PatientLoginEntry info)
+        {
+            int _effectRow = 0;
+            var _deptRow = _db.PatientLoginEntries.Where(x => x.PatientId == info.PatientId
+                                                        && DbFunctions.TruncateTime(x.LoginAttemptDate) == DbFunctions.TruncateTime(DateTime.Now))
+                                                  .FirstOrDefault();
+            if (_deptRow == null)
+            {
+                info.LoginAttempt = 1;
+                _db.Entry(info).State = EntityState.Added;
+                _effectRow = _db.SaveChanges();
+                return info;
+            }
+            else if (_deptRow.LoginAttempt == 4)
+            {
+                return _deptRow;
+            }
+            else
+            {
+                _deptRow.LoginAttempt = _deptRow.LoginAttempt + 1;
+                _deptRow.Locked = _deptRow.LoginAttempt == 4;
+                _db.Entry(_deptRow).State = EntityState.Modified;
+                _db.SaveChanges();
+                return _deptRow;
+            }
         }
     }
 }

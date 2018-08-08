@@ -96,6 +96,9 @@
     <Compile Include="PatientInfo.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="PatientLoginEntry.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="PatientLoginHistory.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>

@@ -28,6 +28,8 @@
         <AssociationConnector Association="PatientPortalModel.FK_PatientTransaction_PatientInfo" />
         <EntityTypeShape EntityType="PatientPortalModel.PatientLoginHistory" Width="1.5" PointX="5.25" PointY="11.875" />
         <AssociationConnector Association="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientLoginEntry" Width="1.5" PointX="5.25" PointY="14.875" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

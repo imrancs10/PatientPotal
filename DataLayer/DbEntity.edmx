@@ -131,6 +131,16 @@
           <Property Name="Photo" Type="varbinary(max)" />
           <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="PatientLoginEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginAttempt" Type="int" />
+          <Property Name="Locked" Type="bit" />
+          <Property Name="LoginAttemptDate" Type="datetime" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="PatientLoginHistory">
           <Key>
             <PropertyRef Name="Id" />
@@ -261,6 +271,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientLoginEntry_PatientInfo">
+          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="1" />
+          <End Role="PatientLoginEntry" Type="Self.PatientLoginEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfo">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientLoginEntry">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PatientLoginHistory_PatientInfo">
           <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
           <End Role="PatientLoginHistory" Type="Self.PatientLoginHistory" Multiplicity="*" />
@@ -296,6 +318,7 @@
           <EntitySet Name="HospitalDetail" EntityType="Self.HospitalDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeridiemMaster" EntityType="Self.MeridiemMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientLoginEntry" EntityType="Self.PatientLoginEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginHistory" EntityType="Self.PatientLoginHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientTransaction" EntityType="Self.PatientTransaction" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="Self.FK_AppointmentInfo_Doctor">
@@ -333,6 +356,10 @@
           <AssociationSet Name="FK_PatientInfo_Department" Association="Self.FK_PatientInfo_Department">
             <End Role="Department" EntitySet="Department" />
             <End Role="PatientInfo" EntitySet="PatientInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="Self.FK_PatientLoginEntry_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfo" />
+            <End Role="PatientLoginEntry" EntitySet="PatientLoginEntry" />
           </AssociationSet>
           <AssociationSet Name="FK_PatientLoginHistory_PatientInfo" Association="Self.FK_PatientLoginHistory_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfo" />
@@ -403,6 +430,11 @@
           <AssociationSet Name="FK_PatientLoginHistory_PatientInfo" Association="PatientPortalModel.FK_PatientLoginHistory_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientLoginHistory" EntitySet="PatientLoginHistories" />
+          </AssociationSet>
+          <EntitySet Name="PatientLoginEntries" EntityType="PatientPortalModel.PatientLoginEntry" />
+          <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="PatientPortalModel.FK_PatientLoginEntry_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientLoginEntry" EntitySet="PatientLoginEntries" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
@@ -550,6 +582,7 @@
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="FatherOrHusbandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
+          <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
         </EntityType>
         <EntityType Name="PatientTransaction">
           <Key>
@@ -703,6 +736,29 @@
               <PropertyRef Name="PatientId" />
             </Principal>
             <Dependent Role="PatientLoginHistory">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PatientLoginEntry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginAttempt" Type="Int32" />
+          <Property Name="Locked" Type="Boolean" />
+          <Property Name="LoginAttemptDate" Type="DateTime" Precision="3" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientLoginEntry" ToRole="PatientInfo" />
+        </EntityType>
+        <Association Name="FK_PatientLoginEntry_PatientInfo">
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
+          <End Type="PatientPortalModel.PatientLoginEntry" Role="PatientLoginEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfo">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientLoginEntry">
               <PropertyRef Name="PatientId" />
             </Dependent>
           </ReferentialConstraint>
@@ -870,6 +926,17 @@
                 <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientLoginEntries">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientLoginEntry">
+              <MappingFragment StoreEntitySet="PatientLoginEntry">
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="LoginAttemptDate" ColumnName="LoginAttemptDate" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

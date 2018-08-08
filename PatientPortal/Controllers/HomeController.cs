@@ -54,7 +54,30 @@ namespace PatientPortal.Controllers
                 //increase login attept +1 update to db
                 //if(attept==4)
                 //update info with locked user
-                SetAlertMessage("User Not Found", "Login");
+                //check Registration exists or not
+                var registrationResult = _details.GetPatientDetailByRegistrationNumber(username);
+                if (registrationResult == null)
+                {
+                    SetAlertMessage("User Not Found", "Login");
+                }
+                else
+                {
+                    PatientLoginEntry entry = new PatientLoginEntry
+                    {
+                        PatientId = registrationResult.PatientId,
+                        LoginAttemptDate = DateTime.Now
+                    };
+                    var loginAttempt = _details.SavePatientLoginFailedHistory(entry);
+                    if (loginAttempt.LoginAttempt == 4)
+                    {
+                        SetAlertMessage("You have reached the maximum attempt, your account is locked for a day.", "Login");
+                    }
+                    else
+                    {
+                        SetAlertMessage("Wrong Password, only " + (4 - loginAttempt.LoginAttempt).ToString() + " Attempt left, else your account will be locked for a day.", "Login");
+                    }
+                }
+
                 return View("Index");
             }
         }
