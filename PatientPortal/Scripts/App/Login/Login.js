@@ -54,11 +54,11 @@ $(document).ready(function () {
         var valueSelected = this.value;
         fillState(valueSelected)
     });
-    fillState(101);
+    fillState(101); //101 is the country id of India
     function fillState(countryId) {
         let dropdown = $('#state');
         dropdown.empty();
-        dropdown.append('<option selected="true" disabled>Choose State</option>');
+        dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         const url = utility.baseUrl + 'Json/states.json';
         // Populate dropdown with list of provinces
@@ -80,7 +80,7 @@ $(document).ready(function () {
     function fillCity(stateId) {
         let dropdown = $('#city');
         dropdown.empty();
-        dropdown.append('<option selected="true" disabled>Choose City</option>');
+        dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         const url = utility.baseUrl + 'Json/cities.json';
         // Populate dropdown with list of provinces
