@@ -19,6 +19,7 @@ namespace DataLayer
         {
             this.AppointmentInfoes = new HashSet<AppointmentInfo>();
             this.DoctorSchedules = new HashSet<DoctorSchedule>();
+            this.DoctorLeaves = new HashSet<DoctorLeave>();
         }
     
         public int DoctorID { get; set; }
@@ -30,5 +31,7 @@ namespace DataLayer
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoctorSchedule> DoctorSchedules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DoctorLeave> DoctorLeaves { get; set; }
     }
 }
