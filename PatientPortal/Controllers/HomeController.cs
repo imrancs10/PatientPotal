@@ -148,7 +148,7 @@ namespace PatientPortal.Controllers
             }
         }
 
-        private ActionResult PaymentTransaction()
+        public ActionResult PaymentTransaction()
         {
             string MerchantId = Convert.ToString(ConfigurationManager.AppSettings["MerchantId"]);
             string EncryptKey = Convert.ToString(ConfigurationManager.AppSettings["EncryptKey"]);
@@ -249,6 +249,12 @@ namespace PatientPortal.Controllers
                 string merchantResponse = Request.Form["merchantResponse"];
                 AWLMEAPI transact = new AWLMEAPI();
                 objResMsgDTO = transact.parseTrnResMsg(merchantResponse, EncryptKey);
+
+                if (objResMsgDTO.ResponseCode == Convert.ToString(ConfigurationManager.AppSettings["TransactionFailedResponseCode"]))
+                {
+                    ViewData["FailTransaction"] = true;
+                    return View();
+                }
 
                 PatientDetails _details = new PatientDetails();
                 string serialNumber = VerificationCodeGeneration.GetSerialNumber();

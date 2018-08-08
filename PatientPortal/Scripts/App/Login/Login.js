@@ -29,6 +29,8 @@ $(document).ready(function () {
     utility.bindDdlByAjax(app.urls.commonDepartmentList, 'department', 'DeparmentName', 'DepartmentId', function () {
         //
     });
+    var jsonData = jsonPatient;
+
     fillCountry();
     function fillCountry() {
         let dropdown = $('#country');
@@ -89,6 +91,35 @@ $(document).ready(function () {
             $.each(cities, function (key, entry) {
                 dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
             })
+        });
+    }
+    if (jsonData != null) {
+        fillCountryStateCity();
+    }
+    function fillCountryStateCity() {
+        //get City
+        var url = utility.baseUrl + 'Json/cities.json';
+        $.getJSON(url, function (data) {
+            var states = data.cities.filter(function (i, n) {
+                return i.id == jsonData.City;
+            });
+            $("#cityLabel").html(states[0].name);
+        });
+        //get State
+        url = utility.baseUrl + 'Json/states.json';
+        $.getJSON(url, function (data) {
+            var states = data.states.filter(function (i, n) {
+                return i.id == jsonData.State;
+            });
+            $("#stateLabel").html(states[0].name);
+        });
+        //get Country
+        url = utility.baseUrl + 'Json/countries.json';
+        $.getJSON(url, function (data) {
+            var states = data.countries.filter(function (i, n) {
+                return i.id == jsonData.Country;
+            });
+            $("#countryLabel").html(states[0].name);
         });
     }
 });
