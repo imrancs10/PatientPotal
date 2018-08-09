@@ -29,6 +29,15 @@ namespace PatientPortal.BAL.Patient
                                     && obj.LoginAttemptDate.Value.Date == DateTime.Now.Date
                                     && obj.PatientId == result.PatientId
                                   select obj);
+                var appSetting = _db.AppointmentSettings.FirstOrDefault();
+                if(appSetting!=null)
+                {
+                    WebSession.AppointmentCancelPeriod = appSetting.AppointmentCancelPeriod;
+                    WebSession.AppointmentLimitPerUser = appSetting.AppointmentLimitPerUser;
+                    WebSession.AppointmentMessage = appSetting.AppointmentMessage;
+                    WebSession.AppointmentSlot = appSetting.AppointmentSlot;
+                    WebSession.CalenderPeriod = appSetting.CalenderPeriod;
+                }
 
                 if (loginEntry.Count() == 0)
                 {

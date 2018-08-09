@@ -28,14 +28,44 @@ namespace PatientPortal.Global
         {
             try
             {
-                string result= ConfigurationManager.AppSettings.Get(key);
+                string result = ConfigurationManager.AppSettings.Get(key);
                 return string.IsNullOrEmpty(result) ? string.Empty : result;
             }
             catch (Exception)
             {
                 return string.Empty;
             }
-            
+
+        }
+    }
+
+    public static class WebSession
+    {
+
+        public static int AppointmentSlot
+        {
+            get { return HttpContext.Current.Session["AppointmentSlot"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["AppointmentSlot"]); }
+            set { HttpContext.Current.Session["AppointmentSlot"] = value; }
+        }
+        public static int CalenderPeriod
+        {
+            get { return HttpContext.Current.Session["CalenderPeriod"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["CalenderPeriod"]); }
+            set { HttpContext.Current.Session["CalenderPeriod"] = value; }
+        }
+        public static string AppointmentMessage
+        {
+            get { return HttpContext.Current.Session["AppointmentMessage"] == null ? string.Empty : HttpContext.Current.Session["AppointmentMessage"].ToString(); }
+            set { HttpContext.Current.Session["AppointmentMessage"] = value; }
+        }
+        public static int AppointmentLimitPerUser
+        {
+            get { return HttpContext.Current.Session["AppointmentLimitPerUser"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["AppointmentLimitPerUser"]); }
+            set { HttpContext.Current.Session["AppointmentLimitPerUser"] = value; }
+        }
+        public static int AppointmentCancelPeriod
+        {
+            get { return HttpContext.Current.Session["ApoointmentCancelPeriod"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["ApoointmentCancelPeriod"]); }
+            set { HttpContext.Current.Session["ApoointmentCancelPeriod"] = value; }
         }
     }
 }

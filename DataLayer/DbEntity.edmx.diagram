@@ -32,6 +32,7 @@
         <AssociationConnector Association="PatientPortalModel.FK_PatientTransaction_PatientInfo" />
         <EntityTypeShape EntityType="PatientPortalModel.DoctorLeave" Width="1.5" PointX="1.25" PointY="1" />
         <AssociationConnector Association="PatientPortalModel.FK_DoctorLeave_Doctor" />
+        <EntityTypeShape EntityType="PatientPortalModel.AppointmentSetting" Width="1.5" PointX="10.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
