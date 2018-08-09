@@ -217,3 +217,19 @@ $(document).ajaxStart(function () {
 $(document).ajaxComplete(function () {
     $('.ajaxloader').hide();
 });
+
+utility.confirmBox = function (message,title,yesFunction,noFunction) {
+    $('<div></div>').appendTo('body')
+    .html('<div><h6>' + message + '?</h6></div>')
+    .dialog({
+        modal: true, title: title, zIndex: 10000, autoOpen: true,
+        width: 'auto', resizable: false,
+        buttons: {
+            Yes: yesFunction,
+            No: noFunction
+        },
+        close: function (event, ui) {
+            $(this).remove();
+        }
+    });
+};

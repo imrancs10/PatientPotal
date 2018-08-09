@@ -6,6 +6,8 @@ using DataLayer;
 using System.Data.Entity;
 using PatientPortal.Global;
 using PatientPortal.Models.Masters;
+using PatientPortal.Infrastructure;
+using PatientPortal.Infrastructure.Utility;
 
 namespace PatientPortal.BAL.Masters
 {
@@ -98,7 +100,7 @@ namespace PatientPortal.BAL.Masters
             }
             else if (leaveDate.Date < DateTime.Now.Date)
             {
-                return Enums.CrudStatus.InvalidPostedData;
+                return Enums.CrudStatus.InvalidPastDate;
             }
             else
             {
@@ -113,7 +115,34 @@ namespace PatientPortal.BAL.Masters
                     _newDoc.CreatedDate = DateTime.Now;
                     _db.Entry(_newDoc).State = EntityState.Added;
                     _effectRow = _db.SaveChanges();
-                    return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
+                    if (_effectRow > 0)
+                    {
+                        var appointments = _db.AppointmentInfoes.Where(x => 
+                                                                            x.DoctorId.Equals(doctorId) && 
+                                                                            !x.IsCancelled && 
+                                                                            DbFunctions.TruncateTime(x.AppointmentDateFrom)==DbFunctions.TruncateTime(leaveDate)
+                                                                      ).ToList();
+                        if(appointments.Count>0)
+                        {
+                            foreach (AppointmentInfo appointment in appointments)
+                            {
+                                Message msg = new Message()
+                                {
+                                    MessageTo = appointment.PatientInfo.Email,
+                                    MessageNameTo = appointment.PatientInfo.FirstName + " " + appointment.PatientInfo.MiddleName + (string.IsNullOrWhiteSpace(appointment.PatientInfo.MiddleName) ? string.Empty : " ") + appointment.PatientInfo.LastName,
+                                    Subject = "Appointment Booking Confirmation",
+                                    Body = EmailHelper.GetDoctorAbsentEmail(appointment.PatientInfo.FirstName, appointment.PatientInfo.MiddleName, appointment.PatientInfo.LastName, appointment.Doctor.DoctorName, leaveDate, appointment.Doctor.Department.DepartmentName)
+                                };
+                                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                                sendMessageStrategy.SendMessages();
+                            }
+                        }
+                        return Enums.CrudStatus.Saved;
+                    }
+                    else
+                    {
+                        return Enums.CrudStatus.NotSaved;
+                    }
                 }
                 else
                     return Enums.CrudStatus.DataAlreadyExist;
