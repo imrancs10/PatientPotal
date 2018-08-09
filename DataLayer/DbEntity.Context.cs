@@ -39,5 +39,6 @@ namespace DataLayer
         public virtual DbSet<PatientLoginHistory> PatientLoginHistories { get; set; }
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
         public virtual DbSet<DoctorLeave> DoctorLeaves { get; set; }
+        public virtual DbSet<AppointmentSetting> AppointmentSettings { get; set; }
     }
 }

@@ -241,15 +241,15 @@ namespace PatientPortal.Controllers
         }
 
         [HttpGet]
-        public ActionResult ResetPassword(string registrationNumber)
+        public ActionResult ResetPassword(string resetCode)
         {
             PatientDetails _details = new PatientDetails();
-            ViewData["registrationNumber"] = registrationNumber;
+            ViewData["resetCode"] = resetCode;
             return View();
         }
 
         [HttpPost]
-        public ActionResult ResetPassword(string password, string confirmpassword, string registrationNumber)
+        public ActionResult ResetPassword(string password, string confirmpassword, string resetCode)
         {
             if (password.Trim() != confirmpassword.Trim())
             {
@@ -259,17 +259,18 @@ namespace PatientPortal.Controllers
             else
             {
                 PatientDetails _details = new PatientDetails();
-                var result = _details.GetPatientDetailByRegistrationNumber(registrationNumber);
+                var result = _details.GetPatientDetailByresetCode(resetCode);
                 if (result != null)
                 {
                     result.Password = password.Trim();
+                    result.ResetCode = "";
                     _details.UpdatePatientDetail(result);
                     SetAlertMessage("Password Created Successfully, please login.", "Password Create");
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    SetAlertMessage("Your Registration Number is Incorrect,Kindly contact the administrator", "password Create");
+                    SetAlertMessage("Your reset password link is already used,Kindly initiate another request for Forget Password.", "password Create");
                     return View();
                 }
             }
@@ -531,7 +532,11 @@ namespace PatientPortal.Controllers
             }
             else
             {
-                string passwordCreateURL = "Home/ResetPassword?registrationNumber=" + registernumber;
+                string resetCode = VerificationCodeGeneration.GetGeneratedResetCode();
+                //udpate Patient with reset code
+                patient.ResetCode = resetCode;
+                _detail.UpdatePatientDetail(patient);
+                string passwordCreateURL = "Home/ResetPassword?resetCode=" + resetCode;
                 string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
 
                 Message msg = new Message()

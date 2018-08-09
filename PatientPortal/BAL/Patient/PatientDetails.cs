@@ -61,6 +61,12 @@ namespace PatientPortal.BAL.Patient
             return _db.PatientInfoes.Where(x => x.RegistrationNumber == UserId).FirstOrDefault();
         }
 
+        public PatientInfo GetPatientDetailByresetCode(string resetCode)
+        {
+            _db = new PatientPortalEntities();
+            return _db.PatientInfoes.Where(x => x.ResetCode == resetCode).FirstOrDefault();
+        }
+
         public PatientInfo GetPatientDetailByMobileNumberOrEmail(string UserId)
         {
             _db = new PatientPortalEntities();
@@ -82,6 +88,7 @@ namespace PatientPortal.BAL.Patient
             if (_patientRow != null)
             {
                 _patientRow.OTP = info.OTP;
+                _patientRow.ResetCode = info.ResetCode;
                 _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
                 _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber;
                 _db.Entry(_patientRow).State = EntityState.Modified;

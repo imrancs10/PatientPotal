@@ -14,7 +14,7 @@ namespace PatientPortal.BAL.Masters
     public class DoctorDetails
     {
         PatientPortalEntities _db = null;
-        public Enums.CrudStatus SaveDoctor(string doctorName,int deptId)
+        public Enums.CrudStatus SaveDoctor(string doctorName, int deptId)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -31,7 +31,7 @@ namespace PatientPortal.BAL.Masters
             else
                 return Enums.CrudStatus.DataAlreadyExist;
         }
-        public Enums.CrudStatus EditDoctor(string doctorName, int deptId,int docId)
+        public Enums.CrudStatus EditDoctor(string doctorName, int deptId, int docId)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -62,19 +62,19 @@ namespace PatientPortal.BAL.Masters
             else
                 return Enums.CrudStatus.DataNotFound;
         }
-        public List<DoctorModel> DoctorList(int deptId=0)
+        public List<DoctorModel> DoctorList(int deptId = 0)
         {
             _db = new PatientPortalEntities();
             var _list = (from doc in _db.Doctors
-                         from dept in _db.Departments.Where(x=>x.DepartmentID.Equals(doc.DepartmentID))
+                         from dept in _db.Departments.Where(x => x.DepartmentID.Equals(doc.DepartmentID))
                          orderby dept.DepartmentName
-                         where deptId==0 || deptId.Equals(doc.DepartmentID)
+                         where deptId == 0 || deptId.Equals(doc.DepartmentID)
                          select new DoctorModel
                          {
                              DoctorName = doc.DoctorName,
                              DepartmentId = dept.DepartmentID,
-                             DoctorId=doc.DoctorID,
-                             DepartmentName=dept.DepartmentName
+                             DoctorId = doc.DoctorID,
+                             DepartmentName = dept.DepartmentName
                          }).ToList();
             return _list != null ? _list : new List<DoctorModel>();
         }
@@ -82,15 +82,15 @@ namespace PatientPortal.BAL.Masters
         {
             _db = new PatientPortalEntities();
             return (from leave in _db.DoctorLeaves.Where(x => x.DoctorId.Equals(doctorId))
-                           select new
-                           {
-                               leave.DoctorId,
-                               leave.Doctor.DoctorName,
-                               leave.Doctor.DepartmentID,
-                               leave.Doctor.Department.DepartmentName,
-                               leave.LeaveDate
-                           }).OrderBy(x => x.LeaveDate).ThenBy(x => x.DoctorName).ToList();
-            
+                    select new
+                    {
+                        leave.DoctorId,
+                        leave.Doctor.DoctorName,
+                        leave.Doctor.DepartmentID,
+                        leave.Doctor.Department.DepartmentName,
+                        leave.LeaveDate
+                    }).OrderBy(x => x.LeaveDate).ThenBy(x => x.DoctorName).ToList();
+
         }
         public Enums.CrudStatus SaveDoctorLeave(int doctorId, DateTime leaveDate)
         {
@@ -117,12 +117,11 @@ namespace PatientPortal.BAL.Masters
                     _effectRow = _db.SaveChanges();
                     if (_effectRow > 0)
                     {
-                        var appointments = _db.AppointmentInfoes.Where(x => 
-                                                                            x.DoctorId.Equals(doctorId) && 
-                                                                            !x.IsCancelled && 
-                                                                            DbFunctions.TruncateTime(x.AppointmentDateFrom)==DbFunctions.TruncateTime(leaveDate)
+                        var appointments = _db.AppointmentInfoes.Where(x => x.DoctorId.Equals(doctorId)
+                                                                        && !x.IsCancelled.Value
+                                                                        && DbFunctions.TruncateTime(x.AppointmentDateFrom) == DbFunctions.TruncateTime(leaveDate)
                                                                       ).ToList();
-                        if(appointments.Count>0)
+                        if (appointments.Count > 0)
                         {
                             foreach (AppointmentInfo appointment in appointments)
                             {
