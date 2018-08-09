@@ -133,6 +133,24 @@ namespace PatientPortal.Global {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date should not be in past.
+        /// </summary>
+        internal static string Invalid_Past_Date {
+            get {
+                return ResourceManager.GetString("Invalid_Past_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Posted Data is invalid.
+        /// </summary>
+        internal static string Invalid_Posted_Data {
+            get {
+                return ResourceManager.GetString("Invalid_Posted_Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Provided Credentials are invalid.
         /// </summary>
         internal static string Login_InvalidCredential {

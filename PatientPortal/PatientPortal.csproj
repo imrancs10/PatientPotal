@@ -261,6 +261,7 @@
     <Content Include="Scripts\App\Global\Utility.js" />
     <Content Include="Scripts\App\Login\Login.js" />
     <Content Include="Scripts\App\Masters\Department.js" />
+    <Content Include="Scripts\App\Masters\DoctorLeave.js" />
     <Content Include="Scripts\App\Masters\Doctors.js" />
     <Content Include="Scripts\App\Masters\Schedule.js" />
     <Content Include="Scripts\App\Patient\Profile.js" />

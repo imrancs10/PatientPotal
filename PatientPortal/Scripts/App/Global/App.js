@@ -4,6 +4,7 @@
 var app = {};
 
 app.urls = {};
+app.urls.masters = {};
 
 app.urls.commonDepartmentList = '/common/GetDepartments';
 app.urls.commonGetDaysList = '/common/GetDaysList';
@@ -31,3 +32,6 @@ app.urls.appointmentSaveAppointment = "/Appointment/SaveAppointment";
 
 app.urls.appointmentGetPatientAppointmentList = "/Appointment/GetPatientAppointmentList";
 app.urls.appointmentCancelAppointment = "/Appointment/CancelAppointment";
+
+app.urls.masters.GetDoctorLeaveList = '/masters/GetDoctorLeaveList';
+app.urls.masters.SaveDoctorLeave = '/masters/SaveDoctorLeave';

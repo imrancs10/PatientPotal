@@ -158,5 +158,19 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult GetDoctorLeaveList(int doctorId)
+        {
+            DoctorDetails _details = new DoctorDetails();
+            return Json(_details.GetDoctorLeaveList(doctorId), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SaveDoctorLeave(int doctorId,DateTime leaveDate)
+        {
+            DoctorDetails _details = new DoctorDetails();
+            return Json(CrudResponse(_details.SaveDoctorLeave(doctorId,leaveDate)), JsonRequestBehavior.AllowGet);
+        }
     }
 }

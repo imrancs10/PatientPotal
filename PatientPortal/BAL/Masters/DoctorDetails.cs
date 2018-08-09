@@ -76,5 +76,48 @@ namespace PatientPortal.BAL.Masters
                          }).ToList();
             return _list != null ? _list : new List<DoctorModel>();
         }
+        public IEnumerable<object> GetDoctorLeaveList(int doctorId)
+        {
+            _db = new PatientPortalEntities();
+            return (from leave in _db.DoctorLeaves.Where(x => x.DoctorId.Equals(doctorId))
+                           select new
+                           {
+                               leave.DoctorId,
+                               leave.Doctor.DoctorName,
+                               leave.Doctor.DepartmentID,
+                               leave.Doctor.Department.DepartmentName,
+                               leave.LeaveDate
+                           }).OrderBy(x => x.LeaveDate).ThenBy(x => x.DoctorName).ToList();
+            
+        }
+        public Enums.CrudStatus SaveDoctorLeave(int doctorId, DateTime leaveDate)
+        {
+            if (doctorId < 1)
+            {
+                return Enums.CrudStatus.InvalidPostedData;
+            }
+            else if (leaveDate.Date < DateTime.Now.Date)
+            {
+                return Enums.CrudStatus.InvalidPostedData;
+            }
+            else
+            {
+                _db = new PatientPortalEntities();
+                int _effectRow = 0;
+                var _deptRow = _db.DoctorLeaves.Where(x => x.DoctorId.Equals(doctorId) && x.LeaveDate.Equals(leaveDate)).FirstOrDefault();
+                if (_deptRow == null)
+                {
+                    DoctorLeave _newDoc = new DoctorLeave();
+                    _newDoc.DoctorId = doctorId;
+                    _newDoc.LeaveDate = leaveDate;
+                    _newDoc.CreatedDate = DateTime.Now;
+                    _db.Entry(_newDoc).State = EntityState.Added;
+                    _effectRow = _db.SaveChanges();
+                    return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
+                }
+                else
+                    return Enums.CrudStatus.DataAlreadyExist;
+            }
+        }
     }
 }

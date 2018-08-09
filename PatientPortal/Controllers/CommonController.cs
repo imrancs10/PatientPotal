@@ -47,6 +47,10 @@ namespace PatientPortal.Controllers
                 return Global.Resource.Crud_DataNotSaved;
             else if (inputMessage == Enums.CrudStatus.SessionExpired)
                 return Global.Resource.Session_Expired;
+            else if (inputMessage == Enums.CrudStatus.InvalidPostedData)
+                return Global.Resource.Invalid_Posted_Data;
+            else if (inputMessage == Enums.CrudStatus.InvalidPastDate)
+                return Global.Resource.Invalid_Past_Date;
             else
                 return Resource.Common_NoResponseFromServer;
         }
