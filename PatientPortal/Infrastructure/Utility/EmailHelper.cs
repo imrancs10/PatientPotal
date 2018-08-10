@@ -28,7 +28,7 @@ namespace PatientPortal.Infrastructure.Utility
             return body;
         }
 
-        public static string GetAppointmentSuccessEmail(string firstname, string middlename, string lastname,string doctorname,DateTime apptime,string deptname,string appMessage)
+        public static string GetAppointmentSuccessEmail(string firstname, string middlename, string lastname,string doctorname,DateTime apptime,string deptname)
         {
             string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
             body += "As you requested, here Appointment is booked, Please find the below Appointment details<br/>";
