@@ -8,6 +8,7 @@ using PatientPortal.Global;
 using PatientPortal.Models.Masters;
 using PatientPortal.Infrastructure;
 using PatientPortal.Infrastructure.Utility;
+using System.Threading.Tasks;
 
 namespace PatientPortal.BAL.Masters
 {
@@ -118,22 +119,20 @@ namespace PatientPortal.BAL.Masters
                     if (_effectRow > 0)
                     {
                         var appointments = _db.AppointmentInfoes.Where(x => x.DoctorId.Equals(doctorId)
-                                                                        && !x.IsCancelled.Value
+                                                                        && !x.IsCancelled
                                                                         && DbFunctions.TruncateTime(x.AppointmentDateFrom) == DbFunctions.TruncateTime(leaveDate)
                                                                       ).ToList();
                         if (appointments.Count > 0)
                         {
                             foreach (AppointmentInfo appointment in appointments)
                             {
-                                Message msg = new Message()
-                                {
-                                    MessageTo = appointment.PatientInfo.Email,
-                                    MessageNameTo = appointment.PatientInfo.FirstName + " " + appointment.PatientInfo.MiddleName + (string.IsNullOrWhiteSpace(appointment.PatientInfo.MiddleName) ? string.Empty : " ") + appointment.PatientInfo.LastName,
-                                    Subject = "Appointment Booking Confirmation",
-                                    Body = EmailHelper.GetDoctorAbsentEmail(appointment.PatientInfo.FirstName, appointment.PatientInfo.MiddleName, appointment.PatientInfo.LastName, appointment.Doctor.DoctorName, leaveDate, appointment.Doctor.Department.DepartmentName)
-                                };
-                                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
-                                sendMessageStrategy.SendMessages();
+                              Task mail=SendEmail(appointment, leaveDate);
+                                appointment.CancelDate = DateTime.Now;
+                                appointment.IsCancelled = true;
+                                appointment.ModifiedBy = appointment.PatientId;
+                                appointment.CancelReason = WebSession.AutoCancelMessage==string.Empty?"Auto cancel-Doctor on leave": WebSession.AutoCancelMessage;
+                                _db.Entry(appointment).State = EntityState.Modified;
+                                _db.SaveChanges();
                             }
                         }
                         return Enums.CrudStatus.Saved;
@@ -146,6 +145,22 @@ namespace PatientPortal.BAL.Masters
                 else
                     return Enums.CrudStatus.DataAlreadyExist;
             }
+        }
+
+        private async Task SendEmail(AppointmentInfo patient,DateTime leaveDate)
+        {
+            await Task.Run(() =>
+            {
+                Message msg = new Message()
+                {
+                    MessageTo = patient.PatientInfo.Email,
+                    MessageNameTo = patient.PatientInfo.FirstName + " " + patient.PatientInfo.MiddleName + (string.IsNullOrWhiteSpace(patient.PatientInfo.MiddleName) ? string.Empty : " ") + patient.PatientInfo.LastName,
+                    Subject = "Appointment Booking Confirmation",
+                    Body = EmailHelper.GetDoctorAbsentEmail(patient.PatientInfo.FirstName, patient.PatientInfo.MiddleName, patient.PatientInfo.LastName, patient.Doctor.DoctorName, leaveDate, patient.Doctor.Department.DepartmentName)
+                };
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+            });
         }
     }
 }

@@ -241,8 +241,9 @@ appointment.binddoctor = function (day) {
 function Timelist(ele, appList) {
     appList = appList.length > 0 ? appList : [{'a':0}];
     var html = '';
+    let appointmentSlotValue=isNaN(parseInt($('#hdnAppointmentPeriodInMinuts').val()))?30:parseInt($('#hdnAppointmentPeriodInMinuts').val());
     $(ele).each(function (ind1, ele1) {       
-            var tList = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, 30);
+        var tList = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, appointmentSlotValue);
             for (var i = 1; i < tList.length - 1; i++) {              
                     var availableAppTime = tList[i - 1] + ' - ' + tList[i];
                     html += '<div class="timelabel" title="' + availableAppTime + ' slot available for booking">' + availableAppTime + '</div>';

@@ -17,7 +17,7 @@
         <EntityTypeShape EntityType="PatientPortalModel.PatientInfo" Width="1.5" PointX="3" PointY="8.625" />
         <EntityTypeShape EntityType="PatientPortalModel.PatientLoginEntry" Width="1.5" PointX="5.25" PointY="10.75" />
         <EntityTypeShape EntityType="PatientPortalModel.PatientLoginHistory" Width="1.5" PointX="5.25" PointY="13.75" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientTransaction" Width="1.5" PointX="5.25" PointY="7.25" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientTransaction" Width="1.5" PointX="6.375" PointY="7.25" />
         <AssociationConnector Association="PatientPortalModel.FK_AppointmentInfo_Doctor" />
         <AssociationConnector Association="PatientPortalModel.FK_AppointmentInfo_PatientInfo" />
         <AssociationConnector Association="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1" />

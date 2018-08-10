@@ -44,7 +44,7 @@ namespace PatientPortal.Global
 
         public static int AppointmentSlot
         {
-            get { return HttpContext.Current.Session["AppointmentSlot"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["AppointmentSlot"]); }
+            get { return HttpContext.Current.Session["AppointmentSlot"] == null ?Convert.ToInt32(Utility.GetAppSettingKey("AppointmentPeriodInMinuts")) : Convert.ToInt32(HttpContext.Current.Session["AppointmentSlot"]); }
             set { HttpContext.Current.Session["AppointmentSlot"] = value; }
         }
         public static int CalenderPeriod
@@ -57,6 +57,11 @@ namespace PatientPortal.Global
             get { return HttpContext.Current.Session["AppointmentMessage"] == null ? string.Empty : HttpContext.Current.Session["AppointmentMessage"].ToString(); }
             set { HttpContext.Current.Session["AppointmentMessage"] = value; }
         }
+        public static bool IsActiveAppointmentMessage
+        {
+            get { return HttpContext.Current.Session["IsActiveAppointmentMessage"] == null ? false :Convert.ToBoolean(HttpContext.Current.Session["IsActiveAppointmentMessage"].ToString()); }
+            set { HttpContext.Current.Session["IsActiveAppointmentMessage"] = value; }
+        }
         public static int AppointmentLimitPerUser
         {
             get { return HttpContext.Current.Session["AppointmentLimitPerUser"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["AppointmentLimitPerUser"]); }
@@ -66,6 +71,11 @@ namespace PatientPortal.Global
         {
             get { return HttpContext.Current.Session["ApoointmentCancelPeriod"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["ApoointmentCancelPeriod"]); }
             set { HttpContext.Current.Session["ApoointmentCancelPeriod"] = value; }
+        }
+        public static string AutoCancelMessage
+        {
+            get { return HttpContext.Current.Session["AutoCancelMessage"] == null ? string.Empty : HttpContext.Current.Session["AutoCancelMessage"].ToString(); }
+            set { HttpContext.Current.Session["AutoCancelMessage"] = value; }
         }
     }
 }

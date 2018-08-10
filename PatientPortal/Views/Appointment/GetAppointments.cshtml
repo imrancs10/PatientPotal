@@ -1,10 +1,13 @@
-﻿
+﻿@using PatientPortal.Global;
 @{
     ViewBag.Title = "GetAppointments";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
 }
 <script src="~/Scripts/App/Appointment/Appoint.js"></script>
 <div class="" style="margin-top:0px;padding-top:20px;">
+    @{
+        <input type="hidden" id="hdnAppointmentPeriodInMinuts" value="@WebSession.AppointmentSlot" />
+    }
     <div class="col-sm-12 col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">Book Appointment</div>

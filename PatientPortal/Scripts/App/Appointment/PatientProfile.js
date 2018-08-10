@@ -16,13 +16,21 @@ var appList = function () {
         $(data).each(function (ind, ele) {
             var fromtime = new Date(parseInt(ele.AppointmentDateFrom.substr(6)));
             var date = new Date();
-            if (!ele.IsCancelled && date.compareDate(fromtime, new Date()).isDateLess) {
+            if (ele.IsCancelled || date.compareDate(fromtime, new Date()).isDateLess) {
                 srno1++;
                 tr += '<tr>';
                 tr += '<td class="text-center">' + srno1 + '</td>';
                 tr += '<td class="text-center">' + new Date(parseInt(ele.AppointmentDateFrom.substr(6))).toDateString().trim() + '</td>';
                 tr += '<td class="text-center">' + ele.DepartmentName + '</td>';
                 tr += '<td class="text-center">' + ele.DoctorName + '</td>';
+                if (ele.IsCancelled)
+                {
+                    tr += '<td title="Cancelled on : ' + new Date(parseInt(ele.CancelDate.substr(6))).toDateString() + '\n Reason : ' + ele.CancelReason + '" class="text-center"><strong style="color:Red;cursor:pointer">Cancelled</strong></td>';
+                }
+                else
+                {
+                    tr += '<td class="text-center"><strong style="color:Green">Booked</strong></td>';
+                }
                 tr += '</tr>';
                 $(visitTable).append(tr);
             }
