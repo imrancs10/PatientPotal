@@ -77,7 +77,6 @@ namespace PatientPortal.Controllers
             }
         }
 
-
         public ActionResult Register(string actionName)
         {
             if (actionName == "getotpscreen")
@@ -250,6 +249,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpGet]
+        [CustomAuthorize]
         public ActionResult ResetPassword(string resetCode)
         {
             ViewData["resetCode"] = resetCode;
@@ -257,6 +257,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorize]
         public ActionResult ResetPassword(string password, string confirmpassword, string resetCode)
         {
             if (password.Trim() != confirmpassword.Trim())
@@ -332,7 +333,6 @@ namespace PatientPortal.Controllers
                 return View();
             }
         }
-
         private async Task SendMailTransactionResponse(string serialNumber, PatientInfo info)
         {
             await Task.Run(() =>
@@ -352,7 +352,6 @@ namespace PatientPortal.Controllers
                 sendMessageStrategy.SendMessages();
             });
         }
-
         private void setUserClaim(PatientInfo info)
         {
             CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
@@ -389,12 +388,10 @@ namespace PatientPortal.Controllers
             HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             Response.Cookies.Add(faCookie);
         }
-
         public ActionResult AccessDenied()
         {
             return View();
         }
-
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -402,7 +399,7 @@ namespace PatientPortal.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
-
+        [CustomAuthorize]
         public ActionResult MyProfile(string actionName)
         {
             if (!string.IsNullOrEmpty(actionName))
@@ -487,6 +484,7 @@ namespace PatientPortal.Controllers
             var result = _details.CreateOrUpdatePatientDetail(info);
             return result;
         }
+        [CustomAuthorize]
         public ActionResult EditProfile()
         {
             ViewData["Action"] = "Edit";
@@ -494,6 +492,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorize]
         public ActionResult UpdateProfile(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, HttpPostedFileBase photo, string FatherHusbandName)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
@@ -617,13 +616,14 @@ namespace PatientPortal.Controllers
                 sendMessageStrategy.SendMessages();
             });
         }
-
+        [CustomAuthorize]
         public ActionResult ChangePassword()
         {
             return View();
         }
 
         [HttpPost]
+        [CustomAuthorize]
         public ActionResult ChangePassword(string oldpassword, string newpassword, string confirmnewpassword)
         {
             if (newpassword.Trim() != confirmnewpassword.Trim())
