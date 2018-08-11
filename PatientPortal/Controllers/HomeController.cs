@@ -13,6 +13,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -93,7 +94,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetPatientOTP(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName)
+        public async Task<ActionResult> GetPatientOTP(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (mobilenumber.Trim().Length != 10)
@@ -112,16 +113,7 @@ namespace PatientPortal.Controllers
                 Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
-                    Message msg = new Message()
-                    {
-                        MessageTo = email,
-                        MessageNameTo = firstname + " " + middlename + (string.IsNullOrWhiteSpace(middlename) ? "" : " ") + lastname,
-                        OTP = verificationCode,
-                        Subject = "Verify Mobile Number",
-                        Body = EmailHelper.GetDeviceVerificationEmail(firstname, middlename, lastname, verificationCode)
-                    };
-                    ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
-                    sendMessageStrategy.SendMessages();
+                    SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode);
                     Session["otp"] = verificationCode;
                     Session["PatientId"] = ((PatientInfo)result["data"]).PatientId;
                     return RedirectToAction("Register", new { actionName = "getotpscreen" });
@@ -132,6 +124,23 @@ namespace PatientPortal.Controllers
                     return RedirectToAction("Register");
                 }
             }
+        }
+
+        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode)
+        {
+            await Task.Run(() =>
+            {
+                Message msg = new Message()
+                {
+                    MessageTo = email,
+                    MessageNameTo = firstname + " " + middlename + (string.IsNullOrWhiteSpace(middlename) ? "" : " ") + lastname,
+                    OTP = verificationCode,
+                    Subject = "Verify Mobile Number",
+                    Body = EmailHelper.GetDeviceVerificationEmail(firstname, middlename, lastname, verificationCode)
+                };
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+            });
         }
 
         [HttpPost]
@@ -243,7 +252,6 @@ namespace PatientPortal.Controllers
         [HttpGet]
         public ActionResult ResetPassword(string resetCode)
         {
-            PatientDetails _details = new PatientDetails();
             ViewData["resetCode"] = resetCode;
             return View();
         }
@@ -313,7 +321,22 @@ namespace PatientPortal.Controllers
                     TransactionNumber = objResMsgDTO.PgMeTrnRefNo
                 };
                 _details.SavePatientTransaction(transaction);
+                SendMailTransactionResponse(serialNumber, info);
+                transaction.OrderId = serialNumber;
+                ViewData["TransactionSuccessResult"] = transaction;
+                return View();
+            }
+            else
+            {
+                SetAlertMessage("There Was Some Error in transaction Processing.....Please Check The Data you have Entered", "Transaction");
+                return View();
+            }
+        }
 
+        private async Task SendMailTransactionResponse(string serialNumber, PatientInfo info)
+        {
+            await Task.Run(() =>
+            {
                 string passwordCreateURL = "Home/CreatePassword?registrationNumber=" + serialNumber;
                 string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
 
@@ -327,16 +350,9 @@ namespace PatientPortal.Controllers
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
-                transaction.OrderId = serialNumber;
-                ViewData["TransactionSuccessResult"] = transaction;
-                return View();
-            }
-            else
-            {
-                SetAlertMessage("There Was Some Error in transaction Processing.....Please Check The Data you have Entered", "Transaction");
-                return View();
-            }
+            });
         }
+
         private void setUserClaim(PatientInfo info)
         {
             CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
@@ -536,6 +552,16 @@ namespace PatientPortal.Controllers
                 //udpate Patient with reset code
                 patient.ResetCode = resetCode;
                 _detail.UpdatePatientDetail(patient);
+                SendMailForgetPassword(registernumber, patient, resetCode);
+                ViewData["msg"] = "We have Sent you an Email for reset password link.kindly check your email";
+                return View();
+            }
+        }
+
+        private async Task SendMailForgetPassword(string registernumber, PatientInfo patient, string resetCode)
+        {
+            await Task.Run(() =>
+            {
                 string passwordCreateURL = "Home/ResetPassword?resetCode=" + resetCode;
                 string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
 
@@ -549,9 +575,7 @@ namespace PatientPortal.Controllers
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
-                ViewData["msg"] = "We have Sent you an Email for reset password link.kindly check your email";
-                return View();
-            }
+            });
         }
 
         public ActionResult ForgetUserID()
@@ -571,6 +595,16 @@ namespace PatientPortal.Controllers
             }
             else
             {
+                SendMailForgetUserId(patient);
+                ViewData["msg"] = "We have Sent you an Email that refering your registration number.kindly check your email";
+                return View();
+            }
+        }
+
+        private async Task SendMailForgetUserId(PatientInfo patient)
+        {
+            await Task.Run(() =>
+            {
                 Message msg = new Message()
                 {
                     MessageTo = patient.Email,
@@ -581,9 +615,7 @@ namespace PatientPortal.Controllers
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
-                ViewData["msg"] = "We have Sent you an Email that refering your registration number.kindly check your email";
-                return View();
-            }
+            });
         }
 
         public ActionResult ChangePassword()
