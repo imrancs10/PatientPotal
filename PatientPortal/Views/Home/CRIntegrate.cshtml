@@ -1,0 +1,254 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using PatientPortal.Global
+@using PatientPortal.Controllers;
+@using DataLayer;
+@using PatientPortal.Models;
+@using System.Configuration;
+@{
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @hospitalName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/App/Global/App.js"></script>
+    <script src="~/Scripts/App/Global/Utility.js"></script>
+    <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
+
+</head>
+<body>
+    <script type="text/javascript">
+        var jsonPatient = null;
+    </script>
+    @{
+        bool intialScreen = true;
+        if (ViewData["CRData"] != null)
+        {
+            intialScreen = false;
+        }
+    }
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header" style="width:100%">
+                @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="float:right">
+                    @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main page-bg">
+        <div class="container mobile-padding-lr0 ">
+            <div class="col-md-8 col-md-offset-21 col-sm-12 no-padding-sm register-main">
+                <div class="col-md-12 RegisterPage-container">
+
+                    @if (intialScreen == true)
+                    {
+                        <form id="register_form" class="form-horizontal" action="CRIntegrate" method="post" autocomplete="off">
+                            <h2>Already have CR Number</h2>
+                            <p style="margin-bottom:0px;">Kindly Provide your CR Number to fetch detail</p>
+                            <hr>
+                            <div class="register-form mt10">
+                                <div class="form-group">
+                                    <label for="CRNumber" class="control-label col-md-4 col-sm-12 col-xs-12"><span>CR Number<font color="FF0000">*</font></span></label>
+                                    <div class="col-md-8 col-sm-12 col-xs-12">
+                                        <input type="text" value="" name="CRNumber" required data-valid="required" class="register-input" id="CRNumber" placeholder="Enter CR Number" maxlength="50" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                                <input type="submit" name="CRIntegrate" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:200px;">
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        var json = (PatientInfoModel)ViewData["CRData"];
+                        <script type="text/javascript">
+                                @{
+                                    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                                    serializer.MaxJsonLength = Int32.MaxValue;
+                                    var jsonModel = serializer.Serialize(json);
+                                }
+                                 jsonPatient=@Html.Raw(jsonModel);
+                        </script>
+                        <form id="OTP_form" class="form-horizontal" action="SubmitCRDetail" method="post" autocomplete="off">
+                            <h2>CR Detail</h2>
+                            <p style="margin-bottom:0px;">
+                                Kindly fill your incomplet detail to proceed
+                            </p>
+                            <hr />
+                            <div class="col-sm-12 col-lg-12">
+                                <div class="col-sm-4 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Fisrt Name</label>
+                                        <div>@json.FirstName</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fathre/Husband Name</label>
+                                        <div>@json.FatherOrHusbandName</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mobile</label>
+                                        <div>@json.MobileNumber</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <div>@json.Gender</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <div id="stateLabel"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Middle Name</label>
+                                        <div>@json.MiddleName</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <div>@json.Email</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Religion</label>
+                                        <div>@json.Religion</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <div>@json.Address</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <div id="cityLabel"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <div>@json.LastName</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>DOB</label>
+                                        <div>@Convert.ToDateTime(json.DOB).ToShortDateString()</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Department</label>
+                                        <div>@json.Department</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Pin</label>
+                                        <div>@json.PinCode</div>
+                                    </div>
+                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group hidden">
+                                        <label>Country</label>
+                                        <div id="countryLabel"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <hr style="width:100%" />
+                            <div class="col-lg-12">
+                                <div class="col-sm-12 col-lg-12">
+                                    <div class="form-group">
+                                        <input type="submit" name="SubmitCRDetail" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:200px;">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/App/Patient/Profile.js"></script>
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
+        </div>
+    }
+
+
+    @*Alert*@
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
+    <style>
+        #profileimage {
+            width: 120px;
+            height: 150px;
+            box-shadow: 3px 3px 3px #8080803b;
+            border-radius: 4px;
+            border: 1px solid #8080803d;
+        }
+
+        .form-group {
+            margin-bottom: 6px !important;
+            padding-right: 10px;
+        }
+
+            .form-group div {
+                font-size: 11px;
+                min-height: 15px;
+                height: auto;
+            }
+
+            .form-group label {
+                margin-bottom: 0px !important;
+                font-weight: 550 !important;
+            }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            cursor: pointer;
+            color: brown;
+            padding-top: 7px;
+        }
+
+        #filename {
+            color: brown;
+            font-size: smaller;
+        }
+    </style>
+</body>
+</html>
+

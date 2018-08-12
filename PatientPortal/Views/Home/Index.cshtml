@@ -38,6 +38,9 @@
         <div class="container">
             <div class="navbar-header" style="width:100%">
                 @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="float:right">
+                    @Html.ActionLink("Alread Have CR Number", "CRIntegrate", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
             </div>
         </div>
     </div>

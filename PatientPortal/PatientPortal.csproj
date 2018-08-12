@@ -195,27 +195,40 @@
     </Compile>
     <Compile Include="Global\UserData.cs" />
     <Compile Include="Global\Utility.cs" />
-    <Compile Include="Infrastructure\Adapter\ISendMessageStrategy.cs" />
-    <Compile Include="Infrastructure\Adapter\EmailService.cs" />
-    <Compile Include="Infrastructure\Adapter\IMessageSystem.cs" />
-    <Compile Include="Infrastructure\Adapter\Message.cs" />
-    <Compile Include="Infrastructure\Adapter\SendMessageStrategyForEmail.cs" />
-    <Compile Include="Infrastructure\Adapter\SendMessageStrategyForSMS.cs" />
-    <Compile Include="Infrastructure\Adapter\SMSService.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\ISendMessageStrategy.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\EmailService.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\IMessageSystem.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\Message.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\SendMessageStrategyForEmail.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\SendMessageStrategyForSMS.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\SMSService.cs" />
+    <Compile Include="Infrastructure\Adapter\WebService\WebServiceIntegration.cs" />
     <Compile Include="Infrastructure\Authentication\CustomAuthorize.cs" />
     <Compile Include="Infrastructure\Authentication\CustomPrincipal.cs" />
     <Compile Include="Infrastructure\Authentication\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Infrastructure\Authentication\ICustomPrincipal.cs" />
     <Compile Include="Infrastructure\Utility\BaseViewPage.cs" />
     <Compile Include="Infrastructure\Utility\EmailHelper.cs" />
+    <Compile Include="Infrastructure\Utility\Serializer.cs" />
     <Compile Include="Infrastructure\Utility\VerificationCodeGeneration.cs" />
     <Compile Include="Models\Common\CommonModel.cs" />
     <Compile Include="Models\Masters\DepartmentModel.cs" />
     <Compile Include="Models\Masters\ScheduleModel.cs" />
+    <Compile Include="Models\HISPatientInfoModel.cs" />
     <Compile Include="Models\PatientInfoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Infrastructure\Utility\MultipleButtonAttribute.cs" />
+    <Compile Include="Web References\HISWebReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\App\Common.css" />
@@ -270,6 +283,10 @@
     <Content Include="Json\countries.json" />
     <Content Include="Json\states.json" />
     <Content Include="Json\cities.json" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -283,6 +300,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -320,6 +338,12 @@
     <Content Include="Views\Home\ChangePassword.cshtml" />
     <Content Include="Views\Masters\AddDoctorLeave.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\Home\CRIntegrate.cshtml" />
+    <None Include="Web References\HISWebReference\GetPatientDetails.wsdl" />
+    <Content Include="Web References\HISWebReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -344,6 +368,25 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\HISWebReference\</RelPath>
+      <UpdateFromURL>http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PatientPortal_HISWebReference_GetPatientDetails</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,17 +1,14 @@
 ﻿using com.awl.MerchantToolKit;
 using DataLayer;
-using PatientPortal.BAL.Login;
 using PatientPortal.BAL.Patient;
-using PatientPortal.Global;
 using PatientPortal.Infrastructure;
+using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Infrastructure.Authentication;
 using PatientPortal.Infrastructure.Utility;
 using PatientPortal.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -33,6 +30,46 @@ namespace PatientPortal.Controllers
 
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult CRIntegrate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CRIntegrate(string CRNumber)
+        {
+            WebServiceIntegration service = new WebServiceIntegration();
+            var patient = service.GetPatientInfoBYCRNumber(CRNumber);
+            if (patient != null)
+            {
+                var crData = new PatientInfoModel()
+                {
+                    FirstName = patient.Firstname,
+                    MiddleName = patient.Middlename,
+                    LastName = patient.Lastname,
+                    DOB = null,
+                    Gender = patient.Gender == "F" ? "Female" : "Male",
+                    MobileNumber = patient.Mobileno,
+                    Email = patient.Email,
+                    Address = patient.Address,
+                    City = patient.City,
+                    Country = patient.Country,
+                    PinCode = int.TryParse(patient.Pincode, out int pin) ? pin : 0,
+                    Religion = patient.Religion,
+                    Department = Convert.ToString(patient.deptid),
+                    State = patient.State,
+                    FatherOrHusbandName = patient.FatherOrHusbandName
+                };
+                ViewData["CRData"] = crData;
+            }
+            else
+            {
+                SetAlertMessage("CR Number not found or expire, Kindly contact to hospital.", "password Create");
+            }
+
             return View();
         }
 
