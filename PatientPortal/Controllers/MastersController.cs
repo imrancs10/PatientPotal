@@ -172,5 +172,25 @@ namespace PatientPortal.Controllers
             DoctorDetails _details = new DoctorDetails();
             return Json(CrudResponse(_details.SaveDoctorLeave(doctorId,leaveDate)), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ViewResult AppointmentSetting()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult SaveAppSetting(AppSettingModel model)
+        {
+            AppointmentSettingDetails _details = new AppointmentSettingDetails();
+            return Json(CrudResponse(_details.SaveAppSetting(model)), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetAppSetting()
+        {
+            AppointmentSettingDetails _details = new AppointmentSettingDetails();
+            return Json(_details.GetAppSetting(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -30,7 +30,8 @@ namespace PatientPortal.Global
             DataAlreadyExist,
             SessionExpired,
             InvalidPostedData,
-            InvalidPastDate
+            InvalidPastDate,
+            InternalError
         }
 
         public enum JsonResult

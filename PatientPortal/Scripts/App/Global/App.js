@@ -35,3 +35,5 @@ app.urls.appointmentCancelAppointment = "/Appointment/CancelAppointment";
 
 app.urls.masters.GetDoctorLeaveList = '/masters/GetDoctorLeaveList';
 app.urls.masters.SaveDoctorLeave = '/masters/SaveDoctorLeave';
+app.urls.masters.SaveAppSetting = '/masters/SaveAppSetting';
+app.urls.masters.GetAppSetting = '/masters/GetAppSetting';

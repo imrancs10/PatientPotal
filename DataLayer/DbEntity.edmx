@@ -10,16 +10,16 @@
             <PropertyRef Name="AppointmentId" />
           </Key>
           <Property Name="AppointmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PatientId" Type="int" Nullable="false" />
-          <Property Name="DoctorId" Type="int" Nullable="false" />
           <Property Name="AppointmentDateFrom" Type="datetime" Nullable="false" />
           <Property Name="AppointmentDateTo" Type="datetime" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DoctorId" Type="int" Nullable="false" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
           <Property Name="IsCancelled" Type="bit" Nullable="false" />
           <Property Name="CancelDate" Type="datetime" />
           <Property Name="CancelReason" Type="nvarchar" MaxLength="250" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="date" />
           <Property Name="Reminder" Type="bit" />
         </EntityType>
         <EntityType Name="AppointmentSetting">
@@ -30,12 +30,12 @@
           <Property Name="AppointmentSlot" Type="int" Nullable="false" />
           <Property Name="CalenderPeriod" Type="int" Nullable="false" />
           <Property Name="AppointmentMessage" Type="nvarchar" MaxLength="500" />
-          <Property Name="IsActiveAppointmentMessage" Type="bit" Nullable="false" />
           <Property Name="AppointmentLimitPerUser" Type="int" Nullable="false" />
           <Property Name="AppointmentCancelPeriod" Type="int" Nullable="false" />
-          <Property Name="AutoCancelMessage" Type="nvarchar" MaxLength="200" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="AutoCancelMessage" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsActiveAppointmentMessage" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -120,7 +120,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="HospitalName" Type="varchar" MaxLength="500" />
+          <Property Name="HospitalName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="HospitalLogo" Type="varbinary(max)" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
@@ -153,9 +153,9 @@
           <Property Name="DepartmentId" Type="int" />
           <Property Name="OTP" Type="varchar" MaxLength="50" />
           <Property Name="State" Type="nvarchar" MaxLength="50" />
-          <Property Name="Photo" Type="varbinary(max)" />
           <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
-          <Property Name="ResetCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResetCode" Type="varchar" MaxLength="100" />
+          <Property Name="Photo" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -420,9 +420,11 @@
       <Schema Namespace="PatientPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PatientPortalEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AppointmentInfoes" EntityType="PatientPortalModel.AppointmentInfo" />
+          <EntitySet Name="AppointmentSettings" EntityType="PatientPortalModel.AppointmentSetting" />
           <EntitySet Name="DayMasters" EntityType="PatientPortalModel.DayMaster" />
           <EntitySet Name="Departments" EntityType="PatientPortalModel.Department" />
           <EntitySet Name="Doctors" EntityType="PatientPortalModel.Doctor" />
+          <EntitySet Name="DoctorLeaves" EntityType="PatientPortalModel.DoctorLeave" />
           <EntitySet Name="DoctorSchedules" EntityType="PatientPortalModel.DoctorSchedule" />
           <EntitySet Name="Gbl_Master_Login" EntityType="PatientPortalModel.Gbl_Master_Login" />
           <EntitySet Name="Gbl_Master_User" EntityType="PatientPortalModel.Gbl_Master_User" />
@@ -452,6 +454,10 @@
             <End Role="Department" EntitySet="Departments" />
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
           </AssociationSet>
+          <AssociationSet Name="FK_DoctorLeave_Doctor" Association="PatientPortalModel.FK_DoctorLeave_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="DoctorLeave" EntitySet="DoctorLeaves" />
+          </AssociationSet>
           <AssociationSet Name="FK_DoctorScheduleDay_DoctorSchedule" Association="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
@@ -480,31 +486,40 @@
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientTransaction" EntitySet="PatientTransactions" />
           </AssociationSet>
-          <EntitySet Name="DoctorLeaves" EntityType="PatientPortalModel.DoctorLeave" />
-          <AssociationSet Name="FK_DoctorLeave_Doctor" Association="PatientPortalModel.FK_DoctorLeave_Doctor">
-            <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="DoctorLeave" EntitySet="DoctorLeaves" />
-          </AssociationSet>
-          <EntitySet Name="AppointmentSettings" EntityType="PatientPortalModel.AppointmentSetting" />
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
           <Key>
             <PropertyRef Name="AppointmentId" />
           </Key>
           <Property Name="AppointmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PatientId" Type="Int32" Nullable="false" />
-          <Property Name="DoctorId" Type="Int32" Nullable="false" />
           <Property Name="AppointmentDateFrom" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AppointmentDateTo" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
           <Property Name="IsCancelled" Type="Boolean" Nullable="false" />
           <Property Name="CancelDate" Type="DateTime" Precision="3" />
           <Property Name="CancelReason" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
           <Property Name="Reminder" Type="Boolean" />
           <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_AppointmentInfo_Doctor" FromRole="AppointmentInfo" ToRole="Doctor" />
           <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_AppointmentInfo_PatientInfo" FromRole="AppointmentInfo" ToRole="PatientInfo" />
+        </EntityType>
+        <EntityType Name="AppointmentSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppointmentSlot" Type="Int32" Nullable="false" />
+          <Property Name="CalenderPeriod" Type="Int32" Nullable="false" />
+          <Property Name="AppointmentMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AppointmentLimitPerUser" Type="Int32" Nullable="false" />
+          <Property Name="AppointmentCancelPeriod" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="AutoCancelMessage" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsActiveAppointmentMessage" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -532,8 +547,19 @@
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalModel.FK_AppointmentInfo_Doctor" FromRole="Doctor" ToRole="AppointmentInfo" />
           <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Doctor" ToRole="Department" />
-          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
           <NavigationProperty Name="DoctorLeaves" Relationship="PatientPortalModel.FK_DoctorLeave_Doctor" FromRole="Doctor" ToRole="DoctorLeave" />
+          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
+        </EntityType>
+        <EntityType Name="DoctorLeave">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <Property Name="LeaveDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_DoctorLeave_Doctor" FromRole="DoctorLeave" ToRole="Doctor" />
         </EntityType>
         <EntityType Name="DoctorSchedule">
           <Key>
@@ -557,7 +583,7 @@
           </Key>
           <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="LastLogin" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
@@ -592,7 +618,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HospitalName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HospitalName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HospitalLogo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IsActive" Type="Boolean" />
         </EntityType>
@@ -627,14 +653,14 @@
           <Property Name="DepartmentId" Type="Int32" />
           <Property Name="OTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="FatherOrHusbandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalModel.FK_AppointmentInfo_PatientInfo" FromRole="PatientInfo" ToRole="AppointmentInfo" />
           <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
           <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
-          <Property Name="ResetCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -731,6 +757,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DoctorLeave_Doctor">
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
+          <End Type="PatientPortalModel.DoctorLeave" Role="DoctorLeave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="DoctorLeave">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DoctorScheduleDay_DoctorSchedule">
           <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="0..1" />
           <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
@@ -815,44 +853,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="DoctorLeave">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DoctorId" Type="Int32" Nullable="false" />
-          <Property Name="LeaveDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_DoctorLeave_Doctor" FromRole="DoctorLeave" ToRole="Doctor" />
-        </EntityType>
-        <Association Name="FK_DoctorLeave_Doctor">
-          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
-          <End Type="PatientPortalModel.DoctorLeave" Role="DoctorLeave" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Doctor">
-              <PropertyRef Name="DoctorID" />
-            </Principal>
-            <Dependent Role="DoctorLeave">
-              <PropertyRef Name="DoctorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="AppointmentSetting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AppointmentSlot" Type="Int32" Nullable="false" />
-          <Property Name="CalenderPeriod" Type="Int32" Nullable="false" />
-          <Property Name="AppointmentMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="AppointmentLimitPerUser" Type="Int32" Nullable="false" />
-          <Property Name="AppointmentCancelPeriod" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActiveAppointmentMessage" Type="Boolean" Nullable="false" />
-          <Property Name="AutoCancelMessage" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -863,17 +863,33 @@
             <EntityTypeMapping TypeName="PatientPortalModel.AppointmentInfo">
               <MappingFragment StoreEntitySet="AppointmentInfo">
                 <ScalarProperty Name="Reminder" ColumnName="Reminder" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CancelReason" ColumnName="CancelReason" />
                 <ScalarProperty Name="CancelDate" ColumnName="CancelDate" />
                 <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="AppointmentDateTo" ColumnName="AppointmentDateTo" />
                 <ScalarProperty Name="AppointmentDateFrom" ColumnName="AppointmentDateFrom" />
-                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppointmentSettings">
+            <EntityTypeMapping TypeName="PatientPortalModel.AppointmentSetting">
+              <MappingFragment StoreEntitySet="AppointmentSetting">
+                <ScalarProperty Name="IsActiveAppointmentMessage" ColumnName="IsActiveAppointmentMessage" />
+                <ScalarProperty Name="AutoCancelMessage" ColumnName="AutoCancelMessage" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AppointmentCancelPeriod" ColumnName="AppointmentCancelPeriod" />
+                <ScalarProperty Name="AppointmentLimitPerUser" ColumnName="AppointmentLimitPerUser" />
+                <ScalarProperty Name="AppointmentMessage" ColumnName="AppointmentMessage" />
+                <ScalarProperty Name="CalenderPeriod" ColumnName="CalenderPeriod" />
+                <ScalarProperty Name="AppointmentSlot" ColumnName="AppointmentSlot" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -899,6 +915,17 @@
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
                 <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
                 <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorLeaves">
+            <EntityTypeMapping TypeName="PatientPortalModel.DoctorLeave">
+              <MappingFragment StoreEntitySet="DoctorLeave">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -972,9 +999,9 @@
           <EntitySetMapping Name="PatientInfoes">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
               <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
                 <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="OTP" ColumnName="OTP" />
                 <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
@@ -1028,33 +1055,6 @@
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="PatientTransactionId" ColumnName="PatientTransactionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DoctorLeaves">
-            <EntityTypeMapping TypeName="PatientPortalModel.DoctorLeave">
-              <MappingFragment StoreEntitySet="DoctorLeave">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
-                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AppointmentSettings">
-            <EntityTypeMapping TypeName="PatientPortalModel.AppointmentSetting">
-              <MappingFragment StoreEntitySet="AppointmentSetting">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="AutoCancelMessage" ColumnName="AutoCancelMessage" />
-                <ScalarProperty Name="IsActiveAppointmentMessage" ColumnName="IsActiveAppointmentMessage" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="AppointmentCancelPeriod" ColumnName="AppointmentCancelPeriod" />
-                <ScalarProperty Name="AppointmentLimitPerUser" ColumnName="AppointmentLimitPerUser" />
-                <ScalarProperty Name="AppointmentMessage" ColumnName="AppointmentMessage" />
-                <ScalarProperty Name="CalenderPeriod" ColumnName="CalenderPeriod" />
-                <ScalarProperty Name="AppointmentSlot" ColumnName="AppointmentSlot" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
