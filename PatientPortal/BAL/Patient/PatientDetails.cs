@@ -29,7 +29,7 @@ namespace PatientPortal.BAL.Patient
                                     && obj.LoginAttemptDate.Value.Date == DateTime.Now.Date
                                     && obj.PatientId == result.PatientId
                                   select obj);
-                var appSetting = _db.AppointmentSettings.Where(x=>x.IsActive).FirstOrDefault();
+                var appSetting = _db.AppointmentSettings.Where(x => x.IsAcvie).FirstOrDefault();
                 if (appSetting != null)
                 {
                     WebSession.AppointmentCancelPeriod = appSetting.AppointmentCancelPeriod;
@@ -92,6 +92,7 @@ namespace PatientPortal.BAL.Patient
                 _patientRow.OTP = info.OTP;
                 _patientRow.ResetCode = info.ResetCode;
                 _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
+                _patientRow.CRNumber = !string.IsNullOrEmpty(info.CRNumber) ? info.CRNumber : _patientRow.CRNumber;
                 _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber;
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();

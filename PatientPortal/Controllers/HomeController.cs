@@ -32,9 +32,13 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
-
-        public ActionResult CRIntegrate()
+        [HttpGet]
+        public ActionResult CRIntegrate(bool? successMSG)
         {
+            if (successMSG != null && successMSG == true)
+            {
+                ViewData["success"] = true;
+            }
             return View();
         }
 
@@ -47,23 +51,25 @@ namespace PatientPortal.Controllers
             {
                 var crData = new PatientInfoModel()
                 {
-                    FirstName = patient.Firstname,
-                    MiddleName = patient.Middlename,
-                    LastName = patient.Lastname,
+                    FirstName = patient.Firstname != "N/A" ? patient.Firstname : string.Empty,
+                    MiddleName = patient.Middlename != "N/A" ? patient.Middlename : string.Empty,
+                    LastName = patient.Lastname != "N/A" ? patient.Lastname : string.Empty,
                     DOB = null,
                     Gender = patient.Gender == "F" ? "Female" : "Male",
-                    MobileNumber = patient.Mobileno,
-                    Email = patient.Email,
-                    Address = patient.Address,
-                    City = patient.City,
-                    Country = patient.Country,
+                    MobileNumber = patient.Mobileno != "N/A" ? patient.Mobileno : string.Empty,
+                    Email = patient.Email != "N/A" ? patient.Email : string.Empty,
+                    Address = patient.Address != "N/A" ? patient.Address : string.Empty,
+                    City = patient.City != "N/A" ? patient.City : string.Empty,
+                    Country = patient.Country != "N/A" ? patient.Country : string.Empty,
                     PinCode = int.TryParse(patient.Pincode, out int pin) ? pin : 0,
-                    Religion = patient.Religion,
+                    Religion = patient.Religion != "N/A" ? patient.Religion : string.Empty,
                     Department = Convert.ToString(patient.deptid),
-                    State = patient.State,
-                    FatherOrHusbandName = patient.FatherOrHusbandName
+                    State = patient.State != "N/A" ? patient.State : string.Empty,
+                    FatherOrHusbandName = patient.FatherOrHusbandName != "N/A" ? patient.FatherOrHusbandName : string.Empty,
+                    CRNumber = patient.Registrationnumber != "N/A" ? patient.Registrationnumber : string.Empty,
                 };
                 ViewData["CRData"] = crData;
+                Session["CRNumber"] = CRNumber;
             }
             else
             {
@@ -711,6 +717,43 @@ namespace PatientPortal.Controllers
             };
             PatientDetails detail = new PatientDetails();
             detail.SavePatientLoginHistory(history);
+        }
+
+        [HttpPost]
+        public ActionResult SubmitCRDetail(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName)
+        {
+            string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            if (mobilenumber.Trim().Length != 10)
+            {
+                SetAlertMessage("Please Enter correct Mobile Number", "Register");
+            }
+            else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
+            {
+                SetAlertMessage("Please Enter correct Email Address", "Register");
+            }
+            else
+            {
+                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null);
+                if (result["status"].ToString() == CrudStatus.Saved.ToString())
+                {
+                    string serialNumber = VerificationCodeGeneration.GetSerialNumber();
+                    PatientInfo info = new PatientInfo()
+                    {
+                        RegistrationNumber = serialNumber,
+                        CRNumber = !string.IsNullOrEmpty(Convert.ToString(Session["CRNumber"])) ? Convert.ToString(Session["CRNumber"]) : string.Empty,
+                        PatientId = ((PatientInfo)result["data"]).PatientId
+                    };
+                    PatientDetails _details = new PatientDetails();
+                    info = _details.UpdatePatientDetail(info);
+                    SendMailTransactionResponse(serialNumber, info);
+                    Session["CRNumber"] = null;
+                }
+                else
+                {
+                    SetAlertMessage("User is not saved, might be of Email Id or Mobile No is already taken.", "Submit CR Detail");
+                }
+            }
+            return RedirectToAction("CRIntegrate", new { successMSG = true });
         }
     }
 }

@@ -21,8 +21,8 @@ namespace DataLayer
         public int AppointmentLimitPerUser { get; set; }
         public int AppointmentCancelPeriod { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public bool IsActiveAppointmentMessage { get; set; }
+        public bool IsAcvie { get; set; }
         public string AutoCancelMessage { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActiveAppointmentMessage { get; set; }
     }
 }
