@@ -26,7 +26,7 @@ namespace PatientPortal.Models
         public string OTP { get; set; }
         public string State { get; set; }
         public byte[] Photo { get; set; }
-
         public string FatherOrHusbandName { get; set; }
+        public string CRNumber { get; set; }
     }
 }

@@ -27,12 +27,12 @@ namespace DataLayer
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
-        public string IsdCode { get; set; }
-        public string MobileNumber { get; set; }
-        public string EmailId { get; set; }
         public System.DateTime DoB { get; set; }
-        public bool IsDeleted { get; set; }
+        public string EmailId { get; set; }
+        public string MobileNumber { get; set; }
+        public string IsdCode { get; set; }
         public bool IsSync { get; set; }
+        public bool IsDeleted { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public Nullable<System.DateTime> ModifiedAt { get; set; }
     

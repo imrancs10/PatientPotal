@@ -44,6 +44,7 @@ namespace DataLayer
         public byte[] Photo { get; set; }
         public string FatherOrHusbandName { get; set; }
         public string ResetCode { get; set; }
+        public string CRNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }

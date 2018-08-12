@@ -277,6 +277,7 @@
     <Content Include="Scripts\App\Masters\DoctorLeave.js" />
     <Content Include="Scripts\App\Masters\Doctors.js" />
     <Content Include="Scripts\App\Masters\Schedule.js" />
+    <Content Include="Scripts\App\Patient\CRProfile.js" />
     <Content Include="Scripts\App\Patient\Profile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

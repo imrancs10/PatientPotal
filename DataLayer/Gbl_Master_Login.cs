@@ -17,10 +17,10 @@ namespace DataLayer
         public int LoginId { get; set; }
         public int UserId { get; set; }
         public Nullable<System.DateTime> LastLogin { get; set; }
-        public bool IsActive { get; set; }
         public bool IsBlocked { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
         public bool IsSync { get; set; }
+        public bool IsDeleted { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public Nullable<System.DateTime> ModifiedAt { get; set; }
     
