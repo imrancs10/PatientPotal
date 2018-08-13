@@ -29,7 +29,7 @@ namespace PatientPortal.BAL.Patient
                                     && obj.LoginAttemptDate.Value.Date == DateTime.Now.Date
                                     && obj.PatientId == result.PatientId
                                   select obj);
-                var appSetting = _db.AppointmentSettings.Where(x => x.IsAcvie).FirstOrDefault();
+                var appSetting = _db.AppointmentSettings.Where(x => x.IsActive).FirstOrDefault();
                 if (appSetting != null)
                 {
                     WebSession.AppointmentCancelPeriod = appSetting.AppointmentCancelPeriod;

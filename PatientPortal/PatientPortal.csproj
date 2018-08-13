@@ -173,6 +173,7 @@
     <Compile Include="BAL\Appointments\AppointDetails.cs" />
     <Compile Include="BAL\Commom\CommonDetails.cs" />
     <Compile Include="BAL\Login\LoginDetails.cs" />
+    <Compile Include="BAL\Masters\AppointmentSettingDetails.cs" />
     <Compile Include="BAL\Masters\HospitalDetails.cs" />
     <Compile Include="BAL\Masters\DepartmentDetails.cs" />
     <Compile Include="BAL\Masters\DoctorDetails.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Infrastructure\Utility\Serializer.cs" />
     <Compile Include="Infrastructure\Utility\VerificationCodeGeneration.cs" />
     <Compile Include="Models\Common\CommonModel.cs" />
+    <Compile Include="Models\Masters\AppSettingModel.cs" />
     <Compile Include="Models\Masters\DepartmentModel.cs" />
     <Compile Include="Models\Masters\ScheduleModel.cs" />
     <Compile Include="Models\HISPatientInfoModel.cs" />
@@ -273,6 +275,7 @@
     <Content Include="Scripts\App\Global\App.js" />
     <Content Include="Scripts\App\Global\Utility.js" />
     <Content Include="Scripts\App\Login\Login.js" />
+    <Content Include="Scripts\App\Masters\appSetting.js" />
     <Content Include="Scripts\App\Masters\Department.js" />
     <Content Include="Scripts\App\Masters\DoctorLeave.js" />
     <Content Include="Scripts\App\Masters\Doctors.js" />
@@ -301,6 +304,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Masters\AppointmentSetting.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
