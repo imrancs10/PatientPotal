@@ -77,34 +77,55 @@ namespace PatientPortal.BAL.Appointments
         }
         public Enums.CrudStatus SaveAppointment(AppointmentInfo model)
         {
-            if (model.PatientId < 1)
-                return Enums.CrudStatus.SessionExpired;
-            _db = new PatientPortalEntities();
-            int _effectRow = 0;
-            var _deptRow = _db.AppointmentInfoes.Where(x => DbFunctions.TruncateTime(x.AppointmentDateFrom)==DbFunctions.TruncateTime(model.AppointmentDateFrom) && x.IsCancelled==false && x.PatientId.Equals(model.PatientId)).FirstOrDefault();
-            if (_deptRow == null)
+            try
             {
-                AppointmentInfo _newAppointment = new AppointmentInfo();
-                _newAppointment.AppointmentDateFrom = model.AppointmentDateFrom;
-                _newAppointment.AppointmentDateTo = model.AppointmentDateTo;
-                _newAppointment.CreatedDate = DateTime.Now;
-                _newAppointment.DoctorId = model.DoctorId;
-                _newAppointment.PatientId = model.PatientId;
-                _db.Entry(_newAppointment).State = EntityState.Added;
-                _effectRow = _db.SaveChanges();
-                return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
+                if (model.PatientId < 1)
+                    return Enums.CrudStatus.SessionExpired;
+                _db = new PatientPortalEntities();
+                int _effectRow = 0;
+                var _deptRow = _db.AppointmentInfoes.Where(x => DbFunctions.TruncateTime(x.AppointmentDateFrom) == DbFunctions.TruncateTime(model.AppointmentDateFrom) && x.IsCancelled == false && x.PatientId.Equals(model.PatientId)).FirstOrDefault();
+                if (_deptRow == null)
+                {
+                    AppointmentInfo _newAppointment = new AppointmentInfo();
+                    _newAppointment.AppointmentDateFrom = model.AppointmentDateFrom;
+                    _newAppointment.AppointmentDateTo = model.AppointmentDateTo;
+                    _newAppointment.CreatedDate = DateTime.Now;
+                    _newAppointment.DoctorId = model.DoctorId;
+                    _newAppointment.PatientId = model.PatientId;
+                    _newAppointment.IsCancelled = false;
+                    _db.Entry(_newAppointment).State = EntityState.Added;
+                    _effectRow = _db.SaveChanges();
+                    return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
+                }
+                else
+                    return Enums.CrudStatus.DataAlreadyExist;
             }
-            else
-                return Enums.CrudStatus.DataAlreadyExist;
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
         }
-        public IEnumerable<object> PatientAppointmentList(int _patientId,int year=0,int month=0)
+        public IEnumerable<object> PatientAppointmentList(int _patientId, int year = 0, int month = 0)
         {
             _db = new PatientPortalEntities();
             var _list = (from docAppointment in _db.AppointmentInfoes
 
                          orderby docAppointment.DoctorId
-                         where docAppointment.PatientInfo.PatientId.Equals(_patientId) && 
-                         (year==0 || docAppointment.AppointmentDateFrom.Year==year) &&
+                         where docAppointment.PatientInfo.PatientId.Equals(_patientId) &&
+                         (year == 0 || docAppointment.AppointmentDateFrom.Year == year) &&
                          (month == 0 || docAppointment.AppointmentDateFrom.Month == month)
                          select new
                          {
