@@ -6814,3 +6814,23 @@ td.visible-print {
     display: none !important;
   }
 }
+#mainNav{ background:#222222;} 
+#mainNav ul{ margin:0; padding-right:15px;} 
+#mainNav li {display:inline-block; vertical-align:top; line-height:39px; font-size:15px; position: relative;}
+#mainNav li a{ display:inline-block; color:#fff; padding:0 17px;}
+#mainNav ul li:hover>a,#mainNav ul li.active>a{background-color:#222222;}
+
+#mainNav li ul{ position:absolute; left:0; width:210px; background:#058a6d; text-align:left;border-right:1px solid #a1bcc4; transition:opacity 0.5s ease 0s, top 0.5s ease 0s;-moz-transition:opacity 0.5s ease 0s, top 0.5s ease 0s;-ms-transition:opacity 0.5s ease 0s, top 0.5s ease 0s;-o-transition:opacity 0.5s ease 0s, top 0.5s ease 0s;-webkit-transition:opacity 0.5s ease 0s, top 0.5s ease 0s; opacity:0; top:200%; visibility:hidden;} 
+#mainNav li ul li{ display:block; border-top:1px solid #a1bcc4; font-size:13px;}
+#mainNav li ul li a{ display:block; padding:5px 13px; line-height:18px;}
+#mainNav li.parent>a:after{ content:""; display:inline-block; vertical-align:middle; margin-left:3px; border:4px solid transparent; border-top-color:#fff;margin-top:3px;}
+#mainNav li ul li:hover a{ }
+#mainNav li:hover>ul{display:block; opacity:1; top:100%; visibility:visible;}
+#mainNav li ul li a:hover{ background-color:#0fa484}
+#mainNav li ul li ul{left:100%; margin-left:1px; margin-top:-1px;}
+#mainNav li ul li:hover>ul{ top:0px;}
+#mainNav li ul li.parent>a:after{ position:absolute; top:8px; right:5px; border-top-color:transparent; border-left-color:#fff;}
+#mainNav  ul.nav.menu>li.parent:last-child ul{left:auto; right:0;}
+
+#mainNav li ul ul ul{ border-right:none; margin-left:1px;}
+#mainNav li ul ul ul ul{border-left:1px solid #a1bcc4;}
