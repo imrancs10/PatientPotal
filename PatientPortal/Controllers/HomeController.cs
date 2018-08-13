@@ -70,13 +70,13 @@ namespace PatientPortal.Controllers
                 };
                 ViewData["CRData"] = crData;
                 Session["CRNumber"] = CRNumber;
+                return View();
             }
             else
             {
                 SetAlertMessage("CR Number not found or expire, Kindly contact to hospital.", "password Create");
+                return View();
             }
-
-            return View();
         }
 
         [HttpPost]
