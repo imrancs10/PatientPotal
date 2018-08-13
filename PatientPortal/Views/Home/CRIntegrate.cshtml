@@ -33,7 +33,7 @@
     <script src="~/Scripts/App/Global/App.js"></script>
     <script src="~/Scripts/App/Global/Utility.js"></script>
     <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
-
+    <script src="~/Scripts/App/Login/Login.js"></script>
 </head>
 <body>
     <script type="text/javascript">
@@ -94,7 +94,7 @@
                                     <div class="form-group">
                                         <label for="CRNumber" class="control-label col-md-4 col-sm-12 col-xs-12"><span>CR Number<font color="FF0000">*</font></span></label>
                                         <div class="col-md-8 col-sm-12 col-xs-12">
-                                            <input type="text" value="" name="CRNumber" required data-valid="required" class="register-input" id="CRNumber" placeholder="Enter CR Number" maxlength="50" autocomplete="off">
+                                            <input type="text" value="" name="CRNumber" required data-valid="required" class="register-input" id="CRNumber" placeholder="Enter CR Number" maxlength="20" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                             <form id="CR_form" class="form-horizontal" action="SubmitCRDetail" method="post" autocomplete="off">
                                 <h2>CR Detail</h2>
                                 <p style="margin-bottom:0px;">
-                                    Kindly fill your incomplet detail to proceed
+                                    Kindly fill your incomplete detail to proceed
                                 </p>
                                 <hr>
                                 <div class="register-form mt10">
