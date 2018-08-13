@@ -38,9 +38,9 @@
         <div class="container">
             <div class="navbar-header" style="width:100%">
                 @Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <div style="float:right">
-                    @Html.ActionLink("Alread Have CR Number", "CRIntegrate", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
+                @*<div style="float:right">
+            @Html.ActionLink("Already Have CR Number", "CRIntegrate", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>*@
             </div>
         </div>
     </div>
@@ -69,10 +69,11 @@
                         <small class="loginpage-alert lv-alert alert-success text-center" style="display:none;font-weight: 600;">
                         </small>
                         <h3 style="text-align:center;font-size:18px;font-weight:700;color:#434142">Login to Your Account</h3>
-                        <p style="text-align:center;font-size:13px;font-weight:normal;color:#888888">Access to Your Health</p>
+                        <p style="text-align:center;font-size:13px;font-weight:normal;color:#888888">If you have already CR Number then
+                            <a href="/Home/CRIntegrate" id="showforgotpass">CLICK HERE</a></p>
                         <hr />
                         <div class="form-group">
-                            <label for="user_username" class="control-label">User Id/ Registration No.:</label>
+                            <label for="user_username" class="control-label">Registration No.:</label>
                             <input type="text" id="user_username" class="form-control" name="username" autofocus />
                         </div>
                         <div class="form-group">
