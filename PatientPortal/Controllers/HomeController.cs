@@ -32,53 +32,7 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult CRIntegrate(bool? successMSG)
-        {
-            if (successMSG != null && successMSG == true)
-            {
-                ViewData["success"] = true;
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CRIntegrate(string CRNumber)
-        {
-            WebServiceIntegration service = new WebServiceIntegration();
-            var patient = service.GetPatientInfoBYCRNumber(CRNumber);
-            if (patient != null)
-            {
-                var crData = new PatientInfoModel()
-                {
-                    FirstName = patient.Firstname != "N/A" ? patient.Firstname : string.Empty,
-                    MiddleName = patient.Middlename != "N/A" ? patient.Middlename : string.Empty,
-                    LastName = patient.Lastname != "N/A" ? patient.Lastname : string.Empty,
-                    DOB = null,
-                    Gender = patient.Gender == "F" ? "Female" : "Male",
-                    MobileNumber = patient.Mobileno != "N/A" ? patient.Mobileno : string.Empty,
-                    Email = patient.Email != "N/A" ? patient.Email : string.Empty,
-                    Address = patient.Address != "N/A" ? patient.Address : string.Empty,
-                    City = patient.City != "N/A" ? patient.City : string.Empty,
-                    Country = patient.Country != "N/A" ? patient.Country : string.Empty,
-                    PinCode = int.TryParse(patient.Pincode, out int pin) ? pin : 0,
-                    Religion = patient.Religion != "N/A" ? patient.Religion : string.Empty,
-                    Department = Convert.ToString(patient.deptid),
-                    State = patient.State != "N/A" ? patient.State : string.Empty,
-                    FatherOrHusbandName = patient.FatherOrHusbandName != "N/A" ? patient.FatherOrHusbandName : string.Empty,
-                    CRNumber = patient.Registrationnumber != "N/A" ? patient.Registrationnumber : string.Empty,
-                };
-                ViewData["CRData"] = crData;
-                Session["CRNumber"] = CRNumber;
-                return View();
-            }
-            else
-            {
-                SetAlertMessage("CR Number not found or expire, Kindly contact to hospital.", "password Create");
-                return View();
-            }
-        }
-
+       
         [HttpPost]
         public ActionResult GetPatientLogin(string username, string password)
         {
@@ -717,6 +671,53 @@ namespace PatientPortal.Controllers
             };
             PatientDetails detail = new PatientDetails();
             detail.SavePatientLoginHistory(history);
+        }
+
+        [HttpGet]
+        public ActionResult CRIntegrate(bool? successMSG)
+        {
+            if (successMSG != null && successMSG == true)
+            {
+                ViewData["success"] = true;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CRIntegrate(string CRNumber)
+        {
+            WebServiceIntegration service = new WebServiceIntegration();
+            var patient = service.GetPatientInfoBYCRNumber(CRNumber);
+            if (patient != null)
+            {
+                var crData = new PatientInfoModel()
+                {
+                    FirstName = patient.Firstname != "N/A" ? patient.Firstname : string.Empty,
+                    MiddleName = patient.Middlename != "N/A" ? patient.Middlename : string.Empty,
+                    LastName = patient.Lastname != "N/A" ? patient.Lastname : string.Empty,
+                    DOB = null,
+                    Gender = patient.Gender == "F" ? "Female" : "Male",
+                    MobileNumber = patient.Mobileno != "N/A" ? patient.Mobileno : string.Empty,
+                    Email = patient.Email != "N/A" ? patient.Email : string.Empty,
+                    Address = patient.Address != "N/A" ? patient.Address : string.Empty,
+                    City = patient.City != "N/A" ? patient.City : string.Empty,
+                    Country = patient.Country != "N/A" ? patient.Country : string.Empty,
+                    PinCode = int.TryParse(patient.Pincode, out int pin) ? pin : 0,
+                    Religion = patient.Religion != "N/A" ? patient.Religion : string.Empty,
+                    Department = Convert.ToString(patient.deptid),
+                    State = patient.State != "N/A" ? patient.State : string.Empty,
+                    FatherOrHusbandName = patient.FatherOrHusbandName != "N/A" ? patient.FatherOrHusbandName : string.Empty,
+                    CRNumber = patient.Registrationnumber != "N/A" ? patient.Registrationnumber : string.Empty,
+                };
+                ViewData["CRData"] = crData;
+                Session["CRNumber"] = CRNumber;
+                return View();
+            }
+            else
+            {
+                SetAlertMessage("CR Number not found or expire, Kindly contact to hospital.", "password Create");
+                return View();
+            }
         }
 
         [HttpPost]
