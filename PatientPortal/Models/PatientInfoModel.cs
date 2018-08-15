@@ -23,6 +23,7 @@ namespace PatientPortal.Models
         public Nullable<int> PinCode { get; set; }
         public string Religion { get; set; }
         public string Department { get; set; }
+        public int DepartmentId { get; set; }
         public string OTP { get; set; }
         public string State { get; set; }
         public byte[] Photo { get; set; }
