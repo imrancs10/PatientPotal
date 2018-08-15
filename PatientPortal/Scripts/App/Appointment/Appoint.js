@@ -24,7 +24,7 @@ $(document).on('change', '#ddlDepartments', function () {
         $('.step1').hide();
         $('.step2').show();
         $('.step3').hide();
-        $('#spanDeptName').text('Department : '+$(this).find(':selected').html().trim());
+        $('#spanDeptName').text('Department : ' + $(this).find(':selected').html().trim());
     }
     else {
         utility.alert.setAlert(utility.alert.alertType.warning, 'Please select department');
@@ -74,7 +74,8 @@ appointment.bindCalendar = function (year, month) {
     var day = 0;
     var rowLength = 5;
     var deptId = $('#ddlDepartments').find(':selected').val();
-
+    let totalDaysFromCurrentDate = (parseInt($('#hdnCalenderDays').val()) + -1);
+    let calaendarPeriod = parseInt($('#hdnCalenderPeriod').val());
     //empty table 
 
     $(tbody).find('tr:gt(0)').remove();
@@ -88,13 +89,12 @@ appointment.bindCalendar = function (year, month) {
                 totalAvailable[utility.global.getFullDaysArray.indexOf(ele[0].DayName)] = ele.length;
             }
         });
-        utility.ajax.helperWithData(app.urls.appointmentGetPatientAppointmentList, { year: inpuYear, month: inpuMonth+1 }, function (plist) {
+        utility.ajax.helperWithData(app.urls.appointmentGetPatientAppointmentList, { year: inpuYear, month: inpuMonth + 1 }, function (plist) {
             var patientAppDateList = [];
-            $(plist).each(function (ind, ele)
-            {
+            $(plist).each(function (ind, ele) {
                 var pDate = new Date(parseInt(ele.AppointmentDateFrom.substr(6)));
-                if (patientAppDateList.indexOf(pDate.getDate())==-1)
-                patientAppDateList.push(pDate.getDate());
+                if (patientAppDateList.indexOf(pDate.getDate()) == -1)
+                    patientAppDateList.push(pDate.getDate());
             });
             for (var i = 0; i < rowLength; i++) {
                 tr += '<tr>';
@@ -104,45 +104,61 @@ appointment.bindCalendar = function (year, month) {
                         day += 1;
                         if ((dateObj.currentMonth >= dateObj.todayMonth && dateObj.currentYear >= dateObj.todayYear && day >= dateObj.todayDate) || (dateObj.currentMonth > dateObj.todayMonth && dateObj.currentYear >= dateObj.todayYear) || (dateObj.currentYear > dateObj.todayYear)) {
                             if (day == currentDate && inpuYear == date.getFullYear() && inpuMonth == date.getMonth()) {
-                                if (availableDoctor > 0) {
-                                    if (patientAppDateList.indexOf(day) == -1) {
-                                        tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="btn-info getApp"><div class="cal-date">' + day + '</div><div class="cal-available" title="' + availableDoctor + ' doctor(s) available">Available : ' + availableDoctor + '</div></td>';
+                                totalDaysFromCurrentDate += 1;
+                                if (totalDaysFromCurrentDate <= calaendarPeriod) {
+                                    if (availableDoctor > 0) {
+                                        if (patientAppDateList.indexOf(day) == -1) {
+                                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="btn-info getApp"><div class="cal-date">' + day + '</div><div class="cal-available" title="' + availableDoctor + ' doctor(s) available">Available : ' + availableDoctor + '</div></td>';
+                                        }
+                                        else {
+                                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="btn-info getApp"><div class="appDate" title="You have booked appointment"></div><div class="cal-date">' + day + '</div><div class="cal-available" title="' + availableDoctor + ' doctor(s) available">Available : ' + availableDoctor + '</div></td>';
+                                        }
                                     }
-                                    else
-                                    {
-                                        tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="btn-info getApp"><div class="appDate" title="You have booked appointment"></div><div class="cal-date">' + day + '</div><div class="cal-available" title="' + availableDoctor + ' doctor(s) available">Available : ' + availableDoctor + '</div></td>';
+                                    else {
+                                        tr += '<td  title="No doctor available" data-day="' + utility.global.getFullDaysArray[j] + '" class="btn-info getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
                                     }
                                 }
                                 else {
-                                    tr += '<td  title="No doctor available" data-day="' + utility.global.getFullDaysArray[j] + '" class="btn-info getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
+                                    tr += '<td style="background:#a2a2a285" title="No doctor available\nDate is greater than Advance Reservation Period\nARP: ' + calaendarPeriod + ' Days" data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp-disable"><div class="cal-not-available">' + day + '</div><div class="cal-not-available">Available : ' + 0 + '</div></td>';
                                 }
                             }
                             else {
-                                if (availableDoctor > 0) {
-                                    if (patientAppDateList.indexOf(day) == -1) {
-                                        tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="getApp"><div class="cal-date">' + day + '</div><div class="cal-available" title="' + availableDoctor + ' doctor(s) available">Available : ' + availableDoctor + '</div></td>';
+                                if (totalDaysFromCurrentDate <= calaendarPeriod) {
+                                    if (availableDoctor > 0) {
+                                        if (patientAppDateList.indexOf(day) == -1) {
+                                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="getApp"><div class="cal-date">' + day + '</div><div class="cal-available" title="' + availableDoctor + ' doctor(s) available">Available : ' + availableDoctor + '</div></td>';
+                                        }
+                                        else {
+                                            tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="getApp"><div class="appDate" title="You have booked appointment"></div><div class="cal-date">' + day + '</div><div class="cal-available" title="' + availableDoctor + ' doctor(s) available">Available : ' + availableDoctor + '</div></td>';
+                                        }
                                     }
-                                    else
-                                    {
-                                        tr += '<td data-day="' + utility.global.getFullDaysArray[j] + '" data-date="' + (dateObj.currentYear + '-' + dateObj.currentMonth + '-' + day) + '" class="getApp"><div class="appDate" title="You have booked appointment"></div><div class="cal-date">' + day + '</div><div class="cal-available" title="' + availableDoctor + ' doctor(s) available">Available : ' + availableDoctor + '</div></td>';
+                                    else {
+                                        tr += '<td  title="No doctor available" data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
                                     }
                                 }
-                                else
-                                    tr += '<td  title="No doctor available" data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + availableDoctor + '</div></td>';
+                                else {
+                                    tr += '<td style="background:#a2a2a285" title="No doctor available\nDate is greater than Advance Reservation Period\nARP: ' + calaendarPeriod + ' Days" data-day="' + utility.global.getFullDaysArray[j] + '" class="getApp-disable"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + 0 + '</div></td>';
+                                }
                             }
+
                         }
                         else {
-                            tr += '<td  title="No doctor available" style="background:#a2a2a285" title="Date already passed"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + 0 + '</div></td>';
+                            tr += '<td  title="No doctor available"  title="Date already passed"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + 0 + '</div></td>';
                         }
+
                     }
                     else if ((index == 0 && j < dateObj.firstDayIndex) || day >= dateObj.totalDays)
                         tr += '<td title="No doctor available"></td>';
+                    if (totalDaysFromCurrentDate > -1) {
+                        totalDaysFromCurrentDate += 1;
+                    }
                 }
                 tr += "</tr>"
                 index += 1;
             }
 
             $(tbody).append(tr);
+            $('#hdnCalenderDays').val(totalDaysFromCurrentDate);
         });
     });
 
@@ -167,6 +183,7 @@ $(document).on('click', '#btnStep1', function () {
     $('.step2').hide();
     $('.step1').show();
     $('.step3').hide();
+    $('#ddlDepartments').val('');
 });
 
 $(document).on('click', '.timelabel', function () {
@@ -189,21 +206,18 @@ $(document).on('click', '#btnGetAppointment', function () {
                 utility.alert.setAlert(utility.alert.alertType.success, 'Your appointment has been booked');
                 $('.timelabelActive').addClass('Bookedtimelabel').removeClass('timelabel').removeClass('timelabelActive');
                 $('#selectAppointmant').text();
-                $('#btnGetAppointment').data('data','')
+                $('#btnGetAppointment').data('data', '')
             }
-            else if(data == 'Your Session has been expired')
-            {
+            else if (data == 'Your Session has been expired') {
                 utility.alert.setAlert(utility.alert.alertType.error, 'Either you logged out or your session is expired');
-                window.location = location.protocol+'//'+location.host; //Redirect to defult page
+                window.location = location.protocol + '//' + location.host; //Redirect to defult page
             }
-            else if(data =='Data already exists')
-            {
-                utility.alert.setAlert(utility.alert.alertType.error, 'You can book only one appointment for one particular calender date');
+            else if (data == 'Data already exists') {
+                utility.alert.setAlert(utility.alert.alertType.error, 'You can book only ' + $('#hdnAppointmentLimitPerUser').val() + ' appointment for one particular calender date');
             }
         });
     }
-    else
-    {
+    else {
         utility.alert.setAlert(utility.alert.alertType.warning, 'Please select the appointment time');
     }
 });
@@ -213,42 +227,42 @@ appointment.binddoctor = function (day) {
     var deptId = $('#ddlDepartments').find(':selected').val();
     var doctorList = [];
     utility.ajax.helperWithData(app.urls.appointmentdayWiseDoctorScheduleList, { deptId: deptId, day: day }, function (doctorListdata) {
-        utility.ajax.helperWithData(app.urls.appointmentDateWiseDoctorAppointmentList, { date: new Date($('#spanDate').text().trim().split(' : ')[1]) }, function (AppointmentListdata) { 
-        doctorList = doctorListdata;
-        var table = $('#appointDoctorTable tbody');
-        var srno = 1;
-        var tr = '';
-        $(table).empty();
+        utility.ajax.helperWithData(app.urls.appointmentDateWiseDoctorAppointmentList, { date: new Date($('#spanDate').text().trim().split(' : ')[1]) }, function (AppointmentListdata) {
+            doctorList = doctorListdata;
+            var table = $('#appointDoctorTable tbody');
+            var srno = 1;
+            var tr = '';
+            $(table).empty();
 
-        $(doctorList).each(function (ind, ele) {
-            var appList = $(AppointmentListdata).filter(function(ind,listele) {
-                if (listele[0].DoctorId == ele[0].DoctorID)
-                    return listele;
+            $(doctorList).each(function (ind, ele) {
+                var appList = $(AppointmentListdata).filter(function (ind, listele) {
+                    if (listele[0].DoctorId == ele[0].DoctorID)
+                        return listele;
+                });
+                tr += '<tr data-doctorid="' + ele[0].DoctorID + '">';
+                tr += '<td style="padding: 3%;">' + srno + '</td>';
+                tr += '<td style="padding: 3%;">' + ele[0].DoctorName + '</td>';
+                tr += '<td>' + Timelist(ele, appList) + '</td>';
+                tr += '</tr>';
+                srno += 1;
             });
-            tr += '<tr data-doctorid="' + ele[0].DoctorID + '">';
-            tr += '<td style="padding: 3%;">' + srno + '</td>';
-            tr += '<td style="padding: 3%;">' + ele[0].DoctorName + '</td>';
-            tr += '<td>' + Timelist(ele, appList) + '</td>';
-            tr += '</tr>';
-            srno += 1;
-        });
 
-        $(table).append(tr);
+            $(table).append(tr);
         });
     });
 }
 
 function Timelist(ele, appList) {
-    appList = appList.length > 0 ? appList : [{'a':0}];
+    appList = appList.length > 0 ? appList : [{ 'a': 0 }];
     var html = '';
-    let appointmentSlotValue=isNaN(parseInt($('#hdnAppointmentPeriodInMinuts').val()))?30:parseInt($('#hdnAppointmentPeriodInMinuts').val());
-    $(ele).each(function (ind1, ele1) {       
+    let appointmentSlotValue = isNaN(parseInt($('#hdnAppointmentPeriodInMinuts').val())) ? 30 : parseInt($('#hdnAppointmentPeriodInMinuts').val());
+    $(ele).each(function (ind1, ele1) {
         var tList = utility.global.timeSplitter(ele1.TimeFrom, ele1.TimeTo, appointmentSlotValue);
-            for (var i = 1; i < tList.length - 1; i++) {              
-                    var availableAppTime = tList[i - 1] + ' - ' + tList[i];
-                    html += '<div class="timelabel" title="' + availableAppTime + ' slot available for booking">' + availableAppTime + '</div>';
-            }
-       
+        for (var i = 1; i < tList.length - 1; i++) {
+            var availableAppTime = tList[i - 1] + ' - ' + tList[i];
+            html += '<div class="timelabel" title="' + availableAppTime + ' slot available for booking">' + availableAppTime + '</div>';
+        }
+
     });
     $(appList[0]).each(function (ind, ele) {
         if (ele.AppointmentDateFrom) {
