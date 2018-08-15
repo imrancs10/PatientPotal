@@ -1,5 +1,6 @@
 ﻿using com.awl.MerchantToolKit;
 using DataLayer;
+using PatientPortal.BAL.Masters;
 using PatientPortal.BAL.Patient;
 using PatientPortal.Infrastructure;
 using PatientPortal.Infrastructure.Adapter.WebService;
@@ -32,7 +33,7 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
-       
+
         [HttpPost]
         public ActionResult GetPatientLogin(string username, string password)
         {
@@ -78,10 +79,9 @@ namespace PatientPortal.Controllers
         {
             if (actionName == "getotpscreen")
             {
-                if (Session["PatientId"] != null)
+                if (Session["PatientInfo"] != null)
                 {
-                    var patient = GetPatientInfo(Convert.ToInt32(Session["PatientId"]));
-                    ViewData["PatientData"] = patient;
+                    ViewData["PatientData"] = Session["PatientInfo"] as PatientInfoModel;
                 }
 
                 ViewData["registerAction"] = "getotpscreen";
@@ -106,12 +106,13 @@ namespace PatientPortal.Controllers
             else
             {
                 string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
-                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null);
-                if (result["status"].ToString() == CrudStatus.Saved.ToString())
+                PatientInfoModel pateintModel = getPatientInfoModelForSession(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null);
+                if (pateintModel != null)
                 {
                     SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode);
                     Session["otp"] = verificationCode;
-                    Session["PatientId"] = ((PatientInfo)result["data"]).PatientId;
+                    //Session["PatientId"] = ((PatientInfo)result["data"]).PatientId;
+                    Session["PatientInfo"] = pateintModel;
                     return RedirectToAction("Register", new { actionName = "getotpscreen" });
                 }
                 else
@@ -287,7 +288,6 @@ namespace PatientPortal.Controllers
             ResMsgDTO objResMsgDTO = new ResMsgDTO();
             if (Request.Form["merchantResponse"] != null)
             {
-
                 string merchantResponse = Request.Form["merchantResponse"];
                 AWLMEAPI transact = new AWLMEAPI();
                 objResMsgDTO = transact.parseTrnResMsg(merchantResponse, EncryptKey);
@@ -300,33 +300,43 @@ namespace PatientPortal.Controllers
 
                 PatientDetails _details = new PatientDetails();
                 string serialNumber = VerificationCodeGeneration.GetSerialNumber();
-                int patientId = (int)Session["PatientId"];
-                PatientInfo info = new PatientInfo()
+                if (Session["PatientInfo"] != null)
                 {
-                    RegistrationNumber = serialNumber,
-                    PatientId = patientId
-                };
-                info = _details.UpdatePatientDetail(info);
-
-                PatientTransaction transaction = new PatientTransaction()
+                    PatientInfoModel model = Session["PatientInfo"] as PatientInfoModel;
+                    Dictionary<string, object> result = SavePatientInfo(model.FirstName, model.MiddleName, model.LastName, model.DOB.ToString(), model.Gender, model.MobileNumber, model.Email, model.Address, model.City, model.Country, model.PinCode.ToString(), model.Religion, model.DepartmentId.ToString(), "", model.State, model.FatherOrHusbandName, 0, null);
+                    if (result["status"].ToString() == CrudStatus.Saved.ToString())
+                    {
+                        int patientId = ((PatientInfo)result["data"]).PatientId;
+                        PatientInfo info = new PatientInfo()
+                        {
+                            RegistrationNumber = serialNumber,
+                            PatientId = patientId
+                        };
+                        info = _details.UpdatePatientDetail(info);
+                        PatientTransaction transaction = new PatientTransaction()
+                        {
+                            PatientId = patientId,
+                            Amount = Convert.ToInt32(objResMsgDTO.TrnAmt),
+                            OrderId = objResMsgDTO.OrderId,
+                            ResponseCode = objResMsgDTO.ResponseCode,
+                            StatusCode = objResMsgDTO.StatusCode,
+                            TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
+                            TransactionNumber = objResMsgDTO.PgMeTrnRefNo
+                        };
+                        _details.SavePatientTransaction(transaction);
+                        SendMailTransactionResponse(serialNumber, ((PatientInfo)result["data"]));
+                        transaction.OrderId = serialNumber;
+                        ViewData["TransactionSuccessResult"] = transaction;
+                    }
+                }
+                else
                 {
-                    PatientId = info.PatientId,
-                    Amount = Convert.ToInt32(objResMsgDTO.TrnAmt),
-                    OrderId = objResMsgDTO.OrderId,
-                    ResponseCode = objResMsgDTO.ResponseCode,
-                    StatusCode = objResMsgDTO.StatusCode,
-                    TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
-                    TransactionNumber = objResMsgDTO.PgMeTrnRefNo
-                };
-                _details.SavePatientTransaction(transaction);
-                SendMailTransactionResponse(serialNumber, info);
-                transaction.OrderId = serialNumber;
-                ViewData["TransactionSuccessResult"] = transaction;
+                    SetAlertMessage("There Was Some Error in transaction Processing.....Please Check The Data you have Entered", "Transaction");
+                }
                 return View();
             }
             else
             {
-                SetAlertMessage("There Was Some Error in transaction Processing.....Please Check The Data you have Entered", "Transaction");
                 return View();
             }
         }
@@ -480,6 +490,32 @@ namespace PatientPortal.Controllers
                 info.Photo = image;
             var result = _details.CreateOrUpdatePatientDetail(info);
             return result;
+        }
+        private static PatientInfoModel getPatientInfoModelForSession(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image)
+        {
+            DepartmentDetails detail = new DepartmentDetails();
+            var dept = detail.GetDeparmentById(Convert.ToInt32(department));
+            int pinResult = 0;
+            PatientInfoModel model = new PatientInfoModel
+            {
+                Address = address,
+                City = city,
+                Country = country,
+                Department = dept != null ? dept.DepartmentName : string.Empty,
+                DOB = Convert.ToDateTime(DOB),
+                Email = email,
+                FirstName = firstname,
+                Gender = Gender,
+                LastName = lastname,
+                MiddleName = middlename,
+                MobileNumber = mobilenumber,
+                PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0,
+                Religion = religion,
+                State = state,
+                FatherOrHusbandName = FatherHusbandName,
+                DepartmentId = Convert.ToInt32(department)
+            };
+            return model;
         }
         [CustomAuthorize]
         public ActionResult EditProfile()
