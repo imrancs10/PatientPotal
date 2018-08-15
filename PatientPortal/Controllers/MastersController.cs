@@ -56,18 +56,18 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveDoctor(string doctorName, int deptId)
+        public JsonResult SaveDoctor(string doctorName, int deptId, string designation, string degree)
         {
             DoctorDetails _details = new DoctorDetails();
 
-            return Json(CrudResponse(_details.SaveDoctor(doctorName, deptId)), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.SaveDoctor(doctorName, deptId,designation,degree)), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult EditDoctor(string doctorName, int deptId, int docId)
+        public JsonResult EditDoctor(string doctorName, int deptId, int docId, string designation, string degree)
         {
             DoctorDetails _details = new DoctorDetails();
-            return Json(CrudResponse(_details.EditDoctor(doctorName, deptId, docId)), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.EditDoctor(doctorName, deptId, docId,designation,degree)), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

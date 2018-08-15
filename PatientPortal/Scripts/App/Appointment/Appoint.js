@@ -166,12 +166,13 @@ appointment.bindCalendar = function (year, month) {
 }
 
 $(document).on('click', '.getApp', function () {
+    let date = new Date($(this).data('date')).toDateString();
     $('.step1').hide();
     $('.step2').hide();
     $('.step3').show();
     $('#spanDepartment').text('Department : ' + $('#ddlDepartments').find(':selected').text());
-    $('#spanDate').text('Date : ' + new Date($(this).data('date')).toDateString());
-    appointment.binddoctor($(this).data('day'));
+    $('#spanDate').text('Date : ' + date);
+    appointment.binddoctor($(this).data('day'),date);
 });
 $(document).on('click', '#btnStep2', function () {
     $('.step2').show();
@@ -222,11 +223,11 @@ $(document).on('click', '#btnGetAppointment', function () {
     }
 });
 
-appointment.binddoctor = function (day) {
+appointment.binddoctor = function (day, date) {
     var data = $('#btnStep2').data('data');
     var deptId = $('#ddlDepartments').find(':selected').val();
     var doctorList = [];
-    utility.ajax.helperWithData(app.urls.appointmentdayWiseDoctorScheduleList, { deptId: deptId, day: day }, function (doctorListdata) {
+    utility.ajax.helperWithData(app.urls.appointmentdayWiseDoctorScheduleList, { deptId: deptId, day: day, date: date }, function (doctorListdata) {
         utility.ajax.helperWithData(app.urls.appointmentDateWiseDoctorAppointmentList, { date: new Date($('#spanDate').text().trim().split(' : ')[1]) }, function (AppointmentListdata) {
             doctorList = doctorListdata;
             var table = $('#appointDoctorTable tbody');
