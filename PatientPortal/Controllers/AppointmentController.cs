@@ -29,10 +29,10 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult DayWiseDoctorScheduleList(int deptId, string day)
+        public JsonResult DayWiseDoctorScheduleList(int deptId, string day,DateTime? date)
         {
             AppointDetails _details = new AppointDetails();
-            return Json(_details.DayWiseDoctorScheduleList(deptId, day), JsonRequestBehavior.AllowGet);
+            return Json(_details.DayWiseDoctorScheduleList(deptId, day,date), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

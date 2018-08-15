@@ -17,5 +17,7 @@ namespace PatientPortal.Models.Masters
         public string DoctorName { get; set; }
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
+        public string Designation { get; set; }
+        public string Degree { get; set; }
     }
 }

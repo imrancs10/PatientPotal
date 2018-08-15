@@ -15,7 +15,7 @@ namespace PatientPortal.BAL.Masters
     public class DoctorDetails
     {
         PatientPortalEntities _db = null;
-        public Enums.CrudStatus SaveDoctor(string doctorName, int deptId)
+        public Enums.CrudStatus SaveDoctor(string doctorName, int deptId,string designation,string degree)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -25,6 +25,9 @@ namespace PatientPortal.BAL.Masters
                 Doctor _newDoc = new Doctor();
                 _newDoc.DoctorName = doctorName;
                 _newDoc.DepartmentID = deptId;
+                _newDoc.Degree = degree;
+                _newDoc.Designation = designation;
+                _newDoc.CreatedDate = DateTime.Now;
                 _db.Entry(_newDoc).State = EntityState.Added;
                 _effectRow = _db.SaveChanges();
                 return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
@@ -32,7 +35,7 @@ namespace PatientPortal.BAL.Masters
             else
                 return Enums.CrudStatus.DataAlreadyExist;
         }
-        public Enums.CrudStatus EditDoctor(string doctorName, int deptId, int docId)
+        public Enums.CrudStatus EditDoctor(string doctorName, int deptId, int docId, string designation, string degree)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -41,6 +44,9 @@ namespace PatientPortal.BAL.Masters
             {
                 _docRow.DoctorName = doctorName;
                 _docRow.DepartmentID = deptId;
+                _docRow.Designation = designation;
+                _docRow.Degree = degree;
+                _docRow.ModifiedDate = DateTime.Now;
                 _db.Entry(_docRow).State = EntityState.Modified;
                 _effectRow = _db.SaveChanges();
                 return _effectRow > 0 ? Enums.CrudStatus.Updated : Enums.CrudStatus.NotUpdated;
@@ -75,7 +81,9 @@ namespace PatientPortal.BAL.Masters
                              DoctorName = doc.DoctorName,
                              DepartmentId = dept.DepartmentID,
                              DoctorId = doc.DoctorID,
-                             DepartmentName = dept.DepartmentName
+                             DepartmentName = dept.DepartmentName,
+                             Degree=doc.Degree,
+                             Designation=doc.Designation
                          }).ToList();
             return _list != null ? _list : new List<DoctorModel>();
         }
@@ -119,7 +127,7 @@ namespace PatientPortal.BAL.Masters
                     if (_effectRow > 0)
                     {
                         var appointments = _db.AppointmentInfoes.Where(x => x.DoctorId.Equals(doctorId)
-                                                                        && !x.IsCancelled.Value
+                                                                        && !x.IsCancelled
                                                                         && DbFunctions.TruncateTime(x.AppointmentDateFrom) == DbFunctions.TruncateTime(leaveDate)
                                                                       ).ToList();
                         if (appointments.Count > 0)
