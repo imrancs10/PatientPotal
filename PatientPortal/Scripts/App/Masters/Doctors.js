@@ -8,7 +8,6 @@ $(document).ready(function () {
     utility.bindDdlByAjax(app.urls.commonDepartmentList, 'ddlDepartment', 'DeparmentName', 'DepartmentId', function () {
         doctor.getData();
     });
-
 });
 
 doctor.addNew = function () {
@@ -81,7 +80,6 @@ doctor.save = function (row) {
     if (deptId != null && typeof deptId !== undefined && deptId !== '') {
 
         if (docName != null && typeof docName !== undefined && docName !== '') {
-
             var url = app.urls.doctorSave;
             var param = {};
             param.doctorName = docName;

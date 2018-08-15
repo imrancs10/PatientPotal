@@ -58,6 +58,10 @@
           <Property Name="DoctorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DoctorName" Type="varchar" MaxLength="200" />
           <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Degree" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="DoctorLeave">
           <Key>
@@ -74,7 +78,7 @@
             <PropertyRef Name="DoctorScheduleID" />
           </Key>
           <Property Name="DoctorScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DoctorID" Type="int" />
+          <Property Name="DoctorID" Type="int" Nullable="false" />
           <Property Name="DayID" Type="int" />
           <Property Name="TimeFrom" Type="int" />
           <Property Name="TimeFromMeridiemID" Type="int" />
@@ -156,6 +160,7 @@
           <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
           <Property Name="ResetCode" Type="varchar" MaxLength="100" />
           <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="CRNumber" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -250,7 +255,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_DoctorSchedule">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
           <End Role="DoctorSchedule" Type="Self.DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
@@ -549,6 +554,10 @@
           <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Doctor" ToRole="Department" />
           <NavigationProperty Name="DoctorLeaves" Relationship="PatientPortalModel.FK_DoctorLeave_Doctor" FromRole="Doctor" ToRole="DoctorLeave" />
           <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
+          <Property Name="Designation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Degree" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="DoctorLeave">
           <Key>
@@ -566,7 +575,7 @@
             <PropertyRef Name="DoctorScheduleID" />
           </Key>
           <Property Name="DoctorScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DoctorID" Type="Int32" />
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
           <Property Name="DayID" Type="Int32" />
           <Property Name="TimeFrom" Type="Int32" />
           <Property Name="TimeFromMeridiemID" Type="Int32" />
@@ -661,6 +670,7 @@
           <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
+          <Property Name="CRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -770,7 +780,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_DoctorSchedule">
-          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
           <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
@@ -912,6 +922,10 @@
           <EntitySetMapping Name="Doctors">
             <EntityTypeMapping TypeName="PatientPortalModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
                 <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
                 <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
@@ -999,6 +1013,7 @@
           <EntitySetMapping Name="PatientInfoes">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
               <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
                 <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
