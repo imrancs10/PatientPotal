@@ -84,8 +84,8 @@ namespace PatientPortal.BAL.Appointments
                     return Enums.CrudStatus.SessionExpired;
                 _db = new PatientPortalEntities();
                 int _effectRow = 0;
-                var _deptRow = _db.AppointmentInfoes.Where(x => DbFunctions.TruncateTime(x.AppointmentDateFrom) == DbFunctions.TruncateTime(model.AppointmentDateFrom) && x.IsCancelled == false && x.PatientId.Equals(model.PatientId)).FirstOrDefault();
-                if (_deptRow == null)
+                int _deptRow = _db.AppointmentInfoes.Where(x => DbFunctions.TruncateTime(x.AppointmentDateFrom) == DbFunctions.TruncateTime(model.AppointmentDateFrom) && x.IsCancelled == false && x.PatientId.Equals(model.PatientId)).Count();
+                if (_deptRow < WebSession.AppointmentLimitPerUser)
                 {
                     AppointmentInfo _newAppointment = new AppointmentInfo();
                     _newAppointment.AppointmentDateFrom = model.AppointmentDateFrom;
