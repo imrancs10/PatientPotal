@@ -62,7 +62,7 @@ doctor.getData = function () {
             });
             td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
                                 '<button type="button" id="btnEdit" class="btn btn-secondary" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.edit(this)">Edit</button>' +
-                                '<button type="button" class="btn btn-secondary" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.delete(this)">Delete</button>' +
+                                '<button type="button" class="btn btn-danger" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.delete(this)">Delete</button>' +
                             '</div></td>';
             tr = tr + td + '</tr>';
             $(tbody).append(tr);
@@ -188,12 +188,18 @@ doctor.cancelEdit = function (row, id) {
 doctor.delete = function (row) {
     var docId = $(row).data('docid');
     var url = app.urls.doctorDelete;
-    utility.ajax.helperWithData(url, { docId: docId }, function (data) {
-        if (data = 'Data delete from database') {
-            utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
-            doctor.getData();
-        }
+    utility.confirmBox('Are you sure..!\n\n You wanr to delete', 'Confirmation', function () {
+        utility.ajax.helperWithData(url, { docId: docId }, function (data) {
+            if (data = 'Data delete from database') {
+                utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
+                doctor.getData();
+            }
+        });
+        $(this).dialog("close");
+    }, function () {
+        $(this).dialog("close");
     });
+   
 }
 
 
