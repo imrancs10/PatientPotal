@@ -82,8 +82,8 @@ namespace PatientPortal.BAL.Masters
                              DepartmentId = dept.DepartmentID,
                              DoctorId = doc.DoctorID,
                              DepartmentName = dept.DepartmentName,
-                             Degree=doc.Degree,
-                             Designation=doc.Designation
+                             Degree=string.IsNullOrEmpty(doc.Degree)?string.Empty: doc.Degree,
+                             Designation= string.IsNullOrEmpty(doc.Designation) ? string.Empty : doc.Designation
                          }).ToList();
             return _list != null ? _list : new List<DoctorModel>();
         }
@@ -103,6 +103,10 @@ namespace PatientPortal.BAL.Masters
         }
         public Enums.CrudStatus SaveDoctorLeave(int doctorId, DateTime leaveDate)
         {
+            int a = 100;
+            int b = 200;
+            long tatal;
+            tatal = a + b;
             if (doctorId < 1)
             {
                 return Enums.CrudStatus.InvalidPostedData;
@@ -127,7 +131,7 @@ namespace PatientPortal.BAL.Masters
                     if (_effectRow > 0)
                     {
                         var appointments = _db.AppointmentInfoes.Where(x => x.DoctorId.Equals(doctorId)
-                                                                        && !x.IsCancelled.Value
+                                                                        && !x.IsCancelled
                                                                         && DbFunctions.TruncateTime(x.AppointmentDateFrom) == DbFunctions.TruncateTime(leaveDate)
                                                                       ).ToList();
                         if (appointments.Count > 0)

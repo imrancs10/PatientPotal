@@ -143,7 +143,7 @@ appointment.bindCalendar = function (year, month) {
 
                         }
                         else {
-                            tr += '<td  title="No doctor available"  title="Date already passed"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + 0 + '</div></td>';
+                            tr += '<td style="background:#a2a2a285" title="Date already passed"><div class="cal-date">' + day + '</div><div class="cal-not-available">Available : ' + 0 + '</div></td>';
                         }
 
                     }
