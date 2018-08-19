@@ -6,6 +6,8 @@ using DataLayer;
 using PatientPortal.Global;
 using System.Data.Entity;
 using static PatientPortal.Global.Enums;
+using PatientPortal.Models.Patient;
+using System.IO;
 
 namespace PatientPortal.BAL.Patient
 {
@@ -24,6 +26,8 @@ namespace PatientPortal.BAL.Patient
 
             if (result != null)
             {
+                WebSession.PatientRegNo = result.RegistrationNumber;
+
                 var loginEntry = (from obj in result.PatientLoginEntries.AsEnumerable()
                                   where obj.Locked == true
                                     && obj.LoginAttemptDate.Value.Date == DateTime.Now.Date
@@ -229,6 +233,47 @@ namespace PatientPortal.BAL.Patient
                 _db.Entry(_deptRow).State = EntityState.Modified;
                 _db.SaveChanges();
                 return _deptRow;
+            }
+        }
+
+        public List<ReportModel> GetReportList()
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory+"LabReports";
+            List<ReportModel> _newList = new List<ReportModel>();
+            if(Directory.Exists(path))
+            {
+                path += "\\" + WebSession.PatientRegNo;
+                if(Directory.Exists(path))
+                {
+                    string[] files =Directory.GetFiles(path);
+                    if(files.Length>0)
+                    {
+                        foreach (string file in files)
+                        {
+                            ReportModel _newReport = new ReportModel();
+                            string fullPath= Path.Combine(path, file);
+                            FileInfo _fileInfo = new FileInfo(fullPath);
+                            _newReport.FileUrl = file;
+                            _newReport.Date = _fileInfo.CreationTime;
+                            _newReport.FileName = _fileInfo.Name;
+                            _newReport.ext = _fileInfo.Extension;
+                            _newList.Add(_newReport);
+                        }
+                        return _newList;
+                    }
+                    else
+                    {
+                        return _newList;
+                    }
+                }
+                else
+                {
+                    return _newList;
+                }
+            }
+            else
+            {
+                return _newList;
             }
         }
     }

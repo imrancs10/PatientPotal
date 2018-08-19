@@ -726,6 +726,7 @@ namespace PatientPortal.Controllers
             var patient = service.GetPatientInfoBYCRNumber(CRNumber);
             if (patient != null)
             {
+                int pin = 0;
                 var crData = new PatientInfoModel()
                 {
                     FirstName = patient.Firstname != "N/A" ? patient.Firstname : string.Empty,
@@ -738,7 +739,7 @@ namespace PatientPortal.Controllers
                     Address = patient.Address != "N/A" ? patient.Address : string.Empty,
                     City = patient.City != "N/A" ? patient.City : string.Empty,
                     Country = patient.Country != "N/A" ? patient.Country : string.Empty,
-                    PinCode = int.TryParse(patient.Pincode, out int pin) ? pin : 0,
+                    PinCode = int.TryParse(patient.Pincode, out pin) ? pin : 0,
                     Religion = patient.Religion != "N/A" ? patient.Religion : string.Empty,
                     Department = Convert.ToString(patient.deptid),
                     State = patient.State != "N/A" ? patient.State : string.Empty,

@@ -185,6 +185,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MastersController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +219,7 @@
     <Compile Include="Models\Masters\ScheduleModel.cs" />
     <Compile Include="Models\HISPatientInfoModel.cs" />
     <Compile Include="Models\PatientInfoModel.cs" />
+    <Compile Include="Models\Patient\ReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -263,6 +265,7 @@
     <Content Include="img\avatar-1.jpg" />
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner.jpg" />
+    <Content Include="img\img.jpg" />
     <Content Include="img\p1.jpg" />
     <Content Include="img\p2.jpg" />
     <Content Include="img\pp.jpg" />
@@ -305,6 +308,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Masters\AppointmentSetting.cshtml" />
+    <Content Include="Views\Patient\GetLabReport.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -352,6 +356,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BAL\NewFolder1\" />
+    <Folder Include="LabReports\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
