@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <label>Search Patient:</label>
                                 <div>
-                                    <input type="text" id="search" class="form-control" name="search" autofocus />
+                                    <input type="text" id="search" class="form-control" name="search" autofocus value="@Convert.ToString(ViewData["search"])" />
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,9 @@
                         <table class="table table-bordered table-hover table-responsive text-center" id="doctorTable">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th style="width:6%">Sr. No.</th>
+                                    <th>Registration No</th>
                                     <th>First Name</th>
                                     <th>Middle Name</th>
                                     <th>Last Name</th>
@@ -59,7 +61,9 @@
                                 @foreach (var patient in patients)
                                 {
                                     <tr>
+                                        <td>@patient.PatientId</td>
                                         <td>@index</td>
+                                        <td>@patient.RegistrationNumber</td>
                                         <td>@patient.FirstName</td>
                                         <td>@patient.MiddleName</td>
                                         <td>@patient.LastName</td>
@@ -70,7 +74,7 @@
                                         <td>@patient.Gender</td>
                                         <td>@patient.Address</td>
                                         <td>
-                                            <input type="button" class="btn btn-primary" onclick="labreport.openModal()" name="btnAdd" value="Upload Report" />
+                                            <a class="btn" onclick="labreport.openModal(this)" name="btnAdd">Upload Report</a>
                                         </td>
                                     </tr>
                                     index = index + 1;
@@ -94,7 +98,7 @@
         {
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Upload Lab Report</h5>
+                    <h5 class="modal-title"><b>Upload Lab Report</b></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -103,9 +107,18 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="form-group">
-                                <label></label>
+                                <label>Report Name</label>
                                 <div>
-                                    <input type="file" name="file1" id="file1" style="width: 100%;" required />
+                                    <input type="text" name="report" id="report" style="width: 100%;" required />
+                                    <input type="text" name="patientId" id="patientId" class="hidden" />
+                                    <input type="text" name="registrationNumber" id="registrationNumber" class="hidden" />
+                                    <input type="text" name="searchText" id="searchText" class="hidden" value="@Convert.ToString(ViewData["search"])" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Select File</label>
+                                <div>
+                                    <input type="file" name="file" id="file" style="width: 100%;" required />
                                 </div>
                             </div>
                         </div>

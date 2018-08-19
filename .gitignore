@@ -18,3 +18,4 @@ packages/*
 /DataLayer/obj/Release
 /PatientPortal/obj/Release
 *.user
+/PatientPortal/LabReports

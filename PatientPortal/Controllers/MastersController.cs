@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +14,8 @@ namespace PatientPortal.Controllers
     public class MastersController : CommonController
     {
         DepartmentDetails _details = null;
+        private readonly object FileUpload1;
+
         public ActionResult AddSchedule()
         {
             return View();
@@ -200,28 +203,46 @@ namespace PatientPortal.Controllers
             {
                 PatientDetails _detail = new PatientDetails();
                 var result = _detail.GetPatientDetailByRegistrationNumberSearch(search);
+                ViewData["search"] = search;
                 ViewData["PatientInfo"] = result;
             }
             return View();
         }
 
         [HttpPost]
-        public ActionResult LabReport(HttpPostedFileBase File1)
+        public ActionResult LabReport(string report, HttpPostedFileBase file, string patientId, string registrationNumber, string searchText)
         {
-            HospitalDetail hospital = new HospitalDetail();
-            if (File1 != null && File1.ContentLength > 0)
+            PatientDetails patientdetail = new PatientDetails();
+            if (file != null && file.ContentLength > 0)
             {
-                hospital.HospitalLogo = new byte[File1.ContentLength];
-                File1.InputStream.Read(hospital.HospitalLogo, 0, File1.ContentLength);
-                HospitalDetails details = new HospitalDetails();
-                details.SaveHospital(hospital);
-                SetAlertMessage("Hospital detail saved", "Hospital Entry");
-                return RedirectToAction("HospitalDetail");
+                LabReport labReport = new LabReport
+                {
+                    CreatedDate = DateTime.Now,
+                    FileName = file.FileName,
+                    PatientId = int.Parse(patientId),
+                    ReportName = report
+                };
+                bool result = patientdetail.SavePatientLabReport(labReport);
+                if (result)
+                {
+                    string dirUrl = "~/LabReports/" + registrationNumber;
+                    string dirPath = Server.MapPath(dirUrl);
+                    // Check for Directory, If not exist, then create it  
+                    if (!Directory.Exists(dirPath))
+                    {
+                        Directory.CreateDirectory(dirPath);
+                    }
+                    // save the file to the Specifyed folder  
+                    string fileUrl = dirUrl + "/" + Path.GetFileName(file.FileName);
+                    file.SaveAs(Server.MapPath(fileUrl));
+                }
+                SetAlertMessage("Lab Report saved", "Hospital Entry");
+                return RedirectToAction("LabReport", new { search = searchText });
             }
             else
             {
-                SetAlertMessage("Hospital detail not saved", "Hospital Entry");
-                return RedirectToAction("HospitalDetail");
+                SetAlertMessage("Lab Report not saved", "Lab Report");
+                return RedirectToAction("LabReport", new { search = searchText });
             }
         }
     }

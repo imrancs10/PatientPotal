@@ -8,12 +8,13 @@ $(document).ready(function () {
 
 });
 
-labreport.openModal = function () {
+labreport.openModal = function (row) {
+    var patientId = $(row).parent().parent().find('td').eq(0).html();
+    $("#patientId").val(patientId);
+    var regNo = $(row).parent().parent().find('td').eq(2).html();
+    $("#registrationNumber").val(regNo);
     $(".modal").modal("show");
 }
 
-labreport.cancel = function (row) {
-    $(row).parent().parent().parent().remove();
-}
 
 
