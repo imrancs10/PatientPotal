@@ -77,5 +77,11 @@ namespace PatientPortal.Global
             get { return HttpContext.Current.Session["AutoCancelMessage"] == null ? string.Empty : HttpContext.Current.Session["AutoCancelMessage"].ToString(); }
             set { HttpContext.Current.Session["AutoCancelMessage"] = value; }
         }
+
+        public static string PatientRegNo
+        {
+            get { return HttpContext.Current.Session["PatientRegNo"] == null ? string.Empty : HttpContext.Current.Session["PatientRegNo"].ToString(); }
+            set { HttpContext.Current.Session["PatientRegNo"] = value; }
+        }
     }
 }
