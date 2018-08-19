@@ -31,54 +31,58 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Patient Portal Logo</a>
+                        <a class="navbar-brand" href="#">Patient Portal</a>
                     </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#" class="">Home</a></li>
-                            <li class=" dropdown">
-                                <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Masters <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="~/Masters/AddDoctors"><i></i>Add New Department</a></li>
-                                    <li><a href="~/Masters/AddDoctors"><i></i>Add New Doctor</a></li>
-                                    <li><a href="~/Masters/AddSchedule"><i></i>Doctor Schedule</a></li>
-                                    <li><a href="~/Masters/AddDoctorLeave"><i></i>Doctor Leave</a></li>
-                                    <li><a href="~/Masters/AppointmentSetting"><i></i>Appointment Setting</a></li>
-                                    <li><a href="~/Masters/HospitalDetail"><i></i>Hospital Detail</a></li>
-                                 </ul>
-                            </li>
-                            <li class=" dropdown">
-                                <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Transaction <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    @*<li><a href="~/Masters/AddDoctors"><i></i>Add New Doctor</a></li>*@
-                                </ul>
-                            </li>
-                            <li class=" dropdown">
-                                <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Bulk Upload</a></li>
-                                    <li><a href="#">Add New Report</a></li>
-                                    
-                                </ul>
-                            </li>
-                            <li class=" down">
-                                <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HR <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Report</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav navbar-nav pull-right">
-                            <li class=" dropdown">
-                                <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signed in as  <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Change Password</a></li>
-                                    <li><a href="#">My Profile</a></li>
-                                    <li class=""><a href="Logout">Logout</a></li>
-                                </ul>
-                            </li>
-                         </ul>
-                    </div>
+                    @if (!string.IsNullOrWhiteSpace(UserData.FirstName))
+                    {
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="#" class="">Home</a></li>
+                                <li class=" dropdown">
+                                    <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Masters <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="~/Masters/AddDoctors"><i></i>Add New Department</a></li>
+                                        <li><a href="~/Masters/AddDoctors"><i></i>Add New Doctor</a></li>
+                                        <li><a href="~/Masters/AddSchedule"><i></i>Doctor Schedule</a></li>
+                                        <li><a href="~/Masters/AddDoctorLeave"><i></i>Doctor Leave</a></li>
+                                        <li><a href="~/Masters/AppointmentSetting"><i></i>Appointment Setting</a></li>
+                                        <li><a href="~/Masters/HospitalDetail"><i></i>Hospital Detail</a></li>
+                                    </ul>
+                                </li>
+                                <li class=" dropdown">
+                                    <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Transaction <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        @*<li><a href="~/Masters/AddDoctors"><i></i>Add New Doctor</a></li>*@
+                                    </ul>
+                                </li>
+                                <li class=" dropdown">
+                                    <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Report <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Bulk Upload</a></li>
+                                        <li><a href="#">Add New Report</a></li>
+                                        <li><a href="~/Masters/LabReport"><i></i>Lab Report</a></li>
+                                    </ul>
+                                </li>
+                                <li class=" down">
+                                    <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HR <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Report</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav pull-right">
+                                <li class=" dropdown">
+                                    <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signed in as  <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Change Password</a></li>
+                                        <li><a href="#">My Profile</a></li>
+                                        <li class=""><a href="Logout">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
                 </div>
             </nav>
         </div>
