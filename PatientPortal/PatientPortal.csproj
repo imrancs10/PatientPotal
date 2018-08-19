@@ -237,6 +237,7 @@
   <ItemGroup>
     <Content Include="Content\App\Common.css" />
     <Content Include="Content\App\Login\Login.css" />
+    <Content Include="Content\Menu.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dashboard.css" />
@@ -269,7 +270,6 @@
     <Content Include="img\p1.jpg" />
     <Content Include="img\p2.jpg" />
     <Content Include="img\pp.jpg" />
-    <Content Include="img\pp1.jpg" />
     <Content Include="img\pp11.jpg" />
     <Content Include="img\ppp.png" />
     <Content Include="img\triangle-down.svg" />
