@@ -1,10 +1,8 @@
 ﻿using PatientPortal.BAL.Patient;
 using PatientPortal.Global;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PatientPortal.Controllers
@@ -22,20 +20,16 @@ namespace PatientPortal.Controllers
         {
             string dirUrl = "~/LabReports/" + WebSession.PatientRegNo;
             string dirPath = Server.MapPath(dirUrl);
-            // Check for Directory, If not exist, then create it  
             if (Directory.Exists(dirPath))
             {
                 string[] files = Directory.GetFiles(dirPath);
                 if (files.Length > 0)
                 {
-                    foreach (var file in files)
+                    var file = files.Where(x => x.Substring(x.LastIndexOf("\\") + 1) == fileName).FirstOrDefault();
+                    if (file != null)
                     {
-                        string extractfileName = file.Substring(file.LastIndexOf("\\") + 1);
-                        if (extractfileName == fileName)
-                        {
-                            byte[] FileBytes = System.IO.File.ReadAllBytes(file);
-                            return File(FileBytes, "application/pdf");
-                        }
+                        byte[] FileBytes = System.IO.File.ReadAllBytes(file);
+                        return File(FileBytes, "application/pdf");
                     }
                 }
             }
