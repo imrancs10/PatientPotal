@@ -42,11 +42,9 @@
                             <thead>
                                 <tr>
                                     <th class="hidden"></th>
-                                    <th style="width:6%">Sr. No.</th>
+                                    <th>Sr.No.</th>
                                     <th>Registration No</th>
-                                    <th>First Name</th>
-                                    <th>Middle Name</th>
-                                    <th>Last Name</th>
+                                    <th>Name</th>
                                     <th>Father/Husband Name</th>
                                     <th>Deaprtment</th>
                                     <th>Email</th>
@@ -64,9 +62,7 @@
                                         <td class="hidden">@patient.PatientId</td>
                                         <td>@index</td>
                                         <td>@patient.RegistrationNumber</td>
-                                        <td>@patient.FirstName</td>
-                                        <td>@patient.MiddleName</td>
-                                        <td>@patient.LastName</td>
+                                        <td>@patient.FirstName @patient.MiddleName @patient.LastName</td>
                                         <td>@patient.FatherOrHusbandName</td>
                                         <td>@patient.Department.DepartmentName</td>
                                         <td>@patient.Email</td>
@@ -133,3 +129,9 @@
         }
     </div>
 </div>
+
+<style type="text/css">
+    #doctorTable th {
+        white-space: nowrap;
+    }
+</style>
