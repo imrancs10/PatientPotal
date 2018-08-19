@@ -4,7 +4,7 @@
     ViewBag.Title = "GetLabReport";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
 }
-<div class=""  style="padding-top:20px;">
+<div class="" style="padding-top:20px;">
     <div class="col-sm-12 col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">Lab Reports</div>
@@ -16,10 +16,11 @@
                                 <img class="icon" id="file-icon" alt="" src="~/img/img.jpg?scale=2px">
                             </div>
                             <div id="details1" style="float:right;margin-top:24px;">
-                                <a target="_blank" href="@item.FileUrl" class="btn btn-primary">View</a>
+                                @*<a target="_blank" href="@item.FileUrl" class="btn btn-primary">View</a>*@
+                                <a href="~/Patient/GetPDF?fileName=@item.FileName" target="_blank" class="btn btn-primary">View</a>
                             </div>
                             <div id="details">
-                                <span>Report Name : @item.FileName</span><br />
+                                <span>Report Name : @item.ReportName</span><br />
                                 <span>Uploaded On : @item.Date.ToShortDateString()</span>
                             </div>
                         </div>
@@ -39,7 +40,7 @@
         border: 1px solid #c1c0c0;
         border-radius: 5px;
         box-shadow: 3px 3px 3px #c1c0c0;
-        margin-bottom:20px;
+        margin-bottom: 20px;
     }
 
     .icon-wrapper {
@@ -48,13 +49,14 @@
         justify-content: center;
         margin: 0 6px;
         width: 5%;
-    align-self: center;
-    padding: 25px 0;
-    float: left;
+        align-self: center;
+        padding: 25px 0;
+        float: left;
     }
-    #details{
+
+    #details {
         width: 85%;
-    float: right;
-    padding: 11px 0 0 0;
+        float: right;
+        padding: 11px 0 0 0;
     }
 </style>

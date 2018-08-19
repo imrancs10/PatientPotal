@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using DataLayer;
+﻿using DataLayer;
 using PatientPortal.Global;
-using System.Data.Entity;
-using static PatientPortal.Global.Enums;
 using PatientPortal.Models.Patient;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
+using System.Linq;
+using static PatientPortal.Global.Enums;
 
 namespace PatientPortal.BAL.Patient
 {
@@ -250,46 +249,28 @@ namespace PatientPortal.BAL.Patient
             return _effectRow > 0;
         }
 
-
-        public List<ReportModel> GetReportList()
+        public List<LabReport> GetPatientLabReports(int patientId)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory+"LabReports";
+            _db = new PatientPortalEntities();
+            return _db.LabReports.Include(x => x.PatientInfo).Where(x => x.PatientId == patientId).ToList();
+        }
+
+        public List<ReportModel> GetReportList(int patientId)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "LabReports";
             List<ReportModel> _newList = new List<ReportModel>();
-            if(Directory.Exists(path))
+
+            var labrepots = GetPatientLabReports(patientId);
+
+            foreach (var report in labrepots)
             {
-                path += "\\" + WebSession.PatientRegNo;
-                if(Directory.Exists(path))
-                {
-                    string[] files =Directory.GetFiles(path);
-                    if(files.Length>0)
-                    {
-                        foreach (string file in files)
-                        {
-                            ReportModel _newReport = new ReportModel();
-                            string fullPath= Path.Combine(path, file);
-                            FileInfo _fileInfo = new FileInfo(fullPath);
-                            _newReport.FileUrl = file;
-                            _newReport.Date = _fileInfo.CreationTime;
-                            _newReport.FileName = _fileInfo.Name;
-                            _newReport.ext = _fileInfo.Extension;
-                            _newList.Add(_newReport);
-                        }
-                        return _newList;
-                    }
-                    else
-                    {
-                        return _newList;
-                    }
-                }
-                else
-                {
-                    return _newList;
-                }
+                ReportModel _newReport = new ReportModel();
+                _newReport.Date = report.CreatedDate.Value;
+                _newReport.FileName = report.FileName;
+                _newReport.ReportName = report.ReportName;
+                _newList.Add(_newReport);
             }
-            else
-            {
-                return _newList;
-            }
+            return _newList;
         }
     }
 }

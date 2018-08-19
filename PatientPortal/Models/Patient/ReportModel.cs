@@ -10,6 +10,6 @@ namespace PatientPortal.Models.Patient
         public string FileName { get; set; }
         public string FileUrl { get; set; }
         public DateTime Date { get; set; }
-        public string ext { get; set; }
+        public string ReportName { get; set; }
     }
 }
