@@ -231,5 +231,20 @@ namespace PatientPortal.BAL.Patient
                 return _deptRow;
             }
         }
+        public List<PatientInfo> GetPatientDetailByRegistrationNumberSearch(string regNo)
+        {
+            _db = new PatientPortalEntities();
+            return _db.PatientInfoes.Include(x => x.Department).Where(x => x.RegistrationNumber.Contains(regNo)).ToList();
+        }
+
+        public bool SavePatientLabReport(LabReport info)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            _db.Entry(info).State = EntityState.Added;
+            _effectRow = _db.SaveChanges();
+            return _effectRow > 0;
+        }
+
     }
 }

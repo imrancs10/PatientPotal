@@ -96,6 +96,9 @@
     <Compile Include="HospitalDetail.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="LabReport.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="MeridiemMaster.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>

@@ -34,15 +34,15 @@ namespace PatientPortal.BAL.Appointments
                          }).GroupBy(x => x.DayName).ToList();
             return _list;
         }
-        public IEnumerable<object> DayWiseDoctorScheduleList(int deptId, string day,DateTime? date)
+        public IEnumerable<object> DayWiseDoctorScheduleList(int deptId, string day, DateTime? date)
         {
             _db = new PatientPortalEntities();
-            var _docList = _db.DoctorLeaves.Where(x => date != null && x.LeaveDate==date).Select(x => x.DoctorId).ToList();
+            var _docList = _db.DoctorLeaves.Where(x => date != null && x.LeaveDate == date).Select(x => x.DoctorId).ToList();
             var _list = (from docSchedule in _db.DoctorSchedules
 
                          orderby docSchedule.DoctorID
                          where docSchedule.Doctor.DepartmentID.Equals(deptId) && docSchedule.DayMaster.DayName.ToLower().Equals(day.ToLower())
-                         && !_docList.Contains(docSchedule.DoctorID)
+                         && !_docList.Contains(docSchedule.DoctorID.Value)
                          select new
                          {
                              DayId = docSchedule.DayID,

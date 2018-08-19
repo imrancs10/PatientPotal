@@ -277,6 +277,7 @@
     <Content Include="Scripts\App\Masters\appSetting.js" />
     <Content Include="Scripts\App\Masters\Department.js" />
     <Content Include="Scripts\App\Masters\DoctorLeave.js" />
+    <Content Include="Scripts\App\Masters\LabReport.js" />
     <Content Include="Scripts\App\Masters\Doctors.js" />
     <Content Include="Scripts\App\Masters\Schedule.js" />
     <Content Include="Scripts\App\Patient\CRProfile.js" />
@@ -304,6 +305,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Masters\AppointmentSetting.cshtml" />
+    <Content Include="Views\Masters\LabReport.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
