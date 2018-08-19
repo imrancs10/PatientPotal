@@ -267,6 +267,8 @@
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner.jpg" />
     <Content Include="img\img.jpg" />
+    <Content Include="img\jpg_img.jpg" />
+    <Content Include="img\p01.jpg" />
     <Content Include="img\p1.jpg" />
     <Content Include="img\p2.jpg" />
     <Content Include="img\pp.jpg" />
