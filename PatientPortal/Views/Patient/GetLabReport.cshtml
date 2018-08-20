@@ -13,7 +13,7 @@
                     {
                         <div class="col-sm-12 col-lg-12 filecontainer">
                             <div id="file-icon-wrapper" class="icon-wrapper">
-                                <img class="icon" id="file-icon" alt="" src="~/img/img.jpg?scale=2px">
+                                <img class="icon" id="file-icon" alt="" src="~/img/pdf-icon.jpg">
                             </div>
                             <div id="details1" style="float:right;margin-top:24px;">
                                 <a href="~/Patient/GetPDF?fileName=@item.FileName" target="_blank" class="btn btn-primary">View</a>
@@ -57,5 +57,13 @@
         width: 85%;
         float: right;
         padding: 11px 0 0 0;
+    }
+
+    #file-icon {
+        width: 38px;
+    }
+
+    .icon-wrapper {
+        padding: 13px 0;
     }
 </style>

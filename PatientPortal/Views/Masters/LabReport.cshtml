@@ -45,37 +45,33 @@
                                     <th>Action</th>
                                     <th style="width:6%">Sr. No.</th>
                                     <th>Registration No</th>
-                                    <th>First Name</th>
-                                    <th>Middle Name</th>
-                                    <th>Last Name</th>
+                                    <th>Name</th>
                                     <th>Father/Husband Name</th>
                                     <th>Deaprtment</th>
                                     <th>Email</th>
                                     <th>Mobile Number</th>
                                     <th>Gender</th>
                                     <th>Address</th>
-                                 </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach (var patient in patients)
                                 {
-                                <tr>
-                                    <td class="hidden">@patient.PatientId</td>
-                                    <td>
-                                        <a class="btn" onclick="labreport.openModal(this)" name="btnAdd">Upload Report</a>
-                                    </td>
-                                    <td>@index</td>
-                                    <td>@patient.RegistrationNumber</td>
-                                    <td>@patient.FirstName</td>
-                                    <td>@patient.MiddleName</td>
-                                    <td>@patient.LastName</td>
-                                    <td>@patient.FatherOrHusbandName</td>
-                                    <td>@patient.Department.DepartmentName</td>
-                                    <td>@patient.Email</td>
-                                    <td>@patient.MobileNumber</td>
-                                    <td>@patient.Gender</td>
-                                    <td>@patient.Address</td>
-                                </tr>
+                                    <tr>
+                                        <td class="hidden">@patient.PatientId</td>
+                                        <td>
+                                            <a class="btn" onclick="labreport.openModal(this)" name="btnAdd">Upload Report</a>
+                                        </td>
+                                        <td>@index</td>
+                                        <td>@patient.RegistrationNumber</td>
+                                        <td>@patient.FirstName @patient.MiddleName @patient.LastName</td>
+                                        <td>@patient.FatherOrHusbandName</td>
+                                        <td>@patient.Department.DepartmentName</td>
+                                        <td>@patient.Email</td>
+                                        <td>@patient.MobileNumber</td>
+                                        <td>@patient.Gender</td>
+                                        <td>@patient.Address</td>
+                                    </tr>
                                     index = index + 1;
                                 }
                             </tbody>
@@ -117,7 +113,7 @@
                             <div class="form-group">
                                 <label>Select File</label>
                                 <div>
-                                    <input type="file" name="file" id="file" style="width: 100%;" required accept="application/pdf"/>
+                                    <input type="file" name="file" id="file" style="width: 100%;" required accept="application/pdf" />
                                 </div>
                             </div>
                         </div>
@@ -132,3 +128,8 @@
         }
     </div>
 </div>
+<style>
+    #doctorTable th {
+        white-space: nowrap;
+    }
+</style>
