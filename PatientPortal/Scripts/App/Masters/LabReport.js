@@ -11,7 +11,7 @@ $(document).ready(function () {
 labreport.openModal = function (row) {
     var patientId = $(row).parent().parent().find('td').eq(0).html();
     $("#patientId").val(patientId);
-    var regNo = $(row).parent().parent().find('td').eq(2).html();
+    var regNo = $(row).parent().parent().find('td').eq(3).html();
     $("#registrationNumber").val(regNo);
     $(".modal").modal("show");
 }
