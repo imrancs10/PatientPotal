@@ -29,7 +29,7 @@ namespace PatientPortal.Controllers
                     if (file != null)
                     {
                         byte[] FileBytes = System.IO.File.ReadAllBytes(file);
-                        return File(FileBytes, "application/pdf");
+                        return File(FileBytes, "application/pdf", fileName.Substring(0, fileName.LastIndexOf('.')) + "-" + DateTime.Now.ToShortDateString() + ".pdf");
                     }
                 }
             }
