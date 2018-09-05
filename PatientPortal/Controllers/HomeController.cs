@@ -7,10 +7,11 @@ using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Infrastructure.Authentication;
 using PatientPortal.Infrastructure.Utility;
 using PatientPortal.Models;
-using PatientPortal.WebReference;
+using PatientPortal.PateintInfoService;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -18,6 +19,8 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using System.Xml;
+using System.Xml.Serialization;
 using static PatientPortal.Global.Enums;
 
 namespace PatientPortal.Controllers
@@ -261,7 +264,7 @@ namespace PatientPortal.Controllers
         {
             if (password.Trim() != confirmpassword.Trim())
             {
-              SetAlertMessage("Password and Confirm Password are not match", "password Create");
+                SetAlertMessage("Password and Confirm Password are not match", "password Create");
                 return View();
             }
             else
@@ -328,10 +331,11 @@ namespace PatientPortal.Controllers
                         SendMailTransactionResponse(serialNumber, ((PatientInfo)result["data"]));
                         transaction.OrderId = serialNumber;
                         ViewData["TransactionSuccessResult"] = transaction;
-
+                        Session["PatientInfo"] = null;
                         //send patient data to HIS portal
-                        GetPatientDetails patientObj = new GetPatientDetails();
-                        string patientDetail = patientObj.getPatientDetails(serialNumber);
+                        HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
+                        WebServiceIntegration service = new WebServiceIntegration();
+                        service.GetPatientInfoinsert(insertModel);
                     }
                 }
                 else
@@ -345,6 +349,35 @@ namespace PatientPortal.Controllers
                 return View();
             }
         }
+
+        private static HISPatientInfoInsertModel setregistrationModelForHISPortal(PatientInfo info)
+        {
+            return new HISPatientInfoInsertModel()
+            {
+                Address = info.Address,
+                City = info.City,
+                CRNumber = info.CRNumber,
+                DepartmentId = Convert.ToString(info.DepartmentId.Value),
+                DOB = Convert.ToString(info.DOB),
+                Email = info.Email,
+                FatherOrHusbandName = info.FatherOrHusbandName,
+                FirstName = info.FirstName,
+                Gender = info.Gender,
+                LastName = info.LastName,
+                MaritalStatus = info.MaritalStatus,
+                MiddleName = info.MiddleName,
+                MobileNumber = info.MobileNumber,
+                Password = info.Password,
+                PatientId = info.PatientId,
+                PinCode = Convert.ToString(info.PinCode),
+                RegistrationNumber = info.RegistrationNumber,
+                Religion = info.Religion,
+                State = info.State,
+                Title = info.Title,
+                ValidUpto = Convert.ToString(info.ValidUpto)
+            };
+        }
+
         private async Task SendMailTransactionResponse(string serialNumber, PatientInfo info)
         {
             await Task.Run(() =>

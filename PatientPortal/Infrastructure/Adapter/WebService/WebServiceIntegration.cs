@@ -1,6 +1,7 @@
 ﻿using PatientPortal.HISWebReference;
 using PatientPortal.Infrastructure.Utility;
 using PatientPortal.Models;
+using PatientPortal.PateintInfoService;
 
 namespace PatientPortal.Infrastructure.Adapter.WebService
 {
@@ -15,6 +16,14 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
             Serializer serilizer = new Serializer();
             result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
             return serilizer.Deserialize<HISPatientInfoModel>(result, "Table1");
+        }
+
+        public string GetPatientInfoinsert(HISPatientInfoInsertModel insertModel)
+        {
+            Serializer serilizer = new Serializer();
+            string xml = serilizer.SerializeToXML(insertModel);
+            GetPatient_Info_insert pateintInfoService = new GetPatient_Info_insert();
+            return pateintInfoService.GetPatientInfoinsert(xml);
         }
     }
 }

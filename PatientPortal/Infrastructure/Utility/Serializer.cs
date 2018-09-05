@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace PatientPortal.Infrastructure.Utility
@@ -11,13 +12,6 @@ namespace PatientPortal.Infrastructure.Utility
     {
         public T Deserialize<T>(string input, string rootElementName) where T : class
         {
-            //XmlSerializer ser = new XmlSerializer(typeof(T));
-
-            //using (StringReader sr = new StringReader(input))
-            //{
-            //    return (T)ser.Deserialize(sr);
-            //}
-
             var stringReader = new System.IO.StringReader(input);
             XmlRootAttribute xRoot = new XmlRootAttribute();
             xRoot.ElementName = rootElementName;
@@ -35,6 +29,22 @@ namespace PatientPortal.Infrastructure.Utility
                 xmlSerializer.Serialize(textWriter, ObjectToSerialize);
                 return textWriter.ToString();
             }
+        }
+
+        public string SerializeToXML<T>(T ObjectToSerialize)
+        {
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(T));
+            var xml = "";
+
+            using (var sww = new StringWriter())
+            {
+                using (XmlWriter writer = XmlWriter.Create(sww))
+                {
+                    xsSubmit.Serialize(writer, ObjectToSerialize);
+                    xml = sww.ToString();
+                }
+            }
+            return xml;
         }
     }
 }

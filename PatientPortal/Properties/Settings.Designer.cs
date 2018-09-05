@@ -32,5 +32,15 @@ namespace PatientPortal.Properties {
                 return ((string)(this["PatientPortal_HISWebReference_GetPatientDetails"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://103.78.201.146/PateintPortalWebservice/GetPatient_Info_insert.asmx")]
+        public string PatientPortal_PateintInfoService_GetPatient_Info_insert {
+            get {
+                return ((string)(this["PatientPortal_PateintInfoService_GetPatient_Info_insert"]));
+            }
+        }
     }
 }

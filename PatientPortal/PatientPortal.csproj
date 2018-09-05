@@ -218,6 +218,7 @@
     <Compile Include="Models\Masters\DepartmentModel.cs" />
     <Compile Include="Models\Masters\ScheduleModel.cs" />
     <Compile Include="Models\HISPatientInfoModel.cs" />
+    <Compile Include="Models\HISPatientInfoInsertModel.cs" />
     <Compile Include="Models\PatientInfoModel.cs" />
     <Compile Include="Models\Patient\ReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -233,7 +234,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\WebReference\Reference.cs">
+    <Compile Include="Web References\PateintInfoService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -320,7 +321,12 @@
     <Content Include="Views\Masters\LabReport.cshtml" />
     <Content Include="Views\Patient\GetLabReport.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
-    <None Include="Web References\WebReference\GetPatientDetails.disco" />
+    <None Include="Web References\PateintInfoService\GetPatient_Info_insert.wsdl" />
+    <Content Include="Web References\PateintInfoService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\PateintInfoService\GetPatient_Info_insert.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -361,11 +367,6 @@
     <Content Include="Views\Home\CRIntegrate.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.wsdl" />
     <Content Include="Web References\HISWebReference\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
-    <None Include="Web References\WebReference\GetPatientDetails.wsdl" />
-    <Content Include="Web References\WebReference\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
@@ -414,16 +415,16 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>PatientPortal_HISWebReference_GetPatientDetails</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx%3fop=getPatientDetails">
+    <WebReferenceUrl Include="http://103.78.201.146/PateintPortalWebservice/GetPatient_Info_insert.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\WebReference\</RelPath>
-      <UpdateFromURL>http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx%3fop=getPatientDetails</UpdateFromURL>
+      <RelPath>Web References\PateintInfoService\</RelPath>
+      <UpdateFromURL>http://103.78.201.146/PateintPortalWebservice/GetPatient_Info_insert.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>PatientPortal_WebReference_GetPatientDetails</CachedSettingsPropName>
+      <CachedSettingsPropName>PatientPortal_PateintInfoService_GetPatient_Info_insert</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
