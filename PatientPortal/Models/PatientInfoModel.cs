@@ -29,5 +29,15 @@ namespace PatientPortal.Models
         public byte[] Photo { get; set; }
         public string FatherOrHusbandName { get; set; }
         public string CRNumber { get; set; }
+        public DateTime? ValidUpto { get; set; }
+        public string MaritalStatus { get; set; }
+        public string MaritalStatusLabel
+        {
+            get
+            {
+                return MaritalStatus == "S" ? "Single" : "Married";
+            }
+        }
+        public string Title { get; set; }
     }
 }

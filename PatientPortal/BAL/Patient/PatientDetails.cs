@@ -3,6 +3,7 @@ using PatientPortal.Global;
 using PatientPortal.Models.Patient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -143,6 +144,8 @@ namespace PatientPortal.BAL.Patient
                     _patientRow.State = info.State;
                     _patientRow.FatherOrHusbandName = info.FatherOrHusbandName;
                     _patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
+                    _patientRow.MaritalStatus = info.MaritalStatus;
+                    _patientRow.Title = info.Title;
                     _db.Entry(_patientRow).State = EntityState.Modified;
                     _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());
@@ -161,6 +164,7 @@ namespace PatientPortal.BAL.Patient
                 var _deptRow = _db.PatientInfoes.Include(x => x.Department).Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
                 if (_deptRow == null)
                 {
+                    info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
                     _db.Entry(info).State = EntityState.Added;
                     _effectRow = _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());

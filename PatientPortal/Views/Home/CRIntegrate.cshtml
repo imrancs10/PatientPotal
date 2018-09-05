@@ -121,7 +121,20 @@
                                     Kindly fill your incomplete detail to proceed
                                 </p>
                                 <hr>
-                                <div class="register-form mt10">
+                                <div >
+                                    <div class="form-group">
+                                        <label for="title" class="control-label col-md-4 col-sm-12 col-xs-12">Title<font color="FF0000">*</font></label>
+                                        <div class="col-md-4 col-sm-6 col-xs-6">
+                                            <select id="title" class="common-input selectval" name="title" data-live-search="true" data-valid="required" required>
+                                                <option value="">Select</option>
+                                                <option value="Mr.">Mr.</option>
+                                                <option value="Mrs.">Mrs.</option>
+                                                <option value="Ms.">Ms.</option>
+                                                <option value="Dr.">Dr.</option>
+                                                <option value="Mohd.">Mohd.</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>First Name<font color="FF0000">*</font></span></label>
                                         <div class="col-md-8 col-sm-12 col-xs-12">
@@ -148,6 +161,16 @@
                                         <div class="col-md-8 col-sm-12 col-xs-12">
                                             <input type="text" value="@json.FatherOrHusbandName" name="FatherHusbandName" data-valid="required" class="register-input" id="FatherHusbandName"
                                                    placeholder="Enter Father/Husband Name" maxlength="100" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="MaritalStatus" class="control-label col-md-4 col-sm-12 col-xs-12">Marital Status<font color="FF0000">*</font></label>
+                                        <div class="col-md-4 col-sm-6 col-xs-6">
+                                            <select id="MaritalStatus" class="common-input selectval" name="MaritalStatus" data-live-search="true" data-valid="required" required>
+                                                <option value="">Select</option>
+                                                <option value="S">Single</option>
+                                                <option value="M">Married</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">

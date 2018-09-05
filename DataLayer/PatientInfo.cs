@@ -46,6 +46,9 @@ namespace DataLayer
         public string FatherOrHusbandName { get; set; }
         public string ResetCode { get; set; }
         public string CRNumber { get; set; }
+        public string Title { get; set; }
+        public string MaritalStatus { get; set; }
+        public Nullable<System.DateTime> ValidUpto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }

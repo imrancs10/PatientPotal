@@ -52,6 +52,15 @@ $(document).ready(function () {
         $("#religion").val(jsonData.Religion);
     }
 
+    setSelectedTitle();
+    function setSelectedTitle() {
+        $("#title").val(jsonData.Title);
+    }
+    setSelectedMaritalStatus();
+    function setSelectedMaritalStatus() {
+        $("#MaritalStatus").val(jsonData.MaritalStatus);
+    }
+
     fillCountry();
     function fillCountry() {
         let dropdown = $('#country');

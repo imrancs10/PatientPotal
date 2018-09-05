@@ -7,6 +7,7 @@ using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Infrastructure.Authentication;
 using PatientPortal.Infrastructure.Utility;
 using PatientPortal.Models;
+using PatientPortal.WebReference;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -90,7 +91,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> GetPatientOTP(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName)
+        public async Task<ActionResult> GetPatientOTP(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string MaritalStatus, string title)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (mobilenumber.Trim().Length != 10)
@@ -106,7 +107,7 @@ namespace PatientPortal.Controllers
             else
             {
                 string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
-                PatientInfoModel pateintModel = getPatientInfoModelForSession(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null);
+                PatientInfoModel pateintModel = getPatientInfoModelForSession(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null, MaritalStatus, title);
                 if (pateintModel != null)
                 {
                     SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode);
@@ -260,7 +261,7 @@ namespace PatientPortal.Controllers
         {
             if (password.Trim() != confirmpassword.Trim())
             {
-                SetAlertMessage("Password and Confirm Password are not match", "password Create");
+              SetAlertMessage("Password and Confirm Password are not match", "password Create");
                 return View();
             }
             else
@@ -303,7 +304,7 @@ namespace PatientPortal.Controllers
                 if (Session["PatientInfo"] != null)
                 {
                     PatientInfoModel model = Session["PatientInfo"] as PatientInfoModel;
-                    Dictionary<string, object> result = SavePatientInfo(model.FirstName, model.MiddleName, model.LastName, model.DOB.ToString(), model.Gender, model.MobileNumber, model.Email, model.Address, model.City, model.Country, model.PinCode.ToString(), model.Religion, model.DepartmentId.ToString(), "", model.State, model.FatherOrHusbandName, 0, null);
+                    Dictionary<string, object> result = SavePatientInfo(model.MaritalStatus, model.Title, model.FirstName, model.MiddleName, model.LastName, model.DOB.ToString(), model.Gender, model.MobileNumber, model.Email, model.Address, model.City, model.Country, model.PinCode.ToString(), model.Religion, model.DepartmentId.ToString(), "", model.State, model.FatherOrHusbandName, 0, null);
                     if (result["status"].ToString() == CrudStatus.Saved.ToString())
                     {
                         int patientId = ((PatientInfo)result["data"]).PatientId;
@@ -327,6 +328,10 @@ namespace PatientPortal.Controllers
                         SendMailTransactionResponse(serialNumber, ((PatientInfo)result["data"]));
                         transaction.OrderId = serialNumber;
                         ViewData["TransactionSuccessResult"] = transaction;
+
+                        //send patient data to HIS portal
+                        GetPatientDetails patientObj = new GetPatientDetails();
+                        string patientDetail = patientObj.getPatientDetails(serialNumber);
                     }
                 }
                 else
@@ -457,11 +462,14 @@ namespace PatientPortal.Controllers
                 Religion = result.Religion,
                 State = result.State,
                 Photo = result.Photo,
-                FatherOrHusbandName = result.FatherOrHusbandName
+                FatherOrHusbandName = result.FatherOrHusbandName,
+                MaritalStatus = result.MaritalStatus,
+                ValidUpto = result.ValidUpto,
+                Title = result.Title
             };
             return model;
         }
-        private static Dictionary<string, object> SavePatientInfo(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image)
+        private static Dictionary<string, object> SavePatientInfo(string MaritalStatus, string Title, string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image)
         {
             PatientDetails _details = new PatientDetails();
             int pinResult = 0;
@@ -482,7 +490,9 @@ namespace PatientPortal.Controllers
                 OTP = verificationCode,
                 DepartmentId = Convert.ToInt32(department),
                 State = state,
-                FatherOrHusbandName = FatherHusbandName
+                FatherOrHusbandName = FatherHusbandName,
+                MaritalStatus = MaritalStatus,
+                Title = Title
             };
             if (patientId > 0)
                 info.PatientId = patientId;
@@ -491,7 +501,7 @@ namespace PatientPortal.Controllers
             var result = _details.CreateOrUpdatePatientDetail(info);
             return result;
         }
-        private static PatientInfoModel getPatientInfoModelForSession(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image)
+        private static PatientInfoModel getPatientInfoModelForSession(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string MaritalStatus, string title)
         {
             DepartmentDetails detail = new DepartmentDetails();
             var dept = detail.GetDeparmentById(Convert.ToInt32(department));
@@ -513,7 +523,9 @@ namespace PatientPortal.Controllers
                 Religion = religion,
                 State = state,
                 FatherOrHusbandName = FatherHusbandName,
-                DepartmentId = Convert.ToInt32(department)
+                DepartmentId = Convert.ToInt32(department),
+                MaritalStatus = MaritalStatus,
+                Title = title
             };
             return model;
         }
@@ -526,7 +538,7 @@ namespace PatientPortal.Controllers
 
         [HttpPost]
         [CustomAuthorize]
-        public ActionResult UpdateProfile(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, HttpPostedFileBase photo, string FatherHusbandName)
+        public ActionResult UpdateProfile(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, HttpPostedFileBase photo, string FatherHusbandName, string MaritalStatus, string title)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (mobilenumber.Trim().Length != 10)
@@ -549,7 +561,7 @@ namespace PatientPortal.Controllers
                     var img = new WebImage(image).Resize(2000, 2000, true, true);
                     image = img.GetBytes();
                 }
-                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, Convert.ToInt32(User.Id), image);
+                Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, Convert.ToInt32(User.Id), image);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     return RedirectToAction("MyProfile");
@@ -758,7 +770,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitCRDetail(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName)
+        public ActionResult SubmitCRDetail(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string title, string MaritalStatus)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (mobilenumber.Trim().Length != 10)
@@ -771,7 +783,7 @@ namespace PatientPortal.Controllers
             }
             else
             {
-                Dictionary<string, object> result = SavePatientInfo(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null);
+                Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     string serialNumber = VerificationCodeGeneration.GetSerialNumber();

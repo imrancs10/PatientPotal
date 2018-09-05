@@ -233,6 +233,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\WebReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\App\Common.css" />
@@ -315,6 +320,7 @@
     <Content Include="Views\Masters\LabReport.cshtml" />
     <Content Include="Views\Patient\GetLabReport.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
+    <None Include="Web References\WebReference\GetPatientDetails.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -355,6 +361,11 @@
     <Content Include="Views\Home\CRIntegrate.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.wsdl" />
     <Content Include="Web References\HISWebReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\WebReference\GetPatientDetails.wsdl" />
+    <Content Include="Web References\WebReference\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
@@ -402,6 +413,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>PatientPortal_HISWebReference_GetPatientDetails</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx%3fop=getPatientDetails">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WebReference\</RelPath>
+      <UpdateFromURL>http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx%3fop=getPatientDetails</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PatientPortal_WebReference_GetPatientDetails</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>

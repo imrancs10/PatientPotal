@@ -154,9 +154,11 @@
           <Property Name="MobileNumber" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
           <Property Name="MiddleName" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="MaritalStatus" Type="varchar" MaxLength="100" />
           <Property Name="DOB" Type="datetime" />
           <Property Name="Gender" Type="varchar" MaxLength="50" />
           <Property Name="Address" Type="varchar" MaxLength="500" />
@@ -171,6 +173,7 @@
           <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
           <Property Name="ResetCode" Type="varchar" MaxLength="100" />
           <Property Name="CRNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ValidUpto" Type="datetime" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -641,6 +644,9 @@
           <NavigationProperty Name="PatientLoginEntries" Relationship="Self.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="Self.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="Self.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ValidUpto" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -1080,6 +1086,9 @@
           <EntitySetMapping Name="PatientInfoes">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
               <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />

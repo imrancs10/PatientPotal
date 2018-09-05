@@ -55,10 +55,6 @@
                                 </div>
                                 @if (isEditMode)
                                 {
-                                    @*<div class="row" style="margin:0 auto;">
-                                            <label for="upload-photo" class="fileLabel">Add Photo...</label>
-                                            <input type="file" name="photo" id="photo" value="add" />
-                                        </div>*@
                                     <label class="custom-file-upload">
                                         <input type="file" name="photo" id="photo" accept="image/x-png,image/gif,image/jpeg" />
                                         Add Photo...
@@ -71,12 +67,64 @@
                                 <div class="col-sm-10 col-lg-10">
                                     <div class="col-sm-4 col-lg-4">
                                         <div class="form-group">
-                                            <label>Fisrt Name</label>
+                                            <label>Title</label>
+                                            <div>@json.Title</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <div>@json.LastName</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Marital Status</label>
+                                            <div>@json.MaritalStatusLabel</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Religion</label>
+                                            <div>@json.Religion</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <div>@json.Address</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <div id="cityLabel"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label>First Name</label>
                                             <div>@json.FirstName</div>
                                         </div>
                                         <div class="form-group">
                                             <label>Fathre/Husband Name</label>
                                             <div>@json.FatherOrHusbandName</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>DOB</label>
+                                            <div>@Convert.ToDateTime(json.DOB).ToShortDateString()</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Department</label>
+                                            <div>@json.Department</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pin Code</label>
+                                            <div>@json.PinCode</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Valid Up To</label>
+                                            <div>@Convert.ToDateTime(json.ValidUpto).ToShortDateString()</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label>Middle Name</label>
+                                            <div>@json.MiddleName</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <div>@json.Email</div>
                                         </div>
                                         <div class="form-group">
                                             <label>Mobile</label>
@@ -90,49 +138,6 @@
                                             <label>State</label>
                                             <div id="stateLabel"></div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4 col-lg-4">
-                                        <div class="form-group">
-                                            <label>Middle Name</label>
-                                            <div>@json.MiddleName</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <div>@json.Email</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Religion</label>
-                                            <div>@json.Religion</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <div>@json.Address</div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>City</label>
-                                            <div id="cityLabel"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 col-lg-4">
-                                        <div class="form-group">
-                                            <label>Last Name</label>
-                                            <div>@json.LastName</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>DOB</label>
-                                            <div>@Convert.ToDateTime(json.DOB).ToShortDateString()</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Department</label>
-                                            <div>@json.Department</div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Pin</label>
-                                            <div>@json.PinCode</div>
-                                        </div>
-                                        <div class="form-group">
-                                        </div>
                                         <div class="form-group hidden">
                                             <label>Country</label>
                                             <div id="countryLabel"></div>
@@ -145,17 +150,30 @@
                                 <div class="col-sm-10 col-lg-10">
                                     <div class="col-sm-6 col-lg-6">
                                         <div class="form-group">
-                                            <label>Fisrt Name</label>
+                                            <label>Title</label>
                                             <div>
-                                                <input type="text" value="@json.FirstName" name="firstname"  data-valid="required" class="form-control"
-                                                       id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off"  required/>
+                                                <select id="title" class="form-control" name="title" required>
+                                                    <option value="">Select</option>
+                                                    <option value="Mr.">Mr.</option>
+                                                    <option value="Mrs.">Mrs.</option>
+                                                    <option value="Ms.">Ms.</option>
+                                                    <option value="Dr.">Dr.</option>
+                                                    <option value="Mohd.">Mohd.</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Last Name</label>
+                                            <label>Middle Name</label>
                                             <div>
-                                                <input type="text" value="@json.LastName" name="lastname" data-valid="required" class="form-control" id="lastname"
-                                                       placeholder="Enter LastName" maxlength="50" autocomplete="off" required>
+                                                <input type="text" value="@json.MiddleName" name="middlename" class="form-control" id="middlename"
+                                                       placeholder="Enter Middle Name " maxlength="50" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Father/Husband Name</label>
+                                            <div>
+                                                <input type="text" value="@json.FatherOrHusbandName" name="FatherHusbandName" data-valid="required" class="form-control" id="FatherHusbandName"
+                                                       placeholder="Enter Father/Husband Name" maxlength="100" autocomplete="off" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -195,20 +213,36 @@
                                                 <select class="form-control" id="state" name="state" data-live-search="true" data-valid="required" required></select>
                                             </div>
                                         </div>
+                                        @*<div class="form-group">
+                                            <label>Valid Up To</label>
+                                            <div>
+                                                <div>@Convert.ToDateTime(json.ValidUpto).ToShortDateString()</div>
+                                            </div>
+                                        </div>*@
                                     </div>
                                     <div class="col-sm-6 col-lg-6">
                                         <div class="form-group">
-                                            <label>Middle Name</label>
+                                            <label>Fisrt Name</label>
                                             <div>
-                                                <input type="text" value="@json.MiddleName" name="middlename" class="form-control" id="middlename"
-                                                       placeholder="Enter Middle Name " maxlength="50" autocomplete="off">
+                                                <input type="text" value="@json.FirstName" name="firstname" data-valid="required" class="form-control"
+                                                       id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off" required />
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Father/Husband Name</label>
+                                            <label>Last Name</label>
                                             <div>
-                                                <input type="text" value="@json.FatherOrHusbandName" name="FatherHusbandName" data-valid="required" class="form-control" id="FatherHusbandName"
-                                                       placeholder="Enter Father/Husband Name" maxlength="100" autocomplete="off" required>
+                                                <input type="text" value="@json.LastName" name="lastname" data-valid="required" class="form-control" id="lastname"
+                                                       placeholder="Enter LastName" maxlength="50" autocomplete="off" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Marital Status</label>
+                                            <div>
+                                                <select class="form-control" id="MaritalStatus" name="MaritalStatus" required>
+                                                    <option value="">Select</option>
+                                                    <option value="S">Single</option>
+                                                    <option value="M">Married</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
