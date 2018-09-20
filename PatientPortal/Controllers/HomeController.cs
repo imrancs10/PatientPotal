@@ -335,7 +335,7 @@ namespace PatientPortal.Controllers
                         //send patient data to HIS portal
                         HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
                         WebServiceIntegration service = new WebServiceIntegration();
-                        service.GetPatientInfoinsert(insertModel);
+                        string serviceResult = service.GetPatientInfoinsert(insertModel);
                     }
                 }
                 else

@@ -2,6 +2,8 @@
 using PatientPortal.Infrastructure.Utility;
 using PatientPortal.Models;
 using PatientPortal.PateintInfoService;
+using System.IO;
+using System.Text;
 
 namespace PatientPortal.Infrastructure.Adapter.WebService
 {
@@ -22,8 +24,14 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
         {
             Serializer serilizer = new Serializer();
             string xml = serilizer.SerializeToXML(insertModel);
+            string text;
+            var fileStream = new FileStream(@"C:\Users\sheikhimran\Desktop\HISInsert.txt", FileMode.Open, FileAccess.Read);
+            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+            {
+                text = streamReader.ReadToEnd();
+            }
             GetPatient_Info_insert pateintInfoService = new GetPatient_Info_insert();
-            return pateintInfoService.GetPatientInfoinsert(xml);
+            return pateintInfoService.GetPatientInfoinsert(text);
         }
     }
 }

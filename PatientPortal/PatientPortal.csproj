@@ -259,6 +259,7 @@
     <Content Include="Content\hoe.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="ExternalAssembly\com.awl.MerchantToolKit.dll" />
+    <Content Include="ExternalAssembly\HISInsert.txt" />
     <Content Include="ExternalAssembly\RequestAndResponse.dll" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
