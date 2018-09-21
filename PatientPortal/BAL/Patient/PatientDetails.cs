@@ -276,5 +276,30 @@ namespace PatientPortal.BAL.Patient
             }
             return _newList;
         }
+
+        public List<State> GetStates()
+        {
+            _db = new PatientPortalEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            return _db.States.ToList();
+        }
+        public List<City> GetCities(int stateId)
+        {
+            _db = new PatientPortalEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            return _db.Cities.Where(x => x.StateId == stateId).ToList();
+        }
+        public State GetStateByStateId(int stateId)
+        {
+            _db = new PatientPortalEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            return _db.States.Where(x => x.StateId == stateId).FirstOrDefault();
+        }
+        public City GetCitieByCItyId(int citiId)
+        {
+            _db = new PatientPortalEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            return _db.Cities.Where(x => x.CityId == citiId).FirstOrDefault();
+        }
     }
 }

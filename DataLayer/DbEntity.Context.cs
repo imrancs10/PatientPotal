@@ -27,6 +27,7 @@ namespace DataLayer
     
         public virtual DbSet<AppointmentInfo> AppointmentInfoes { get; set; }
         public virtual DbSet<AppointmentSetting> AppointmentSettings { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<DayMaster> DayMasters { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Doctor> Doctors { get; set; }
@@ -41,5 +42,6 @@ namespace DataLayer
         public virtual DbSet<PatientLoginEntry> PatientLoginEntries { get; set; }
         public virtual DbSet<PatientLoginHistory> PatientLoginHistories { get; set; }
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
+        public virtual DbSet<State> States { get; set; }
     }
 }

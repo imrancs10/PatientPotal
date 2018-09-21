@@ -31,46 +31,55 @@ $(document).ready(function () {
     });
     var jsonData = jsonPatient;
 
-    fillCountry();
-    function fillCountry() {
-        let dropdown = $('#country');
-        dropdown.empty();
-        dropdown.append('<option selected="true" disabled>Choose Country</option>');
-        dropdown.prop('selectedIndex', 0);
-        const url = utility.baseUrl + 'Json/countries.json';
-        // Populate dropdown with list of provinces
-        $.getJSON(url, function (data) {
-            $.each(data.countries, function (key, entry) {
-                if (entry.name == 'India')
-                    dropdown.append($('<option selected="true"></option>').attr('value', entry.id).text(entry.name));
-                else
-                    dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
-            })
-        });
-    }
+    //fillCountry();
+    //function fillCountry() {
+    //    let dropdown = $('#country');
+    //    dropdown.empty();
+    //    dropdown.append('<option selected="true" disabled>Choose Country</option>');
+    //    dropdown.prop('selectedIndex', 0);
+    //    const url = utility.baseUrl + 'Json/countries.json';
+    //    // Populate dropdown with list of provinces
+    //    $.getJSON(url, function (data) {
+    //        $.each(data.countries, function (key, entry) {
+    //            if (entry.name == 'India')
+    //                dropdown.append($('<option selected="true"></option>').attr('value', entry.id).text(entry.name));
+    //            else
+    //                dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
+    //        })
+    //    });
+    //}
 
-    $('#country').on('change', function (e) {
-        var optionSelected = $("option:selected", this);
-        var valueSelected = this.value;
-        fillState(valueSelected)
-    });
-    fillState(101); //101 is the country id of India
-    function fillState(countryId) {
+    //$('#country').on('change', function (e) {
+    //    var optionSelected = $("option:selected", this);
+    //    var valueSelected = this.value;
+    //    fillState(valueSelected)
+    //});
+    fillState(); //101 is the country id of India
+    function fillState() {
         let dropdown = $('#state');
         dropdown.empty();
         dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
-        const url = utility.baseUrl + 'Json/states.json';
-        // Populate dropdown with list of provinces
-        $.getJSON(url, function (data) {
-            var states = data.states.filter(function (i, n) {
-                return i.country_id == countryId;
-            });
-            $.each(states, function (key, entry) {
-                dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
-            })
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/Home/GetSates',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $.each(data, function (key, entry) {
+                    dropdown.append($('<option></option>').attr('value', entry.StateId).text(entry.StateName));
+                })
+            },
+            failure: function (response) {
+                alert(response);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
         });
     }
+
     $('#state').on('change', function (e) {
         var optionSelected = $("option:selected", this);
         var valueSelected = this.value;
@@ -82,44 +91,66 @@ $(document).ready(function () {
         dropdown.empty();
         dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
-        const url = utility.baseUrl + 'Json/cities.json';
-        // Populate dropdown with list of provinces
-        $.getJSON(url, function (data) {
-            var cities = data.cities.filter(function (i, n) {
-                return i.state_id == stateId;
-            });
-            $.each(cities, function (key, entry) {
-                dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
-            })
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/Home/GetCities',
+            data: '{stateId: "' + stateId + '" }',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $.each(data, function (key, entry) {
+                    dropdown.append($('<option></option>').attr('value', entry.CityId).text(entry.CityName));
+                })
+            },
+            failure: function (response) {
+                alert(response);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
         });
     }
+
     if (jsonData != null) {
         fillCountryStateCity();
     }
     function fillCountryStateCity() {
-        //get City
-        var url = utility.baseUrl + 'Json/cities.json';
-        $.getJSON(url, function (data) {
-            var states = data.cities.filter(function (i, n) {
-                return i.id == jsonData.City;
-            });
-            $("#cityLabel").html(states[0].name);
+        //Get CIty
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/Home/GetCitieByCItyId',
+            data: '{citiId: "' + jsonData.City + '" }',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $("#cityLabel").html(data.CityName);
+            },
+            failure: function (response) {
+                alert(response);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
         });
         //get State
-        url = utility.baseUrl + 'Json/states.json';
-        $.getJSON(url, function (data) {
-            var states = data.states.filter(function (i, n) {
-                return i.id == jsonData.State;
-            });
-            $("#stateLabel").html(states[0].name);
-        });
-        //get Country
-        url = utility.baseUrl + 'Json/countries.json';
-        $.getJSON(url, function (data) {
-            var states = data.countries.filter(function (i, n) {
-                return i.id == jsonData.Country;
-            });
-            $("#countryLabel").html(states[0].name);
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/Home/GetStateByStateId',
+            data: '{stateId: "' + jsonData.State + '" }',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $("#stateLabel").html(data.StateName);
+            },
+            failure: function (response) {
+                alert(response);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
         });
     }
 });

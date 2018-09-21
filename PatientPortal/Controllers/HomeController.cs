@@ -355,7 +355,7 @@ namespace PatientPortal.Controllers
             return new HISPatientInfoInsertModel()
             {
                 Address = info.Address,
-                City = info.City,
+                City = Convert.ToString(info.City),
                 CRNumber = info.CRNumber,
                 DepartmentId = Convert.ToString(info.DepartmentId.Value),
                 DOB = Convert.ToString(info.DOB),
@@ -372,7 +372,7 @@ namespace PatientPortal.Controllers
                 PinCode = Convert.ToString(info.PinCode),
                 RegistrationNumber = info.RegistrationNumber,
                 Religion = info.Religion,
-                State = info.State,
+                State = Convert.ToString(info.State),
                 Title = info.Title,
                 ValidUpto = Convert.ToString(info.ValidUpto)
             };
@@ -409,8 +409,8 @@ namespace PatientPortal.Controllers
             serializeModel.Gender = string.IsNullOrEmpty(info.Gender) ? string.Empty : info.Gender;
             serializeModel.Mobile = string.IsNullOrEmpty(info.MobileNumber) ? string.Empty : info.MobileNumber;
             serializeModel.Address = string.IsNullOrEmpty(info.Address) ? string.Empty : info.Address;
-            serializeModel.City = string.IsNullOrEmpty(info.City) ? string.Empty : info.City;
-            serializeModel.State = string.IsNullOrEmpty(info.State) ? string.Empty : info.State;
+            serializeModel.City = string.IsNullOrEmpty(Convert.ToString(info.City)) ? string.Empty : Convert.ToString(info.City);
+            serializeModel.State = string.IsNullOrEmpty(Convert.ToString(info.State)) ? string.Empty : Convert.ToString(info.State);
             serializeModel.Country = string.IsNullOrEmpty(info.Country) ? string.Empty : info.Country;
             serializeModel.PINCode = string.IsNullOrEmpty(info.PinCode.ToString()) ? string.Empty : info.PinCode.ToString();
             serializeModel.RegistrationNo = info.RegistrationNumber;
@@ -481,7 +481,7 @@ namespace PatientPortal.Controllers
             {
                 RegistrationNumber = result.RegistrationNumber,
                 Address = result.Address,
-                City = result.City,
+                City = Convert.ToString(result.City),
                 Country = result.Country,
                 Department = result.Department.DepartmentName,
                 DOB = result.DOB,
@@ -493,7 +493,7 @@ namespace PatientPortal.Controllers
                 MobileNumber = result.MobileNumber,
                 PinCode = result.PinCode,
                 Religion = result.Religion,
-                State = result.State,
+                State = Convert.ToString(result.State),
                 Photo = result.Photo,
                 FatherOrHusbandName = result.FatherOrHusbandName,
                 MaritalStatus = result.MaritalStatus,
@@ -516,13 +516,13 @@ namespace PatientPortal.Controllers
                 MobileNumber = mobilenumber.Trim(),
                 Email = email.Trim(),
                 Address = address,
-                City = city,
+                City = Convert.ToInt32(city),
                 Country = country,
                 PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0,
                 Religion = religion,
                 OTP = verificationCode,
                 DepartmentId = Convert.ToInt32(department),
-                State = state,
+                State = Convert.ToInt32(state),
                 FatherOrHusbandName = FatherHusbandName,
                 MaritalStatus = MaritalStatus,
                 Title = Title
@@ -837,6 +837,34 @@ namespace PatientPortal.Controllers
                 }
             }
             return RedirectToAction("CRIntegrate", new { successMSG = true });
+        }
+
+        [HttpPost]
+        public System.Web.Mvc.JsonResult GetSates()
+        {
+            PatientDetails _details = new PatientDetails();
+            return Json(_details.GetStates());
+        }
+
+        [HttpPost]
+        public System.Web.Mvc.JsonResult GetCities(int stateId)
+        {
+            PatientDetails _details = new PatientDetails();
+            return Json(_details.GetCities(stateId));
+        }
+
+        [HttpPost]
+        public System.Web.Mvc.JsonResult GetStateByStateId(int stateId)
+        {
+            PatientDetails _details = new PatientDetails();
+            return Json(_details.GetStateByStateId(stateId));
+        }
+
+        [HttpPost]
+        public System.Web.Mvc.JsonResult GetCitieByCItyId(int citiId)
+        {
+            PatientDetails _details = new PatientDetails();
+            return Json(_details.GetCitieByCItyId(citiId));
         }
     }
 }
