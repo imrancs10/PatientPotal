@@ -64,5 +64,6 @@ namespace DataLayer
         public virtual ICollection<PatientLoginHistory> PatientLoginHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PatientTransaction> PatientTransactions { get; set; }
+        public virtual State State1 { get; set; }
     }
 }

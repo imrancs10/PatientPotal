@@ -22,16 +22,44 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
 
         public string GetPatientInfoinsert(HISPatientInfoInsertModel insertModel)
         {
-            Serializer serilizer = new Serializer();
-            string xml = serilizer.SerializeToXML(insertModel);
-            string text;
-            var fileStream = new FileStream(@"C:\Users\sheikhimran\Desktop\HISInsert.txt", FileMode.Open, FileAccess.Read);
-            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
-            {
-                text = streamReader.ReadToEnd();
-            }
+            //Serializer serilizer = new Serializer();
+            string xml = getXMLDataForRegistration(insertModel);//serilizer.SerializeToXML(insertModel);
             GetPatient_Info_insert pateintInfoService = new GetPatient_Info_insert();
-            return pateintInfoService.GetPatientInfoinsert(text);
+            return pateintInfoService.GetPatientInfoinsert(xml);
+        }
+
+        private string getXMLDataForRegistration(HISPatientInfoInsertModel insertModel)
+        {
+            string str = "<?xml version=\"1.0\" standalone=\"yes\"?>" +
+                        "<NewDataSet>" +
+                          "<PatientInfo >" +
+                               "< PatientId>" + insertModel.PatientId + "</PatientId>" +
+                                "< RegistrationNumber>" + insertModel.RegistrationNumber + "</RegistrationNumber>" +
+                                "< MobileNumber>" + insertModel.MobileNumber + "</MobileNumber>" +
+                                "< Password>" + insertModel.Password + "</Password>" +
+                                "< Email>" + insertModel.Email + "</Email>" +
+                                "< Title>" + insertModel.Title + "</Title>" +
+                                "< FirstName>" + insertModel.FirstName + "</FirstName>" +
+                                "< MiddleName>" + insertModel.MiddleName + "</MiddleName>" +
+                                "< LastName>" + insertModel.LastName + "</LastName>" +
+                                "< DOB>" + insertModel.DOB + "</DOB>" +
+                                "< Gender>" + insertModel.Gender + "</Gender>" +
+                                "< MaritalStatus>" + insertModel.MaritalStatus + "</MaritalStatus>" +
+                                "< Address>" + insertModel.Address + "</Address>" +
+                                "< City>" + insertModel.City + "</City>    " +
+                                "< PinCode>" + insertModel.PinCode + "</PinCode>" +
+                                "< Religion>" + insertModel.Religion + "</Religion>" +
+                                "< DepartmentId>" + insertModel.DepartmentId + "</DepartmentId>  " +
+                                "< State>" + insertModel.State + "</State>	" +
+                                "< FatherOrHusbandName>" + insertModel.FatherOrHusbandName + "</FatherOrHusbandName>	" +
+                                "< Amount>" + insertModel.Amount + "</Amount>" +
+                                "< PatientTransactionId>" + insertModel.PatientTransactionId + "</PatientTransactionId>" +
+                                "< CreateDate>" + insertModel.CreateDate + "</CreateDate>	" +
+                                "< ValidUpto>" + insertModel.ValidUpto + "</ValidUpto>" +
+                           "</PatientInfo >" +
+                        "</NewDataSet>";
+
+            return str;
         }
     }
 }

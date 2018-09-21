@@ -354,6 +354,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientInfo_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PatientInfo">
+              <PropertyRef Name="City" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PatientInfo_Department">
           <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
           <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
@@ -375,6 +387,18 @@
             </Principal>
             <Dependent Role="PatientInfo1">
               <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfo_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfo">
+              <PropertyRef Name="State" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -477,6 +501,10 @@
             <End Role="PatientInfo" EntitySet="PatientInfo" />
             <End Role="LabReport" EntitySet="LabReport" />
           </AssociationSet>
+          <AssociationSet Name="FK_PatientInfo_City" Association="Self.FK_PatientInfo_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="PatientInfo" EntitySet="PatientInfo" />
+          </AssociationSet>
           <AssociationSet Name="FK_PatientInfo_Department" Association="Self.FK_PatientInfo_Department">
             <End Role="Department" EntitySet="Department" />
             <End Role="PatientInfo" EntitySet="PatientInfo" />
@@ -484,6 +512,10 @@
           <AssociationSet Name="FK_PatientInfo_PatientInfo" Association="Self.FK_PatientInfo_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfo" />
             <End Role="PatientInfo1" EntitySet="PatientInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfo_State" Association="Self.FK_PatientInfo_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="PatientInfo" EntitySet="PatientInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="Self.FK_PatientLoginEntry_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfo" />
@@ -588,6 +620,10 @@
           <AssociationSet Name="FK_PatientTransaction_PatientInfo" Association="PatientPortalModel.FK_PatientTransaction_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientTransaction" EntitySet="PatientTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfo_State" Association="PatientPortalModel.FK_PatientInfo_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
@@ -797,6 +833,7 @@
           <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
+          <NavigationProperty Name="State1" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="PatientInfo" ToRole="State" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -840,6 +877,7 @@
           <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StateName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cities" Relationship="PatientPortalModel.FK_City_State" FromRole="State" ToRole="City" />
+          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
         </EntityType>
         <Association Name="FK_AppointmentInfo_Doctor">
           <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
@@ -1042,6 +1080,18 @@
             </Principal>
             <Dependent Role="PatientTransaction">
               <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfo_State">
+          <End Type="PatientPortalModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfo">
+              <PropertyRef Name="State" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

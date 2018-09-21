@@ -90,7 +90,7 @@ namespace PatientPortal.BAL.Patient
         public PatientInfo UpdatePatientDetail(PatientInfo info)
         {
             _db = new PatientPortalEntities();
-            var _patientRow = _db.PatientInfoes.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+            var _patientRow = _db.PatientInfoes.Include(x => x.City1).Include(x => x.State1).Include(x => x.PatientTransactions).Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
             if (_patientRow != null)
             {
                 _patientRow.OTP = info.OTP;

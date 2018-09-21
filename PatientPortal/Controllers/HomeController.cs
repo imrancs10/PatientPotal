@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -355,7 +356,7 @@ namespace PatientPortal.Controllers
             return new HISPatientInfoInsertModel()
             {
                 Address = info.Address,
-                City = Convert.ToString(info.City),
+                City = info.City1.CityName,
                 CRNumber = info.CRNumber,
                 DepartmentId = Convert.ToString(info.DepartmentId.Value),
                 DOB = Convert.ToString(info.DOB),
@@ -372,9 +373,12 @@ namespace PatientPortal.Controllers
                 PinCode = Convert.ToString(info.PinCode),
                 RegistrationNumber = info.RegistrationNumber,
                 Religion = info.Religion,
-                State = Convert.ToString(info.State),
+                State = info.State1.StateName,
                 Title = info.Title,
-                ValidUpto = Convert.ToString(info.ValidUpto)
+                ValidUpto = Convert.ToString(info.ValidUpto),
+                CreateDate = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionDate),
+                Amount = Convert.ToString(info.PatientTransactions.FirstOrDefault().Amount),
+                PatientTransactionId = Convert.ToString(info.PatientTransactions.FirstOrDefault().PatientTransactionId)
             };
         }
 

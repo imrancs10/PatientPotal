@@ -28,5 +28,9 @@ namespace PatientPortal.Models
         public string ValidUpto { get; set; }
         public string MaritalStatus { get; set; }
         public string Title { get; set; }
+        public string Amount { get; set; }
+        public string PatientTransactionId { get; set; }
+        public string CreateDate { get; set; }
+
     }
 }
