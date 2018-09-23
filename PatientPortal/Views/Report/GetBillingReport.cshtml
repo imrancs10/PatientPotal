@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Billing Report";
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+
+<div class="" style="padding-top:20px;">
+    <div class="col-sm-12 col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Billing Reports</div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Bill Date</th>
+                            <th>Bill No</th>
+                            <th>Bill Type</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>23-Aug-2018</td>
+                            <td>1232</td>
+                            <td>PH</td>
+                            <td>2342.00</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" id="_view" class="btn btn-primary">View</button>
+                                    <button type="button" id="_download" class="btn btn-primary">Download</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>23-Aug-2018</td>
+                            <td>1235</td>
+                            <td>SV</td>
+                            <td>5342.00</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" id="_view" class="btn btn-primary">View</button>
+                                    <button type="button" id="_download" class="btn btn-primary">Download</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                *SV-Procedure/Diagnostic Billing,
+                *PH-Pharmacy Billing-Refund,
+                *GP-Patient Payment,
+                *GR-Receipt from Patient,
+                *PHR-Pharmacy Return,
+                *SR-Sales Return
+            </div>
+        </div>
+    </div>
+
+</div>
+
