@@ -29,7 +29,7 @@ namespace PatientPortal.BAL.Masters
             else
                 return Enums.CrudStatus.DataAlreadyExist;
         }
-        public Enums.CrudStatus EditDept(string deptName,int deptId)
+        public Enums.CrudStatus EditDept(string deptName, int deptId)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -70,6 +70,18 @@ namespace PatientPortal.BAL.Masters
                              DepartmentId = dept.DepartmentID
                          }).ToList();
             return _list != null ? _list : new List<DepartmentModel>();
+        }
+
+        public Department GetDeparmentById(int deptId)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _deptRow = _db.Departments.Where(x => x.DepartmentID.Equals(deptId)).FirstOrDefault();
+            if (_deptRow != null)
+            {
+                return _deptRow;
+            }
+            return null;
         }
     }
 }

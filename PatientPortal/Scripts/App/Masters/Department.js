@@ -31,7 +31,7 @@ department.getData = function () {
             });
             td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
                                 '<button type="button" id="btnEdit" class="btn btn-secondary" data-id=' + ele["DepartmentId"] + ' onclick="department.edit(this)">Edit</button>' +
-                                '<button type="button" class="btn btn-secondary" data-id=' + ele["DepartmentId"] + ' onclick="department.delete(this)">Delete</button>' +
+                                '<button type="button" class="btn btn-danger" data-id=' + ele["DepartmentId"] + ' onclick="department.delete(this)">Delete</button>' +
                             '</div></td>';
             tr = tr + td + '</tr>';
             $(tbody).append(tr);
@@ -103,12 +103,19 @@ department.cancelEdit = function (row,id) {
 department.delete = function (row) {
     var deptId = $(row).data('id');
     var url = app.urls.departmentDelete;
-    utility.ajax.helperWithData(url, { deptId: deptId }, function (data) {
-        if (data = 'Data delete from database') {
-            utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
-            department.getData();
-        }
+    utility.confirmBox('Are you sure..!\n\n You wanr to delete', 'Confirmation', function () {
+        utility.ajax.helperWithData(url, { deptId: deptId }, function (data) {
+            if (data = 'Data delete from database') {
+                utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
+                department.getData();
+            }
+        });
+        $(this).dialog("close");
+    }, function () {
+        $(this).dialog("close");
     });
+
+   
 }
 
 department.save = function (row) {

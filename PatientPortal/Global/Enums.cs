@@ -27,7 +27,20 @@ namespace PatientPortal.Global
             Deleted,
             NotDeleted,
             DataNotFound,
-            DataAlreadyExist
+            DataAlreadyExist,
+            SessionExpired,
+            InvalidPostedData,
+            InvalidPastDate,
+            InternalError
+        }
+
+        public enum JsonResult
+        {
+            Data_NotFound=100,
+            Invalid_DataId = 101,
+            Data_Expire=102,
+            Success=103,
+            Unsuccessful
         }
     }
 }

@@ -68,7 +68,7 @@ schedule.getData = function () {
             });
             td = td + '<td><div id="btn' + (ind + 1) + '" class="btn-group" role="group" aria-label="Basic example" data-data="">' +
                                 '<button type="button" id="btnEdit" class="btn btn-secondary"  onclick="schedule.edit(this)">Edit</button>' +
-                                '<button type="button" class="btn btn-secondary" data-data="' + ele + '" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="schedule.delete(this)">Delete</button>' +
+                                '<button type="button" class="btn btn-danger" data-data="' + ele + '" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="schedule.delete(this)">Delete</button>' +
                             '</div></td>';
             tr = tr + td + '</tr>';
             $(tbody).append(tr);
@@ -240,12 +240,17 @@ schedule.delete = function (row) {
     param.TimeToMeridiumId = $(ddlNewTimeTo).find(':selected').data('meridiumid');
     param.ScheduleId = $(row).parent().data('data').DoctorScheduleID;
     var url = app.urls.scheduleDelete;
-    utility.ajax.helperWithData(url, param, function (data) {
-        if (data == 'Data delete from database') {
-            utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
-            schedule.getData();
-        }
-    });
+    utility.confirmBox('Are you sure..!\n\n You wanr to delete', 'Confirmation', function () {
+        utility.ajax.helperWithData(url, param, function (data) {
+            if (data == 'Data delete from database') {
+                utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
+                schedule.getData();
+            }
+        });
+        $(this).dialog("close");
+    }, function () {
+        $(this).dialog("close");
+    });   
 }
 
 schedule.bindTime = function (ddlId) {

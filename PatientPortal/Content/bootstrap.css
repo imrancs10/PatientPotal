@@ -4506,7 +4506,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999999;
+  color: #ffffff;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -6814,3 +6814,9 @@ td.visible-print {
     display: none !important;
   }
 }
+/* Add a black background color to the top navigation 
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+    padding-left:150px;
+}*/

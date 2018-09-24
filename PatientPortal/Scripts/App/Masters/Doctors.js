@@ -8,7 +8,6 @@ $(document).ready(function () {
     utility.bindDdlByAjax(app.urls.commonDepartmentList, 'ddlDepartment', 'DeparmentName', 'DepartmentId', function () {
         doctor.getData();
     });
-
 });
 
 doctor.addNew = function () {
@@ -22,7 +21,9 @@ doctor.addNew = function () {
         var tr = '<tr>';
         var td = '<td>' + (trLen + 1) + '</td>';
         td = td + '<td> <select class="form-control" required="required">' + $('#ddlDepartment').clone().html() + '</select></td>';
-        td = td + '<td> <input type="text" id="txtDoctor" class="form-control" name="txtDoctor" value="" /></td>';
+        td = td + '<td> <input type="text" id="txtDoctor" placeholder="Doctor name" class="form-control" name="txtDoctor" value="" /></td>';
+        td = td + '<td> <input type="text" id="txtDesignation" placeholder="Designation" class="form-control" name="txtDesignation" value="" /></td>';
+        td = td + '<td> <input type="text" id="txtDegree" class="form-control" placeholder="Degree" name="txtDegree" value="" /></td>';
         td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
                             '<button type="button" class="btn btn-secondary" onclick="doctor.save(this)">Save</button>' +
                             '<button type="button" class="btn btn-secondary" onclick="doctor.cancel(this)">Cancel</button>' +
@@ -61,7 +62,7 @@ doctor.getData = function () {
             });
             td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
                                 '<button type="button" id="btnEdit" class="btn btn-secondary" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.edit(this)">Edit</button>' +
-                                '<button type="button" class="btn btn-secondary" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.delete(this)">Delete</button>' +
+                                '<button type="button" class="btn btn-danger" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.delete(this)">Delete</button>' +
                             '</div></td>';
             tr = tr + td + '</tr>';
             $(tbody).append(tr);
@@ -71,17 +72,20 @@ doctor.getData = function () {
 
 doctor.save = function (row) {
     var mainContainer = $(row).parent().parent().parent();
-    var docName = $(mainContainer).find('input[type="text"]').val();
-    var deptId = $(mainContainer).find('select').find(':selected').val();
+    let docName = $(mainContainer).find('input[id="txtDoctor"]').val();
+    let designation = $(mainContainer).find('input[id="txtDesignation"]').val();
+    let degree = $(mainContainer).find('input[id="txtDegree"]').val();
+    let deptId = $(mainContainer).find('select').find(':selected').val();
 
     if (deptId != null && typeof deptId !== undefined && deptId !== '') {
 
         if (docName != null && typeof docName !== undefined && docName !== '') {
-
             var url = app.urls.doctorSave;
             var param = {};
             param.doctorName = docName;
             param.deptId = deptId;
+            param.designation = designation;
+            param.degree = degree;
 
             utility.ajax.helperWithData(url, param, function (data) {
                 if (data = 'Data has been saved') {
@@ -110,11 +114,16 @@ doctor.edit = function (row) {
     }
     else {
         var mainContainer = $(row).parent().parent().parent();
-        var doctortd = $(mainContainer).find('td:eq(1)');
-        var depttd = $(mainContainer).find('td:eq(2)');
-
+        var doctortd = $(mainContainer).find('td:eq(2)');
+        var depttd = $(mainContainer).find('td:eq(1)');
+        var desigtd = $(mainContainer).find('td:eq(3)');
+        var degreetd = $(mainContainer).find('td:eq(4)');
         var docName = $(doctortd).text();
-        $(doctortd).empty().append('<input id="txtDoctor" type="text" class="form-control" value="' + docName + '" />');
+        let designatoin = $(desigtd).text();
+        let degree = $(degreetd).text();
+        $(doctortd).empty().append('<input id="txtDoctor" placeholder="Doctor Name" type="text" class="form-control" value="' + docName + '" />');
+        $(desigtd).empty().append('<input id="txtDesignation" placeholder="Designation" type="text" class="form-control" value="' + designatoin + '" />');
+        $(degreetd).empty().append('<input id="txtDegree" placeholder="Degree" type="text" class="form-control" value="' + degree + '" />');
         $(depttd).empty().append('<select class="form-control" required="required">' + $('#ddlDepartment').clone().html() + '</select>');
         $(depttd).find('select').val($(depttd).data('deptid'));
         $(row).parent().prepend('<button type="button" id="btnUpdate" class="btn btn-secondary" data-docid="' + $(row).data('docid') + '" data-deptid="' + $(row).data('deptid') + '" onclick="doctor.update(this)">Update</button>');
@@ -128,6 +137,8 @@ doctor.update = function (row) {
     var docName = $(mainContainer).find('input[type="text"]').val();
     var deptId = $(mainContainer).find('select').find(':selected').val();
     var doctorId = $(row).data('docid');
+    let designation = $(mainContainer).find('input[id="txtDesignation"]').val();
+    let degree = $(mainContainer).find('input[id="txtDegree"]').val();
     if (deptId != null && typeof deptId !== undefined && deptId !== '') {
 
         if (docName != null && typeof docName !== undefined && docName !== '') {
@@ -137,6 +148,8 @@ doctor.update = function (row) {
             param.doctorName = docName;
             param.deptId = deptId;
             param.docId = doctorId;
+            param.designation = designation;
+            param.degree = degree;
 
             utility.ajax.helperWithData(url, param, function (data) {
                 if (data = 'Data has been updated') {
@@ -159,10 +172,14 @@ doctor.update = function (row) {
 
 doctor.cancelEdit = function (row, id) {
     var mainContainer = $(row).parent().parent().parent();
-    var doctorname = $(mainContainer).find('td:eq(1) input[type="text"]').val();
-    var department = $(mainContainer).find('td:eq(2) select').val(id).find(':selected').text();
-    $(mainContainer).find('td:eq(1)').empty().text(doctorname);
-    $(mainContainer).find('td:eq(2)').empty().text(department);
+    var degree = $(mainContainer).find('td:eq(4) input[id="txtDegree"]').val();
+    var designation = $(mainContainer).find('td:eq(3) input[id="txtDesignation"]').val();
+    var doctorname = $(mainContainer).find('td:eq(2) input[id="txtDoctor"]').val();
+    var department = $(mainContainer).find('td:eq(1) select').val(id).find(':selected').text();
+    $(mainContainer).find('td:eq(2)').empty().text(doctorname);
+    $(mainContainer).find('td:eq(1)').empty().text(department);
+    $(mainContainer).find('td:eq(3)').empty().text(designation);
+    $(mainContainer).find('td:eq(4)').empty().text(degree);
     $(row).parent().prepend('<button type="button" class="btn btn-secondary" data-id="' + id + '" onclick="doctor.edit(this)">Edit</button>');
     $('#btnUpdate').remove();
     $(row).remove();
@@ -171,12 +188,18 @@ doctor.cancelEdit = function (row, id) {
 doctor.delete = function (row) {
     var docId = $(row).data('docid');
     var url = app.urls.doctorDelete;
-    utility.ajax.helperWithData(url, { docId: docId }, function (data) {
-        if (data = 'Data delete from database') {
-            utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
-            doctor.getData();
-        }
+    utility.confirmBox('Are you sure..!\n\n You wanr to delete', 'Confirmation', function () {
+        utility.ajax.helperWithData(url, { docId: docId }, function (data) {
+            if (data = 'Data delete from database') {
+                utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
+                doctor.getData();
+            }
+        });
+        $(this).dialog("close");
+    }, function () {
+        $(this).dialog("close");
     });
+   
 }
 
 

@@ -44,14 +44,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="com.awl.MerchantToolKit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalAssembly\com.awl.MerchantToolKit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="RequestAndResponse, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalAssembly\RequestAndResponse.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -165,6 +173,8 @@
     <Compile Include="BAL\Appointments\AppointDetails.cs" />
     <Compile Include="BAL\Commom\CommonDetails.cs" />
     <Compile Include="BAL\Login\LoginDetails.cs" />
+    <Compile Include="BAL\Masters\AppointmentSettingDetails.cs" />
+    <Compile Include="BAL\Masters\HospitalDetails.cs" />
     <Compile Include="BAL\Masters\DepartmentDetails.cs" />
     <Compile Include="BAL\Masters\DoctorDetails.cs" />
     <Compile Include="BAL\Masters\ScheduleDetails.cs" />
@@ -175,6 +185,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MastersController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -186,33 +197,70 @@
     </Compile>
     <Compile Include="Global\UserData.cs" />
     <Compile Include="Global\Utility.cs" />
-    <Compile Include="Infrastructure\Adapter\ISendMessageStrategy.cs" />
-    <Compile Include="Infrastructure\Adapter\EmailService.cs" />
-    <Compile Include="Infrastructure\Adapter\IMessageSystem.cs" />
-    <Compile Include="Infrastructure\Adapter\Message.cs" />
-    <Compile Include="Infrastructure\Adapter\SendMessageStrategyForEmail.cs" />
-    <Compile Include="Infrastructure\Adapter\SendMessageStrategyForSMS.cs" />
-    <Compile Include="Infrastructure\Adapter\SMSService.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\ISendMessageStrategy.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\EmailService.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\IMessageSystem.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\Message.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\SendMessageStrategyForEmail.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\SendMessageStrategyForSMS.cs" />
+    <Compile Include="Infrastructure\Adapter\Notification\SMSService.cs" />
+    <Compile Include="Infrastructure\Adapter\WebService\WebServiceIntegration.cs" />
     <Compile Include="Infrastructure\Authentication\CustomAuthorize.cs" />
     <Compile Include="Infrastructure\Authentication\CustomPrincipal.cs" />
     <Compile Include="Infrastructure\Authentication\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Infrastructure\Authentication\ICustomPrincipal.cs" />
     <Compile Include="Infrastructure\Utility\BaseViewPage.cs" />
+    <Compile Include="Infrastructure\Utility\EmailHelper.cs" />
+    <Compile Include="Infrastructure\Utility\Serializer.cs" />
     <Compile Include="Infrastructure\Utility\VerificationCodeGeneration.cs" />
     <Compile Include="Models\Common\CommonModel.cs" />
+    <Compile Include="Models\Masters\AppSettingModel.cs" />
     <Compile Include="Models\Masters\DepartmentModel.cs" />
     <Compile Include="Models\Masters\ScheduleModel.cs" />
+    <Compile Include="Models\HISPatientInfoModel.cs" />
+    <Compile Include="Models\HISPatientInfoInsertModel.cs" />
+    <Compile Include="Models\PatientInfoModel.cs" />
+    <Compile Include="Models\Patient\ReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="Infrastructure\Adapter\MultipleButtonAttribute.cs" />
+    <Compile Include="Infrastructure\Utility\MultipleButtonAttribute.cs" />
+    <Compile Include="Web References\HISWebReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\PateintInfoService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\App\Common.css" />
     <Content Include="Content\App\Login\Login.css" />
+    <Content Include="Content\Menu.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dashboard.css" />
+    <Content Include="Content\extra.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\header.css" />
+    <Content Include="Content\hoe-horizontal-navigation.css" />
+    <Content Include="Content\hoe-overlay-effect.css" />
+    <Content Include="Content\hoe-push-effect.css" />
+    <Content Include="Content\hoe-rightsidebar.css" />
+    <Content Include="Content\hoe-shrink-effect.css" />
+    <Content Include="Content\hoe-theme-color.css" />
+    <Content Include="Content\hoe.css" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="ExternalAssembly\com.awl.MerchantToolKit.dll" />
+    <Content Include="ExternalAssembly\HISInsert.txt" />
+    <Content Include="ExternalAssembly\RequestAndResponse.dll" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -221,17 +269,42 @@
     <Content Include="img\179350.png" />
     <Content Include="img\179351.png" />
     <Content Include="img\179352.png" />
-    <Content Include="img\banner1.jpg" />
+    <Content Include="img\ajax-loader.gif" />
+    <Content Include="img\avatar-1.jpg" />
+    <Content Include="img\banner-bg.jpg" />
+    <Content Include="img\banner.jpg" />
+    <Content Include="img\img.jpg" />
+    <Content Include="img\jpg_img.jpg" />
+    <Content Include="img\p01.jpg" />
+    <Content Include="img\p1.jpg" />
+    <Content Include="img\p2.jpg" />
+    <Content Include="img\pdf-icon.jpg" />
     <Content Include="img\pp.jpg" />
+    <Content Include="img\pp11.jpg" />
+    <Content Include="img\ppp.png" />
+    <Content Include="img\triangle-down.svg" />
     <Content Include="Scripts\App\Appointment\Appoint.js" />
+    <Content Include="Scripts\App\Appointment\PatientProfile.js" />
     <Content Include="Scripts\App\Global\App.js" />
     <Content Include="Scripts\App\Global\Utility.js" />
     <Content Include="Scripts\App\Login\Login.js" />
+    <Content Include="Scripts\App\Masters\appSetting.js" />
     <Content Include="Scripts\App\Masters\Department.js" />
+    <Content Include="Scripts\App\Masters\DoctorLeave.js" />
+    <Content Include="Scripts\App\Masters\LabReport.js" />
     <Content Include="Scripts\App\Masters\Doctors.js" />
     <Content Include="Scripts\App\Masters\Schedule.js" />
+    <Content Include="Scripts\App\Patient\CRProfile.js" />
+    <Content Include="Scripts\App\Patient\Profile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Json\countries.json" />
+    <Content Include="Json\states.json" />
+    <Content Include="Json\cities.json" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -245,6 +318,16 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Masters\AppointmentSetting.cshtml" />
+    <Content Include="Views\Masters\LabReport.cshtml" />
+    <Content Include="Views\Patient\GetLabReport.cshtml" />
+    <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
+    <None Include="Web References\PateintInfoService\GetPatient_Info_insert.wsdl" />
+    <Content Include="Web References\PateintInfoService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\PateintInfoService\GetPatient_Info_insert.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -264,16 +347,35 @@
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\Appointment.cshtml" />
     <Content Include="Views\Masters\AddDepartments.cshtml" />
-    <Content Include="Views\Masters\AddDepartment.cshtml" />
     <Content Include="Views\Masters\AddDoctors.cshtml" />
     <Content Include="Views\Masters\AddSchedule.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutPatient.cshtml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
     <Content Include="Views\Appointment\GetAppointments.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\TransactionPay.cshtml" />
+    <Content Include="Views\Home\TransactionResponse.cshtml" />
+    <Content Include="Views\Home\CreatePassword.cshtml" />
+    <Content Include="Views\Masters\HospitalDetail.cshtml" />
+    <Content Include="Views\Appointment\PatientProfile.cshtml" />
+    <Content Include="Views\Home\MyProfile.cshtml" />
+    <Content Include="Views\Home\ForgetPassword.cshtml" />
+    <Content Include="Views\Home\ForgetUserID.cshtml" />
+    <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Masters\AddDoctorLeave.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\Home\CRIntegrate.cshtml" />
+    <None Include="Web References\HISWebReference\GetPatientDetails.wsdl" />
+    <Content Include="Web References\HISWebReference\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BAL\NewFolder1\" />
+    <Folder Include="LabReports\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +397,36 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\HISWebReference\</RelPath>
+      <UpdateFromURL>http://103.78.201.146/PateintPortalWebservice/GetPatientDetails.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PatientPortal_HISWebReference_GetPatientDetails</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://103.78.201.146/PateintPortalWebservice/GetPatient_Info_insert.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PateintInfoService\</RelPath>
+      <UpdateFromURL>http://103.78.201.146/PateintPortalWebservice/GetPatient_Info_insert.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PatientPortal_PateintInfoService_GetPatient_Info_insert</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
