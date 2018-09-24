@@ -186,6 +186,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MastersController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -301,6 +302,10 @@
     <Content Include="Json\countries.json" />
     <Content Include="Json\states.json" />
     <Content Include="Json\cities.json" />
+    <Content Include="LabReports\1011388682018\test.pdf" />
+    <Content Include="LabReports\3020356682018\BillDesk - All Your Payments. Single Location.pdf" />
+    <Content Include="LabReports\5871699082018\test.pdf" />
+    <Content Include="LabReports\3\BillDesk - All Your Payments. Single Location.pdf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -321,6 +326,8 @@
     <Content Include="Views\Masters\AppointmentSetting.cshtml" />
     <Content Include="Views\Masters\LabReport.cshtml" />
     <Content Include="Views\Patient\GetLabReport.cshtml" />
+    <Content Include="Views\Report\GetBillingReport.cshtml" />
+    <Content Include="Views\Report\ReportViewing.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\PateintInfoService\GetPatient_Info_insert.wsdl" />
     <Content Include="Web References\PateintInfoService\Reference.map">
@@ -375,7 +382,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BAL\NewFolder1\" />
-    <Folder Include="LabReports\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
