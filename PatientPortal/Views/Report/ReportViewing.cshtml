@@ -1,4 +1,6 @@
-﻿
+﻿@using DataLayer
+
+@model List<PatientLabReport>
 @{
     ViewBag.Title = "Report Viewing";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
@@ -20,30 +22,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>GNREP032</td>
-                            <td>Life Care Laboratory</td>
-                            <td>1232</td>
-                            <td>23-Aug-2018</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary">View</button>
-                                    <button type="button" class="btn btn-primary">Download</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>GNREP036</td>
-                            <td>Life Care Laboratory</td>
-                            <td>1235</td>
-                            <td>23-Aug-2018</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary">View</button>
-                                    <button type="button" class="btn btn-primary">Download</button>
-                                </div>
-                            </td>
-                        </tr>
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.RefNo</td>
+                                    <td>@item.LabName</td>
+                                    <td>@item.BillNo</td>
+                                    <td>@item.CreatedDate.ToShortDateString()</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary">View</button>
+                                            <button type="button" class="btn btn-primary">Download</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
                     </tbody>
                 </table>
             </div>
