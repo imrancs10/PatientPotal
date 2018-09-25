@@ -13,18 +13,14 @@ namespace PatientPortal.Controllers
         // GET: Report
         public ActionResult GetBillingReport()
         {
-            return View();
-        }
-
-        public ActionResult GetBillingReportData()
-        {
             ReportDetails _details = new ReportDetails();
-            return View("GetBillingReport", _details.GetBillReportData());
+            return View(_details.GetBillReportData());
         }
 
         public ActionResult ReportViewing()
         {
-            return View();
+            ReportDetails _details = new ReportDetails();
+            return View(_details.GetLabReportData());
         }
     }
 }
