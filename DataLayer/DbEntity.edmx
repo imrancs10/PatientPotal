@@ -153,6 +153,19 @@
           <Property Name="MeridiemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MeridiemValue" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="PatientBillReport">
+          <Key>
+            <PropertyRef Name="BillId" />
+          </Key>
+          <Property Name="BillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BillDate" Type="datetime" Nullable="false" />
+          <Property Name="BillType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BillAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+          <Property Name="ReportUrl" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
             <PropertyRef Name="PatientId" />
@@ -182,6 +195,19 @@
           <Property Name="ResetCode" Type="varchar" MaxLength="100" />
           <Property Name="CRNumber" Type="varchar" MaxLength="50" />
           <Property Name="ValidUpto" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PatientLabReport">
+          <Key>
+            <PropertyRef Name="ReferanceId" />
+          </Key>
+          <Property Name="ReferanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BillNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LabName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ReportDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+          <Property Name="ReportUrl" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -452,7 +478,9 @@
           <EntitySet Name="HospitalDetail" EntityType="Self.HospitalDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LabReport" EntityType="Self.LabReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeridiemMaster" EntityType="Self.MeridiemMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientBillReport" EntityType="Self.PatientBillReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientLabReport" EntityType="Self.PatientLabReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginEntry" EntityType="Self.PatientLoginEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginHistory" EntityType="Self.PatientLoginHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientTransaction" EntityType="Self.PatientTransaction" Schema="dbo" store:Type="Tables" />
@@ -625,6 +653,8 @@
             <End Role="State" EntitySet="States" />
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
           </AssociationSet>
+          <EntitySet Name="PatientBillReports" EntityType="PatientPortalModel.PatientBillReport" />
+          <EntitySet Name="PatientLabReports" EntityType="PatientPortalModel.PatientLabReport" />
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
           <Key>
@@ -1095,6 +1125,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PatientBillReport">
+          <Key>
+            <PropertyRef Name="BillId" />
+          </Key>
+          <Property Name="BillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BillType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PatientLabReport">
+          <Key>
+            <PropertyRef Name="ReferanceId" />
+          </Key>
+          <Property Name="ReferanceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LabName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ReportDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1333,6 +1389,34 @@
               <MappingFragment StoreEntitySet="State">
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientBillReports">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientBillReport">
+              <MappingFragment StoreEntitySet="PatientBillReport">
+                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="BillAmount" ColumnName="BillAmount" />
+                <ScalarProperty Name="BillType" ColumnName="BillType" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="BillId" ColumnName="BillId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientLabReports">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientLabReport">
+              <MappingFragment StoreEntitySet="PatientLabReport">
+                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="LabName" ColumnName="LabName" />
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

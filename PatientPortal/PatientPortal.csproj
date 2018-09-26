@@ -179,6 +179,7 @@
     <Compile Include="BAL\Masters\DoctorDetails.cs" />
     <Compile Include="BAL\Masters\ScheduleDetails.cs" />
     <Compile Include="BAL\Patient\PatientDetails.cs" />
+    <Compile Include="BAL\Reports\ReportDetails.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
