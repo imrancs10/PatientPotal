@@ -131,7 +131,7 @@ namespace PatientPortal.BAL.Masters
                     if (_effectRow > 0)
                     {
                         var appointments = _db.AppointmentInfoes.Where(x => x.DoctorId.Equals(doctorId)
-                                                                        && !x.IsCancelled.Value
+                                                                        && !x.IsCancelled
                                                                         && DbFunctions.TruncateTime(x.AppointmentDateFrom) == DbFunctions.TruncateTime(leaveDate)
                                                                       ).ToList();
                         if (appointments.Count > 0)

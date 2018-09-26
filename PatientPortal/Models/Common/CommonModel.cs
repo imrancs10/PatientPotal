@@ -13,4 +13,11 @@ namespace PatientPortal.Models.Common
         public int DayId { get; set; }
         public string DayName { get; set; }
     }
+
+    public class  PatientModel
+    {
+        public int PatientId { get; set; }
+        public string PatientName { get; set; }
+
+    }
 }

@@ -12,13 +12,17 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class LabReport
+    public partial class PatientBillReport
     {
-        public int Id { get; set; }
+        public int BillId { get; set; }
+        public string BillNo { get; set; }
+        public System.DateTime BillDate { get; set; }
+        public string BillType { get; set; }
+        public decimal BillAmount { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public System.DateTime ModificationDate { get; set; }
+        public string ReportUrl { get; set; }
         public Nullable<int> PatientId { get; set; }
-        public string ReportName { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string FileName { get; set; }
     
         public virtual PatientInfo PatientInfo { get; set; }
     }
