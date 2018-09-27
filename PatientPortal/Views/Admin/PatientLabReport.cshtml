@@ -1,30 +1,30 @@
 ﻿
 @{
-    ViewBag.Title = "Patient Billing Report";
+    ViewBag.Title = "Patient Lab Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="~/Scripts/App/Report/BillingReport.js"></script>
-<form action="/admin/SetBillingReport" method="post" style="margin-top:50px;" enctype = "multipart/form-data">
+<script src="~/Scripts/App/Report/LabReport.js"></script>
+<form action="/admin/SetLabReport" method="post" style="margin-top:50px;" enctype="multipart/form-data">
     <div class="col-sm-4 col-lg-4 col-lg-offset-4">
         <div class="panel panel-primary">
-            <div class="panel-heading">Billing Report</div>
+            <div class="panel-heading">Lab Report</div>
             <div class="panel-body">
                 @Html.Partial("_PatientSearch")
                 <div class="form-group">
                     <label for="">Bill No.</label>
-                    <input type="number" name="Billno" id="txtBillNo" required="required" autocomplete="off" maxlength="50" class="form-control" placeholder="Bill No" />
+                    <input type="number" name="Billno" required="required" id="txtBillNo" autocomplete="off" maxlength="50" class="form-control" placeholder="Bill No" />
                 </div>
                 <div class="form-group">
-                    <label for="">Bill Date</label>
-                    <input type="date" name="BillDate" required="required" id="txtBillDate" class="form-control" placeholder="Bill Date" />
+                    <label for="">Referance No.</label>
+                    <input type="text" name="RefNo" required="required" id="txtRefNo" class="form-control" placeholder="Referance No." />
                 </div>
                 <div class="form-group">
-                    <label for="">Bill Type</label>
-                    <input type="text" name="BillType" required="required" id="txtBillType" autocomplete="off" class="form-control" placeholder="Bill Type" />
+                    <label for="">Lab Name</label>
+                    <input type="text" name="labname" required id="txtLabName" autocomplete="off" class="form-control" placeholder="Lab Name" />
                 </div>
                 <div class="form-group">
-                    <label for="">Bill Amount</label>
-                    <input type="number" name="BillAmount" required="required" id="txtBillAmount" autocomplete="off" class="form-control" placeholder="Bill Amount" />
+                    <label for="">Report Date</label>
+                    <input type="date" name="reportdate" required id="txtLabName" autocomplete="off" class="form-control" placeholder="Report Date" />
                 </div>
                 <div class="form-group">
                     <label for="">Report Path</label>
@@ -32,7 +32,7 @@
                         <label class="radio-inline"><input type="radio" name="ReportPath" id="_file" value="file" checked>File Upload</label>
                         <label class="radio-inline"><input type="radio" name="ReportPath" id="_url" value="url">Enter Url</label>
                     </div>
-                </div> 
+                </div>
                 <div class="form-group file">
                     <label for="">File Upload</label>
                     <input type="file" name="reportfile" id="_fileUpload" class="form-control" />

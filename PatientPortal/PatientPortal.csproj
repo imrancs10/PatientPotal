@@ -299,6 +299,7 @@
     <Content Include="Scripts\App\Patient\CRProfile.js" />
     <Content Include="Scripts\App\Patient\Profile.js" />
     <Content Include="Scripts\App\Report\BillingReport.js" />
+    <Content Include="Scripts\App\Report\LabReport.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Json\countries.json" />
@@ -332,6 +333,7 @@
     <Content Include="Views\Report\ReportViewing.cshtml" />
     <Content Include="Views\Admin\PatientBillReport.cshtml" />
     <Content Include="Views\Shared\_PatientSearch.cshtml" />
+    <Content Include="Views\Admin\PatientLabReport.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\PateintInfoService\GetPatient_Info_insert.wsdl" />
     <Content Include="Web References\PateintInfoService\Reference.map">
