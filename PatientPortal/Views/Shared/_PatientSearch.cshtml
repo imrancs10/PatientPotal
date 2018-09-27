@@ -1,7 +1,7 @@
 ﻿<div class="form-group">
     <label for="">Patient</label>
     <input type="hidden" value="0" id="_patientId" name="PatientId" />
-    <input type="text" name="patientid" autocomplete="off" id="_txtPatientid" maxlength="50" class="form-control" placeholder="Search Patient Name, Registration No, Mobile No." />
+    <input type="text" name="patientid" autocomplete="off" required="required" id="_txtPatientid" maxlength="50" class="form-control" placeholder="Search Patient Name, Registration No, Mobile No." />
     <ul id="_patientList"></ul>
 </div>
 <style>
@@ -34,8 +34,8 @@
 
     });
 
-    $(document).on('keypress', '#_txtPatientid', function () {
-        if ($(this).val().length > 2) {
+    $(document).on('keyup', '#_txtPatientid', function () {
+        if ($(this).val().length > 1) {
             $.ajax({
                 url: '/common/SearchPatient',
                 method: "post",
@@ -48,6 +48,7 @@
                     $(data).each(function (ind, ele) {
                         _list += '<li data-id="' + ele.PatientId + '">' + ele.PatientName + '</li>';
                     });
+                    _list = _list == '' ? '<li class="norecord">No Patient Found</li>' : _list;
                     $(_patientList).append(_list);
                 },
                 error: function (data) {
@@ -58,8 +59,13 @@
     });
 
     $(document).on('click', '#_patientList li', function () {
-        $('#_patientId').val($(this).data('id'));
-        $('#_txtPatientid').val($(this).text());
+        if (!$(this).hasClass('norecord')) {
+            $('#_patientId').val($(this).data('id'));
+            $('#_txtPatientid').val($(this).text());
+        }
+        else {
+            $('#_txtPatientid').val('');
+        }
         $(this).parent().empty().hide();
     });
 </script>
