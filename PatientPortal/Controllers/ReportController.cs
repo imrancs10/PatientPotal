@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using PatientPortal.BAL;
 using PatientPortal.BAL.Reports;
+using System.IO;
+using PatientPortal.BAL.Commom;
 
 namespace PatientPortal.Controllers
 {
@@ -16,7 +18,7 @@ namespace PatientPortal.Controllers
             ReportDetails _details = new ReportDetails();
             return View(_details.GetBillReportData());
         }
-
+        
         public ActionResult ReportViewing()
         {
             ReportDetails _details = new ReportDetails();

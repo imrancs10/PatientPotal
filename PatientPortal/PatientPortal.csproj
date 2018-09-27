@@ -298,6 +298,7 @@
     <Content Include="Scripts\App\Masters\Schedule.js" />
     <Content Include="Scripts\App\Patient\CRProfile.js" />
     <Content Include="Scripts\App\Patient\Profile.js" />
+    <Content Include="Scripts\App\Report\BillingReport.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Json\countries.json" />
@@ -329,6 +330,8 @@
     <Content Include="Views\Patient\GetLabReport.cshtml" />
     <Content Include="Views\Report\GetBillingReport.cshtml" />
     <Content Include="Views\Report\ReportViewing.cshtml" />
+    <Content Include="Views\Admin\PatientBillReport.cshtml" />
+    <Content Include="Views\Shared\_PatientSearch.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\PateintInfoService\GetPatient_Info_insert.wsdl" />
     <Content Include="Web References\PateintInfoService\Reference.map">
@@ -382,7 +385,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="BAL\NewFolder1\" />
     <Folder Include="Reports\Bill\" />
     <Folder Include="Reports\Lab\" />
     <Folder Include="Views\Common\" />

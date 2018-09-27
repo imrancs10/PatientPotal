@@ -34,6 +34,12 @@ namespace PatientPortal.Global
             InternalError
         }
 
+        public enum ReportType
+        {
+            Bill,
+            Lab
+        }
+
         public enum JsonResult
         {
             Data_NotFound=100,
