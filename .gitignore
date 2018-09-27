@@ -19,3 +19,4 @@ packages/*
 /PatientPortal/obj/Release
 *.user
 /PatientPortal/LabReports
+/PatientPortal/Reports/Bill/2018/October/23487238974.pdf
