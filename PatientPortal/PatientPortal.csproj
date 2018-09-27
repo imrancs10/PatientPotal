@@ -383,6 +383,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BAL\NewFolder1\" />
+    <Folder Include="Reports\Bill\" />
+    <Folder Include="Reports\Lab\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
