@@ -36,7 +36,7 @@
                                                 @if (!string.IsNullOrEmpty(item.ReportUrl))
                                                 {
                                                     <div class="btn-group">
-                                                        <a href="~/Report/GetReport/url" class="btn btn-primary" target="_blank">View</a>
+                                                        <a href="~/Report/GetReport/@item.ReportUrl.GetHashCode()" class="btn btn-primary" target="_blank">View</a>
                                                         <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
                                                     </div>
                                                 }
