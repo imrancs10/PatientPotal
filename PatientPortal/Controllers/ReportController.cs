@@ -45,11 +45,22 @@ namespace PatientPortal.Controllers
 
             return RedirectToAction("GetBillingReport");
         }
-        public FileResult GetReport(string url)
+
+        public ActionResult ViewReportFile(string fileUrl, string _view)
         {
-            string ReportURL = @"D:\Personnal\PatientPortal\WorkingCode\PatientPotal\PatientPortal\\Reports\Bill\2018\November\2.pdf";
-            byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
-            return File(FileBytes, "application/pdf");
+            string _fileDirectory = fileUrl.Substring(0, fileUrl.LastIndexOf("\\") + 1);
+            string _fileName = fileUrl.Substring(fileUrl.LastIndexOf("\\") + 1);
+            if (Directory.Exists(_fileDirectory))
+            {
+                string[] _files = Directory.GetFiles(_fileDirectory);
+                if (_files.Where(x => x.Substring(fileUrl.LastIndexOf("\\") + 1) == _fileName).Count() > 0)
+                {
+                    byte[] _fileContent = System.IO.File.ReadAllBytes(fileUrl);
+                    return File(_fileContent, "application/pdf");
+                }
+                return View(_view);
+            }
+            return View(_view);
         }
     }
 }

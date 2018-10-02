@@ -36,9 +36,13 @@
                                                 @if (!string.IsNullOrEmpty(item.ReportUrl))
                                                 {
                                                     <div class="btn-group">
-                                                        <a href="~/Report/GetReport/@item.ReportUrl.GetHashCode()" class="btn btn-primary" target="_blank">View</a>
+                                                        <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
                                                         <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
                                                     </div>
+                                                }
+                                                else
+                                                {
+                                                    <text>No Reports</text>
                                                 }
                                             </div>
                                         </td>
@@ -57,6 +61,12 @@
     $(document).on('click', '[id*="_download"]', function () {
         $('#_fileurl').val($(this).data('url'));
         $('#_form').submit();
+    });
+
+    $(document).on('click', '[id*="view"]', function () {
+        $('#_form').attr('action', '/Report/ViewReportFile');
+        $('#_fileurl').val($(this).data('url'));
+        // $('#_form').submit();
     });
 </script>
 

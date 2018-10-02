@@ -36,10 +36,8 @@
                                         <td>
                                             @if (!string.IsNullOrEmpty(item.ReportUrl))
                                             {
-
                                                 <div class="btn-group">
-                                                    @*<button type="button" id="_view" class="btn btn-primary">View</button>*@
-                                                    <a href="~/Report/GetReport?url=@item.ReportUrl.GetHashCode()" class="btn btn-primary" target="_blank">View</a>
+                                                    <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&_view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
                                                     <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
                                                 </div>
                                             }
@@ -77,7 +75,14 @@
         return billType === undefined ? 'Not Define' : billType;
     }
     $(document).on('click', '[id*="_download"]', function () {
+        $('#_form').attr('action', '/Report/DownloadReportFile');
         $('#_fileurl').val($(this).data('url'));
         $('#_form').submit();
+    });
+
+    $(document).on('click', '[id*="view"]', function () {
+        $('#_form').attr('action', '/Report/ViewReportFile');
+        $('#_fileurl').val($(this).data('url'));
+       // $('#_form').submit();
     });
 </script>
