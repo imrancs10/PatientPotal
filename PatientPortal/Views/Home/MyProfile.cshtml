@@ -79,6 +79,10 @@
                                             <div>@json.MaritalStatusLabel</div>
                                         </div>
                                         <div class="form-group">
+                                            <label>Aadhar Number</label>
+                                            <div>@json.AadharNumber</div>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Religion</label>
                                             <div>@json.Religion</div>
                                         </div>
@@ -246,6 +250,13 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label>Aadhar Number</label>
+                                            <div>
+                                                <input name="aadharNumber" id="aadharNumber" class="common-input" placeholder="Enter your Aadhar Number" value="@json.AadharNumber"
+                                                       maxlength='50' type="text" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Mobile</label>
                                             <div>
                                                 <input id="mobilenumber" class="form-control" required name="mobilenumber" placeholder="Enter Mobile Number"
@@ -286,11 +297,11 @@
                                             </div>
                                         </div>
                                         @*<div class="form-group hidden">
-                                            <label>Country</label>
-                                            <div>
-                                                <select class="form-control" id="country" name="country" data-valid="required" required></select>
-                                            </div>
-                                        </div>*@
+            <label>Country</label>
+            <div>
+                <select class="form-control" id="country" name="country" data-valid="required" required></select>
+            </div>
+        </div>*@
                                         <div class="form-group">
                                             <label>City</label>
                                             <div>

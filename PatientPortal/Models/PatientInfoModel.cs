@@ -38,6 +38,7 @@ namespace PatientPortal.Models
                 return MaritalStatus == "S" ? "Single" : "Married";
             }
         }
+        public string AadharNumber { get; set; }
         public string Title { get; set; }
     }
 }

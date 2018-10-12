@@ -146,6 +146,7 @@ namespace PatientPortal.BAL.Patient
                     _patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
                     _patientRow.MaritalStatus = info.MaritalStatus;
                     _patientRow.Title = info.Title;
+                    _patientRow.AadharNumber = info.AadharNumber;
                     _db.Entry(_patientRow).State = EntityState.Modified;
                     _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());

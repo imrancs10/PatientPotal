@@ -63,145 +63,151 @@
 
                     @if (registerPage == true)
                     {
-                        <form id="register_form" class="form-horizontal" action="GetPatientOTP" method="post" autocomplete="off">
-                            <h2>Register an Account</h2>
-                            <p style="margin-bottom:0px;">Fill the form below to signup your account </p>
-                            <hr>
-                            <div class="form-group">
-                                <label for="title" class="control-label col-md-4 col-sm-12 col-xs-12">Title<font color="FF0000">*</font></label>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <select id="title" class="common-input selectval" name="title" data-live-search="true" data-valid="required" required>
-                                        <option value="">Select</option>
-                                        <option value="Mr.">Mr.</option>
-                                        <option value="Mrs.">Mrs.</option>
-                                        <option value="Ms.">Ms.</option>
-                                        <option value="Dr.">Dr.</option>
-                                        <option value="Mohd.">Mohd.</option>
-                                    </select>
-                                </div>
+                    <form id="register_form" class="form-horizontal" action="GetPatientOTP" method="post" autocomplete="off">
+                        <h2>Register an Account</h2>
+                        <p style="margin-bottom:0px;">Fill the form below to signup your account </p>
+                        <hr>
+                        <div class="form-group">
+                            <label for="title" class="control-label col-md-4 col-sm-12 col-xs-12">Title<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <select id="title" class="common-input selectval" name="title" data-live-search="true" data-valid="required" required>
+                                    <option value="">Select</option>
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Ms.">Ms.</option>
+                                    <option value="Dr.">Dr.</option>
+                                    <option value="Mohd.">Mohd.</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>First Name<font color="FF0000">*</font></span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" value="" name="firstname" required data-valid="required" class="register-input" id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>First Name<font color="FF0000">*</font></span></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="text" value="" name="firstname" required data-valid="required" class="register-input" id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off">
                             </div>
-                            <div class="form-group">
-                                <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Middle Name</span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" value="" name="middlename" data-valid="required" class="register-input" id="middlename" placeholder="Enter Middle Name " maxlength="50" autocomplete="off">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Middle Name</span></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="text" value="" name="middlename" data-valid="required" class="register-input" id="middlename" placeholder="Enter Middle Name " maxlength="50" autocomplete="off">
                             </div>
-                            <div class="form-group">
-                                <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Last Name<font color="FF0000">*</font></span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" class="register-input" required id="lastname" placeholder="Enter Last Name " value="" name="lastname" data-valid="required" maxlength="50" autocomplete="off">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="LastName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Last Name<font color="FF0000">*</font></span></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="text" class="register-input" required id="lastname" placeholder="Enter Last Name " value="" name="lastname" data-valid="required" maxlength="50" autocomplete="off">
                             </div>
-                            <div class="form-group">
-                                <label for="FatherHusbandName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Father/Husband Name<font color="FF0000">*</font></span></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input type="text" class="register-input" required id="FatherHusbandName" placeholder="Enter Father/Husband Name " value="" name="FatherHusbandName" data-valid="required" maxlength="100" autocomplete="off">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="FatherHusbandName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Father/Husband Name<font color="FF0000">*</font></span></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input type="text" class="register-input" required id="FatherHusbandName" placeholder="Enter Father/Husband Name " value="" name="FatherHusbandName" data-valid="required" maxlength="100" autocomplete="off">
                             </div>
-                            <div class="form-group">
-                                <label for="MaritalStatus" class="control-label col-md-4 col-sm-12 col-xs-12">Marital Status<font color="FF0000">*</font></label>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <select id="MaritalStatus" class="common-input selectval" name="MaritalStatus" data-live-search="true" data-valid="required" required>
-                                        <option value="">Select</option>
-                                        <option value="S">Single</option>
-                                        <option value="M">Married</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="MaritalStatus" class="control-label col-md-4 col-sm-12 col-xs-12">Marital Status<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <select id="MaritalStatus" class="common-input selectval" name="MaritalStatus" data-live-search="true" data-valid="required" required>
+                                    <option value="">Select</option>
+                                    <option value="S">Single</option>
+                                    <option value="M">Married</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="control-label col-md-4 col-sm-12 col-xs-12">Email address<font color="FF0000">*</font></label>
-                                <div class="col-md-8 col-sm-12 col-xs-12">
-                                    <input name="email" id="email" class="common-input" required placeholder="Enter your email address" maxlength='50' type="email" autocomplete="off" value="" data-valid="required">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="control-label col-md-4 col-sm-12 col-xs-12">Aadhar Number</label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input name="aadharNumber" id="aadharNumber" class="common-input" placeholder="Enter your Aadhar Number" maxlength='50' type="text" autocomplete="off">
                             </div>
-                            <div class="form-group">
-                                <label for="mobile" class="control-label col-md-4 col-sm-12 col-xs-12">Mobile Number<font color="FF0000">*</font></label>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <input id="mobilenumber" class="common-input" required name="mobilenumber" placeholder="Enter Mobile Number" autocomplete="off" onkeypress="return isNumber(event)" value="" type="text" maxlength="10" data-valid="required" data-type="phone" minlength="10">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail" class="control-label col-md-4 col-sm-12 col-xs-12">Email address<font color="FF0000">*</font></label>
+                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                <input name="email" id="email" class="common-input" required placeholder="Enter your email address" maxlength='50' type="email" autocomplete="off" value="" data-valid="required">
                             </div>
-                            <hr>
-                            <div class="form-group">
-                                <label for="gender" class="control-label col-md-4 col-sm-12 col-xs-12">Gender<font color="FF0000">*</font></label>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <select id="Gender" class="common-input selectval" name="Gender" data-live-search="true" data-valid="required" required>
-                                        <option value="">Select</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="control-label col-md-4 col-sm-12 col-xs-12">Mobile Number<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <input id="mobilenumber" class="common-input" required name="mobilenumber" placeholder="Enter Mobile Number" autocomplete="off" onkeypress="return isNumber(event)" value="" type="text" maxlength="10" data-valid="required" data-type="phone" minlength="10">
                             </div>
-                            <div class="form-group">
-                                <label for="DOB" class="control-label col-md-4 col-sm-12 col-xs-12">Date of Birth<font color="FF0000">*</font></label>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-                                    <input type="date" id="DOB" class="form-control" name="DOB" required maxlength="8" />
-                                </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="gender" class="control-label col-md-4 col-sm-12 col-xs-12">Gender<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <select id="Gender" class="common-input selectval" name="Gender" data-live-search="true" data-valid="required" required>
+                                    <option value="">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="Address" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Address<font color="FF0000">*</font></span></label>
-                                <div class="col-md-7 col-sm-12 col-xs-12">
-                                    <input type="text" value="" name="address" data-valid="required" class="register-input" id="address" placeholder="Enter Address " maxlength="50" autocomplete="off" required>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="DOB" class="control-label col-md-4 col-sm-12 col-xs-12">Date of Birth<font color="FF0000">*</font></label>
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <input type="date" id="DOB" class="form-control" name="DOB" required maxlength="8" />
                             </div>
-                            @*<div class="form-group hidden">
-                                <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">Country<font color="FF0000">*</font></label>
-                                <div class="col-md-7 col-sm-12 col-xs-12">
-                                    <select class="common-input selectval" id="country" name="country" data-valid="required" required></select>
-                                </div>
-                            </div>*@
-                            <div class="form-group" id="state_val">
-                                <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">State<font color="FF0000">*</font></label>
-                                <div class="col-md-7 col-sm-12 col-xs-12">
-                                    <select class="common-input selectval" id="state" name="state" data-live-search="true" data-valid="required" required></select>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Address" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Address<font color="FF0000">*</font></span></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <input type="text" value="" name="address" data-valid="required" class="register-input" id="address" placeholder="Enter Address " maxlength="50" autocomplete="off" required>
                             </div>
-                            <div class="form-group" id="show_city">
-                                <label for="City" class="control-label col-md-4 col-sm-12 col-xs-12">City<font color="FF0000">*</font></label>
-                                <div class="col-md-7 col-sm-12 col-xs-12">
-                                    <select class="common-input selectval" name="city" id="city" data-live-search="true" data-valid="required" required></select>
-                                </div>
+                        </div>
+                        @*<div class="form-group hidden">
+            <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">Country<font color="FF0000">*</font></label>
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <select class="common-input selectval" id="country" name="country" data-valid="required" required></select>
+            </div>
+        </div>*@
+                        <div class="form-group" id="state_val">
+                            <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">State<font color="FF0000">*</font></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <select class="common-input selectval" id="state" name="state" data-live-search="true" data-valid="required" required></select>
                             </div>
-                            <div class="form-group">
-                                <label for="Pin Code" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Pin Code<font color="FF0000">*</font></span></label>
-                                <div class="col-md-7 col-sm-12 col-xs-12">
-                                    <input type="text" class="register-input" id="pincode" placeholder="Enter Pin Code " value="" name="pincode" data-valid="required" maxlength="6" onkeypress="return isNumber(event)" autocomplete="off" required>
-                                </div>
+                        </div>
+                        <div class="form-group" id="show_city">
+                            <label for="City" class="control-label col-md-4 col-sm-12 col-xs-12">City<font color="FF0000">*</font></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <select class="common-input selectval" name="city" id="city" data-live-search="true" data-valid="required" required></select>
                             </div>
-                            <div class="form-group">
-                                <label for="Religion" class="control-label col-md-4 col-sm-12 col-xs-12">Religion<font color="FF0000">*</font></label>
-                                <div class="col-md-7 col-sm-12 col-xs-12">
-                                    <select class="common-input selectval" id="religion" name="religion" data-live-search="true" data-valid="required" required>
-                                        <option value="">Select</option>
-                                        <option value="Hindu" title="Hindu">Hindu</option>
-                                        <option value="Jain" title="Jain">Jain</option>
-                                        <option value="Muslim" title="Muslim">Muslim</option>
-                                        <option value="Sikh" title="Sikh">Sikh</option>
-                                        <option value="Christian" title="Christian">Christian</option>
-                                        <option value="Spiritual" title="Spiritual">Spiritual</option>
-                                        <option value="Parsi" title="Parsi">Parsi</option>
-                                        <option value="Jewish" title="Jewish">Jewish</option>
-                                        <option value="Buddhist" title="Buddhist">Buddhist</option>
-                                        <option value="Other" title="Other">Other</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Pin Code" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Pin Code<font color="FF0000">*</font></span></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <input type="text" class="register-input" id="pincode" placeholder="Enter Pin Code " value="" name="pincode" data-valid="required" maxlength="6" onkeypress="return isNumber(event)" autocomplete="off" required>
                             </div>
-                            <div class="form-group" id="resi_status">
-                                <label for="department" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department<font color="FF0000">*</font></span></label>
-                                <div class="col-md-7 col-sm-12 col-xs-12">
-                                    <select class="common-input selectval" name="department" id="department" required></select>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Religion" class="control-label col-md-4 col-sm-12 col-xs-12">Religion<font color="FF0000">*</font></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <select class="common-input selectval" id="religion" name="religion" data-live-search="true" data-valid="required" required>
+                                    <option value="">Select</option>
+                                    <option value="Hindu" title="Hindu">Hindu</option>
+                                    <option value="Jain" title="Jain">Jain</option>
+                                    <option value="Muslim" title="Muslim">Muslim</option>
+                                    <option value="Sikh" title="Sikh">Sikh</option>
+                                    <option value="Christian" title="Christian">Christian</option>
+                                    <option value="Spiritual" title="Spiritual">Spiritual</option>
+                                    <option value="Parsi" title="Parsi">Parsi</option>
+                                    <option value="Jewish" title="Jewish">Jewish</option>
+                                    <option value="Buddhist" title="Buddhist">Buddhist</option>
+                                    <option value="Other" title="Other">Other</option>
+                                </select>
                             </div>
-                            <hr />
-                            <div class="form-group">
-                                <input type="submit" name="getotp" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:200px;">
+                        </div>
+                        <div class="form-group" id="resi_status">
+                            <label for="department" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department<font color="FF0000">*</font></span></label>
+                            <div class="col-md-7 col-sm-12 col-xs-12">
+                                <select class="common-input selectval" name="department" id="department" required></select>
                             </div>
-                        </form>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <input type="submit" name="getotp" class="btn btn-primary btn-blue btn-block btn-lg" value="Continue" style="float:right;width:200px;">
+                        </div>
+                    </form>
                     }
                     else
                     {
