@@ -245,6 +245,7 @@
   <ItemGroup>
     <Content Include="Content\App\Common.css" />
     <Content Include="Content\App\Login\Login.css" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\Menu.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -272,6 +273,7 @@
     <Content Include="img\179351.png" />
     <Content Include="img\179352.png" />
     <Content Include="img\ajax-loader.gif" />
+    <Content Include="img\arrow.png" />
     <Content Include="img\avatar-1.jpg" />
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner.jpg" />
@@ -289,6 +291,8 @@
     <Content Include="Scripts\App\Appointment\PatientProfile.js" />
     <Content Include="Scripts\App\Global\App.js" />
     <Content Include="Scripts\App\Global\Utility.js" />
+    <Content Include="Scripts\App\index.css" />
+    <Content Include="Scripts\App\jquery.slide.css" />
     <Content Include="Scripts\App\Login\Login.js" />
     <Content Include="Scripts\App\Masters\appSetting.js" />
     <Content Include="Scripts\App\Masters\Department.js" />
@@ -314,6 +318,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dist\jquery.slide.js" />
+    <Content Include="Scripts\dist\jquery.slide.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
