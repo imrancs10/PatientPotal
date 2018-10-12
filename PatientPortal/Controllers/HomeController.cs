@@ -506,13 +506,13 @@ namespace PatientPortal.Controllers
             };
             return model;
         }
-        private static Dictionary<string, object> SavePatientInfo(string MaritalStatus, string Title, string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image,string aadharNumber)
+        private static Dictionary<string, object> SavePatientInfo(string MaritalStatus, string Title, string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string aadharNumber)
         {
             PatientDetails _details = new PatientDetails();
             int pinResult = 0;
             PatientInfo info = new PatientInfo()
             {
-                AadharNumber= aadharNumber,
+                AadharNumber = aadharNumber,
                 FirstName = firstname,
                 MiddleName = middlename,
                 LastName = lastname,
@@ -577,7 +577,7 @@ namespace PatientPortal.Controllers
 
         [HttpPost]
         [CustomAuthorize]
-        public ActionResult UpdateProfile(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, HttpPostedFileBase photo, string FatherHusbandName, string MaritalStatus, string title,string aadharNumber)
+        public ActionResult UpdateProfile(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, HttpPostedFileBase photo, string FatherHusbandName, string MaritalStatus, string title, string aadharNumber)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (mobilenumber.Trim().Length != 10)
@@ -809,7 +809,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitCRDetail(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string title, string MaritalStatus)
+        public ActionResult SubmitCRDetail(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string title, string MaritalStatus, string aadharNumber)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (mobilenumber.Trim().Length != 10)
@@ -822,7 +822,7 @@ namespace PatientPortal.Controllers
             }
             else
             {
-                Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null);
+                Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null, aadharNumber);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     string serialNumber = VerificationCodeGeneration.GetSerialNumber();
