@@ -526,7 +526,7 @@ h3,
 
 h4,
 .h4 {
-  font-size: 18px;
+  font-size: 17px;
 }
 
 h5,
@@ -857,8 +857,8 @@ pre code {
 .col-lg-11,
 .col-lg-12 {
   position: relative;
-  min-height: 1px;
-  padding-right: 15px;
+  /*min-height: 1px;*/
+  padding-right: 5px;
   padding-left: 15px;
 }
 
@@ -1631,6 +1631,8 @@ table th[class*="col-"] {
   .table-responsive > .table-bordered > tfoot > tr:last-child > td {
     border-bottom: 0;
   }
+
+
 }
 
 fieldset {
@@ -3355,6 +3357,7 @@ input[type="button"].btn-block {
     right: 0;
     left: auto;
   }
+    
 }
 
 .btn-default .caret {
@@ -4025,7 +4028,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   z-index: 1000;
-  min-height: 50px;
+  min-height: 45px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -4192,10 +4195,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-brand {
-  float: left;
-  padding: 15px 15px;
-  font-size: 18px;
-  line-height: 20px;
+    float: left;
+    padding: 10px 15px;
+    font-size: 15px;
+    line-height: 20px;
 }
 
 .navbar-brand:hover,
@@ -4207,6 +4210,13 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .navbar > .container .navbar-brand {
     margin-left: -15px;
   }
+    .navbar-brand {
+        float: left;
+        padding: 12px 15px;
+        font-size: 17px;
+        line-height: 20px;
+    }
+    
 }
 
 .navbar-toggle {
@@ -4502,7 +4512,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-inverse {
   background-color: #222222;
-  border-color: #080808;
+  /*border-color: #080808;*/
 }
 
 .navbar-inverse .navbar-brand {
@@ -4516,7 +4526,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-text {
-  color: #999999;
+  color: #fff;
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -5443,9 +5453,11 @@ a.list-group-item:focus {
 }
 
 .panel-default > .panel-heading {
-  color: #333333;
-  background-color: #f5f5f5;
-  border-color: #dddddd;
+    color: #fbf9f9;
+    background-color: #8bb7f9;
+    border-color: #dddddd;
+    text-align: center;
+    font-size: 18px;
 }
 
 .panel-default > .panel-heading + .panel-collapse .panel-body {
@@ -6813,6 +6825,103 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+}
+.shadow {
+    box-shadow: 1px 1px 15px 1px rgba(175, 173, 173, 0.58);
+    background: #fbfbfb;
+}
+
+/*Css for Blinking Tetx*/
+.qua {
+    font-size: 18px;
+    margin: 25px 0 10px;
+    font-family: 'OpenSans-Semibold';
+}
+    .qua:before {
+        content: "\f122";
+        font-family: 'FontAwesome';
+        display: inline-block;
+        vertical-align: top;
+        color: #77c043;
+        margin-right: 7px;
+        transform: rotateY(-180deg);
+        -webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+    }
+
+/*Pnael*/
+.blogSidebar .panel {
+    border-radius: 0;
+    border: none;
+    margin-bottom: 30px;
+    box-shadow: 2px 2px 10px 0px #dedede;
+}
+
+.panel-default {
+    border-color: #ddd;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.panel-heading{
+    border-color: #1977ce;
+}
+.blogSidebar .panel-body {
+    border: 1px solid #dedede;
+    border-top: none;
+    padding: 15px;
+}
+
+.panel-body {
+    padding: 15px;
+}
+.panel-body:before{
+    display: table;
+    content: " ";
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    list-style-type: none;
+}
+
+li {
+    line-height: 20px;
+}
+.blogSidebar .categoryList li a {
+    padding: 14px 0;
+    display: block;
+    border-bottom: 1px dashed #b7b7b7;
+    color: #666666;
+    text-align: left;
+}
+
+a {
+    color: #848282;
+}
+@-webkit-keyframes argh-my-eyes {
+    0%{background-color: #953b39;}
+    25% {background-color: #3879d9;}
+    50% {background-color: #953b39;}
+    75% {background-color: #3879d9;}
+    100% {background-color: #953b39;}
+    }
+
+.number {
+    -webkit-animation: argh-my-eyes 1s infinite;
+    -moz-animation: argh-my-eyes 1s infinite;
+    animation: argh-my-eyes 1s infinite;
+    padding: 1px;
+    border-radius: 4px;
+    color: White;
 }
 /* Add a black background color to the top navigation 
 .topnav {
