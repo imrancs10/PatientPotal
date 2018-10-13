@@ -34,6 +34,11 @@ login-div {
     color: #fff;
     font-family: 'Open Sans', sans-serif;
 }
+.btn-dark {
+    background-color: #d47270;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+}
 .img-responsive, .thumbnail a > img, .thumbnail > img {
     display: block;
     max-width: 100%;
