@@ -277,8 +277,11 @@
     <Content Include="img\avatar-1.jpg" />
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner.jpg" />
+    <Content Include="img\click.gif" />
     <Content Include="img\img.jpg" />
     <Content Include="img\jpg_img.jpg" />
+    <Content Include="img\opd.jpg" />
+    <Content Include="img\opd.png" />
     <Content Include="img\p01.jpg" />
     <Content Include="img\p1.jpg" />
     <Content Include="img\p2.jpg" />
