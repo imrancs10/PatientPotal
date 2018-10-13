@@ -302,5 +302,18 @@ namespace PatientPortal.BAL.Patient
             _db.Configuration.LazyLoadingEnabled = false;
             return _db.Cities.Where(x => x.CityId == citiId).FirstOrDefault();
         }
+
+        public State GetStateIdByStateName(string stateName)
+        {
+            _db = new PatientPortalEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            return _db.States.Where(x => x.StateName.Equals(stateName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+        }
+        public City GetCityIdByCItyName(string cityName)
+        {
+            _db = new PatientPortalEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            return _db.Cities.Where(x => x.CityName.Equals(cityName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+        }
     }
 }

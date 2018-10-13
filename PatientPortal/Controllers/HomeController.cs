@@ -36,6 +36,9 @@ namespace PatientPortal.Controllers
 
         public ActionResult Index()
         {
+            DepartmentDetails _details = new DepartmentDetails();
+            var result = _details.DepartmentList();
+            ViewData["Departments"] = result;
             return View();
         }
 
@@ -783,17 +786,17 @@ namespace PatientPortal.Controllers
                     FirstName = patient.Firstname != "N/A" ? patient.Firstname : string.Empty,
                     MiddleName = patient.Middlename != "N/A" ? patient.Middlename : string.Empty,
                     LastName = patient.Lastname != "N/A" ? patient.Lastname : string.Empty,
-                    DOB = null,
+                    DOB = !string.IsNullOrEmpty(patient.Age) ? DateTime.Now.AddYears(-Convert.ToInt32(patient.Age)) : DateTime.Now,
                     Gender = patient.Gender == "F" ? "Female" : "Male",
                     MobileNumber = patient.Mobileno != "N/A" ? patient.Mobileno : string.Empty,
                     Email = patient.Email != "N/A" ? patient.Email : string.Empty,
                     Address = patient.Address != "N/A" ? patient.Address : string.Empty,
-                    City = patient.City != "N/A" ? patient.City : string.Empty,
+                    City = patient.City != "N/A" ? GetCityIdByCItyName(patient.City) : string.Empty,
                     Country = patient.Country != "N/A" ? patient.Country : string.Empty,
                     PinCode = int.TryParse(patient.Pincode, out pin) ? pin : 0,
                     Religion = patient.Religion != "N/A" ? patient.Religion : string.Empty,
                     Department = Convert.ToString(patient.deptid),
-                    State = patient.State != "N/A" ? patient.State : string.Empty,
+                    State = patient.State != "N/A" ? GetStateIdByStateName(patient.State) : string.Empty,
                     FatherOrHusbandName = patient.FatherOrHusbandName != "N/A" ? patient.FatherOrHusbandName : string.Empty,
                     CRNumber = patient.Registrationnumber != "N/A" ? patient.Registrationnumber : string.Empty,
                 };
@@ -871,6 +874,18 @@ namespace PatientPortal.Controllers
         {
             PatientDetails _details = new PatientDetails();
             return Json(_details.GetCitieByCItyId(citiId));
+        }
+
+        private string GetStateIdByStateName(string stateName)
+        {
+            PatientDetails _details = new PatientDetails();
+            return Convert.ToString(_details.GetStateIdByStateName(stateName).StateId);
+        }
+
+        private string GetCityIdByCItyName(string cityName)
+        {
+            PatientDetails _details = new PatientDetails();
+            return Convert.ToString(_details.GetCityIdByCItyName(cityName).CityId);
         }
     }
 }

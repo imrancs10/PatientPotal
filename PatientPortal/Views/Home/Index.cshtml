@@ -6,6 +6,7 @@
 @using PatientPortal.Global
 @using PatientPortal.Controllers;
 @using DataLayer;
+@using PatientPortal.Models.Masters;
 @{
     var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
@@ -55,14 +56,14 @@
                     <div class="col-md-9 blink">@Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
                     <div class="col-md-3 blink hidden-xs"><h4 style="color:#fff;">Emergency no:- +91-1234-567-890</h4></div>
                 </div>
-                
+
                 @*<div style="float:right">
                         @Html.ActionLink("Already Have CR Number", "CRIntegrate", "Home", new { area = "" }, new { @class = "navbar-brand" })
                     </div>*@
             </div>
         </div>
     </div>
-   
+
     <div class="container1">
         @*<div class="col-md-8 col-md-offset-2 col-sm-12 no-padding-sm">*@
         <div class="col-md-12 loginpage-container">
@@ -74,7 +75,7 @@
                     <div class="col-md-7 no-padding loginpage-leftimg">
                         <img src="../img/p3.jpg" class="img-responsive" alt="banner" />
                         @*<h2 style="font-size:3vw; color: dodgerblue;">Welcome To</h2>
-                        <p style="font-size:1.5vw;">Ram Manohar Lohiya Hospital<br>Lucknow</p>*@
+                            <p style="font-size:1.5vw;">Ram Manohar Lohiya Hospital<br>Lucknow</p>*@
                     </div>
 
                 </div>
@@ -143,25 +144,25 @@
 
         </div>
     </div>
-        <div class="clearfix"></div>
-        <div class="container1">
-            <div class="col-md-12">
-                <div style="background:#d3d7e6; height:52px;width:101%;">
-                    <div class="col-md-3">
-                        @*<a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank" class="btn btn-lg btn-dark btn-block ripplelink"> OPD SCHEDULE </a>*@
-                        <img src="~/img/click.gif" class="img-responsive" style="height:55px;width:250px;"/>
-                    </div>
-                    <div class="col-md-8 hidden-xs">
-                        <marquee behavior="scroll" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop();" OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" direction="left" scrollamount="3" scrolldelay="1" ;>
-                            <div align="left">
-                                <a href="#" target="_parent" style="float:left;margin-left:10px; margin-top: 15px;color:#000;">No. of OPD: <span style="color:#953b39;">00000 </span>|| No. of IN Patient: <span style="color:#953b39;">00000 </span> || No. Of Total Patient: <span style="color:#953b39;">000000</span> </a>
-                            </div>
-                        </marquee>
-                    </div>
-
+    <div class="clearfix"></div>
+    <div class="container1">
+        <div class="col-md-12">
+            <div style="background:#d3d7e6; height:52px;width:101%;">
+                <div class="col-md-3">
+                    @*<a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank" class="btn btn-lg btn-dark btn-block ripplelink"> OPD SCHEDULE </a>*@
+                    <img src="~/img/click.gif" class="img-responsive" style="height:55px;width:250px;" />
                 </div>
+                <div class="col-md-8 hidden-xs">
+                    <marquee behavior="scroll" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop();" OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" direction="left" scrollamount="3" scrolldelay="1" ;>
+                        <div align="left">
+                            <a href="#" target="_parent" style="float:left;margin-left:10px; margin-top: 15px;color:#000;">No. of OPD: <span style="color:#953b39;">00000 </span>|| No. of IN Patient: <span style="color:#953b39;">00000 </span> || No. Of Total Patient: <span style="color:#953b39;">000000</span> </a>
+                        </div>
+                    </marquee>
+                </div>
+
             </div>
         </div>
+    </div>
 
     <div class="container1">
         <div class="col-md-12">
@@ -174,58 +175,52 @@
                             <br />
                             <div class="col-sm-12">
                                 <h4> <strong>The institute has presently following specialties:-</strong></h4>
-
                                 <br>
-                                <div class="col-sm-4 lists">
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> Anaesthesiology</h3>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">1</span> Anaesthesiology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">2</span> Biostatistics  and Health Informatics</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">3</span> Cardiology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">4</span> CriticalCare Medicine</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">5</span> Cardiovascular and Thoracic Surgery</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">6</span> Emergency Medicine</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">7</span> Endocrinology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">8</span> Endocrine Surgery</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">9</span> Gastroenterology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">10</span> Surgical Gastroenterology</p>
-
-                                </div>
-
-                                <div class="col-sm-4 lists">
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">11</span> Hematology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">12</span> Immunology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">13</span> Medical Genetics</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">14</span> Microbiology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">15</span> Maternal and Reproductive Health</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">16</span> Plastic Surgery</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">17</span> Paediatric Super Specialty Surgery</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">18</span> Pulmonary Medicine</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">19</span> Nephrology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">20</span> Neurology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">21</span> Neurosurgery</p>
-
-                                </div>
-
-                                <div class="col-sm-4 lists">
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">22</span> Nuclear Medicine</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">23</span> Pathology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">24</span> Pediatric Gastroenterology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">25</span> Radiodiagnosis</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">26</span> Radiotherapy</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">27</span> Transfusion Medicine</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">28</span> Urology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">29</span> Molecular Biology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">30</span> Hospital Adminiastration</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">31</span> Neonatology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">32</span> Opthalmology</p>
-                                    <p><img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">33</span> General Hospital</p>
-                                </div>
+                                @{
+                                    if (ViewData["Departments"] != null)
+                                    {
+                                        List<DepartmentModel> departments = ViewData["Departments"] as List<DepartmentModel>;
+                                        int rowCount = departments.Count() / 3;
+                                        int row = 0;
+                                        int index = 0;
+                                        <div class="col-sm-4 lists">
+                                            @for (int i = 0; i < rowCount; i++)
+                                            {
+                                                <p>
+                                                    <img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">@(++index)</span>
+                                                    @departments[i].DeparmentName
+                                                </p>
+                                                row = row + 1;
+                                            }
+                                        </div>
+                                        <div class="col-sm-4 lists">
+                                            @for (int i = 0; i < rowCount; i++)
+                                            {
+                                                <p>
+                                                    <img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">@(++index)</span>
+                                                    @departments[row].DeparmentName
+                                                </p>
+                                                row = row + 1;
+                                            }
+                                        </div>
+                                        <div class="col-sm-4 lists">
+                                            @for (int i = 0; i < (departments.Count() - 2 * rowCount); i++)
+                                            {
+                                                <p>
+                                                    <img src="~/img/arrow.png" style="height:20px;width:20px;" /> <span class="num">@(++index)</span>
+                                                    @departments[row].DeparmentName
+                                                </p>
+                                                row = row + 1;
+                                            }
+                                        </div>
+                                    }
+                                }
                             </div>
                         </div>
                         <br />
                         <div class="row">
                             <div class="col-md-12">
-                                <p class="moto-text_system_10">
+                                <p class="moto-text_system_10" style="float:left;">
                                     The hospital works as a referral hospital and patients are required to bring a referral slip from the referring physician. The referring physicians are requested to indicate the nature of patients' problem, including investigation done and treatment provided, the specialty at the Institute they wish to refer the patient to and the nature of help required from the Institute. The Institute hospital endeavours to work on an appointment system. Thus, the patients are expected to re-visit the Institute hospital only on appointed days, except in case of an emergency. For blood transfusion, the Institute relies entirely on its own blood bank and expects the patients' family and friends to provide replacement blood donors.
                                     <br>
                                     <br>
@@ -246,7 +241,6 @@
                             </div>
                         </div>
                         <div class="content">
-
                         </div>
                     </div>
                 </div>
@@ -335,29 +329,29 @@
                 </div>
             </div>
         </div>
+    </div>
+    <hr class="text-center navbar-fixed-bottom" />
+    <footer class="text-center navbar-fixed-bottom">
+        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+    </footer>
+    @if (TempData["Alert_Title"] != null)
+    {
+        <div id="dialog" title="@TempData["Alert_Title"].ToString()">
+            @if (TempData["Alert_Message"] != null)
+            {
+                <p>@TempData["Alert_Message"].ToString()</p>
+            }
+            else
+            {
+                <p>Success..!</p>
+            }
         </div>
-        <hr class="text-center navbar-fixed-bottom" />
-        <footer class="text-center navbar-fixed-bottom">
-            <p>&copy; @DateTime.Now.Year - Patient Portal</p>
-        </footer>
-        @if (TempData["Alert_Title"] != null)
-        {
-            <div id="dialog" title="@TempData["Alert_Title"].ToString()">
-                @if (TempData["Alert_Message"] != null)
-                {
-                    <p>@TempData["Alert_Message"].ToString()</p>
-                }
-                else
-                {
-                    <p>Success..!</p>
-                }
-            </div>
-        }
-        <div id="alertModel" style="display:none;" title="">
-            <p></p>
-        </div>
+    }
+    <div id="alertModel" style="display:none;" title="">
+        <p></p>
+    </div>
 
-    
+
 </body>
 </html>
 

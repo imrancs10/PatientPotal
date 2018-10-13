@@ -26,28 +26,7 @@ $(document).ready(function () {
     function setSelectedReligion() {
         $("#religion").val(jsonData.Religion);
     }
-
-    //fillCountry();
-    //function fillCountry() {
-    //    let dropdown = $('#country');
-    //    dropdown.empty();
-    //    dropdown.append('<option value="">Select</option>');
-    //    dropdown.prop('selectedIndex', 0);
-    //    const url = utility.baseUrl + 'Json/countries.json';
-    //    // Populate dropdown with list of provinces
-    //    $.getJSON(url, function (data) {
-    //        $.each(data.countries, function (key, entry) {
-    //            if (entry.name == 'India')
-    //                dropdown.append($('<option selected="true"></option>').attr('value', entry.id).text(entry.name));
-    //            else
-    //                dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
-    //        })
-    //        //dropdown.val(jsonData.Country);
-    //        fillState();
-    //    });
-    //}
-
-
+    fillState();
     function fillState() {
         let dropdown = $('#state');
         dropdown.empty();
@@ -61,7 +40,7 @@ $(document).ready(function () {
             success: function (data) {
                 $.each(data, function (key, entry) {
                     dropdown.append($('<option></option>').attr('value', entry.StateId).text(entry.StateName));
-                })
+                });
                 dropdown.val(jsonData.State);
                 fillCity();
             },
@@ -89,7 +68,7 @@ $(document).ready(function () {
             success: function (data) {
                 $.each(data, function (key, entry) {
                     dropdown.append($('<option></option>').attr('value', entry.CityId).text(entry.CityName));
-                })
+                });
                 dropdown.val(jsonData.City);
             },
             failure: function (response) {
@@ -108,7 +87,7 @@ $(document).ready(function () {
     });
 
     function fillCityByStateId(stateId) {
-        var stateId = jsonData.State;
+        //var stateId = jsonData.State;
         let dropdown = $('#city');
         dropdown.empty();
         dropdown.append('<option value="">Select</option>');

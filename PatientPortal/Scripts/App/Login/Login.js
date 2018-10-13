@@ -31,29 +31,6 @@ $(document).ready(function () {
     });
     var jsonData = jsonPatient;
 
-    //fillCountry();
-    //function fillCountry() {
-    //    let dropdown = $('#country');
-    //    dropdown.empty();
-    //    dropdown.append('<option selected="true" disabled>Choose Country</option>');
-    //    dropdown.prop('selectedIndex', 0);
-    //    const url = utility.baseUrl + 'Json/countries.json';
-    //    // Populate dropdown with list of provinces
-    //    $.getJSON(url, function (data) {
-    //        $.each(data.countries, function (key, entry) {
-    //            if (entry.name == 'India')
-    //                dropdown.append($('<option selected="true"></option>').attr('value', entry.id).text(entry.name));
-    //            else
-    //                dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
-    //        })
-    //    });
-    //}
-
-    //$('#country').on('change', function (e) {
-    //    var optionSelected = $("option:selected", this);
-    //    var valueSelected = this.value;
-    //    fillState(valueSelected)
-    //});
     fillState(); //101 is the country id of India
     function fillState() {
         let dropdown = $('#state');
@@ -61,7 +38,6 @@ $(document).ready(function () {
         dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         $.ajax({
-            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetSates',
