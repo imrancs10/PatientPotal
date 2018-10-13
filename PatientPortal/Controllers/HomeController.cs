@@ -356,7 +356,7 @@ namespace PatientPortal.Controllers
             return new HISPatientInfoInsertModel()
             {
                 Address = info.Address,
-                City = info.City1.CityName,
+                City = info.City.CityName,
                 CRNumber = info.CRNumber,
                 DepartmentId = Convert.ToString(info.DepartmentId.Value),
                 DOB = Convert.ToString(info.DOB),
@@ -373,7 +373,7 @@ namespace PatientPortal.Controllers
                 PinCode = Convert.ToString(info.PinCode),
                 RegistrationNumber = info.RegistrationNumber,
                 Religion = info.Religion,
-                State = info.State1.StateName,
+                State = info.State.StateName,
                 Title = info.Title,
                 ValidUpto = Convert.ToString(info.ValidUpto),
                 CreateDate = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionDate),
@@ -521,13 +521,13 @@ namespace PatientPortal.Controllers
                 MobileNumber = mobilenumber.Trim(),
                 Email = email.Trim(),
                 Address = address,
-                City = Convert.ToInt32(city),
+                CityId = Convert.ToInt32(city),
                 Country = country,
                 PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0,
                 Religion = religion,
                 OTP = verificationCode,
                 DepartmentId = Convert.ToInt32(department),
-                State = Convert.ToInt32(state),
+                StateId = Convert.ToInt32(state),
                 FatherOrHusbandName = FatherHusbandName,
                 MaritalStatus = MaritalStatus,
                 Title = Title

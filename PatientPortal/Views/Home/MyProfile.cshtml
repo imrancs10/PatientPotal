@@ -252,8 +252,8 @@
                                         <div class="form-group">
                                             <label>Aadhar Number</label>
                                             <div>
-                                                <input name="aadharNumber" id="aadharNumber" class="common-input" placeholder="Enter your Aadhar Number" value="@json.AadharNumber"
-                                                       maxlength='50' type="text" autocomplete="off">
+                                                <input name="aadharNumber" id="aadharNumber" class="common-input" placeholder="Enter your Aadhar Number" 
+                                                       value="@json.AadharNumber" onkeypress="return isNumber(event)" maxlength='12' type="text" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="form-group">

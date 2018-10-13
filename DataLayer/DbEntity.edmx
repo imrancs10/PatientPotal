@@ -184,13 +184,13 @@
           <Property Name="DOB" Type="datetime" />
           <Property Name="Gender" Type="varchar" MaxLength="50" />
           <Property Name="Address" Type="varchar" MaxLength="500" />
-          <Property Name="City" Type="int" />
+          <Property Name="CityId" Type="int" />
           <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="PinCode" Type="int" />
           <Property Name="Religion" Type="varchar" MaxLength="50" />
           <Property Name="DepartmentId" Type="int" />
           <Property Name="OTP" Type="varchar" MaxLength="50" />
-          <Property Name="State" Type="int" />
+          <Property Name="StateId" Type="int" />
           <Property Name="Photo" Type="varbinary(max)" />
           <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
           <Property Name="ResetCode" Type="varchar" MaxLength="100" />
@@ -415,7 +415,7 @@
               <PropertyRef Name="CityId" />
             </Principal>
             <Dependent Role="PatientInfo">
-              <PropertyRef Name="City" />
+              <PropertyRef Name="CityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -451,7 +451,7 @@
               <PropertyRef Name="StateId" />
             </Principal>
             <Dependent Role="PatientInfo">
-              <PropertyRef Name="State" />
+              <PropertyRef Name="StateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -597,6 +597,108 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PatientPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PatientPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppointmentInfoes" EntityType="PatientPortalModel.AppointmentInfo" />
+          <EntitySet Name="AppointmentSettings" EntityType="PatientPortalModel.AppointmentSetting" />
+          <EntitySet Name="Cities" EntityType="PatientPortalModel.City" />
+          <EntitySet Name="DayMasters" EntityType="PatientPortalModel.DayMaster" />
+          <EntitySet Name="Departments" EntityType="PatientPortalModel.Department" />
+          <EntitySet Name="Doctors" EntityType="PatientPortalModel.Doctor" />
+          <EntitySet Name="DoctorLeaves" EntityType="PatientPortalModel.DoctorLeave" />
+          <EntitySet Name="DoctorSchedules" EntityType="PatientPortalModel.DoctorSchedule" />
+          <EntitySet Name="Gbl_Master_Login" EntityType="PatientPortalModel.Gbl_Master_Login" />
+          <EntitySet Name="Gbl_Master_User" EntityType="PatientPortalModel.Gbl_Master_User" />
+          <EntitySet Name="HospitalDetails" EntityType="PatientPortalModel.HospitalDetail" />
+          <EntitySet Name="LabReports" EntityType="PatientPortalModel.LabReport" />
+          <EntitySet Name="MeridiemMasters" EntityType="PatientPortalModel.MeridiemMaster" />
+          <EntitySet Name="PatientBillReports" EntityType="PatientPortalModel.PatientBillReport" />
+          <EntitySet Name="PatientInfoes" EntityType="PatientPortalModel.PatientInfo" />
+          <EntitySet Name="PatientLabReports" EntityType="PatientPortalModel.PatientLabReport" />
+          <EntitySet Name="PatientLoginEntries" EntityType="PatientPortalModel.PatientLoginEntry" />
+          <EntitySet Name="PatientLoginHistories" EntityType="PatientPortalModel.PatientLoginHistory" />
+          <EntitySet Name="PatientTransactions" EntityType="PatientPortalModel.PatientTransaction" />
+          <EntitySet Name="States" EntityType="PatientPortalModel.State" />
+          <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="PatientPortalModel.FK_AppointmentInfo_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="AppointmentInfo" EntitySet="AppointmentInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppointmentInfo_PatientInfo" Association="PatientPortalModel.FK_AppointmentInfo_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="AppointmentInfo" EntitySet="AppointmentInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="PatientPortalModel.FK_City_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfo_City" Association="PatientPortalModel.FK_PatientInfo_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorScheduleDay_DayMaster1" Association="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1">
+            <End Role="DayMaster" EntitySet="DayMasters" />
+            <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_Doctor" Association="PatientPortalModel.FK_Doctor_Doctor">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfo_Department" Association="PatientPortalModel.FK_PatientInfo_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorLeave_Doctor" Association="PatientPortalModel.FK_DoctorLeave_Doctor">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="DoctorLeave" EntitySet="DoctorLeaves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorScheduleDay_DoctorSchedule" Association="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorScheduleDay_MeridiemMaster" Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster">
+            <End Role="MeridiemMaster" EntitySet="MeridiemMasters" />
+            <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorScheduleDay_MeridiemMaster1" Association="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1">
+            <End Role="MeridiemMaster" EntitySet="MeridiemMasters" />
+            <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Login_Gbl_Master_User" Association="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Login" EntitySet="Gbl_Master_Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LabReport_PatientInfo" Association="PatientPortalModel.FK_LabReport_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="LabReport" EntitySet="LabReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientBi__Patie__3A4CA8FD" Association="PatientPortalModel.FK__PatientBi__Patie__3A4CA8FD">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientBillReport" EntitySet="PatientBillReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientLa__Patie__3B40CD36" Association="PatientPortalModel.FK__PatientLa__Patie__3B40CD36">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientLabReport" EntitySet="PatientLabReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfo_PatientInfo" Association="PatientPortalModel.FK_PatientInfo_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientInfo1" EntitySet="PatientInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfo_State" Association="PatientPortalModel.FK_PatientInfo_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="PatientPortalModel.FK_PatientLoginEntry_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientLoginEntry" EntitySet="PatientLoginEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientLoginHistory_PatientInfo" Association="PatientPortalModel.FK_PatientLoginHistory_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientLoginHistory" EntitySet="PatientLoginHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientTransaction_PatientInfo" Association="PatientPortalModel.FK_PatientTransaction_PatientInfo">
+            <End Role="PatientInfo" EntitySet="PatientInfoes" />
+            <End Role="PatientTransaction" EntitySet="PatientTransactions" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AppointmentInfo">
           <Key>
             <PropertyRef Name="AppointmentId" />
@@ -613,8 +715,8 @@
           <Property Name="CancelDate" Type="DateTime" Precision="3" />
           <Property Name="CancelReason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Reminder" Type="Boolean" />
-          <NavigationProperty Name="Doctor" Relationship="Self.FK_AppointmentInfo_Doctor" FromRole="AppointmentInfo" ToRole="Doctor" />
-          <NavigationProperty Name="PatientInfo" Relationship="Self.FK_AppointmentInfo_PatientInfo" FromRole="AppointmentInfo" ToRole="PatientInfo" />
+          <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_AppointmentInfo_Doctor" FromRole="AppointmentInfo" ToRole="Doctor" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_AppointmentInfo_PatientInfo" FromRole="AppointmentInfo" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="AppointmentSetting">
           <Key>
@@ -638,8 +740,8 @@
           <Property Name="CityId" Type="Int32" Nullable="false" />
           <Property Name="CityName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="StateId" Type="Int32" />
-          <NavigationProperty Name="State" Relationship="Self.FK_City_State" FromRole="City" ToRole="State" />
-          <NavigationProperty Name="PatientInfoes" Relationship="Self.FK_PatientInfo_City" FromRole="City" ToRole="PatientInfo" />
+          <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_City_State" FromRole="City" ToRole="State" />
+          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_City" FromRole="City" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -647,7 +749,7 @@
           </Key>
           <Property Name="DayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DayName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DoctorSchedules" Relationship="Self.FK_DoctorScheduleDay_DayMaster1" FromRole="DayMaster" ToRole="DoctorSchedule" />
+          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1" FromRole="DayMaster" ToRole="DoctorSchedule" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -655,8 +757,8 @@
           </Key>
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
-          <NavigationProperty Name="PatientInfoes" Relationship="Self.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
+          <NavigationProperty Name="Doctors" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
+          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -669,10 +771,10 @@
           <Property Name="Degree" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AppointmentInfoes" Relationship="Self.FK_AppointmentInfo_Doctor" FromRole="Doctor" ToRole="AppointmentInfo" />
-          <NavigationProperty Name="Department" Relationship="Self.FK_Doctor_Doctor" FromRole="Doctor" ToRole="Department" />
-          <NavigationProperty Name="DoctorLeaves" Relationship="Self.FK_DoctorLeave_Doctor" FromRole="Doctor" ToRole="DoctorLeave" />
-          <NavigationProperty Name="DoctorSchedules" Relationship="Self.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
+          <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalModel.FK_AppointmentInfo_Doctor" FromRole="Doctor" ToRole="AppointmentInfo" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Doctor" ToRole="Department" />
+          <NavigationProperty Name="DoctorLeaves" Relationship="PatientPortalModel.FK_DoctorLeave_Doctor" FromRole="Doctor" ToRole="DoctorLeave" />
+          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
         </EntityType>
         <EntityType Name="DoctorLeave">
           <Key>
@@ -683,7 +785,7 @@
           <Property Name="LeaveDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Doctor" Relationship="Self.FK_DoctorLeave_Doctor" FromRole="DoctorLeave" ToRole="Doctor" />
+          <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_DoctorLeave_Doctor" FromRole="DoctorLeave" ToRole="Doctor" />
         </EntityType>
         <EntityType Name="DoctorSchedule">
           <Key>
@@ -696,10 +798,10 @@
           <Property Name="TimeFromMeridiemID" Type="Int32" />
           <Property Name="TimeTo" Type="Int32" />
           <Property Name="TimeToMeridiemID" Type="Int32" />
-          <NavigationProperty Name="DayMaster" Relationship="Self.FK_DoctorScheduleDay_DayMaster1" FromRole="DoctorSchedule" ToRole="DayMaster" />
-          <NavigationProperty Name="Doctor" Relationship="Self.FK_DoctorScheduleDay_DoctorSchedule" FromRole="DoctorSchedule" ToRole="Doctor" />
-          <NavigationProperty Name="MeridiemMaster" Relationship="Self.FK_DoctorScheduleDay_MeridiemMaster" FromRole="DoctorSchedule" ToRole="MeridiemMaster" />
-          <NavigationProperty Name="MeridiemMaster1" Relationship="Self.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="DoctorSchedule" ToRole="MeridiemMaster" />
+          <NavigationProperty Name="DayMaster" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DayMaster1" FromRole="DoctorSchedule" ToRole="DayMaster" />
+          <NavigationProperty Name="Doctor" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="DoctorSchedule" ToRole="Doctor" />
+          <NavigationProperty Name="MeridiemMaster" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster" FromRole="DoctorSchedule" ToRole="MeridiemMaster" />
+          <NavigationProperty Name="MeridiemMaster1" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="DoctorSchedule" ToRole="MeridiemMaster" />
         </EntityType>
         <EntityType Name="Gbl_Master_Login">
           <Key>
@@ -714,28 +816,28 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Gbl_Master_User" Relationship="Self.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_Login" ToRole="Gbl_Master_User" />
+          <NavigationProperty Name="Gbl_Master_User" Relationship="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_Login" ToRole="Gbl_Master_User" />
         </EntityType>
         <EntityType Name="Gbl_Master_User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PasswordHash" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="DoB" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MobileNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsdCode" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="IsdCode" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="IsSync" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Gbl_Master_Login" Relationship="Self.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Login" />
+          <NavigationProperty Name="Gbl_Master_Login" Relationship="PatientPortalModel.FK_Gbl_Master_Login_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Login" />
         </EntityType>
         <EntityType Name="HospitalDetail">
           <Key>
@@ -755,7 +857,7 @@
           <Property Name="ReportName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PatientInfo" Relationship="Self.FK_LabReport_PatientInfo" FromRole="LabReport" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_LabReport_PatientInfo" FromRole="LabReport" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="MeridiemMaster">
           <Key>
@@ -763,23 +865,23 @@
           </Key>
           <Property Name="MeridiemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MeridiemValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DoctorSchedules" Relationship="Self.FK_DoctorScheduleDay_MeridiemMaster" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
-          <NavigationProperty Name="DoctorSchedules1" Relationship="Self.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
+          <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
+          <NavigationProperty Name="DoctorSchedules1" Relationship="PatientPortalModel.FK_DoctorScheduleDay_MeridiemMaster1" FromRole="MeridiemMaster" ToRole="DoctorSchedule" />
         </EntityType>
         <EntityType Name="PatientBillReport">
           <Key>
             <PropertyRef Name="BillId" />
           </Key>
           <Property Name="BillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BillNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BillNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BillDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="BillType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BillAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="BillType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PatientId" Type="Int32" />
-          <NavigationProperty Name="PatientInfo" Relationship="Self.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientBillReport" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientBillReport" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
@@ -798,46 +900,46 @@
           <Property Name="DOB" Type="DateTime" Precision="3" />
           <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="Int32" />
+          <Property Name="CityId" Type="Int32" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PinCode" Type="Int32" />
           <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DepartmentId" Type="Int32" />
           <Property Name="OTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="State" Type="Int32" />
+          <Property Name="StateId" Type="Int32" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="FatherOrHusbandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ValidUpto" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AppointmentInfoes" Relationship="Self.FK_AppointmentInfo_PatientInfo" FromRole="PatientInfo" ToRole="AppointmentInfo" />
-          <NavigationProperty Name="City1" Relationship="Self.FK_PatientInfo_City" FromRole="PatientInfo" ToRole="City" />
-          <NavigationProperty Name="Department" Relationship="Self.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
-          <NavigationProperty Name="LabReports" Relationship="Self.FK_LabReport_PatientInfo" FromRole="PatientInfo" ToRole="LabReport" />
-          <NavigationProperty Name="PatientBillReports" Relationship="Self.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientInfo" ToRole="PatientBillReport" />
-          <NavigationProperty Name="PatientLabReports" Relationship="Self.FK__PatientLa__Patie__3B40CD36" FromRole="PatientInfo" ToRole="PatientLabReport" />
-          <NavigationProperty Name="PatientInfo1" Relationship="Self.FK_PatientInfo_PatientInfo" FromRole="PatientInfo" ToRole="PatientInfo1" />
-          <NavigationProperty Name="PatientInfo2" Relationship="Self.FK_PatientInfo_PatientInfo" FromRole="PatientInfo1" ToRole="PatientInfo" />
-          <NavigationProperty Name="State1" Relationship="Self.FK_PatientInfo_State" FromRole="PatientInfo" ToRole="State" />
-          <NavigationProperty Name="PatientLoginEntries" Relationship="Self.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
-          <NavigationProperty Name="PatientLoginHistories" Relationship="Self.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
-          <NavigationProperty Name="PatientTransactions" Relationship="Self.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
           <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalModel.FK_AppointmentInfo_PatientInfo" FromRole="PatientInfo" ToRole="AppointmentInfo" />
+          <NavigationProperty Name="City" Relationship="PatientPortalModel.FK_PatientInfo_City" FromRole="PatientInfo" ToRole="City" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
+          <NavigationProperty Name="LabReports" Relationship="PatientPortalModel.FK_LabReport_PatientInfo" FromRole="PatientInfo" ToRole="LabReport" />
+          <NavigationProperty Name="PatientBillReports" Relationship="PatientPortalModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientInfo" ToRole="PatientBillReport" />
+          <NavigationProperty Name="PatientLabReports" Relationship="PatientPortalModel.FK__PatientLa__Patie__3B40CD36" FromRole="PatientInfo" ToRole="PatientLabReport" />
+          <NavigationProperty Name="PatientInfo1" Relationship="PatientPortalModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo" ToRole="PatientInfo1" />
+          <NavigationProperty Name="PatientInfo2" Relationship="PatientPortalModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo1" ToRole="PatientInfo" />
+          <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="PatientInfo" ToRole="State" />
+          <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
+          <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
+          <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
         </EntityType>
         <EntityType Name="PatientLabReport">
           <Key>
             <PropertyRef Name="ReferanceId" />
           </Key>
           <Property Name="ReferanceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RefNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BillNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LabName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RefNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BillNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LabName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="ReportDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PatientId" Type="Int32" />
-          <NavigationProperty Name="PatientInfo" Relationship="Self.FK__PatientLa__Patie__3B40CD36" FromRole="PatientLabReport" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK__PatientLa__Patie__3B40CD36" FromRole="PatientLabReport" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -848,7 +950,7 @@
           <Property Name="Locked" Type="Boolean" />
           <Property Name="LoginAttemptDate" Type="DateTime" Precision="3" />
           <Property Name="PatientId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PatientInfo" Relationship="Self.FK_PatientLoginEntry_PatientInfo" FromRole="PatientLoginEntry" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientLoginEntry" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="PatientLoginHistory">
           <Key>
@@ -858,7 +960,7 @@
           <Property Name="PatientId" Type="Int32" />
           <Property Name="LoginDate" Type="DateTime" Precision="3" />
           <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PatientInfo" Relationship="Self.FK_PatientLoginHistory_PatientInfo" FromRole="PatientLoginHistory" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientLoginHistory" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="PatientTransaction">
           <Key>
@@ -872,7 +974,7 @@
           <Property Name="ResponseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TransactionDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PatientInfo" Relationship="Self.FK_PatientTransaction_PatientInfo" FromRole="PatientTransaction" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientTransaction" ToRole="PatientInfo" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -880,12 +982,12 @@
           </Key>
           <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StateName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Cities" Relationship="Self.FK_City_State" FromRole="State" ToRole="City" />
-          <NavigationProperty Name="PatientInfoes" Relationship="Self.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
+          <NavigationProperty Name="Cities" Relationship="PatientPortalModel.FK_City_State" FromRole="State" ToRole="City" />
+          <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
         </EntityType>
         <Association Name="FK_AppointmentInfo_Doctor">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
-          <End Role="AppointmentInfo" Type="Self.AppointmentInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
+          <End Type="PatientPortalModel.AppointmentInfo" Role="AppointmentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
               <PropertyRef Name="DoctorID" />
@@ -896,8 +998,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AppointmentInfo_PatientInfo">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="1" />
-          <End Role="AppointmentInfo" Type="Self.AppointmentInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
+          <End Type="PatientPortalModel.AppointmentInfo" Role="AppointmentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -908,8 +1010,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_City_State">
-          <End Role="State" Type="Self.State" Multiplicity="0..1" />
-          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <End Type="PatientPortalModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.City" Role="City" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="State">
               <PropertyRef Name="StateId" />
@@ -920,20 +1022,20 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientInfo_City">
-          <End Role="City" Type="Self.City" Multiplicity="0..1" />
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="City">
               <PropertyRef Name="CityId" />
             </Principal>
             <Dependent Role="PatientInfo">
-              <PropertyRef Name="City" />
+              <PropertyRef Name="CityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_DayMaster1">
-          <End Role="DayMaster" Type="Self.DayMaster" Multiplicity="0..1" />
-          <End Role="DoctorSchedule" Type="Self.DoctorSchedule" Multiplicity="*" />
+          <End Type="PatientPortalModel.DayMaster" Role="DayMaster" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DayMaster">
               <PropertyRef Name="DayId" />
@@ -944,8 +1046,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Doctor_Doctor">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <End Type="PatientPortalModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmentID" />
@@ -956,8 +1058,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientInfo_Department">
-          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmentID" />
@@ -968,8 +1070,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorLeave_Doctor">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
-          <End Role="DoctorLeave" Type="Self.DoctorLeave" Multiplicity="*" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
+          <End Type="PatientPortalModel.DoctorLeave" Role="DoctorLeave" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
               <PropertyRef Name="DoctorID" />
@@ -980,8 +1082,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_DoctorSchedule">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
-          <End Role="DoctorSchedule" Type="Self.DoctorSchedule" Multiplicity="*" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
               <PropertyRef Name="DoctorID" />
@@ -992,8 +1094,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_MeridiemMaster">
-          <End Role="MeridiemMaster" Type="Self.MeridiemMaster" Multiplicity="0..1" />
-          <End Role="DoctorSchedule" Type="Self.DoctorSchedule" Multiplicity="*" />
+          <End Type="PatientPortalModel.MeridiemMaster" Role="MeridiemMaster" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MeridiemMaster">
               <PropertyRef Name="MeridiemID" />
@@ -1004,8 +1106,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DoctorScheduleDay_MeridiemMaster1">
-          <End Role="MeridiemMaster" Type="Self.MeridiemMaster" Multiplicity="0..1" />
-          <End Role="DoctorSchedule" Type="Self.DoctorSchedule" Multiplicity="*" />
+          <End Type="PatientPortalModel.MeridiemMaster" Role="MeridiemMaster" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.DoctorSchedule" Role="DoctorSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MeridiemMaster">
               <PropertyRef Name="MeridiemID" />
@@ -1016,8 +1118,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Gbl_Master_Login_Gbl_Master_User">
-          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
-          <End Role="Gbl_Master_Login" Type="Self.Gbl_Master_Login" Multiplicity="*" />
+          <End Type="PatientPortalModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="PatientPortalModel.Gbl_Master_Login" Role="Gbl_Master_Login" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gbl_Master_User">
               <PropertyRef Name="UserId" />
@@ -1028,8 +1130,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LabReport_PatientInfo">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
-          <End Role="LabReport" Type="Self.LabReport" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.LabReport" Role="LabReport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1040,8 +1142,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__PatientBi__Patie__3A4CA8FD">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
-          <End Role="PatientBillReport" Type="Self.PatientBillReport" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientBillReport" Role="PatientBillReport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1052,8 +1154,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__PatientLa__Patie__3B40CD36">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
-          <End Role="PatientLabReport" Type="Self.PatientLabReport" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientLabReport" Role="PatientLabReport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1064,8 +1166,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientInfo_PatientInfo">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="1" />
-          <End Role="PatientInfo1" Type="Self.PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo1" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1076,20 +1178,20 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientInfo_State">
-          <End Role="State" Type="Self.State" Multiplicity="0..1" />
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="*" />
+          <End Type="PatientPortalModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="State">
               <PropertyRef Name="StateId" />
             </Principal>
             <Dependent Role="PatientInfo">
-              <PropertyRef Name="State" />
+              <PropertyRef Name="StateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientLoginEntry_PatientInfo">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="1" />
-          <End Role="PatientLoginEntry" Type="Self.PatientLoginEntry" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
+          <End Type="PatientPortalModel.PatientLoginEntry" Role="PatientLoginEntry" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1100,8 +1202,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientLoginHistory_PatientInfo">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
-          <End Role="PatientLoginHistory" Type="Self.PatientLoginHistory" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientLoginHistory" Role="PatientLoginHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1112,8 +1214,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PatientTransaction_PatientInfo">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
-          <End Role="PatientTransaction" Type="Self.PatientTransaction" Multiplicity="*" />
+          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientTransaction" Role="PatientTransaction" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PatientInfo">
               <PropertyRef Name="PatientId" />
@@ -1123,108 +1225,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PatientPortalEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppointmentInfoes" EntityType="Self.AppointmentInfo" />
-          <EntitySet Name="AppointmentSettings" EntityType="Self.AppointmentSetting" />
-          <EntitySet Name="Cities" EntityType="Self.City" />
-          <EntitySet Name="DayMasters" EntityType="Self.DayMaster" />
-          <EntitySet Name="Departments" EntityType="Self.Department" />
-          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
-          <EntitySet Name="DoctorLeaves" EntityType="Self.DoctorLeave" />
-          <EntitySet Name="DoctorSchedules" EntityType="Self.DoctorSchedule" />
-          <EntitySet Name="Gbl_Master_Login" EntityType="Self.Gbl_Master_Login" />
-          <EntitySet Name="Gbl_Master_User" EntityType="Self.Gbl_Master_User" />
-          <EntitySet Name="HospitalDetails" EntityType="Self.HospitalDetail" />
-          <EntitySet Name="LabReports" EntityType="Self.LabReport" />
-          <EntitySet Name="MeridiemMasters" EntityType="Self.MeridiemMaster" />
-          <EntitySet Name="PatientBillReports" EntityType="Self.PatientBillReport" />
-          <EntitySet Name="PatientInfoes" EntityType="Self.PatientInfo" />
-          <EntitySet Name="PatientLabReports" EntityType="Self.PatientLabReport" />
-          <EntitySet Name="PatientLoginEntries" EntityType="Self.PatientLoginEntry" />
-          <EntitySet Name="PatientLoginHistories" EntityType="Self.PatientLoginHistory" />
-          <EntitySet Name="PatientTransactions" EntityType="Self.PatientTransaction" />
-          <EntitySet Name="States" EntityType="Self.State" />
-          <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="Self.FK_AppointmentInfo_Doctor">
-            <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="AppointmentInfo" EntitySet="AppointmentInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AppointmentInfo_PatientInfo" Association="Self.FK_AppointmentInfo_PatientInfo">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="AppointmentInfo" EntitySet="AppointmentInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_City_State" Association="Self.FK_City_State">
-            <End Role="State" EntitySet="States" />
-            <End Role="City" EntitySet="Cities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientInfo_City" Association="Self.FK_PatientInfo_City">
-            <End Role="City" EntitySet="Cities" />
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DoctorScheduleDay_DayMaster1" Association="Self.FK_DoctorScheduleDay_DayMaster1">
-            <End Role="DayMaster" EntitySet="DayMasters" />
-            <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Doctor_Doctor" Association="Self.FK_Doctor_Doctor">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Doctor" EntitySet="Doctors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientInfo_Department" Association="Self.FK_PatientInfo_Department">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DoctorLeave_Doctor" Association="Self.FK_DoctorLeave_Doctor">
-            <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="DoctorLeave" EntitySet="DoctorLeaves" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DoctorScheduleDay_DoctorSchedule" Association="Self.FK_DoctorScheduleDay_DoctorSchedule">
-            <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DoctorScheduleDay_MeridiemMaster" Association="Self.FK_DoctorScheduleDay_MeridiemMaster">
-            <End Role="MeridiemMaster" EntitySet="MeridiemMasters" />
-            <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DoctorScheduleDay_MeridiemMaster1" Association="Self.FK_DoctorScheduleDay_MeridiemMaster1">
-            <End Role="MeridiemMaster" EntitySet="MeridiemMasters" />
-            <End Role="DoctorSchedule" EntitySet="DoctorSchedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Login_Gbl_Master_User" Association="Self.FK_Gbl_Master_Login_Gbl_Master_User">
-            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-            <End Role="Gbl_Master_Login" EntitySet="Gbl_Master_Login" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LabReport_PatientInfo" Association="Self.FK_LabReport_PatientInfo">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="LabReport" EntitySet="LabReports" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PatientBi__Patie__3A4CA8FD" Association="Self.FK__PatientBi__Patie__3A4CA8FD">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="PatientBillReport" EntitySet="PatientBillReports" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PatientLa__Patie__3B40CD36" Association="Self.FK__PatientLa__Patie__3B40CD36">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="PatientLabReport" EntitySet="PatientLabReports" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientInfo_PatientInfo" Association="Self.FK_PatientInfo_PatientInfo">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="PatientInfo1" EntitySet="PatientInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientInfo_State" Association="Self.FK_PatientInfo_State">
-            <End Role="State" EntitySet="States" />
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="Self.FK_PatientLoginEntry_PatientInfo">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="PatientLoginEntry" EntitySet="PatientLoginEntries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientLoginHistory_PatientInfo" Association="Self.FK_PatientLoginHistory_PatientInfo">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="PatientLoginHistory" EntitySet="PatientLoginHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientTransaction_PatientInfo" Association="Self.FK_PatientTransaction_PatientInfo">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="PatientTransaction" EntitySet="PatientTransactions" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1234,176 +1234,176 @@
           <EntitySetMapping Name="AppointmentInfoes">
             <EntityTypeMapping TypeName="PatientPortalModel.AppointmentInfo">
               <MappingFragment StoreEntitySet="AppointmentInfo">
-                <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
-                <ScalarProperty Name="AppointmentDateFrom" ColumnName="AppointmentDateFrom" />
-                <ScalarProperty Name="AppointmentDateTo" ColumnName="AppointmentDateTo" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
-                <ScalarProperty Name="CancelDate" ColumnName="CancelDate" />
-                <ScalarProperty Name="CancelReason" ColumnName="CancelReason" />
                 <ScalarProperty Name="Reminder" ColumnName="Reminder" />
+                <ScalarProperty Name="CancelReason" ColumnName="CancelReason" />
+                <ScalarProperty Name="CancelDate" ColumnName="CancelDate" />
+                <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AppointmentDateTo" ColumnName="AppointmentDateTo" />
+                <ScalarProperty Name="AppointmentDateFrom" ColumnName="AppointmentDateFrom" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AppointmentSettings">
             <EntityTypeMapping TypeName="PatientPortalModel.AppointmentSetting">
               <MappingFragment StoreEntitySet="AppointmentSetting">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AppointmentSlot" ColumnName="AppointmentSlot" />
-                <ScalarProperty Name="CalenderPeriod" ColumnName="CalenderPeriod" />
-                <ScalarProperty Name="AppointmentMessage" ColumnName="AppointmentMessage" />
-                <ScalarProperty Name="AppointmentLimitPerUser" ColumnName="AppointmentLimitPerUser" />
-                <ScalarProperty Name="AppointmentCancelPeriod" ColumnName="AppointmentCancelPeriod" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="AutoCancelMessage" ColumnName="AutoCancelMessage" />
                 <ScalarProperty Name="IsActiveAppointmentMessage" ColumnName="IsActiveAppointmentMessage" />
+                <ScalarProperty Name="AutoCancelMessage" ColumnName="AutoCancelMessage" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AppointmentCancelPeriod" ColumnName="AppointmentCancelPeriod" />
+                <ScalarProperty Name="AppointmentLimitPerUser" ColumnName="AppointmentLimitPerUser" />
+                <ScalarProperty Name="AppointmentMessage" ColumnName="AppointmentMessage" />
+                <ScalarProperty Name="CalenderPeriod" ColumnName="CalenderPeriod" />
+                <ScalarProperty Name="AppointmentSlot" ColumnName="AppointmentSlot" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cities">
             <EntityTypeMapping TypeName="PatientPortalModel.City">
               <MappingFragment StoreEntitySet="City">
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DayMasters">
             <EntityTypeMapping TypeName="PatientPortalModel.DayMaster">
               <MappingFragment StoreEntitySet="DayMaster">
-                <ScalarProperty Name="DayId" ColumnName="DayId" />
                 <ScalarProperty Name="DayName" ColumnName="DayName" />
+                <ScalarProperty Name="DayId" ColumnName="DayId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="PatientPortalModel.Department">
               <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Doctors">
             <EntityTypeMapping TypeName="PatientPortalModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
-                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
-                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
-                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
-                <ScalarProperty Name="Degree" ColumnName="Degree" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DoctorLeaves">
             <EntityTypeMapping TypeName="PatientPortalModel.DoctorLeave">
               <MappingFragment StoreEntitySet="DoctorLeave">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
-                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DoctorSchedules">
             <EntityTypeMapping TypeName="PatientPortalModel.DoctorSchedule">
               <MappingFragment StoreEntitySet="DoctorSchedule">
-                <ScalarProperty Name="DoctorScheduleID" ColumnName="DoctorScheduleID" />
-                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
-                <ScalarProperty Name="DayID" ColumnName="DayID" />
-                <ScalarProperty Name="TimeFrom" ColumnName="TimeFrom" />
-                <ScalarProperty Name="TimeFromMeridiemID" ColumnName="TimeFromMeridiemID" />
-                <ScalarProperty Name="TimeTo" ColumnName="TimeTo" />
                 <ScalarProperty Name="TimeToMeridiemID" ColumnName="TimeToMeridiemID" />
+                <ScalarProperty Name="TimeTo" ColumnName="TimeTo" />
+                <ScalarProperty Name="TimeFromMeridiemID" ColumnName="TimeFromMeridiemID" />
+                <ScalarProperty Name="TimeFrom" ColumnName="TimeFrom" />
+                <ScalarProperty Name="DayID" ColumnName="DayID" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="DoctorScheduleID" ColumnName="DoctorScheduleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gbl_Master_Login">
             <EntityTypeMapping TypeName="PatientPortalModel.Gbl_Master_Login">
               <MappingFragment StoreEntitySet="Gbl_Master_Login">
-                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
-                <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gbl_Master_User">
             <EntityTypeMapping TypeName="PatientPortalModel.Gbl_Master_User">
               <MappingFragment StoreEntitySet="Gbl_Master_User">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DoB" ColumnName="DoB" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="IsdCode" ColumnName="IsdCode" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsdCode" ColumnName="IsdCode" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HospitalDetails">
             <EntityTypeMapping TypeName="PatientPortalModel.HospitalDetail">
               <MappingFragment StoreEntitySet="HospitalDetail">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
-                <ScalarProperty Name="HospitalLogo" ColumnName="HospitalLogo" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="HospitalLogo" ColumnName="HospitalLogo" />
+                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LabReports">
             <EntityTypeMapping TypeName="PatientPortalModel.LabReport">
               <MappingFragment StoreEntitySet="LabReport">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MeridiemMasters">
             <EntityTypeMapping TypeName="PatientPortalModel.MeridiemMaster">
               <MappingFragment StoreEntitySet="MeridiemMaster">
-                <ScalarProperty Name="MeridiemID" ColumnName="MeridiemID" />
                 <ScalarProperty Name="MeridiemValue" ColumnName="MeridiemValue" />
+                <ScalarProperty Name="MeridiemID" ColumnName="MeridiemID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientBillReports">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientBillReport">
               <MappingFragment StoreEntitySet="PatientBillReport">
-                <ScalarProperty Name="BillId" ColumnName="BillId" />
-                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
-                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
-                <ScalarProperty Name="BillType" ColumnName="BillType" />
-                <ScalarProperty Name="BillAmount" ColumnName="BillAmount" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="BillAmount" ColumnName="BillAmount" />
+                <ScalarProperty Name="BillType" ColumnName="BillType" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="BillId" ColumnName="BillId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1411,89 +1411,89 @@
             <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
               <MappingFragment StoreEntitySet="PatientInfo">
                 <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
-                <ScalarProperty Name="Religion" ColumnName="Religion" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="OTP" ColumnName="OTP" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
-                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
-                <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />
                 <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
+                <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />
+                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
+                <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientLabReports">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientLabReport">
               <MappingFragment StoreEntitySet="PatientLabReport">
-                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
-                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
-                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
-                <ScalarProperty Name="LabName" ColumnName="LabName" />
-                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="LabName" ColumnName="LabName" />
+                <ScalarProperty Name="BillNo" ColumnName="BillNo" />
+                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientLoginEntries">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientLoginEntry">
               <MappingFragment StoreEntitySet="PatientLoginEntry">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
-                <ScalarProperty Name="Locked" ColumnName="Locked" />
-                <ScalarProperty Name="LoginAttemptDate" ColumnName="LoginAttemptDate" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="LoginAttemptDate" ColumnName="LoginAttemptDate" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientLoginHistories">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientLoginHistory">
               <MappingFragment StoreEntitySet="PatientLoginHistory">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PatientTransactions">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientTransaction">
               <MappingFragment StoreEntitySet="PatientTransaction">
-                <ScalarProperty Name="PatientTransactionId" ColumnName="PatientTransactionId" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
-                <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
-                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
-                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
                 <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PatientTransactionId" ColumnName="PatientTransactionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="States">
             <EntityTypeMapping TypeName="PatientPortalModel.State">
               <MappingFragment StoreEntitySet="State">
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

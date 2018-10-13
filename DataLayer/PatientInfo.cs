@@ -39,13 +39,13 @@ namespace DataLayer
         public Nullable<System.DateTime> DOB { get; set; }
         public string Gender { get; set; }
         public string Address { get; set; }
-        public Nullable<int> City { get; set; }
+        public Nullable<int> CityId { get; set; }
         public string Country { get; set; }
         public Nullable<int> PinCode { get; set; }
         public string Religion { get; set; }
         public Nullable<int> DepartmentId { get; set; }
         public string OTP { get; set; }
-        public Nullable<int> State { get; set; }
+        public Nullable<int> StateId { get; set; }
         public byte[] Photo { get; set; }
         public string FatherOrHusbandName { get; set; }
         public string ResetCode { get; set; }
@@ -55,7 +55,7 @@ namespace DataLayer
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }
-        public virtual City City1 { get; set; }
+        public virtual City City { get; set; }
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LabReport> LabReports { get; set; }
@@ -65,7 +65,7 @@ namespace DataLayer
         public virtual ICollection<PatientLabReport> PatientLabReports { get; set; }
         public virtual PatientInfo PatientInfo1 { get; set; }
         public virtual PatientInfo PatientInfo2 { get; set; }
-        public virtual State State1 { get; set; }
+        public virtual State State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PatientLoginEntry> PatientLoginEntries { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
