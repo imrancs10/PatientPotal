@@ -289,6 +289,15 @@
     <Content Include="img\pp.jpg" />
     <Content Include="img\pp11.jpg" />
     <Content Include="img\ppp.png" />
+    <Content Include="img\slider01.jpg" />
+    <Content Include="img\slider02.jpg" />
+    <Content Include="img\slider03.jpg" />
+    <Content Include="img\slider04.jpg" />
+    <Content Include="img\slider05.jpg" />
+    <Content Include="img\slider06.jpg" />
+    <Content Include="img\slider1.jpg" />
+    <Content Include="img\slider2.jpg" />
+    <Content Include="img\slider3.jpg" />
     <Content Include="img\triangle-down.svg" />
     <Content Include="Scripts\App\Appointment\Appoint.js" />
     <Content Include="Scripts\App\Appointment\PatientProfile.js" />
