@@ -45,6 +45,7 @@
         <AssociationConnector Association="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" />
         <AssociationConnector Association="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" />
         <AssociationConnector Association="PatientPortalModel.FK_PatientTransaction_PatientInfo" />
+        <EntityTypeShape EntityType="PatientPortalModel.PateintLeadger" Width="1.5" PointX="0.75" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

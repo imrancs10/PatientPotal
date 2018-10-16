@@ -14,7 +14,6 @@ namespace PatientPortal.BAL.Patient
     public class PatientDetails
     {
         PatientPortalEntities _db = null;
-
         public Dictionary<string, object> GetPatientDetail(string UserId, string Password)
         {
             _db = new PatientPortalEntities();
@@ -124,7 +123,10 @@ namespace PatientPortal.BAL.Patient
             var _patientRow = _db.PatientInfoes.Include(x => x.City).Include(x => x.State).Include(x => x.PatientTransactions).Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
             if (_patientRow != null)
             {
-                _patientRow.ValidUpto = info.ValidUpto;
+                if (_patientRow.ValidUpto.Value.Date > DateTime.Now.Date)
+                    _patientRow.ValidUpto = _patientRow.ValidUpto.Value.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
+                else
+                    _patientRow.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();
             }
@@ -215,21 +217,21 @@ namespace PatientPortal.BAL.Patient
             _db = new PatientPortalEntities();
             Dictionary<string, object> result = new Dictionary<string, object>();
             int _effectRow = 0;
-            var _deptRow = _db.PatientTransactions.Include(x => x.PatientInfo).Where(x => x.PatientId == info.PatientId).FirstOrDefault();
-            if (_deptRow == null)
-            {
-                _db.Entry(info).State = EntityState.Added;
-                _effectRow = _db.SaveChanges();
-                result.Add("status", CrudStatus.Saved.ToString());
-                result.Add("data", info);
-                return result;
-            }
-            else
-            {
-                result.Add("status", CrudStatus.DataAlreadyExist.ToString());
-                result.Add("data", _deptRow);
-                return result;
-            }
+            //var _deptRow = _db.PatientTransactions.Include(x => x.PatientInfo).Where(x => x.PatientId == info.PatientId).FirstOrDefault();
+            //if (_deptRow == null)
+            //{
+            _db.Entry(info).State = EntityState.Added;
+            _effectRow = _db.SaveChanges();
+            result.Add("status", CrudStatus.Saved.ToString());
+            result.Add("data", info);
+            return result;
+            //}
+            //else
+            //{
+            //    result.Add("status", CrudStatus.DataAlreadyExist.ToString());
+            //    result.Add("data", _deptRow);
+            //    return result;
+            //}
         }
 
         public bool SavePatientLoginHistory(PatientLoginHistory info)

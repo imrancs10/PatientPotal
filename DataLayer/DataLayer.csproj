@@ -103,6 +103,9 @@
     <Compile Include="MeridiemMaster.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="PateintLeadger.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="PatientBillReport.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>

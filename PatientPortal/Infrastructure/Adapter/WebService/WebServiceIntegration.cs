@@ -66,7 +66,7 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
         public PDModel GetPatientOPDDetail()
         {
             GetPatOpdDetails service = new GetPatOpdDetails();
-            var result = service.GetPatientOPDDetails("0");
+            var result = service.GetPatientOPDDetails("pp:2017/053668");
             if (result.ToLower().Contains("no record"))
                 return null;
             Serializer serilizer = new Serializer();

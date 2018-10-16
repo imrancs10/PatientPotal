@@ -320,7 +320,6 @@ namespace PatientPortal.Controllers
                 {
                     var info = (PatientInfo)Session["PatientInfoRenewal"];
                     PatientDetails _details = new PatientDetails();
-                    info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
                     info = _details.UpdatePatientValidity(info);
                     PatientTransaction transaction = new PatientTransaction()
                     {
@@ -334,11 +333,11 @@ namespace PatientPortal.Controllers
                     };
                     var transactionData = _details.SavePatientTransaction(transaction);
                     info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
-                    //SendMailTransactionResponse(info.RegistrationNumber, ((PatientInfo)result["data"]));
+                    SendMailTransactionResponseRegistrationRenewal(info.RegistrationNumber, info, transaction);
                     transaction.OrderId = info.RegistrationNumber;
-                    ViewData["TransactionSuccessResult"] = transaction;
-                    ViewData["TransactionSuccessResultForRenewal"] = transaction;
                     Session["PatientInfoRenewal"] = null;
+                    TempData["transaction"] = transaction;
+                    return RedirectToAction("TransactionResponseRenewal");
                 }
                 else
                 {
@@ -391,7 +390,12 @@ namespace PatientPortal.Controllers
                 return View();
             }
         }
-
+        public ActionResult TransactionResponseRenewal()
+        {
+            PatientTransaction transaction = TempData["transaction"] as PatientTransaction;
+            ViewData["TransactionSuccessResult"] = transaction;
+            return View();
+        }
         private static HISPatientInfoInsertModel setregistrationModelForHISPortal(PatientInfo info)
         {
             return new HISPatientInfoInsertModel()
@@ -436,6 +440,23 @@ namespace PatientPortal.Controllers
                     MessageNameTo = info.FirstName + " " + info.MiddleName + (string.IsNullOrWhiteSpace(info.MiddleName) ? "" : " ") + info.LastName,
                     Subject = "Registration Created",
                     Body = EmailHelper.GetRegistrationSuccessEmail(info.FirstName, info.MiddleName, info.LastName, serialNumber, baseUrl + passwordCreateURL)
+                };
+
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+            });
+        }
+
+        private async Task SendMailTransactionResponseRegistrationRenewal(string serialNumber, PatientInfo info, PatientTransaction transaction)
+        {
+            await Task.Run(() =>
+            {
+                Message msg = new Message()
+                {
+                    MessageTo = info.Email,
+                    MessageNameTo = info.FirstName + " " + info.MiddleName + (string.IsNullOrWhiteSpace(info.MiddleName) ? "" : " ") + info.LastName,
+                    Subject = "Registration Renew",
+                    Body = EmailHelper.GetRegistrationSuccessEmailRenew(info.FirstName, info.MiddleName, info.LastName, transaction)
                 };
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
@@ -762,7 +783,7 @@ namespace PatientPortal.Controllers
             {
                 return View("Logout");
             }
-               
+
         }
 
         [HttpPost]
