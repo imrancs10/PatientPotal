@@ -18,14 +18,14 @@ namespace PatientPortal.Models
         public Nullable<System.DateTime> DOB { get; set; }
         public string Gender { get; set; }
         public string Address { get; set; }
-        public string City { get; set; }
+        public string CityId { get; set; }
         public string Country { get; set; }
         public Nullable<int> PinCode { get; set; }
         public string Religion { get; set; }
         public string Department { get; set; }
         public int DepartmentId { get; set; }
         public string OTP { get; set; }
-        public string State { get; set; }
+        public string StateId { get; set; }
         public byte[] Photo { get; set; }
         public string FatherOrHusbandName { get; set; }
         public string CRNumber { get; set; }

@@ -14,15 +14,30 @@
     }
 
     var patientinfo = GetPatientInfo();
-    var photoSrc = "../img/avatar-1.jpg";
+    string photoSrc = string.Empty;
+    string daysRemaning = string.Empty;
+    bool showingDaysRemaining = false;
+    if (patientinfo.Gender == "Male")
+    {
+        photoSrc = "../img/avatar-male.jpg";
+    }
+    else
+    {
+        photoSrc = "../img/avatar-female.png";
+    }
     if (patientinfo != null && patientinfo.Photo != null && patientinfo.Photo.Length > 0)
     {
         var base64 = Convert.ToBase64String(patientinfo.Photo);
         photoSrc = string.Format("data:image/jpg;base64,{0}", base64);
     }
-
-
-
+    if (patientinfo.ValidUpto != null)
+    {
+        daysRemaning = Convert.ToString((patientinfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
+        if (Convert.ToInt32(daysRemaning) <= 10)
+        {
+            showingDaysRemaining = true;
+        }
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -54,9 +69,24 @@
     @if ((User as CustomPrincipal) != null)
     {
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="">
-                <div class="navbar-header">
-                    @Html.ActionLink(hospitalName, "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div style="width:100%">
+                <div class="navbar-header" style="width:100%">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div style="float:left">
+                                @Html.ActionLink(hospitalName, "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                            </div>
+                        </div>
+                        @if (showingDaysRemaining)
+                        {
+                            <div class="col-md-6">
+                                <div style="float:right;">
+                                    Your Registration will expired in @daysRemaning days, click here to
+                                    @Html.ActionLink("Renew", "MakePayment", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
                 <div class="navbar-collapse collapse">
                 </div>
@@ -70,7 +100,7 @@
 
             <div class="hoe-right-header" hoe-position-type="relative">
                 <span class="hoe-sidebar-toggle"><a href="#"></a></span>
-                <ul class="right-navbar">
+                <ul class="right-navbar" style="padding-top:7px;">
                     <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span><img class="img-circle " src="@photoSrc"></span>
@@ -198,7 +228,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="isDisabled" href="javascript:void(0)">
+                        <a class="isDisabled" href="~/Home/MakePayment">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Make Payment</span>
                             <span class="label sul">New</span>

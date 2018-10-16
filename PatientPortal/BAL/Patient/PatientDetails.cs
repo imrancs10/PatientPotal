@@ -15,17 +15,22 @@ namespace PatientPortal.BAL.Patient
     {
         PatientPortalEntities _db = null;
 
-        public PatientInfo GetPatientDetail(string UserId, string Password)
+        public Dictionary<string, object> GetPatientDetail(string UserId, string Password)
         {
             _db = new PatientPortalEntities();
+            Dictionary<string, object> resultDic = new Dictionary<string, object>();
             //string hashPassword = Utility.GetHashString(Password);
             var result = _db.PatientInfoes.Include(x => x.Department)
                                     .Include(x => x.PatientLoginEntries)
-                                    .Where(x => x.RegistrationNumber == UserId && x.Password == Password)
+                                    .Where(x => x.RegistrationNumber == UserId
+                                         && x.Password == Password
+                                         && DbFunctions.TruncateTime(x.ValidUpto) >= DbFunctions.TruncateTime(DateTime.Now))
                                     .FirstOrDefault();
-
             if (result != null)
             {
+                resultDic.Add("status", CrudStatus.Updated);
+                resultDic.Add("data", result);
+
                 WebSession.PatientRegNo = result.RegistrationNumber;
 
                 var loginEntry = (from obj in result.PatientLoginEntries.AsEnumerable()
@@ -55,10 +60,19 @@ namespace PatientPortal.BAL.Patient
                         _db.PatientLoginEntries.Remove(_loginRow);
                         _db.SaveChanges();
                     }
-                    return result;
                 }
             }
-            return null;
+            else
+            {
+                var data = _db.PatientInfoes.Include(x => x.Department)
+                                    .Include(x => x.PatientLoginEntries)
+                                    .Where(x => x.RegistrationNumber == UserId
+                                         && x.Password == Password)
+                                    .FirstOrDefault();
+                resultDic.Add("status", CrudStatus.RegistrationExpired);
+                resultDic.Add("data", data);
+            }
+            return resultDic;
         }
 
         public PatientInfo GetPatientDetailByRegistrationNumber(string UserId)
@@ -98,6 +112,19 @@ namespace PatientPortal.BAL.Patient
                 _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
                 _patientRow.CRNumber = !string.IsNullOrEmpty(info.CRNumber) ? info.CRNumber : _patientRow.CRNumber;
                 _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber;
+                _db.Entry(_patientRow).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return _patientRow;
+        }
+
+        public PatientInfo UpdatePatientValidity(PatientInfo info)
+        {
+            _db = new PatientPortalEntities();
+            var _patientRow = _db.PatientInfoes.Include(x => x.City).Include(x => x.State).Include(x => x.PatientTransactions).Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+            if (_patientRow != null)
+            {
+                _patientRow.ValidUpto = info.ValidUpto;
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();
             }

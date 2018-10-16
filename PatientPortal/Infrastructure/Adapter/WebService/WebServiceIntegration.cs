@@ -1,4 +1,5 @@
 ﻿using PatientPortal.HISWebReference;
+using PatientPortal.OPDWebReference;
 using PatientPortal.Infrastructure.Utility;
 using PatientPortal.Models;
 using PatientPortal.PateintInfoService;
@@ -60,6 +61,17 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
                         "</NewDataSet>";
 
             return str;
+        }
+
+        public PDModel GetPatientOPDDetail()
+        {
+            GetPatOpdDetails service = new GetPatOpdDetails();
+            var result = service.GetPatientOPDDetails("0");
+            if (result.ToLower().Contains("no record"))
+                return null;
+            Serializer serilizer = new Serializer();
+            result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
+            return serilizer.Deserialize<PDModel>(result, "Table1");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace PatientPortal.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -40,6 +40,16 @@ namespace PatientPortal.Properties {
         public string PatientPortal_PateintInfoService_GetPatient_Info_insert {
             get {
                 return ((string)(this["PatientPortal_PateintInfoService_GetPatient_Info_insert"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://103.78.201.146/PateintPortalWebservice/GetPatOpdDetails.asmx")]
+        public string PatientPortal_OPDWebReference_GetPatOpdDetails {
+            get {
+                return ((string)(this["PatientPortal_OPDWebReference_GetPatOpdDetails"]));
             }
         }
     }

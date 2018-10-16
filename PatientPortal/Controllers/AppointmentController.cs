@@ -141,7 +141,7 @@ namespace PatientPortal.Controllers
             {
                 RegistrationNumber = result.RegistrationNumber,
                 Address = result.Address,
-                City = Convert.ToString(result.City),
+                CityId = Convert.ToString(result.City),
                 Country = result.Country,
                 Department = result.Department.DepartmentName,
                 DOB = result.DOB,
@@ -153,7 +153,7 @@ namespace PatientPortal.Controllers
                 MobileNumber = result.MobileNumber,
                 PinCode = result.PinCode,
                 Religion = result.Religion,
-                State = Convert.ToString(result.State),
+                StateId = Convert.ToString(result.State),
                 Photo = result.Photo
             };
             return model;

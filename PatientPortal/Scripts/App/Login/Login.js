@@ -29,7 +29,10 @@ $(document).ready(function () {
     utility.bindDdlByAjax(app.urls.commonDepartmentList, 'department', 'DeparmentName', 'DepartmentId', function () {
         //
     });
-    var jsonData = jsonPatient;
+    var jsonData = null;
+    if (typeof jsonPatient !== 'undefined') {
+        jsonData = jsonPatient;
+    }
 
     fillState(); //101 is the country id of India
     function fillState() {
@@ -94,7 +97,6 @@ $(document).ready(function () {
     function fillCountryStateCity() {
         //Get CIty
         $.ajax({
-            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetCitieByCItyId',

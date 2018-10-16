@@ -7,11 +7,9 @@ using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Infrastructure.Authentication;
 using PatientPortal.Infrastructure.Utility;
 using PatientPortal.Models;
-using PatientPortal.PateintInfoService;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -20,8 +18,6 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Xml;
-using System.Xml.Serialization;
 using static PatientPortal.Global.Enums;
 
 namespace PatientPortal.Controllers
@@ -39,6 +35,8 @@ namespace PatientPortal.Controllers
             DepartmentDetails _details = new DepartmentDetails();
             var result = _details.DepartmentList();
             ViewData["Departments"] = result;
+            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail();
+            ViewData["PDDetail"] = opdDetail;
             return View();
         }
 
@@ -47,11 +45,19 @@ namespace PatientPortal.Controllers
         {
             PatientDetails _details = new PatientDetails();
             var result = _details.GetPatientDetail(username, password);
+            var patientInfo = ((PatientInfo)result["data"]);
+            var msg = (CrudStatus)result["status"];
+            if (msg == CrudStatus.RegistrationExpired)
+            {
+                Session["PatientInfoRenewal"] = patientInfo;
+                SetAlertMessage("Registration Expired, Kindly renew it.", "Login");
+                return RedirectToAction("TransactionPayReNewal");
+            }
             if (result != null)
             {
-                Session["PatientId"] = result.PatientId;
-                setUserClaim(result);
-                SaveLoginHistory(result.PatientId);
+                Session["PatientId"] = patientInfo.PatientId;
+                setUserClaim(patientInfo);
+                SaveLoginHistory(patientInfo.PatientId);
                 return RedirectToAction("Dashboard");
             }
             else
@@ -210,6 +216,10 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
+        public ActionResult TransactionPayReNewal()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult CreatePassword(string registrationNumber)
         {
@@ -305,46 +315,74 @@ namespace PatientPortal.Controllers
                     ViewData["FailTransaction"] = true;
                     return View();
                 }
-
-                PatientDetails _details = new PatientDetails();
-                string serialNumber = VerificationCodeGeneration.GetSerialNumber();
-                if (Session["PatientInfo"] != null)
+                //renewal 
+                if (Session["PatientInfoRenewal"] != null)
                 {
-                    PatientInfoModel model = Session["PatientInfo"] as PatientInfoModel;
-                    Dictionary<string, object> result = SavePatientInfo(model.MaritalStatus, model.Title, model.FirstName, model.MiddleName, model.LastName, model.DOB.ToString(), model.Gender, model.MobileNumber, model.Email, model.Address, model.City, model.Country, model.PinCode.ToString(), model.Religion, model.DepartmentId.ToString(), "", model.State, model.FatherOrHusbandName, 0, null, model.AadharNumber);
-                    if (result["status"].ToString() == CrudStatus.Saved.ToString())
+                    var info = (PatientInfo)Session["PatientInfoRenewal"];
+                    PatientDetails _details = new PatientDetails();
+                    info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
+                    info = _details.UpdatePatientValidity(info);
+                    PatientTransaction transaction = new PatientTransaction()
                     {
-                        int patientId = ((PatientInfo)result["data"]).PatientId;
-                        PatientInfo info = new PatientInfo()
-                        {
-                            RegistrationNumber = serialNumber,
-                            PatientId = patientId
-                        };
-                        info = _details.UpdatePatientDetail(info);
-                        PatientTransaction transaction = new PatientTransaction()
-                        {
-                            PatientId = patientId,
-                            Amount = Convert.ToInt32(objResMsgDTO.TrnAmt),
-                            OrderId = objResMsgDTO.OrderId,
-                            ResponseCode = objResMsgDTO.ResponseCode,
-                            StatusCode = objResMsgDTO.StatusCode,
-                            TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
-                            TransactionNumber = objResMsgDTO.PgMeTrnRefNo
-                        };
-                        _details.SavePatientTransaction(transaction);
-                        SendMailTransactionResponse(serialNumber, ((PatientInfo)result["data"]));
-                        transaction.OrderId = serialNumber;
-                        ViewData["TransactionSuccessResult"] = transaction;
-                        Session["PatientInfo"] = null;
-                        //send patient data to HIS portal
-                        HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
-                        WebServiceIntegration service = new WebServiceIntegration();
-                        string serviceResult = service.GetPatientInfoinsert(insertModel);
-                    }
+                        PatientId = info.PatientId,
+                        Amount = Convert.ToInt32(objResMsgDTO.TrnAmt),
+                        OrderId = objResMsgDTO.OrderId,
+                        ResponseCode = objResMsgDTO.ResponseCode,
+                        StatusCode = objResMsgDTO.StatusCode,
+                        TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
+                        TransactionNumber = objResMsgDTO.PgMeTrnRefNo
+                    };
+                    var transactionData = _details.SavePatientTransaction(transaction);
+                    info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
+                    //SendMailTransactionResponse(info.RegistrationNumber, ((PatientInfo)result["data"]));
+                    transaction.OrderId = info.RegistrationNumber;
+                    ViewData["TransactionSuccessResult"] = transaction;
+                    ViewData["TransactionSuccessResultForRenewal"] = transaction;
+                    Session["PatientInfoRenewal"] = null;
                 }
                 else
                 {
-                    SetAlertMessage("There Was Some Error in transaction Processing.....Please Check The Data you have Entered", "Transaction");
+                    PatientDetails _details = new PatientDetails();
+                    string serialNumber = VerificationCodeGeneration.GetSerialNumber();
+                    if (Session["PatientInfo"] != null)
+                    {
+                        PatientInfoModel model = Session["PatientInfo"] as PatientInfoModel;
+                        Dictionary<string, object> result = SavePatientInfo(model.MaritalStatus, model.Title, model.FirstName, model.MiddleName, model.LastName, model.DOB.ToString(), model.Gender, model.MobileNumber, model.Email, model.Address, model.CityId, model.Country, model.PinCode.ToString(), model.Religion, model.DepartmentId.ToString(), "", model.StateId, model.FatherOrHusbandName, 0, null, model.AadharNumber);
+                        if (result["status"].ToString() == CrudStatus.Saved.ToString())
+                        {
+                            int patientId = ((PatientInfo)result["data"]).PatientId;
+                            PatientInfo info = new PatientInfo()
+                            {
+                                RegistrationNumber = serialNumber,
+                                PatientId = patientId
+                            };
+                            info = _details.UpdatePatientDetail(info);
+                            PatientTransaction transaction = new PatientTransaction()
+                            {
+                                PatientId = patientId,
+                                Amount = Convert.ToInt32(objResMsgDTO.TrnAmt),
+                                OrderId = objResMsgDTO.OrderId,
+                                ResponseCode = objResMsgDTO.ResponseCode,
+                                StatusCode = objResMsgDTO.StatusCode,
+                                TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
+                                TransactionNumber = objResMsgDTO.PgMeTrnRefNo
+                            };
+                            var transactionData = _details.SavePatientTransaction(transaction);
+                            info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
+                            SendMailTransactionResponse(serialNumber, ((PatientInfo)result["data"]));
+                            transaction.OrderId = serialNumber;
+                            ViewData["TransactionSuccessResult"] = transaction;
+                            Session["PatientInfo"] = null;
+                            //send patient data to HIS portal
+                            HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
+                            WebServiceIntegration service = new WebServiceIntegration();
+                            string serviceResult = service.GetPatientInfoinsert(insertModel);
+                        }
+                    }
+                    else
+                    {
+                        SetAlertMessage("There Was Some Error in transaction Processing.....Please Check The Data you have Entered", "Transaction");
+                    }
                 }
                 return View();
             }
@@ -488,7 +526,7 @@ namespace PatientPortal.Controllers
             {
                 RegistrationNumber = result.RegistrationNumber,
                 Address = result.Address,
-                City = Convert.ToString(result.City),
+                CityId = Convert.ToString(result.CityId),
                 Country = result.Country,
                 Department = result.Department.DepartmentName,
                 DOB = result.DOB,
@@ -500,12 +538,13 @@ namespace PatientPortal.Controllers
                 MobileNumber = result.MobileNumber,
                 PinCode = result.PinCode,
                 Religion = result.Religion,
-                State = Convert.ToString(result.State),
+                StateId = Convert.ToString(result.StateId),
                 Photo = result.Photo,
                 FatherOrHusbandName = result.FatherOrHusbandName,
                 MaritalStatus = result.MaritalStatus,
                 ValidUpto = result.ValidUpto,
-                Title = result.Title
+                Title = result.Title,
+                AadharNumber = result.AadharNumber
             };
             return model;
         }
@@ -551,7 +590,7 @@ namespace PatientPortal.Controllers
             {
                 AadharNumber = aadharNumber,
                 Address = address,
-                City = city,
+                CityId = city,
                 Country = country,
                 Department = dept != null ? dept.DepartmentName : string.Empty,
                 DOB = Convert.ToDateTime(DOB),
@@ -563,7 +602,7 @@ namespace PatientPortal.Controllers
                 MobileNumber = mobilenumber,
                 PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0,
                 Religion = religion,
-                State = state,
+                StateId = state,
                 FatherOrHusbandName = FatherHusbandName,
                 DepartmentId = Convert.ToInt32(department),
                 MaritalStatus = MaritalStatus,
@@ -709,6 +748,23 @@ namespace PatientPortal.Controllers
             return View();
         }
 
+        [CustomAuthorize]
+        public ActionResult MakePayment()
+        {
+            PatientDetails _details = new PatientDetails();
+            var result = _details.GetPatientDetailById(User.Id);
+            if (result != null)
+            {
+                Session["PatientInfoRenewal"] = result;
+                return RedirectToAction("TransactionPayReNewal");
+            }
+            else
+            {
+                return View("Logout");
+            }
+               
+        }
+
         [HttpPost]
         [CustomAuthorize]
         public ActionResult ChangePassword(string oldpassword, string newpassword, string confirmnewpassword)
@@ -791,12 +847,12 @@ namespace PatientPortal.Controllers
                     MobileNumber = patient.Mobileno != "N/A" ? patient.Mobileno : string.Empty,
                     Email = patient.Email != "N/A" ? patient.Email : string.Empty,
                     Address = patient.Address != "N/A" ? patient.Address : string.Empty,
-                    City = patient.City != "N/A" ? GetCityIdByCItyName(patient.City) : string.Empty,
+                    CityId = patient.City != "N/A" ? GetCityIdByCItyName(patient.City) : string.Empty,
                     Country = patient.Country != "N/A" ? patient.Country : string.Empty,
                     PinCode = int.TryParse(patient.Pincode, out pin) ? pin : 0,
                     Religion = patient.Religion != "N/A" ? patient.Religion : string.Empty,
                     Department = Convert.ToString(patient.deptid),
-                    State = patient.State != "N/A" ? GetStateIdByStateName(patient.State) : string.Empty,
+                    StateId = patient.State != "N/A" ? GetStateIdByStateName(patient.State) : string.Empty,
                     FatherOrHusbandName = patient.FatherOrHusbandName != "N/A" ? patient.FatherOrHusbandName : string.Empty,
                     CRNumber = patient.Registrationnumber != "N/A" ? patient.Registrationnumber : string.Empty,
                 };

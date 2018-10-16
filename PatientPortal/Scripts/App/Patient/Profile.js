@@ -18,11 +18,10 @@ $(document).ready(function () {
     function fillCountryStateCity() {
         //Get CIty
         $.ajax({
-            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetCitieByCItyId',
-            data: '{citiId: "' + jsonData.City + '" }',
+            data: '{citiId: "' + jsonData.CityId + '" }',
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $("#cityLabel").html(data.CityName);
@@ -36,11 +35,10 @@ $(document).ready(function () {
         });
         //get State
         $.ajax({
-            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetStateByStateId',
-            data: '{stateId: "' + jsonData.State + '" }',
+            data: '{stateId: "' + jsonData.StateId + '" }',
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $("#stateLabel").html(data.StateName);
@@ -73,25 +71,6 @@ $(document).ready(function () {
         $("#MaritalStatus").val(jsonData.MaritalStatus);
     }
 
-    //fillCountry();
-    //function fillCountry() {
-    //    let dropdown = $('#country');
-    //    dropdown.empty();
-    //    dropdown.append('<option value="">Select</option>');
-    //    dropdown.prop('selectedIndex', 0);
-    //    const url = utility.baseUrl + 'Json/countries.json';
-    //    // Populate dropdown with list of provinces
-    //    $.getJSON(url, function (data) {
-    //        $.each(data.countries, function (key, entry) {
-    //            if (entry.name == 'India')
-    //                dropdown.append($('<option selected="true"></option>').attr('value', entry.id).text(entry.name));
-    //            else
-    //                dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
-    //        })
-    //        dropdown.val(jsonData.Country);
-    //    });
-    //}
-
     fillState();
     function fillState() {
         let dropdown = $('#state');
@@ -99,7 +78,6 @@ $(document).ready(function () {
         dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         $.ajax({
-            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetSates',
@@ -108,7 +86,7 @@ $(document).ready(function () {
                 $.each(data, function (key, entry) {
                     dropdown.append($('<option></option>').attr('value', entry.StateId).text(entry.StateName));
                 })
-                dropdown.val(jsonData.State);
+                dropdown.val(jsonData.StateId);
                 fillCity();
             },
             failure: function (response) {
@@ -121,13 +99,12 @@ $(document).ready(function () {
     }
     
     function fillCity() {
-        var stateId = jsonData.State;
+        var stateId = jsonData.StateId;
         let dropdown = $('#city');
         dropdown.empty();
         dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         $.ajax({
-            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetCities',
@@ -137,7 +114,7 @@ $(document).ready(function () {
                 $.each(data, function (key, entry) {
                     dropdown.append($('<option></option>').attr('value', entry.CityId).text(entry.CityName));
                 })
-                dropdown.val(jsonData.City);
+                dropdown.val(jsonData.CityId);
             },
             failure: function (response) {
                 alert(response);
@@ -184,7 +161,6 @@ $(document).ready(function () {
         dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         $.ajax({
-            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetCities',
@@ -194,7 +170,7 @@ $(document).ready(function () {
                 $.each(data, function (key, entry) {
                     dropdown.append($('<option></option>').attr('value', entry.CityId).text(entry.CityName));
                 })
-                dropdown.val(jsonData.City);
+                dropdown.val(jsonData.CityId);
             },
             failure: function (response) {
                 alert(response);

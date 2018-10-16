@@ -8,5 +8,8 @@
     <Setting Name="PatientPortal_PateintInfoService_GetPatient_Info_insert" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://103.78.201.146/PateintPortalWebservice/GetPatient_Info_insert.asmx</Value>
     </Setting>
+    <Setting Name="PatientPortal_OPDWebReference_GetPatOpdDetails" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://103.78.201.146/PateintPortalWebservice/GetPatOpdDetails.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

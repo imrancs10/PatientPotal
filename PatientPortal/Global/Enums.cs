@@ -9,8 +9,8 @@ namespace PatientPortal.Global
     {
         public enum LoginMessage
         {
-            Authenticated=1,
-            InvalidCreadential=2,
+            Authenticated = 1,
+            InvalidCreadential = 2,
             LoginFailed,
             UserDeleted,
             UserInactive,
@@ -31,7 +31,8 @@ namespace PatientPortal.Global
             SessionExpired,
             InvalidPostedData,
             InvalidPastDate,
-            InternalError
+            InternalError,
+            RegistrationExpired
         }
 
         public enum ReportType
@@ -42,10 +43,10 @@ namespace PatientPortal.Global
 
         public enum JsonResult
         {
-            Data_NotFound=100,
+            Data_NotFound = 100,
             Invalid_DataId = 101,
-            Data_Expire=102,
-            Success=103,
+            Data_Expire = 102,
+            Success = 103,
             Unsuccessful
         }
     }

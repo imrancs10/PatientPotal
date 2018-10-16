@@ -216,6 +216,7 @@
     <Compile Include="Infrastructure\Utility\Serializer.cs" />
     <Compile Include="Infrastructure\Utility\VerificationCodeGeneration.cs" />
     <Compile Include="Models\Common\CommonModel.cs" />
+    <Compile Include="Models\PDModel.cs" />
     <Compile Include="Models\Masters\AppSettingModel.cs" />
     <Compile Include="Models\Masters\DepartmentModel.cs" />
     <Compile Include="Models\Masters\ScheduleModel.cs" />
@@ -232,6 +233,11 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Infrastructure\Utility\MultipleButtonAttribute.cs" />
     <Compile Include="Web References\HISWebReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\OPDWebReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -262,7 +268,6 @@
     <Content Include="Content\hoe.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="ExternalAssembly\com.awl.MerchantToolKit.dll" />
-    <Content Include="ExternalAssembly\HISInsert.txt" />
     <Content Include="ExternalAssembly\RequestAndResponse.dll" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -274,7 +279,8 @@
     <Content Include="img\179352.png" />
     <Content Include="img\ajax-loader.gif" />
     <Content Include="img\arrow.png" />
-    <Content Include="img\avatar-1.jpg" />
+    <Content Include="img\avatar-female.png" />
+    <Content Include="img\avatar-male.jpg" />
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner.jpg" />
     <Content Include="img\click.gif" />
@@ -352,12 +358,20 @@
     <Content Include="Views\Admin\PatientBillReport.cshtml" />
     <Content Include="Views\Shared\_PatientSearch.cshtml" />
     <Content Include="Views\Admin\PatientLabReport.cshtml" />
+    <Content Include="Views\Home\TransactionPayReNewal.cshtml" />
+    <Content Include="Views\Home\MakePayment.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
-    <None Include="Web References\PateintInfoService\GetPatient_Info_insert.wsdl" />
-    <Content Include="Web References\PateintInfoService\Reference.map">
+    <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
+    <None Include="Web References\OPDWebReference\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
+    <None Include="Web References\PateintInfoService\GetPatient_Info_insert.wsdl" />
+    <None Include="Web References\OPDWebReference\GetPatOpdDetails.disco" />
+    <None Include="Web References\PateintInfoService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <None Include="Web References\PateintInfoService\GetPatient_Info_insert.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -398,10 +412,10 @@
     <Content Include="Views\Home\ResetPassword.cshtml" />
     <Content Include="Views\Home\CRIntegrate.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.wsdl" />
-    <Content Include="Web References\HISWebReference\Reference.map">
+    <None Include="Web References\HISWebReference\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -451,6 +465,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>PatientPortal_PateintInfoService_GetPatient_Info_insert</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://103.78.201.146/PateintPortalWebservice/GetPatOpdDetails.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\OPDWebReference\</RelPath>
+      <UpdateFromURL>http://103.78.201.146/PateintPortalWebservice/GetPatOpdDetails.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PatientPortal_OPDWebReference_GetPatOpdDetails</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>

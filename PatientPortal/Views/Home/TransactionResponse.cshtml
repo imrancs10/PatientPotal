@@ -45,7 +45,7 @@
     @if (Convert.ToBoolean(ViewData["FailTransaction"]) == true)
     {
         <form id="form" class="form-horizontal" action="PaymentTransaction" method="post" autocomplete="off">
-            <div class="container body-content">
+            <div class="container body-content" style="padding-bottom: 20px;">
                 <div id="loginContainer" class="dialog dialog-effect-in" style="width:550px">
                     <div class="dialog-front">
                         <div class="dialog-content">
@@ -69,7 +69,7 @@
     }
     else
     {
-        <div class="container body-content">
+        <div class="container body-content" style="padding-bottom: 20px;">
             <div id="loginContainer" class="dialog dialog-effect-in" style="width:550px">
                 <div class="dialog-front">
                     <div class="dialog-content">
@@ -80,11 +80,21 @@
                                 <fieldset>
                                     <legend style="background-color:lightgoldenrodyellow;text-align:center;">
                                         <font style="font-size:18px">Transaction Response</font><br />
-                                        <font style="font-size:13px">
-                                            <b>Your Transaction is successful</b><br />
-                                            We have sent you your <b>registration Number </b>along with <b>Create new password link</b>.<br />
-                                            Kindly click on that link to create your password
-                                        </font>
+                                        @if (ViewData["TransactionSuccessResultForRenewal"] != null)
+                                        {
+                                            <font style="font-size:13px">
+                                                <b>Your Transaction is successful</b><br />
+                                                  Your registration is Renewed, now you can login to account.
+                                            </font>
+                                        }
+                                        else
+                                        {
+                                            <font style="font-size:13px">
+                                                <b>Your Transaction is successful</b><br />
+                                                We have sent you your <b>registration Number </b>along with <b>Create new password link</b>.<br />
+                                                Kindly click on that link to create your password
+                                            </font>
+                                        }
                                     </legend>
 
                                     <div class="form-group">

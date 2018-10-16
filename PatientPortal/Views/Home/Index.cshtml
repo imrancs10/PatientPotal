@@ -153,9 +153,34 @@
                     <img src="~/img/click.gif" class="img-responsive" style="height:55px;width:250px;" />
                 </div>
                 <div class="col-md-8 hidden-xs">
-                    <marquee behavior="scroll" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop();" OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" direction="left" scrollamount="3" scrolldelay="1" ;>
+                    <marquee behavior="scroll" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop();"
+                             OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" direction="left" scrollamount="3" scrolldelay="1">
+                        @{
+                            PatientPortal.Models.PDModel pdmodel;
+                            string totOPD = "0000";
+                            string totIPD = "0000";
+                            string total = "0000";
+                            if (ViewData["PDDetail"] != null)
+                            {
+                                pdmodel = ViewData["PDDetail"] as PatientPortal.Models.PDModel;
+                                totOPD = pdmodel.totOPD;
+                                totIPD = pdmodel.totIPD;
+                                total = Convert.ToString(Convert.ToInt32(pdmodel.totOPD) + Convert.ToInt32(pdmodel.totIPD));
+                            }
+                        }
                         <div align="left">
-                            <a href="#" target="_parent" style="float:left;margin-left:10px; margin-top: 15px;color:#000;">No. of OPD: <span style="color:#953b39;">00000 </span>|| No. of IN Patient: <span style="color:#953b39;">00000 </span> || No. Of Total Patient: <span style="color:#953b39;">000000</span> </a>
+                            <a href="#" target="_parent" style="float:left;margin-left:10px; margin-top: 15px;color:#000;">
+                                No. of OPD: <span style="color:#953b39;">
+                                    @totOPD
+                                </span>
+                                || No.of IN Patient: <span style="color:#953b39;">
+                                    @totIPD
+                                </span>
+                                || No.Of Total Patient:
+                                <span style="color:#953b39;">
+                                    @total
+                                </span>
+                            </a>
                         </div>
                     </marquee>
                 </div>

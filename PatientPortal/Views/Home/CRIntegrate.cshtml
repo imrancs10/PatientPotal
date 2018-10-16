@@ -176,8 +176,8 @@
                                     <div class="form-group">
                                         <label for="aadharNumber" class="control-label col-md-4 col-sm-12 col-xs-12">Aadhar Number</label>
                                         <div class="col-md-4 col-sm-6 col-xs-6">
-                                            <input name="aadharNumber" id="aadharNumber" class="common-input" placeholder="Enter your Aadhar Number" maxlength='12' 
-                                                   type="text" onkeypress="return isNumber(event)" autocomplete="off">
+                                            <input name="aadharNumber" id="aadharNumber" class="common-input" placeholder="Enter your Aadhar Number" minlength="12"
+                                                   maxlength='12' type="text" onkeypress="return isNumber(event)" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -242,7 +242,7 @@
                                 <div class="form-group">
                                     <label for="Pin Code" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Pin Code</span></label>
                                     <div class="col-md-7 col-sm-12 col-xs-12">
-                                        <input type="text" value="@json.PinCode" name="pincode"  class="register-input"
+                                        <input type="text" value="@json.PinCode" name="pincode" class="register-input"
                                                id="pincode" onkeypress="return isNumber(event)"
                                                placeholder="Enter Pin Code" maxlength="6" autocomplete="off">
                                     </div>
@@ -283,7 +283,7 @@
             </div>
         </div>
     </div>
-    
+
     <hr class="text-center navbar-fixed-bottom" />
     <footer class="text-center navbar-fixed-bottom">
         <p>&copy; @DateTime.Now.Year - Patient Portal</p>
