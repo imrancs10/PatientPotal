@@ -9,7 +9,14 @@
         <div class="panel panel-primary">
             <div class="panel-heading">Lab Reports</div>
             <div class="panel-body">
-                @{ 
+                @{
+                    var listReport = Model as List<ReportModel>;
+                    if (listReport.Count() == 0)
+                    {
+                        <div class="col-sm-12 col-lg-12">
+                            No Record Found
+                        </div>
+                    }
                     foreach (ReportModel item in Model)
                     {
                         <div class="col-sm-12 col-lg-12 filecontainer">
