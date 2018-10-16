@@ -3,17 +3,20 @@
 /// <reference path="../Global/Utility.js" />
 
 $(document).ready(function () {
-    var jsonData = jsonPatient;
+    var jsonData = null;
+    if (typeof (jsonPatient) !== 'undefined') {
+        jsonData = jsonPatient;
+    }
 
     utility.bindDdlByAjax(app.urls.commonDepartmentList, 'department', 'DeparmentName', 'DepartmentId', function () {
         $("#department").val(jsonData.Department);
     });
 
-    if (jsonData.PinCode == 0) {
+    if (jsonData.PinCode === 0) {
         $("#pincode").val("");
     }
 
-    if (jsonData.DOB == null) {
+    if (jsonData.DOB === null) {
         $("#DOB").val("");
     }
 
@@ -41,7 +44,7 @@ $(document).ready(function () {
                 $.each(data, function (key, entry) {
                     dropdown.append($('<option></option>').attr('value', entry.StateId).text(entry.StateName));
                 });
-                dropdown.val(jsonData.State);
+                dropdown.val(jsonData.StateId);
                 fillCity();
             },
             failure: function (response) {
@@ -54,7 +57,7 @@ $(document).ready(function () {
     }
 
     function fillCity() {
-        var stateId = jsonData.State;
+        var stateId = jsonData.StateId;
         let dropdown = $('#city');
         dropdown.empty();
         dropdown.append('<option value="">Select</option>');
@@ -69,7 +72,7 @@ $(document).ready(function () {
                 $.each(data, function (key, entry) {
                     dropdown.append($('<option></option>').attr('value', entry.CityId).text(entry.CityName));
                 });
-                dropdown.val(jsonData.City);
+                dropdown.val(jsonData.CityId);
             },
             failure: function (response) {
                 alert(response);
@@ -87,7 +90,6 @@ $(document).ready(function () {
     });
 
     function fillCityByStateId(stateId) {
-        //var stateId = jsonData.State;
         let dropdown = $('#city');
         dropdown.empty();
         dropdown.append('<option value="">Select</option>');
@@ -112,11 +114,6 @@ $(document).ready(function () {
         });
     }
 
-    $("input:file").change(function () {
-        var fileName = $(this).val();
-        fileName = fileName.substring(fileName.indexOf('fakepath') + 9, fileName.length);
-        $("#filename").html(fileName);
-    });
 });
 
 function isNumber(evt) {

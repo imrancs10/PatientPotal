@@ -71,7 +71,6 @@ $(document).ready(function () {
         dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
         $.ajax({
-            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetCities',
@@ -100,7 +99,7 @@ $(document).ready(function () {
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetCitieByCItyId',
-            data: '{citiId: "' + jsonData.City + '" }',
+            data: '{citiId: "' + jsonData.CityId + '" }',
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $("#cityLabel").html(data.CityName);
@@ -114,11 +113,10 @@ $(document).ready(function () {
         });
         //get State
         $.ajax({
-            contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetStateByStateId',
-            data: '{stateId: "' + jsonData.State + '" }',
+            data: '{stateId: "' + jsonData.StateId + '" }',
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $("#stateLabel").html(data.StateName);
