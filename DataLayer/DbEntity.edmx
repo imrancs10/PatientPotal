@@ -197,6 +197,7 @@
           <Property Name="CRNumber" Type="varchar" MaxLength="50" />
           <Property Name="ValidUpto" Type="datetime" />
           <Property Name="AadharNumber" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PatientLabReport">
           <Key>
@@ -925,6 +926,7 @@
           <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="PatientLabReport">
           <Key>
@@ -1410,6 +1412,7 @@
           <EntitySetMapping Name="PatientInfoes">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
               <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
                 <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
                 <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />

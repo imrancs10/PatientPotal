@@ -193,6 +193,7 @@ namespace PatientPortal.BAL.Patient
                 if (_deptRow == null)
                 {
                     info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
+                    info.CreatedDate = DateTime.Now;
                     _db.Entry(info).State = EntityState.Added;
                     _effectRow = _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());
