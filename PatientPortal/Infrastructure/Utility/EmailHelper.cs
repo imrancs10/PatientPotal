@@ -33,9 +33,9 @@ namespace PatientPortal.Infrastructure.Utility
         {
             string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
             body += "As you requested, your registration is Renew.<br/><br/>";
-            body += "<br/><b>Transaction Referance No</b>" + transaction.TransactionNumber + "";
-            body += "<br/><b>Transaction Date</b>" + transaction.TransactionDate + "";
-            body += "<br/><b>Transaction Amount</b>" + transaction.Amount + "";
+            body += "<br/><b>Transaction Referance No : </b>" + transaction.TransactionNumber + "";
+            body += "<br/><b>Transaction Date : </b>" + transaction.TransactionDate + "";
+            body += "<br/><b>Transaction Amount : </b>" + transaction.Amount + "";
             body += "<br/><br/>Thank You,<br/>";
             body += "Patient Portal Information System Customer Support";
             return body;
