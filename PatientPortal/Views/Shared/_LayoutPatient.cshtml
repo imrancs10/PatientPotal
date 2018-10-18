@@ -102,8 +102,9 @@
                 <div class="col-md-12">
                     <div class="renewtext">
                         <div class="row">
-                            <div class="col-md-11 hidden-xs"><h4>Your Registration will expired in @daysRemaning days, click here to</h4></div>
-                            <div class="col-md-1"><h4>@Html.ActionLink("Renew", "MakePayment", "Home", new { area = "" }, new { })</h4></div>
+                            <div class="col-md-11 hidden-xs" style="white-space:nowrap"><h4>Your Registration will expired in @daysRemaning days,  
+                                @Html.ActionLink("click here to Renew", "MakePayment", "Home", new { area = "" }, new { })</h4></div>
+                            @*<div class="col-md-1"><h4></h4></div>*@
                         </div>
 
                     </div>

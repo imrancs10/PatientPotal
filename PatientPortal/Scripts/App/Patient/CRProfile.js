@@ -7,6 +7,37 @@ $(document).ready(function () {
     if (typeof (jsonPatient) !== 'undefined') {
         jsonData = jsonPatient;
     }
+    disableControl();
+    function disableControl() {
+        if (jsonData.Title !== '')
+            $('#title').attr('disabled', 'disabled');
+        if (jsonData.FirstName !== '')
+            $('#firstname').attr('disabled', 'disabled');
+        if (jsonData.MiddleName !== '')
+            $('#middlename').attr('disabled', 'disabled');
+        if (jsonData.LastName !== '')
+            $('#lastname').attr('disabled', 'disabled');
+        if (jsonData.FatherOrHusbandName !== '')
+            $('#FatherHusbandName').attr('disabled', 'disabled');
+        if (jsonData.MaritalStatus !== '')
+            $('#MaritalStatus').attr('disabled', 'disabled');
+        if (jsonData.MobileNumber !== '')
+            $('#mobilenumber').attr('disabled', 'disabled');
+        if (jsonData.Gender !== '')
+            $('#Gender').attr('disabled', 'disabled');
+        if (jsonData.DOB !== '')
+            $('#DOB').attr('disabled', 'disabled');
+        if (jsonData.Address !== '')
+            $('#address').attr('disabled', 'disabled');
+        if (jsonData.StateId !== '')
+            $('#state').attr('disabled', 'disabled');
+        if (jsonData.CityId !== '')
+            $('#city').attr('disabled', 'disabled');
+        if (jsonData.Department !== '')
+            $('#department').attr('disabled', 'disabled');
+        if (jsonData.Religion !== '')
+            $('#religion').attr('disabled', 'disabled');
+    }
 
     utility.bindDdlByAjax(app.urls.commonDepartmentList, 'department', 'DeparmentName', 'DepartmentId', function () {
         $("#department").val(jsonData.Department);

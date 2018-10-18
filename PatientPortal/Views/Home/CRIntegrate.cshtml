@@ -125,7 +125,7 @@
                                     <div class="form-group">
                                         <label for="title" class="control-label col-md-4 col-sm-12 col-xs-12">Title<font color="FF0000">*</font></label>
                                         <div class="col-md-4 col-sm-6 col-xs-6">
-                                            <select id="title" class="common-input selectval" name="title" data-live-search="true" data-valid="required" required>
+                                            <select id="title" class="common-input selectval" name="title" data-live-search="true">
                                                 <option value="">Select</option>
                                                 <option value="Mr.">Mr.</option>
                                                 <option value="Mrs.">Mrs.</option>
@@ -133,11 +133,13 @@
                                                 <option value="Dr.">Dr.</option>
                                                 <option value="Mohd.">Mohd.</option>
                                             </select>
+                                            <input type="hidden" value="@json.Title" name="title" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="FirstName" class="control-label col-md-4 col-sm-12 col-xs-12"><span>First Name<font color="FF0000">*</font></span></label>
                                         <div class="col-md-8 col-sm-12 col-xs-12">
+                                            <input type="hidden" value="@json.FirstName" name="firstname" />
                                             <input type="text" value="@json.FirstName" name="firstname" data-valid="required" class="register-input"
                                                    id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off" required />
                                         </div>
@@ -147,6 +149,7 @@
                                         <div class="col-md-8 col-sm-12 col-xs-12">
                                             <input type="text" value="@json.MiddleName" name="middlename" class="register-input" id="middlename"
                                                    placeholder="Enter Middle Name " maxlength="50" autocomplete="off">
+                                            <input type="hidden" value="@json.MiddleName" name="middlename" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -154,6 +157,7 @@
                                         <div class="col-md-8 col-sm-12 col-xs-12">
                                             <input type="text" value="@json.LastName" name="lastname" data-valid="required" class="register-input" id="lastname"
                                                    placeholder="Enter LastName" maxlength="50" autocomplete="off" required>
+                                            <input type="hidden" value="@json.LastName" name="lastname" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -161,6 +165,7 @@
                                         <div class="col-md-8 col-sm-12 col-xs-12">
                                             <input type="text" value="@json.FatherOrHusbandName" name="FatherHusbandName" data-valid="required" class="register-input" id="FatherHusbandName"
                                                    placeholder="Enter Father/Husband Name" maxlength="100" autocomplete="off" required>
+                                            <input type="hidden" value="@json.FatherOrHusbandName" name="FatherHusbandName" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -171,6 +176,7 @@
                                                 <option value="S">Single</option>
                                                 <option value="M">Married</option>
                                             </select>
+                                            <input type="hidden" value="@json.MaritalStatus" name="MaritalStatus" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -178,6 +184,7 @@
                                         <div class="col-md-4 col-sm-6 col-xs-6">
                                             <input name="aadharNumber" id="aadharNumber" class="common-input" placeholder="Enter your Aadhar Number" minlength="12"
                                                    maxlength='12' type="text" onkeypress="return isNumber(event)" autocomplete="off">
+                                            <input type="hidden" value="@json.AadharNumber" name="aadharNumber" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -185,6 +192,7 @@
                                         <div class="col-md-8 col-sm-12 col-xs-12">
                                             <input type="text" value="@json.Email" name="email" data-valid="required" class="register-input" id="email"
                                                    placeholder="Enter Email" maxlength="50" autocomplete="off" required>
+                                            <input type="hidden" value="@json.Email" name="email" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -193,6 +201,7 @@
                                             <input id="mobilenumber" class="register-input" required name="mobilenumber" placeholder="Enter Mobile Number"
                                                    autocomplete="off" onkeypress="return isNumber(event)" value="@json.MobileNumber" type="text" maxlength="10"
                                                    data-valid="required" data-type="phone" minlength="10" />
+                                            <input type="hidden" value="@json.MobileNumber" name="mobilenumber" />
                                         </div>
                                     </div>
                                 </div>
@@ -205,6 +214,7 @@
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select>
+                                        <input type="hidden" value="@json.Gender" name="Gender" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -212,6 +222,7 @@
                                     <div class="col-md-4 col-sm-6 col-xs-6">
                                         <input type="date" value="@Convert.ToDateTime(json.DOB).ToString("yyyy-MM-dd")" name="DOB" data-valid="required" class="register-input"
                                                id="DOB" placeholder="Enter DOB" maxlength="50" autocomplete="off" required>
+                                        <input type="hidden" value="@Convert.ToDateTime(json.DOB).ToString("yyyy-MM-dd")" name="DOB" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -219,18 +230,21 @@
                                     <div class="col-md-7 col-sm-12 col-xs-12">
                                         <input type="text" value="@json.Address" name="address" data-valid="required" class="register-input" id="address"
                                                placeholder="Enter Address " maxlength="50" autocomplete="off" required>
+                                        <input type="hidden" value="@json.Address" name="address" />
                                     </div>
                                 </div>
                                 <div class="form-group" id="state_val">
                                     <label for="State" class="control-label col-md-4 col-sm-12 col-xs-12">State<font color="FF0000">*</font></label>
                                     <div class="col-md-7 col-sm-12 col-xs-12">
                                         <select class="common-input selectval" id="state" name="state" data-valid="required" required></select>
+                                        <input type="hidden" value="@json.StateId" name="state" />
                                     </div>
                                 </div>
                                 <div class="form-group" id="show_city">
                                     <label for="City" class="control-label col-md-4 col-sm-12 col-xs-12">City<font color="FF0000">*</font></label>
                                     <div class="col-md-7 col-sm-12 col-xs-12">
                                         <select class="common-input selectval" name="city" id="city" required></select>
+                                        <input type="hidden" value="@json.CityId" name="city" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -239,12 +253,14 @@
                                         <input type="text" value="@json.PinCode" name="pincode" class="register-input"
                                                id="pincode" onkeypress="return isNumber(event)"
                                                placeholder="Enter Pin Code" maxlength="6" autocomplete="off">
+                                        <input type="hidden" value="@json.PinCode" name="pincode" />
                                     </div>
                                 </div>
                                 <div class="form-group" id="resi_status">
                                     <label for="department" class="control-label col-md-4 col-sm-12 col-xs-12"><span>Department<font color="FF0000">*</font></span></label>
                                     <div class="col-md-7 col-sm-12 col-xs-12">
                                         <select class="common-input selectval" name="department" id="department" required></select>
+                                        <input type="hidden" value="@json.Department" name="department" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -263,6 +279,7 @@
                                             <option value="Buddhist" title="Buddhist">Buddhist</option>
                                             <option value="Other" title="Other">Other</option>
                                         </select>
+                                        <input type="hidden" value="@json.Religion" name="religion" />
                                     </div>
                                 </div>
                                 <hr />
