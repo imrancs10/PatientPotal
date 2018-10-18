@@ -858,6 +858,8 @@ namespace PatientPortal.Controllers
             if (patient != null)
             {
                 int pin = 0;
+               
+
                 var crData = new PatientInfoModel()
                 {
                     FirstName = patient.Firstname != "N/A" ? patient.Firstname : string.Empty,
@@ -876,9 +878,21 @@ namespace PatientPortal.Controllers
                     StateId = patient.State != "N/A" ? GetStateIdByStateName(patient.State) : string.Empty,
                     FatherOrHusbandName = patient.FatherOrHusbandName != "N/A" ? patient.FatherOrHusbandName : string.Empty,
                     CRNumber = patient.Registrationnumber != "N/A" ? patient.Registrationnumber : string.Empty,
+                    Title = patient.Title != "N/A" ? patient.Title : string.Empty,
+                    AadharNumber = patient.AadharNo != "N/A" ? patient.AadharNo : string.Empty,
+                    MaritalStatus = patient.MaritalStatus != "N/A" ? patient.MaritalStatus : string.Empty,
+                    DoR = patient.DoR != "N/A" ? patient.DoR : string.Empty,
+                    ValidUpto = patient.ValidUpto != "N/A" ? Convert.ToDateTime(patient.ValidUpto) : Convert.ToDateTime(patient.DoR).AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"])),
                 };
+                TimeSpan ageDiff = DateTime.Now.Subtract(Convert.ToDateTime(patient.DoR));
+                crData.DOB = crData.DOB.Value.Add(ageDiff);
+                if (crData.LastName == string.Empty && !string.IsNullOrEmpty(crData.MiddleName))
+                {
+                    crData.LastName = crData.MiddleName;
+                    crData.MiddleName = string.Empty;
+                }
                 ViewData["CRData"] = crData;
-                Session["CRNumber"] = CRNumber;
+                Session["crData"] = crData;
                 return View();
             }
             else
@@ -906,16 +920,18 @@ namespace PatientPortal.Controllers
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     string serialNumber = VerificationCodeGeneration.GetSerialNumber();
+                    var crData = (PatientInfoModel)Session["crData"];
                     PatientInfo info = new PatientInfo()
                     {
                         RegistrationNumber = serialNumber,
-                        CRNumber = !string.IsNullOrEmpty(Convert.ToString(Session["CRNumber"])) ? Convert.ToString(Session["CRNumber"]) : string.Empty,
-                        PatientId = ((PatientInfo)result["data"]).PatientId
+                        CRNumber = !string.IsNullOrEmpty(Convert.ToString(crData.CRNumber)) ? Convert.ToString(crData.CRNumber) : string.Empty,
+                        PatientId = ((PatientInfo)result["data"]).PatientId,
+                        ValidUpto = crData.ValidUpto
                     };
                     PatientDetails _details = new PatientDetails();
                     info = _details.UpdatePatientDetail(info);
                     SendMailTransactionResponse(serialNumber, info);
-                    Session["CRNumber"] = null;
+                    Session["crData"] = null;
                 }
                 else
                 {

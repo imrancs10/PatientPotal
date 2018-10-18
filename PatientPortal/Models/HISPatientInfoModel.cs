@@ -23,5 +23,11 @@ namespace PatientPortal.Models
         public string Registrationnumber { get; set; }
         public string FatherOrHusbandName { get; set; }
         public string State { get; set; }
+        public string Title { get; set; }
+        public string MaritalStatus { get; set; }
+        public string DoR { get; set; }
+        public string AadharNo { get; set; }
+        public string ValidUpto { get; set; }
+
     }
 }

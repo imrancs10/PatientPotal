@@ -25,6 +25,16 @@ $(document).ready(function () {
         $("#Gender").val(jsonData.Gender);
     }
 
+    setSelectedTitle();
+    function setSelectedTitle() {
+        $("#title").val(jsonData.Title);
+    }
+
+    setSelectedMaritalStatus();
+    function setSelectedMaritalStatus() {
+        $("#MaritalStatus").val(jsonData.MaritalStatus);
+    }
+
     setSelectedReligion();
     function setSelectedReligion() {
         $("#religion").val(jsonData.Religion);
