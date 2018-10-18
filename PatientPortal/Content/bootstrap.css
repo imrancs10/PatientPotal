@@ -6830,118 +6830,146 @@ td.visible-print {
     box-shadow: 1px 1px 15px 1px rgba(175, 173, 173, 0.58);
     background: #fbfbfb;
 }
-
-/*Css for Blinking Tetx*/
-.qua {
-    font-size: 18px;
-    margin: 25px 0 10px;
-    font-family: 'OpenSans-Semibold';
+.divmargin {
+    margin-bottom:20px;
+    margin-top:20px;
+    /*margin-left:-20px;*/
 }
-    .qua:before {
-        content: "\f122";
-        font-family: 'FontAwesome';
-        display: inline-block;
-        vertical-align: top;
-        color: #77c043;
-        margin-right: 7px;
-        transform: rotateY(-180deg);
-        -webkit-transform: rotateY(-180deg);
-        -moz-transform: rotateY(-180deg);
+
+    /*Css for Blinking Tetx*/
+    .qua {
+        font-size: 18px;
+        margin: 25px 0 10px;
+        font-family: 'OpenSans-Semibold';
     }
 
-/*Pnael*/
-.blogSidebar .panel {
-    border-radius: 0;
-    border: none;
-    margin-bottom: 30px;
-    box-shadow: 2px 2px 10px 0px #dedede;
-}
+        .qua:before {
+            content: "\f122";
+            font-family: 'FontAwesome';
+            display: inline-block;
+            vertical-align: top;
+            color: #77c043;
+            margin-right: 7px;
+            transform: rotateY(-180deg);
+            -webkit-transform: rotateY(-180deg);
+            -moz-transform: rotateY(-180deg);
+        }
 
-.panel-default {
-    border-color: #ddd;
-}
-
-.panel {
-    margin-bottom: 20px;
-    background-color: #fff;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
-}
-.panel-heading{
-    border-color: #1977ce;
-}
-.blogSidebar .panel-body {
-    border: 1px solid #dedede;
-    border-top: none;
-    padding: 15px;
-}
-
-.panel-body {
-    padding: 15px;
-}
-.panel-body:before{
-    display: table;
-    content: " ";
-}
-ul {
-    margin: 0;
-    padding: 0;
-}
-ul li {
-    list-style-type: none;
-}
-
-li {
-    line-height: 20px;
-}
-.blogSidebar .categoryList li a {
-    padding: 14px 0;
-    display: block;
-    border-bottom: 1px dashed #b7b7b7;
-    color: #666666;
-    text-align: left;
-}
-
-a {
-    color: #848282;
-}
-@-webkit-keyframes argh-my-eyes {
-    0%{background-color: #953b39;}
-    25% {background-color: #3879d9;}
-    50% {background-color: #953b39;}
-    75% {background-color: #3879d9;}
-    100% {background-color: #953b39;}
+    /*Pnael*/
+    .blogSidebar .panel {
+        border-radius: 0;
+        border: none;
+        margin-bottom: 30px;
+        box-shadow: 2px 2px 10px 0px #dedede;
     }
 
-.number {
-    -webkit-animation: argh-my-eyes 1s infinite;
-    -moz-animation: argh-my-eyes 1s infinite;
-    animation: argh-my-eyes 1s infinite;
-    padding: 1px;
-    border-radius: 4px;
-    color: White;
-}
-.blink {
-    color: white;
-    animation: blink 1s linear infinite;
-}
-
-@keyframes blink {
-    0% {
-        opacity: 0;
+    .panel-default {
+        border-color: #ddd;
     }
 
-    50% {
-        opacity: 1;
+    .panel {
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
     }
 
-    100% {
-        opacity: 2;
+    .panel-heading {
+        border-color: #1977ce;
     }
-}
-/* Add a black background color to the top navigation 
+
+    .blogSidebar .panel-body {
+        border: 1px solid #dedede;
+        border-top: none;
+        padding: 15px;
+    }
+
+    .panel-body {
+        padding: 15px;
+    }
+
+        .panel-body:before {
+            display: table;
+            content: " ";
+        }
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+        ul li {
+            list-style-type: none;
+        }
+
+    li {
+        line-height: 20px;
+    }
+
+    .blogSidebar .categoryList li a {
+        padding: 14px 0;
+        display: block;
+        border-bottom: 1px dashed #b7b7b7;
+        color: #666666;
+        text-align: left;
+    }
+
+    a {
+        color: #848282;
+    }
+
+    @-webkit-keyframes argh-my-eyes {
+        0% {
+            background-color: #953b39;
+        }
+
+        25% {
+            background-color: #3879d9;
+        }
+
+        50% {
+            background-color: #953b39;
+        }
+
+        75% {
+            background-color: #3879d9;
+        }
+
+        100% {
+            background-color: #953b39;
+        }
+    }
+
+    .number {
+        -webkit-animation: argh-my-eyes 1s infinite;
+        -moz-animation: argh-my-eyes 1s infinite;
+        animation: argh-my-eyes 1s infinite;
+        padding: 1px;
+        border-radius: 4px;
+        color: White;
+    }
+
+    .blink {
+        color: white;
+        animation: blink 1s linear infinite;
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 2;
+        }
+    }
+    /* Add a black background color to the top navigation 
 .topnav {
     background-color: #333;
     overflow: hidden;

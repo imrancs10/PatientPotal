@@ -69,6 +69,8 @@ body{position:relative;}
     z-index: 10;
 	position:relative;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    margin-top:22px;
+    width:445px;
 }
 .hoe-left-header {
     background: #3498db;
@@ -80,6 +82,7 @@ body{position:relative;}
     text-align: center;
     width: 230px;
     z-index: 999;
+    width: 175px;
 }
 .hoe-left-header a {
     color: #FFF;
@@ -127,7 +130,7 @@ body{position:relative;}
 }
 .right-navbar {
     float: right;
-	padding-right: 7px !important;
+	padding-right: 90px !important;
 }
 .right-navbar li a i {
     font-size: 14px;
@@ -173,6 +176,26 @@ body{position:relative;}
     position: fixed;
     width: 100%;
 }
+
+#profileimage {
+    width: 130px;
+    height: 150px;
+    box-shadow: 3px 3px 3px #8080803b;
+    border-radius: 4px;
+    border: 1px solid #8080803d;
+}
+.form-group {
+    margin-bottom: 6px !important;
+}
+
+    .form-group div {
+        font-size: 11px;
+    }
+
+    .form-group label {
+        margin-bottom: 0px !important;
+        font-weight: 550 !important;
+    }
 /*******************************Theme Header Style Close Here ***********************************/
 /******************************* 4. main container Style start Here ***********************************/
 #hoeapp-container {
@@ -187,13 +210,13 @@ body{position:relative;}
 #hoe-left-panel {
     background: #FFF none repeat scroll 0 0;
     color: #7e7e7e;
-    width: 230px;
+    width: 175px;
     top: 0;
 	position:absolute;
 	float:left;
-	min-height:100%;
     z-index: 100;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    height:700px;
 }
 #hoe-left-panel .profile-box {
     border-bottom: 1px solid #efefef;
@@ -802,4 +825,55 @@ body[theme-bg="bg9"]{
 /*Theme Background Color in Close */
 
 
+@media (min-width: 768px) {
+    #hoe-header {
+        background: #fff none repeat scroll 0 0;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 51px;
+        z-index: 10;
+        position: relative;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+        /*margin-top: 22px;*/
+    }
+    .hoe-left-header {
+        background: #3498db;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 50px;
+        position: absolute;
+        float: left;
+        text-align: center;
+        z-index: 999;
+        width:280px;
 
+    }
+    #hoe-left-panel {
+    background: #FFF none repeat scroll 0 0;
+    color: #7e7e7e;
+     width: 280px; 
+    height:500px !important;
+    top: 0;
+    position: absolute;
+    float: left;
+    z-index: 100;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+    .divmargin {
+        margin-bottom: 20px;
+        margin-top: 20px;
+        margin-left: 0px;
+    }
+    .right-navbar {
+        float: right;
+        padding-right: 7px !important;
+    }
+    #profileimage {
+        width: 150px;
+        height: 150px;
+        box-shadow: 3px 3px 3px #8080803b;
+        border-radius: 4px;
+        border: 1px solid #8080803d;
+    }
+}

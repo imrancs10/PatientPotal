@@ -95,9 +95,11 @@
 /*#####################navigation panel with lpanel-bg2 theme Color Start################*/
 
 #hoeapp-container[hoe-color-type="lpanel-bg2"] #hoe-left-panel {
+    z-index: -999999999999999999;
     background: #3498DB none repeat scroll 0 0;
     color: #d7e9fc;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    
 }
 #hoeapp-container[hoe-color-type="lpanel-bg2"] #hoe-left-panel .profile-box {
     border-bottom: 1px solid #3ea2e5;
