@@ -307,6 +307,12 @@
 
 
 @media (min-width: 768px) {
+    .innercontentDashboard {
+        padding: 0px 15px;
+        color: #fff;
+        font-size: 13px;
+        margin-top: 0px;
+    }
     .innercontentDashboard .dataBoxSec .meetSec span {
         background-color: #0862af;
         padding: 30px 15px;
@@ -316,7 +322,7 @@
     .innercontentDashboard .dataBoxSec .dataBox {
         border-radius: 5px;
         position: relative;
-        width: 250px;
+        width: 260px;
         margin-bottom:15px;
     }
 }

@@ -1879,7 +1879,8 @@ textarea.input-lg {
 .btn-default {
     color: #333;
     background-color: #fff;
-    border-color: #ccc
+    border-color: #ccc;
+    margin-bottom:5px;
 }
 
     .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
@@ -3798,8 +3799,8 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 
 .navbar-brand {
     float: left;
-    padding: 7px 0px;
-    font-size: 17px;
+    padding: 7px 15px;
+    font-size: 16px;
     line-height: 20px
 }
 
@@ -4779,7 +4780,7 @@ a.thumbnail:hover, a.thumbnail:focus {
 }
 
 .media > .pull-left {
-    margin-right: 10px
+    margin-right: 6px
 }
 
 .media > .pull-right {

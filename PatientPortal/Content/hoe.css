@@ -130,7 +130,7 @@ body{position:relative;}
 }
 .right-navbar {
     float: right;
-	padding-right: 90px !important;
+	padding-right: 70px !important;
 }
 .right-navbar li a i {
     font-size: 14px;
@@ -145,7 +145,7 @@ body{position:relative;}
     font-family: FontAwesome;
     font-size: 14px;
     line-height: 50px;
-    padding: 0px 17px;
+    padding: 0px 0px;
     position: absolute;
     color: #7e7e7e;
     z-index: 1000;
@@ -216,7 +216,7 @@ body{position:relative;}
 	float:left;
     z-index: 100;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
-    height:700px;
+    height:100%;
 }
 #hoe-left-panel .profile-box {
     border-bottom: 1px solid #efefef;
@@ -824,7 +824,12 @@ body[theme-bg="bg9"]{
 }
 /*Theme Background Color in Close */
 
-
+.renewtext {
+    float: left;
+    color: #000000;
+    padding-left: 16px;
+    margin-top: 5px;
+}
 @media (min-width: 768px) {
     #hoe-header {
         background: #fff none repeat scroll 0 0;
@@ -875,5 +880,24 @@ body[theme-bg="bg9"]{
         box-shadow: 3px 3px 3px #8080803b;
         border-radius: 4px;
         border: 1px solid #8080803d;
+    }
+
+    .renewtext {
+        float: left;
+        color: #000000;
+        padding-left: 100px;
+        margin-top: 15px;
+    }
+    .hoe-sidebar-toggle a:after {
+        background: transparent;
+        border: 0px solid #efefef;
+        content: "\f0c9";
+        font-family: FontAwesome;
+        font-size: 14px;
+        line-height: 50px;
+        padding: 0px 25px;
+        position: absolute;
+        color: #7e7e7e;
+        z-index: 1000;
     }
 }
