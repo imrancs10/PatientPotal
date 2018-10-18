@@ -1,5 +1,5 @@
 ﻿.innercontentDashboard {
-    padding: 0px 15px;
+    padding: 0px 0px;
     color: #fff;
     font-size: 13px;
     margin-top: 0px;
@@ -14,7 +14,8 @@
         background: #ffffff;
         border-radius: 5px;
         position: relative;
-        width:168px;
+        width: 168px;
+        margin-bottom: 10px;
     }
 
 
@@ -316,5 +317,6 @@
         border-radius: 5px;
         position: relative;
         width: 250px;
+        margin-bottom:15px;
     }
 }
