@@ -35,7 +35,7 @@ namespace PatientPortal.BAL.Reports
             return _result > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
         }
 
-        public Enums.CrudStatus SetLabReportData(int PatientId, string BillNo,  string RefNo, string ReportUrl, string LabName,DateTime ReportDate)
+        public Enums.CrudStatus SetLabReportData(int PatientId, string BillNo, string RefNo, string ReportUrl, string LabName, DateTime ReportDate)
         {
             _db = new PatientPortalEntities();
             PatientLabReport _report = new PatientLabReport();
@@ -61,10 +61,10 @@ namespace PatientPortal.BAL.Reports
         public List<PatientLedgerModel> GetPatientLedger()
         {
             _db = new PatientPortalEntities();
-            var data = _db.PateintLeadgers.Where(x =>x.Patientid.Equals(WebSession.PatientId)).ToList();
+            var data = _db.PateintLeadgers.Where(x => x.Patientid == WebSession.PatientId).ToList();
             List<PatientLedgerModel> ledgerList = new List<PatientLedgerModel>();
 
-            if(data!=null)
+            if (data != null)
             {
                 foreach (var currentLedger in data)
                 {

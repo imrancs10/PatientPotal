@@ -158,12 +158,13 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
         <EntityType Name="PateintLeadger">
           <Key>
             <PropertyRef Name="Billid" />
+            <PropertyRef Name="Patientid" />
           </Key>
           <Property Name="Billid" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="godcode" Type="varchar" MaxLength="3" />
           <Property Name="opdid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="counterid" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="Patientid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Patientid" Type="int" Nullable="false" />
           <Property Name="regtranid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="inpatientid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="vtype" Type="char" MaxLength="2" />
@@ -732,6 +733,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <EntitySet Name="PatientLoginHistories" EntityType="PatientPortalModel.PatientLoginHistory" />
           <EntitySet Name="PatientTransactions" EntityType="PatientPortalModel.PatientTransaction" />
           <EntitySet Name="States" EntityType="PatientPortalModel.State" />
+          <EntitySet Name="PateintLeadgers" EntityType="PatientPortalModel.PateintLeadger" />
           <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="PatientPortalModel.FK_AppointmentInfo_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="AppointmentInfo" EntitySet="AppointmentInfoes" />
@@ -812,7 +814,6 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientTransaction" EntitySet="PatientTransactions" />
           </AssociationSet>
-          <EntitySet Name="PateintLeadgers" EntityType="PatientPortalModel.PateintLeadger" />
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
           <Key>
@@ -1028,6 +1029,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="CRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ValidUpto" Type="DateTime" Precision="3" />
           <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AppointmentInfoes" Relationship="PatientPortalModel.FK_AppointmentInfo_PatientInfo" FromRole="PatientInfo" ToRole="AppointmentInfo" />
           <NavigationProperty Name="City" Relationship="PatientPortalModel.FK_PatientInfo_City" FromRole="PatientInfo" ToRole="City" />
           <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
@@ -1040,7 +1042,6 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="PatientLabReport">
           <Key>
@@ -1100,6 +1101,63 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="StateName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cities" Relationship="PatientPortalModel.FK_City_State" FromRole="State" ToRole="City" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
+        </EntityType>
+        <EntityType Name="PateintLeadger">
+          <Key>
+            <PropertyRef Name="Billid" />
+            <PropertyRef Name="Patientid" />
+          </Key>
+          <Property Name="Billid" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="godcode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="opdid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="counterid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Patientid" Type="Int32" Nullable="false" />
+          <Property Name="regtranid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="inpatientid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="vtype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="saletype" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="vdate" Type="DateTime" Precision="3" />
+          <Property Name="vno" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="accode" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="doctorid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="receiptno" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="subtotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="netamt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="timeoftran" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="cancelled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="tailid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="salemode" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="formno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="challanno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="challandate" Type="DateTime" Precision="3" />
+          <Property Name="billno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billdate" Type="DateTime" Precision="3" />
+          <Property Name="orders" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="currency" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="convrate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="transcode" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="modeofdespatch" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="vehicleno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="grno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="grdate" Type="DateTime" Precision="3" />
+          <Property Name="gramount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="approved" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="approvedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="purtype" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="tbillid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="cashcode" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="contraloc" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="purpricelist" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="cancelleduserid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cancelledtime" Type="DateTime" Precision="3" />
+          <Property Name="grnidlist" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="autoposted" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="schemeid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="pcode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ipno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="entrytype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
         </EntityType>
         <Association Name="FK_AppointmentInfo_Doctor">
           <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
@@ -1341,63 +1399,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PateintLeadger">
-          <Key>
-            <PropertyRef Name="Billid" />
-          </Key>
-          <Property Name="Billid" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="godcode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="opdid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="counterid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Patientid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="regtranid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="inpatientid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="vtype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="saletype" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="vdate" Type="DateTime" Precision="3" />
-          <Property Name="vno" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="accode" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="userid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="doctorid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="receiptno" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="subtotal" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="netamt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="timeoftran" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="cancelled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="tailid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="salemode" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="formno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="challanno" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="challandate" Type="DateTime" Precision="3" />
-          <Property Name="billno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="billdate" Type="DateTime" Precision="3" />
-          <Property Name="orders" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="currency" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="convrate" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="transcode" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="modeofdespatch" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="vehicleno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="grno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="grdate" Type="DateTime" Precision="3" />
-          <Property Name="gramount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="approved" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="approvedby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="purtype" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="tbillid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="cashcode" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="contraloc" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="purpricelist" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="cancelleduserid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="cancelledtime" Type="DateTime" Precision="3" />
-          <Property Name="grnidlist" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="autoposted" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="schemeid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="pcode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="ipno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="entrytype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

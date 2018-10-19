@@ -18,7 +18,7 @@ namespace DataLayer
         public string godcode { get; set; }
         public Nullable<decimal> opdid { get; set; }
         public Nullable<decimal> counterid { get; set; }
-        public Nullable<decimal> Patientid { get; set; }
+        public int Patientid { get; set; }
         public Nullable<decimal> regtranid { get; set; }
         public Nullable<decimal> inpatientid { get; set; }
         public string vtype { get; set; }

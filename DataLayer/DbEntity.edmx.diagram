@@ -5,26 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="17bdfde0979b4eada3533e7770342351" Name="Diagram1" ZoomLevel="56">
-        <EntityTypeShape EntityType="PatientPortalModel.AppointmentInfo" Width="1.5" PointX="10.5" PointY="11.75" />
-        <EntityTypeShape EntityType="PatientPortalModel.AppointmentSetting" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PatientPortalModel.City" Width="1.5" PointX="3" PointY="12.625" />
-        <EntityTypeShape EntityType="PatientPortalModel.DayMaster" Width="1.5" PointX="11.25" PointY="17" />
-        <EntityTypeShape EntityType="PatientPortalModel.Department" Width="1.5" PointX="3" PointY="9.625" />
-        <EntityTypeShape EntityType="PatientPortalModel.Doctor" Width="1.5" PointX="8.25" PointY="11" />
-        <EntityTypeShape EntityType="PatientPortalModel.DoctorLeave" Width="1.5" PointX="10.5" PointY="8.5" />
-        <EntityTypeShape EntityType="PatientPortalModel.DoctorSchedule" Width="1.5" PointX="13.5" PointY="11" />
-        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_Login" Width="1.5" PointX="3" PointY="1.625" />
-        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_User" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="PatientPortalModel.HospitalDetail" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PatientPortalModel.LabReport" Width="1.5" PointX="7.5" PointY="4.25" />
-        <EntityTypeShape EntityType="PatientPortalModel.MeridiemMaster" Width="1.5" PointX="11.25" PointY="5.5" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientBillReport" Width="1.5" PointX="7.5" PointY="15.25" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientInfo" Width="1.5" PointX="5.25" PointY="9.375" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientLabReport" Width="1.5" PointX="7.5" PointY="7.125" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientLoginEntry" Width="1.5" PointX="7.5" PointY="21.75" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientLoginHistory" Width="1.5" PointX="7.5" PointY="19" />
-        <EntityTypeShape EntityType="PatientPortalModel.PatientTransaction" Width="1.5" PointX="7.5" PointY="24.625" />
-        <EntityTypeShape EntityType="PatientPortalModel.State" Width="1.5" PointX="0.75" PointY="12.625" />
+        <EntityTypeShape EntityType="PatientPortalModel.AppointmentInfo" Width="1.5" PointX="10.5" PointY="12.5" />
+        <EntityTypeShape EntityType="PatientPortalModel.AppointmentSetting" Width="1.5" PointX="12.75" PointY="1.5" />
+        <EntityTypeShape EntityType="PatientPortalModel.City" Width="1.5" PointX="3" PointY="13.375" />
+        <EntityTypeShape EntityType="PatientPortalModel.DayMaster" Width="1.5" PointX="8.25" PointY="15.625" />
+        <EntityTypeShape EntityType="PatientPortalModel.Department" Width="1.5" PointX="3" PointY="10.375" />
+        <EntityTypeShape EntityType="PatientPortalModel.Doctor" Width="1.5" PointX="8.25" PointY="0.75" />
+        <EntityTypeShape EntityType="PatientPortalModel.DoctorLeave" Width="1.5" PointX="10.5" PointY="9.125" />
+        <EntityTypeShape EntityType="PatientPortalModel.DoctorSchedule" Width="1.5" PointX="10.5" PointY="0.75" />
+        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_Login" Width="1.5" PointX="3" PointY="2.375" />
+        <EntityTypeShape EntityType="PatientPortalModel.Gbl_Master_User" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="PatientPortalModel.HospitalDetail" Width="1.5" PointX="2.75" PointY="6.5" />
+        <EntityTypeShape EntityType="PatientPortalModel.LabReport" Width="1.5" PointX="7.5" PointY="26" />
+        <EntityTypeShape EntityType="PatientPortalModel.MeridiemMaster" Width="1.5" PointX="8.25" PointY="29" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientBillReport" Width="1.5" PointX="7.5" PointY="7.75" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientInfo" Width="1.5" PointX="5.25" PointY="10" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientLabReport" Width="1.5" PointX="7.5" PointY="19.375" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientLoginEntry" Width="1.5" PointX="7.5" PointY="23" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientLoginHistory" Width="1.5" PointX="7.5" PointY="5" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientTransaction" Width="1.5" PointX="7.5" PointY="11.375" />
+        <EntityTypeShape EntityType="PatientPortalModel.State" Width="1.5" PointX="0.75" PointY="13.375" />
+        <EntityTypeShape EntityType="PatientPortalModel.PateintLeadger" Width="1.5" PointX="12.75" PointY="5.5" />
         <AssociationConnector Association="PatientPortalModel.FK_AppointmentInfo_Doctor" />
         <AssociationConnector Association="PatientPortalModel.FK_AppointmentInfo_PatientInfo" />
         <AssociationConnector Association="PatientPortalModel.FK_City_State" />
@@ -45,7 +46,6 @@
         <AssociationConnector Association="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" />
         <AssociationConnector Association="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" />
         <AssociationConnector Association="PatientPortalModel.FK_PatientTransaction_PatientInfo" />
-        <EntityTypeShape EntityType="PatientPortalModel.PateintLeadger" Width="1.5" PointX="0.75" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
