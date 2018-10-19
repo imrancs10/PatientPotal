@@ -15,7 +15,7 @@ namespace PatientPortal.APIController
         /// Get Patient List
         /// </summary>
         /// <returns>List of Patientinfo</returns>
-        public List<PatientInfo> GetPatientInfo()
+        public List<PatientInfo> GetPatientInfo(int id)
         {
             List<PatientInfo> list = new List<PatientInfo>() { new PatientInfo() { PatientId = 1 } };
             return list;
