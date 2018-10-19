@@ -35,7 +35,7 @@ namespace PatientPortal.Controllers
             DepartmentDetails _details = new DepartmentDetails();
             var result = _details.DepartmentList();
             ViewData["Departments"] = result;
-            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail();
+            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail("0");
             ViewData["PDDetail"] = opdDetail;
             return View();
         }

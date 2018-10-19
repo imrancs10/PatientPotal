@@ -14,6 +14,7 @@
     }
 
     var patientinfo = GetPatientInfo();
+    var patientOPDInfo = GetPatientOPDDetail();
     string photoSrc = string.Empty;
     string daysRemaning = string.Empty;
     bool showingDaysRemaining = false;
@@ -152,7 +153,7 @@
                         <div class="media-body">
                             <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>
                             <small>Patient</small> <br />
-                            <small style="color:#ffd800;">Admitted</small>&nbsp;&nbsp;&nbsp;<small style="color:#ffd800;">Current Balance Rs:5000</small>
+                            <small style="color:#ffd800;">Admitted</small>&nbsp;&nbsp;&nbsp;<small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
                         </div>
                     </div>
                 </div>

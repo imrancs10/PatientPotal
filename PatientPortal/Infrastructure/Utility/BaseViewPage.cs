@@ -2,7 +2,10 @@
 using PatientPortal.BAL.Appointments;
 using PatientPortal.BAL.Masters;
 using PatientPortal.BAL.Patient;
+using PatientPortal.Global;
+using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Infrastructure.Authentication;
+using PatientPortal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +55,13 @@ namespace PatientPortal.Infrastructure.Utility
         {
             PatientDetails _details = new PatientDetails();
             return _details.GetPatientDetailById(User.Id);
+        }
+
+        public virtual PDModel GetPatientOPDDetail()
+        {
+            string crNumber = string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientRegNo : WebSession.PatientCRNo;
+            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail(crNumber);
+            return opdDetail;
         }
     }
 }

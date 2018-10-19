@@ -88,5 +88,10 @@ namespace PatientPortal.Global
             get { return HttpContext.Current.Session["PatientRegNo"] == null ? string.Empty : HttpContext.Current.Session["PatientRegNo"].ToString(); }
             set { HttpContext.Current.Session["PatientRegNo"] = value; }
         }
+        public static string PatientCRNo
+        {
+            get { return HttpContext.Current.Session["PatientCRNo"] == null ? string.Empty : HttpContext.Current.Session["PatientCRNo"].ToString(); }
+            set { HttpContext.Current.Session["PatientCRNo"] = value; }
+        }
     }
 }

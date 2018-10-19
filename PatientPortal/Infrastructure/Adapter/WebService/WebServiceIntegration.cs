@@ -63,10 +63,10 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
             return str;
         }
 
-        public PDModel GetPatientOPDDetail()
+        public PDModel GetPatientOPDDetail(string crNumber)
         {
             GetPatOpdDetails service = new GetPatOpdDetails();
-            var result = service.GetPatientOPDDetails("0");
+            var result = service.GetPatientOPDDetails(crNumber);
             if (result.ToLower().Contains("no record"))
                 return null;
             Serializer serilizer = new Serializer();
