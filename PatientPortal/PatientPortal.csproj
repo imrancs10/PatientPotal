@@ -362,6 +362,7 @@
     <Content Include="Views\Home\TransactionPayReNewal.cshtml" />
     <Content Include="Views\Home\MakePayment.cshtml" />
     <Content Include="Views\Home\TransactionResponseRenewal.cshtml" />
+    <Content Include="Views\Report\PatientLedger.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">

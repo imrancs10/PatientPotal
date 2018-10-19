@@ -25,6 +25,12 @@ namespace PatientPortal.Controllers
             return View(_details.GetLabReportData());
         }
 
+        public ActionResult PatientLedger()
+        {
+            ReportDetails _details = new ReportDetails();
+            return View(_details.GetPatientLedger());
+        }
+
         public ActionResult DownloadReportFile(string fileUrl)
         {
             string _fileDirectory = fileUrl.Substring(0, fileUrl.LastIndexOf("\\") + 1);

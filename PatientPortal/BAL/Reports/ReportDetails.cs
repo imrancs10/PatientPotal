@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using DataLayer;
 using PatientPortal.Global;
+using PatientPortal.Models.Patient;
 
 namespace PatientPortal.BAL.Reports
 {
@@ -55,6 +56,31 @@ namespace PatientPortal.BAL.Reports
         {
             _db = new PatientPortalEntities();
             return _db.PatientLabReports.ToList();
+        }
+
+        public List<PatientLedgerModel> GetPatientLedger()
+        {
+            _db = new PatientPortalEntities();
+            var data = _db.PateintLeadgers.Where(x =>x.Patientid.Equals(WebSession.PatientId)).ToList();
+            List<PatientLedgerModel> ledgerList = new List<PatientLedgerModel>();
+
+            if(data!=null)
+            {
+                foreach (var currentLedger in data)
+                {
+                    PatientLedgerModel newLedger = new PatientLedgerModel();
+                    newLedger.Balance = currentLedger.subtotal.ToString();
+                    newLedger.Date = currentLedger.billdate == null ? DateTime.Now : Convert.ToDateTime(currentLedger.billdate);
+                    newLedger.Description = currentLedger.remarks;
+                    newLedger.IPNo = currentLedger.ipno;
+                    newLedger.Payment = currentLedger.gramount.ToString();
+                    newLedger.Receipt = currentLedger.netamt.ToString();
+                    newLedger.Type = currentLedger.vtype;
+                    newLedger.VNo = currentLedger.vno;
+                    ledgerList.Add(newLedger);
+                }
+            }
+            return ledgerList;
         }
     }
 }

@@ -31,6 +31,7 @@ namespace PatientPortal.BAL.Patient
                 resultDic.Add("data", result);
 
                 WebSession.PatientRegNo = result.RegistrationNumber;
+                WebSession.PatientId = result.PatientId;
 
                 var loginEntry = (from obj in result.PatientLoginEntries.AsEnumerable()
                                   where obj.Locked == true

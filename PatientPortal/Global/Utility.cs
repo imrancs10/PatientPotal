@@ -42,6 +42,11 @@ namespace PatientPortal.Global
     public static class WebSession
     {
 
+        public static int PatientId
+        {
+            get { return HttpContext.Current.Session["PatientId"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["PatientId"]); }
+            set { HttpContext.Current.Session["PatientId"] = value; }
+        }
         public static int AppointmentSlot
         {
             get { return HttpContext.Current.Session["AppointmentSlot"] == null ?Convert.ToInt32(Utility.GetAppSettingKey("AppointmentPeriodInMinuts")) : Convert.ToInt32(HttpContext.Current.Session["AppointmentSlot"]); }
