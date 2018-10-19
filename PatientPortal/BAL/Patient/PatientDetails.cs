@@ -103,11 +103,12 @@ namespace PatientPortal.BAL.Patient
         public PatientInfo UpdatePatientDetail(PatientInfo info)
         {
             _db = new PatientPortalEntities();
-            var _patientRow = _db.PatientInfoes.Include(x => x.City).Include(x => x.State).Include(x => x.PatientTransactions).Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+            var _patientRow = _db.PatientInfoes.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
             if (_patientRow != null)
             {
                 _patientRow.OTP = info.OTP;
                 _patientRow.ResetCode = info.ResetCode;
+                _patientRow.ValidUpto = info.ValidUpto > DateTime.Now ? info.ValidUpto : _patientRow.ValidUpto;
                 _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
                 _patientRow.CRNumber = !string.IsNullOrEmpty(info.CRNumber) ? info.CRNumber : _patientRow.CRNumber;
                 _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber;

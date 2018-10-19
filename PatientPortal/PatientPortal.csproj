@@ -251,6 +251,7 @@
   <ItemGroup>
     <Content Include="Content\App\Common.css" />
     <Content Include="Content\App\Login\Login.css" />
+    <Content Include="Content\boxstyle.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\Menu.css" />
     <Content Include="Content\bootstrap.css" />

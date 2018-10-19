@@ -1,6 +1,6 @@
 /*################ Theme Header With shrink Effect Start #####################*/
 #hoe-header[hoe-lpanel-effect="shrink"] .hoe-right-header[hoe-position-type="relative"] {
-  margin-left: 230px;
+  margin-left: 180px;
    padding-right: 0;
 }
 #hoe-header[hoe-lpanel-effect="shrink"].hoe-minimized-lpanel .hoe-right-header[hoe-position-type="relative"] {
@@ -29,9 +29,21 @@ padding-right: 50px;
 }
 
 #hoeapp-container[hoe-lpanel-effect="shrink"] #main-content{
-	margin-left: 230px;
+	margin-left: 180px;
 }
 #hoeapp-container[hoe-lpanel-effect="shrink"].hoe-minimized-lpanel #main-content{
 	margin-left: 50px;
 }
 /*################ Theme Header With shrink Effect Close #####################*/
+
+
+@media (min-width: 768px) {
+    #hoe-header[hoe-lpanel-effect="shrink"] .hoe-right-header[hoe-position-type="relative"] {
+        margin-left: 280px;
+        padding-right: 0;
+    }
+    #hoeapp-container[hoe-lpanel-effect="shrink"] #main-content {
+        margin-left: 280px;
+    }
+
+}
