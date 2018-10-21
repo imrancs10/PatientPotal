@@ -40,7 +40,7 @@ namespace DataLayer
         public string challanno { get; set; }
         public Nullable<System.DateTime> challandate { get; set; }
         public string billno { get; set; }
-        public Nullable<System.DateTime> billdate { get; set; }
+        public System.DateTime billdate { get; set; }
         public string orders { get; set; }
         public Nullable<decimal> currency { get; set; }
         public Nullable<decimal> convrate { get; set; }
