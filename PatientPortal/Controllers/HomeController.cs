@@ -51,9 +51,21 @@ namespace PatientPortal.Controllers
             {
                 Session["PatientInfoRenewal"] = patientInfo;
                 SetAlertMessage("Registration Expired, Kindly renew it.", "Login");
-                return RedirectToAction("TransactionPayReNewal");
+
+                string daysRemaning = Convert.ToString((patientInfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
+                if (Convert.ToInt32(daysRemaning) < 0)
+                {
+                    //expired registration
+                    TempData["Expired"] = true;
+                    return RedirectToAction("TransactionPayReNewalExpired");
+                }
+                else
+                {
+                    TempData["Expired"] = false;
+                    return RedirectToAction("TransactionPayReNewal");
+                }
             }
-            if (result != null)
+            if (patientInfo != null)
             {
                 Session["PatientId"] = patientInfo.PatientId;
                 setUserClaim(patientInfo);
@@ -220,6 +232,10 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
+        public ActionResult TransactionPayReNewalExpired()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult CreatePassword(string registrationNumber)
         {
@@ -337,7 +353,14 @@ namespace PatientPortal.Controllers
                     transaction.OrderId = info.RegistrationNumber;
                     Session["PatientInfoRenewal"] = null;
                     TempData["transaction"] = transaction;
-                    return RedirectToAction("TransactionResponseRenewal");
+                    if (Convert.ToBoolean(TempData["Expired"]) == true)
+                    {
+                        return RedirectToAction("TransactionResponseRenewalExpired");
+                    }
+                    else if(Convert.ToBoolean(TempData["Expired"]) == false)
+                    {
+                        return RedirectToAction("TransactionResponseRenewal");
+                    }
                 }
                 else
                 {
@@ -394,8 +417,17 @@ namespace PatientPortal.Controllers
         {
             PatientTransaction transaction = TempData["transaction"] as PatientTransaction;
             ViewData["TransactionSuccessResult"] = transaction;
+            TempData["Expired"] = null;
             return View();
         }
+        public ActionResult TransactionResponseRenewalExpired()
+        {
+            PatientTransaction transaction = TempData["transaction"] as PatientTransaction;
+            ViewData["TransactionSuccessResult"] = transaction;
+            TempData["Expired"] = null;
+            return View();
+        }
+        
         private static HISPatientInfoInsertModel setregistrationModelForHISPortal(PatientInfo info)
         {
             return new HISPatientInfoInsertModel()
@@ -858,7 +890,7 @@ namespace PatientPortal.Controllers
             if (patient != null)
             {
                 int pin = 0;
-               
+
 
                 var crData = new PatientInfoModel()
                 {

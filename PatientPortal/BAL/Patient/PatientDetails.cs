@@ -70,8 +70,17 @@ namespace PatientPortal.BAL.Patient
                                     .Where(x => x.RegistrationNumber == UserId
                                          && x.Password == Password)
                                     .FirstOrDefault();
-                resultDic.Add("status", CrudStatus.RegistrationExpired);
-                resultDic.Add("data", data);
+                if (data != null)
+                {
+                    resultDic.Add("status", CrudStatus.RegistrationExpired);
+                    resultDic.Add("data", data);
+                }
+                else
+                {
+                    resultDic.Add("status", CrudStatus.DataNotFound);
+                    resultDic.Add("data", data);
+                }
+                
             }
             return resultDic;
         }

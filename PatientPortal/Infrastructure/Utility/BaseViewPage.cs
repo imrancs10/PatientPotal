@@ -16,21 +16,21 @@ namespace PatientPortal.Infrastructure.Utility
 {
     public abstract class BaseViewPage : WebViewPage
     {
-        public virtual new CustomPrincipal User
-        {
-            get { return base.User as CustomPrincipal; }
-        }
+        //public virtual new CustomPrincipal User
+        //{
+        //    get { return base.User as CustomPrincipal; }
+        //}
 
-        public virtual HospitalDetail GetHospitalDetail()
-        {
-            HospitalDetails _details = new HospitalDetails();
-            return _details.GetHospitalDetail();
-        }
-        public virtual int GetAppointmentCount()
-        {
-            AppointDetails _details = new AppointDetails();
-            return _details.PatientAppointmentCount(User.Id);
-        }
+        //public virtual HospitalDetail GetHospitalDetail()
+        //{
+        //    HospitalDetails _details = new HospitalDetails();
+        //    return _details.GetHospitalDetail();
+        //}
+        //public virtual int GetAppointmentCount()
+        //{
+        //    AppointDetails _details = new AppointDetails();
+        //    return _details.PatientAppointmentCount(User.Id);
+        //}
     }
 
     public abstract class BaseViewPage<TModel> : WebViewPage<TModel>
@@ -47,21 +47,33 @@ namespace PatientPortal.Infrastructure.Utility
 
         public virtual int GetAppointmentCount()
         {
-            AppointDetails _details = new AppointDetails();
-            return _details.PatientAppointmentCount(User.Id);
+            if (User != null)
+            {
+                AppointDetails _details = new AppointDetails();
+                return _details.PatientAppointmentCount(User.Id);
+            }
+            return 0;
         }
 
         public virtual PatientInfo GetPatientInfo()
         {
-            PatientDetails _details = new PatientDetails();
-            return _details.GetPatientDetailById(User.Id);
+            if (User != null)
+            {
+                PatientDetails _details = new PatientDetails();
+                return _details.GetPatientDetailById(User.Id);
+            }
+            return null;
         }
 
         public virtual PDModel GetPatientOPDDetail()
         {
-            string crNumber = string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientRegNo : WebSession.PatientCRNo;
-            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail(crNumber);
-            return opdDetail;
+            if (User != null)
+            {
+                string crNumber = string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientRegNo : WebSession.PatientCRNo;
+                var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail(crNumber);
+                return opdDetail;
+            }
+            return null;
         }
     }
 }
