@@ -228,6 +228,7 @@
     <Compile Include="Infrastructure\Authentication\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Infrastructure\Authentication\ICustomPrincipal.cs" />
     <Compile Include="Infrastructure\Utility\BaseViewPage.cs" />
+    <Compile Include="Infrastructure\Utility\CustomExceptionFilter.cs" />
     <Compile Include="Infrastructure\Utility\EmailHelper.cs" />
     <Compile Include="Infrastructure\Utility\Serializer.cs" />
     <Compile Include="Infrastructure\Utility\VerificationCodeGeneration.cs" />
@@ -429,6 +430,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\TransactionPayReNewalExpired.cshtml" />
     <Content Include="Views\Home\TransactionResponseRenewalExpired.cshtml" />
+    <Content Include="Views\Shared\ExceptionPage.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">

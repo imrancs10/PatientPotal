@@ -29,7 +29,6 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
-
         public ActionResult Index()
         {
             DepartmentDetails _details = new DepartmentDetails();
