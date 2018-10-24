@@ -164,7 +164,14 @@
                         <div class="media-body">
                             <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>
                             <small>Patient</small> <br />
-                            <small style="color:#ffd800;">Admitted</small>&nbsp;&nbsp;&nbsp;<small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
+                            @{
+                                string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admited" ? "red" : "green";
+                                <small style="color:@color">
+                                    @Convert.ToString(patientOPDInfo.patStatus)
+                                </small>
+                            }
+
+                            &nbsp;&nbsp;&nbsp;<small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
                         </div>
                     </div>
                 </div>
@@ -230,23 +237,23 @@
                                 </a>
                             </li>
                             <!--<li>
-        <a href="/Report/PatientLedger">
-            <span class="menu-text">Patient Ledger</span>
-            <span class="selected"></span>
-        </a>
-    </li>
-    <li>
-        <a href="/patient/GetLabReport">
-            <span class="menu-text">View Report</span>
-            <span class="selected"></span>
-        </a>
-    </li>
-    <li>
-        <a href="/Report/ReportViewing">
-            <span class="menu-text">Ledger Report</span>
-            <span class="selected"></span>
-        </a>
-    </li>-->
+                                <a href="/Report/PatientLedger">
+                                    <span class="menu-text">Patient Ledger</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/patient/GetLabReport">
+                                    <span class="menu-text">View Report</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Report/ReportViewing">
+                                    <span class="menu-text">Ledger Report</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>-->
                         </ul>
                     </li>
                     <li class="hoe-has-menu">
