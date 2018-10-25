@@ -170,15 +170,15 @@
                             <small>Patient</small> <br />
                             @{
 
-                                string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admited" ? "red" : "green";
+                                string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admitted" ? "red" : "green";
                                 <small style="color:@color">
-                                    if (@Convert.ToString(patientOPDInfo.patStatus) == "Admited")
+                                    @if (@Convert.ToString(patientOPDInfo.patStatus) == "Admitted")
                                     {
                                     <text>
-                                        Admitted<text>
+                                        Admitted</text>
                                             }
                                             else
-                                            {<text>Admitted<text>}
+                                            {<text>Admitted</text>}
                                 </small>
                             }
 
