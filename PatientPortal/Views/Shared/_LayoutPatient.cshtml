@@ -5,6 +5,8 @@
 @using PatientPortal.Controllers;
 @using PatientPortal.Global;
 @{
+    /**/
+
     var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
     string imgsrc = "../img/p1.jpg";
@@ -167,12 +169,17 @@
                             <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>
                             <small>Patient</small> <br />
                             @{
-                                @{
-                                    string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admited" ? "red" : "green";
-                                    <small style="color:@color">
-                                        @Convert.ToString(patientOPDInfo.patStatus) == "Admited" ? "Admited" : "Not Admited"
-                                    </small>
-                                }
+
+                                string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admited" ? "red" : "green";
+                                <small style="color:@color">
+                                    if (@Convert.ToString(patientOPDInfo.patStatus) == "Admited")
+                                    {
+                                    <text>
+                                        Admitted<text>
+                                            }
+                                            else
+                                            {<text>Admitted<text>}
+                                </small>
                             }
 
                             &nbsp;&nbsp;&nbsp;<small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
