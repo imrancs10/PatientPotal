@@ -3,6 +3,7 @@
 @using PatientPortal.Infrastructure.Authentication;
 @using DataLayer;
 @using PatientPortal.Controllers;
+@using PatientPortal.Global;
 @{
     var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
@@ -11,6 +12,7 @@
     {
         var base64 = Convert.ToBase64String(hospital.HospitalLogo);
         imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+        WebSession.HospitalLogo = imgsrc;
     }
 
     var patientinfo = GetPatientInfo();
