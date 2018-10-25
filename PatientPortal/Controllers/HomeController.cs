@@ -356,7 +356,7 @@ namespace PatientPortal.Controllers
                     {
                         return RedirectToAction("TransactionResponseRenewalExpired");
                     }
-                    else if(Convert.ToBoolean(TempData["Expired"]) == false)
+                    else if (Convert.ToBoolean(TempData["Expired"]) == false)
                     {
                         return RedirectToAction("TransactionResponseRenewal");
                     }
@@ -426,7 +426,7 @@ namespace PatientPortal.Controllers
             TempData["Expired"] = null;
             return View();
         }
-        
+
         private static HISPatientInfoInsertModel setregistrationModelForHISPortal(PatientInfo info)
         {
             return new HISPatientInfoInsertModel()
@@ -435,7 +435,8 @@ namespace PatientPortal.Controllers
                 City = info.City.CityName,
                 CRNumber = info.CRNumber,
                 DepartmentId = Convert.ToString(info.DepartmentId.Value),
-                DOB = Convert.ToString(info.DOB),
+                //DOB = Convert.ToString(info.DOB.ToString("yyyy-MM-dd")),
+                DOB = info.DOB != null ? info.DOB.Value.ToString("yyyy-MM-dd") : string.Empty,
                 Email = info.Email,
                 FatherOrHusbandName = info.FatherOrHusbandName,
                 FirstName = info.FirstName,
@@ -451,8 +452,8 @@ namespace PatientPortal.Controllers
                 Religion = info.Religion,
                 State = info.State.StateName,
                 Title = info.Title,
-                ValidUpto = Convert.ToString(info.ValidUpto),
-                CreateDate = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionDate),
+                ValidUpto = Convert.ToString(info.ValidUpto.Value.ToString("yyyy-MM-dd")),
+                CreateDate = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionDate.Value.ToString("yyyy-MM-dd")),
                 Amount = Convert.ToString(info.PatientTransactions.FirstOrDefault().Amount),
                 PatientTransactionId = Convert.ToString(info.PatientTransactions.FirstOrDefault().PatientTransactionId)
             };
