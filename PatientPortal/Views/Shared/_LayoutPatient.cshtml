@@ -116,8 +116,8 @@
                             <div class="row">
                                 <div class="col-md-11 hidden-xs" style="white-space:nowrap">
                                     <h4>
-                                        Your Registration will expired in @daysRemaning days,
-                                        @Html.ActionLink("click here to Renew", "MakePayment", "Home", new { area = "" }, new { })
+                                        Your Registration will expired in @daysRemaning days
+                                        @*@Html.ActionLink("click here to Renew", "MakePayment", "Home", new { area = "" }, new { })*@
                                     </h4>
                                 </div>
                                 @*<div class="col-md-1"><h4></h4></div>*@
@@ -174,15 +174,16 @@
                                 <small style="color:@color">
                                     @if (@Convert.ToString(patientOPDInfo.patStatus) == "Admitted")
                                     {
-                                    <text>
-                                        Admitted</text>
-                                            }
-                                            else
-                                            {<text>Admitted</text>}
+                                        <text>Admitted</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Not Admitted</text>
+                                    }
                                 </small>
                             }
 
-                            &nbsp;&nbsp;&nbsp;<small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
+                            <br /><small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
                         </div>
                     </div>
                 </div>
