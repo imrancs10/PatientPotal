@@ -64,7 +64,15 @@ namespace PatientPortal.Controllers
                         Body = EmailHelper.GetAppointmentSuccessEmail(user.FirstName, user.MiddleName, user.LastName, doctorname, model.AppointmentDateFrom, deptname)
                     };
                     ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+
                     sendMessageStrategy.SendMessages();
+                    Infrastructure.SMSService sMSService = new SMSService();
+                    Message smsConfig = new Message()
+                    {
+                        Body = "Hello " + string.Format("{0} {1}", user.FirstName, user.LastName) + "\nAs you requested an appointment with " + doctorname + "is  booked on schedule time " + model.AppointmentDateFrom.ToString("dd-MMM-yyyy hh:mm") + " at " + deptname + " Department\n Regards:\n Patient Portal(RMLHIMS)",
+                        MessageTo = user.Mobile
+                    };
+                    sMSService.Send(smsConfig);
                 }
                 return Json(CrudResponse(result), JsonRequestBehavior.AllowGet);
             }

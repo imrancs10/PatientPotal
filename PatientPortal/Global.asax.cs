@@ -44,6 +44,7 @@ namespace PatientPortal
                 newUser.MiddleName = serializeModel.MiddleName;
                 newUser.LastName = serializeModel.LastName;
                 newUser.Email = serializeModel.Email;
+                newUser.Mobile = serializeModel.Mobile;
 
                 HttpContext.Current.User = newUser;
             }
