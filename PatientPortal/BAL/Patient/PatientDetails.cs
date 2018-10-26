@@ -80,7 +80,7 @@ namespace PatientPortal.BAL.Patient
                     resultDic.Add("status", CrudStatus.DataNotFound);
                     resultDic.Add("data", data);
                 }
-                
+
             }
             return resultDic;
         }
@@ -89,6 +89,12 @@ namespace PatientPortal.BAL.Patient
         {
             _db = new PatientPortalEntities();
             return _db.PatientInfoes.Where(x => x.RegistrationNumber == UserId).FirstOrDefault();
+        }
+
+        public PatientInfo GetPatientDetailByRegistrationNumberOrCRNumber(string UserId)
+        {
+            _db = new PatientPortalEntities();
+            return _db.PatientInfoes.Where(x => x.RegistrationNumber == UserId || x.CRNumber == UserId).FirstOrDefault();
         }
 
         public PatientInfo GetPatientDetailByresetCode(string resetCode)
@@ -101,6 +107,11 @@ namespace PatientPortal.BAL.Patient
         {
             _db = new PatientPortalEntities();
             return _db.PatientInfoes.Where(x => x.MobileNumber == UserId.Trim() || x.Email == UserId.Trim()).FirstOrDefault();
+        }
+        public PatientInfo GetPatientDetailByMobileNumberANDEmail(string mobileNo, string emailId)
+        {
+            _db = new PatientPortalEntities();
+            return _db.PatientInfoes.Where(x => x.MobileNumber.Equals(mobileNo) || x.Email.Equals(emailId)).FirstOrDefault();
         }
 
 
