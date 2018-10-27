@@ -141,7 +141,7 @@ namespace PatientPortal.Controllers
                 PatientInfoModel pateintModel = getPatientInfoModelForSession(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null, MaritalStatus, title, aadharNumber);
                 if (pateintModel != null)
                 {
-                    SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode);
+                    SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode,mobilenumber);
                     Session["otp"] = verificationCode;
                     //Session["PatientId"] = ((PatientInfo)result["data"]).PatientId;
                     Session["PatientInfo"] = pateintModel;
@@ -155,10 +155,11 @@ namespace PatientPortal.Controllers
             }
         }
 
-        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode)
+        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode,string mobilenumber)
         {
             await Task.Run(() =>
             {
+                //Send Email
                 Message msg = new Message()
                 {
                     MessageTo = email,
@@ -169,6 +170,14 @@ namespace PatientPortal.Controllers
                 };
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
+
+                //Send SMS
+                msg.Body = "Hello " + string.Format("{0} {1}", firstname, lastname) + "\nAs you requested, here is a OTP " + verificationCode + " you can use it to verify your mobile number.\n Regards:\n Patient Portal(RMLHIMS)";
+                msg.MessageTo = mobilenumber;
+                msg.MessageType = MessageType.OTP;
+                sendMessageStrategy = new SendMessageStrategyForSMS(msg);
+                sendMessageStrategy.SendMessages();
+
             });
         }
 

@@ -14,9 +14,13 @@ namespace PatientPortal.Infrastructure
         public string MessageNameTo { get; set; }
         public string OTP { get; set; }
         public string Subject { get; set; }
-        /// <summary>
-        /// SMS Body or Email body
-        /// </summary>
         public string Body { get; set; }
+        public MessageType MessageType { get; set; }
+    }
+
+    public enum MessageType
+    {
+        Appointment,
+        OTP
     }
 }
