@@ -54,7 +54,7 @@
             <div class="navbar-header" style="width:100%;">
                 <div class="row">
                     <div class="col-md-9 blink">@Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
-                    <div class="col-md-3 blink hidden-xs"><h4 style="color:#fff;">Emergency no:- +91-1234-567-890</h4></div>
+                    <div class="col-md-3 blink hidden-xs"><h5 style="color:#fff;">Helpline No:- 0522-6663002</h5></div>
                 </div>
 
                 @*<div style="float:right">
@@ -290,26 +290,29 @@
                                     <tbody>
                                         <tr class="primary"><td colspan="3" style="text-align:center;"><strong>Important contact number for Information:- </strong></td></tr>
                                         <tr>
-                                            <td>Emergency </td>
-                                            <td>0522-xxxxxxxx</td>
+                                            <td>Helpline No. </td>
+                                            <td>0522-6663002</td>
                                         </tr>
 
                                         <tr>
-                                            <td>Intensive Care Unit (ICU)</td>
-                                            <td>xxxxxxxxx</td>
+                                            <td>OPD</td>
+                                            <td>0522-6692000,001,004</td>
                                         </tr>
 
                                         <tr>
-                                            <td>General Enquiry</td>
-                                            <td> 0522-xxxxxxxx</td>
+                                            <td>Administrative Block</td>
+                                            <td>0522-4918504,514</td>
                                         </tr>
 
                                         <tr>
-                                            <td>BPL/AsadhyaRog free treatment facility</td>
-                                            <td>0522-xxxxxxxx</td>
+                                            <td>Fax No.</td>
+                                            <td>0522-4918506</td>
                                         </tr>
 
-
+                                        <tr>
+                                            <td>Fax No.</td>
+                                            <td>0522-4918506</td>
+                                        </tr>
                                         <!--<tr>
                                             <td>Patient relative’s accommodation II </td>
                                             <td>0522-xxxxxxxx</td>
@@ -322,8 +325,8 @@
                                         </tr>-->
 
                                         <tr>
-                                            <td>Vishramalaya</td>
-                                            <td>0522-xxxxxxxx</td>
+                                            <td>E-Mail</td>
+                                            <td><a href="mailto:director@drrmlims.ac.in ">director@drrmlims.ac.in </a></td>
                                         </tr>
 
 
@@ -362,7 +365,10 @@
     <hr class="text-center navbar-fixed-bottom" />
 
     <footer class="text-center navbar-fixed-bottom">
-        <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+        <p>
+            &copy; @DateTime.Now.Year - Patient Portal || Online Visitors:
+            <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/433806/t/5"></script>
+        </p>
     </footer>
     @if (TempData["Alert_Title"] != null)
     {
