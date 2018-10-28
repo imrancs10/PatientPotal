@@ -103,7 +103,7 @@
             <div class="navbar-header" style="width:100%;">
                 <div class="row">
                     <div class="col-md-8 blink">@Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
-                    <div class="col-md-4 blink hidden-xs"><h5 style="color:#fff;margin-left:95px;">Emergency no:- +91-1234-567-890</h5></div>
+                    <div class="col-md-4 blink hidden-xs"><h5 style="color:#fff;margin-left:95px;">Helpline No:- 0522-6663002</h5></div>
                 </div>
 
                 @*<div style="float:right">
@@ -333,7 +333,10 @@
         </div>
         <hr class="text-center navbar-fixed-bottom" />
         <footer class="text-center navbar-fixed-bottom">
-            <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+            <p>
+                &copy; @DateTime.Now.Year - Patient Portal || Online Visitors:
+                <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/433806/t/5"></script>
+            </p>
         </footer>
     }
     @if (TempData["Alert_Title"] != null)
