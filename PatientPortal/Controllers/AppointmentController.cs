@@ -69,7 +69,7 @@ namespace PatientPortal.Controllers
                     Infrastructure.SMSService sMSService = new SMSService();
                     Message smsConfig = new Message()
                     {
-                        Body = "Hello " + string.Format("{0} {1}", user.FirstName, user.LastName) + "\nAs you requested an appointment with " + doctorname + "is  booked on schedule time " + model.AppointmentDateFrom.ToString("dd-MMM-yyyy hh:mm") + " at " + deptname + " Department\n Regards:\n Patient Portal(RMLHIMS)",
+                        Body = "Hello " + string.Format("{0} {1}", user.FirstName, user.LastName) + "\nAs you requested an appointment with " + doctorname + " is  booked on schedule time " + model.AppointmentDateFrom.ToString("dd-MMM-yyyy HH:mm tt") + " at " + deptname + " Department\n Regards:\n Patient Portal(RMLHIMS)",
                         MessageTo = user.Mobile
                     };
                     sMSService.Send(smsConfig);
