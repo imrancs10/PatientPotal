@@ -5,44 +5,46 @@
 @using PatientPortal.Controllers;
 @using PatientPortal.Global;
 @{
-    /**/
+                /**/
 
-    var hospital = GetHospitalDetail();
-    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
-    string imgsrc = "../img/p1.jpg";
-    if (hospital != null && hospital.HospitalLogo != null)
-    {
-        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
-        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
-        WebSession.HospitalLogo = imgsrc;
-    }
+                /**/
 
-    var patientinfo = GetPatientInfo();
-    var patientOPDInfo = GetPatientOPDDetail();
-    string photoSrc = string.Empty;
-    string daysRemaning = string.Empty;
-    bool showingDaysRemaining = false;
-    if (patientinfo != null && patientinfo.Gender == "Male")
-    {
-        photoSrc = "../img/avatar-male.jpg";
-    }
-    else
-    {
-        photoSrc = "../img/avatar-female.png";
-    }
-    if (patientinfo != null && patientinfo.Photo != null && patientinfo.Photo.Length > 0)
-    {
-        var base64 = Convert.ToBase64String(patientinfo.Photo);
-        photoSrc = string.Format("data:image/jpg;base64,{0}", base64);
-    }
-    if (patientinfo != null && patientinfo.ValidUpto != null)
-    {
-        daysRemaning = Convert.ToString((patientinfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
-        if (Convert.ToInt32(daysRemaning) <= 10)
-        {
-            showingDaysRemaining = true;
-        }
-    }
+                var hospital = GetHospitalDetail();
+                var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+                string imgsrc = "../img/p1.jpg";
+                if (hospital != null && hospital.HospitalLogo != null)
+                {
+                    var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+                    imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                    WebSession.HospitalLogo = imgsrc;
+                }
+
+                var patientinfo = GetPatientInfo();
+                var patientOPDInfo = GetPatientOPDDetail();
+                string photoSrc = string.Empty;
+                string daysRemaning = string.Empty;
+                bool showingDaysRemaining = false;
+                if (patientinfo != null && patientinfo.Gender == "Male")
+                {
+                    photoSrc = "../img/avatar-male.jpg";
+                }
+                else
+                {
+                    photoSrc = "../img/avatar-female.png";
+                }
+                if (patientinfo != null && patientinfo.Photo != null && patientinfo.Photo.Length > 0)
+                {
+                    var base64 = Convert.ToBase64String(patientinfo.Photo);
+                    photoSrc = string.Format("data:image/jpg;base64,{0}", base64);
+                }
+                if (patientinfo != null && patientinfo.ValidUpto != null)
+                {
+                    daysRemaning = Convert.ToString((patientinfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
+                    if (Convert.ToInt32(daysRemaning) <= 10)
+                    {
+                        showingDaysRemaining = true;
+                    }
+                }
 }
 <!DOCTYPE html>
 <html>
@@ -131,7 +133,7 @@
                                 <div class="col-md-11 hidden-xs" style="white-space:nowrap">
                                     <h4>
                                         Your Registration will expired in @daysRemaning days
-                                        @*@Html.ActionLink("click here to Renew", "MakePayment", "Home", new { area = "" }, new { })*@
+                                        @*@Html.ActionLink("click here to Renew", "MakePaymentRenewal", "Home", new { area = "" }, new { })*@
                                     </h4>
                                 </div>
                                 @*<div class="col-md-1"><h4></h4></div>*@
@@ -264,23 +266,23 @@
                                 </a>
                             </li>
                             <!--<li>
-                <a href="/Report/PatientLedger">
-                    <span class="menu-text">Patient Ledger</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-            <li>
-                <a href="/patient/GetLabReport">
-                    <span class="menu-text">View Report</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-            <li>
-                <a href="/Report/ReportViewing">
-                    <span class="menu-text">Ledger Report</span>
-                    <span class="selected"></span>
-                </a>
-            </li>-->
+                                <a href="/Report/PatientLedger">
+                                    <span class="menu-text">Patient Ledger</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/patient/GetLabReport">
+                                    <span class="menu-text">View Report</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Report/ReportViewing">
+                                    <span class="menu-text">Ledger Report</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>-->
                         </ul>
                     </li>
                     <li class="hoe-has-menu">
@@ -299,15 +301,15 @@
                         </ul>
                     </li>
                     <!--<li>
-        <a class="isDisabled" href="javascript:void(0)">
-            <i class="fa fa-bar-chart"></i>
-            <span class="menu-text">Pending Orders</span>
-            <span class="label sul">New</span>
-            <span class="selected"></span>
-        </a>
-    </li>-->
+                        <a class="isDisabled" href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Pending Orders</span>
+                            <span class="label sul">New</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>-->
                     <li>
-                        <a href="#">
+                        <a href="~/Home/MakePayment">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Make Payment</span>
                             <span class="label sul">New</span>
