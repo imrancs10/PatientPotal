@@ -824,6 +824,12 @@ namespace PatientPortal.Controllers
         [CustomAuthorize]
         public ActionResult MakePayment()
         {
+            return View();
+        }
+
+        [CustomAuthorize]
+        public ActionResult MakePaymentRenewal()
+        {
             PatientDetails _details = new PatientDetails();
             var result = _details.GetPatientDetailById(User.Id);
             if (result != null)

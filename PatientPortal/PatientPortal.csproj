@@ -434,7 +434,7 @@
     <Content Include="Views\Shared\_PatientSearch.cshtml" />
     <Content Include="Views\Admin\PatientLabReport.cshtml" />
     <Content Include="Views\Home\TransactionPayReNewal.cshtml" />
-    <Content Include="Views\Home\MakePayment.cshtml" />
+    <Content Include="Views\Home\MakePaymentRenewal.cshtml" />
     <Content Include="Views\Home\TransactionResponseRenewal.cshtml" />
     <Content Include="Views\Report\PatientLedger.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -449,6 +449,7 @@
     <Content Include="Views\Home\TransactionPayReNewalExpired.cshtml" />
     <Content Include="Views\Home\TransactionResponseRenewalExpired.cshtml" />
     <Content Include="Views\Shared\ExceptionPage.cshtml" />
+    <Content Include="Views\Home\MakePayment.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">
