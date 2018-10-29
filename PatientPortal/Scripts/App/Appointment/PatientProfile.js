@@ -19,7 +19,7 @@ var appList = function () {
             if (ele.IsCancelled || date.compareDate(fromtime, new Date()).isDateLess) {
                 srno1++;
                 tr += '<tr>';
-                tr += '<td class="text-center">' + srno1 + '</td>';
+                tr += '<td class="text-center">' + (srno1) + '</td>';
                 tr += '<td class="text-center">' + new Date(parseInt(ele.AppointmentDateFrom.substr(6))).toDateString().trim() + '</td>';
                 tr += '<td class="text-center">' + ele.DepartmentName + '</td>';
                 tr += '<td class="text-center">' + ele.DoctorName + '</td>';
@@ -37,14 +37,14 @@ var appList = function () {
             else {
                 srno2++;
                 tr += '<tr>';
-                tr += '<td class="text-center">' + srno2 + '</td>';
+                tr += '<td class="text-center">' + (srno2) + '</td>';
                 tr += '<td class="text-center">' + new Date(parseInt(ele.AppointmentDateFrom.substr(6))).toDateString().trim() + '</td>';
                 tr += '<td class="text-center">' + ele.DepartmentName + '</td>';
                 tr += '<td class="text-center">' + ele.DoctorName + '</td>';
                 tr += '<td class="text-center">' + new Date(parseInt(ele.AppointmentDateFrom.substr(6))).toTimeString().substr(0, 5) + ' - ' + new Date(parseInt(ele.AppointmentDateTo.substr(6))).toTimeString().substr(0, 5) + '</td>';
                 tr += '<td class="text-center">' + (ele.IsCancelled ? "Cancelled" : "Booked") + '</td>';
                 if (!ele.IsCancelled) {
-                    tr += '<td class="text-center"><button id="btnCancel_' + srno2 + '" class="btn btn-danger" data-data="' + ele.AppointmentId + '" style="padding: 2px 12px !important;">Cancel</button></td>';
+                    tr += '<td class="text-center"><button id="btnCancel_' + (srno2) + '" class="btn btn-danger" data-data="' + ele.AppointmentId + '" style="padding: 2px 12px !important;">Cancel</button></td>';
                 }
                 else
                 {
