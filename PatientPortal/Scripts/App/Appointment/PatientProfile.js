@@ -16,7 +16,7 @@ var appList = function () {
         $(data).each(function (ind, ele) {
             var fromtime = new Date(parseInt(ele.AppointmentDateFrom.substr(6)));
             var date = new Date();
-            if (ele.IsCancelled || date.compareDate(fromtime, new Date()).isDateLess) {
+            if (ele.IsCancelled || fromtime < new Date()) {
                 srno1++;
                 tr += '<tr>';
                 tr += '<td class="text-center">' + (srno1) + '</td>';
