@@ -449,6 +449,7 @@
     <Content Include="Views\Home\TransactionPayReNewalExpired.cshtml" />
     <Content Include="Views\Home\TransactionResponseRenewalExpired.cshtml" />
     <Content Include="Views\Shared\ExceptionPage.cshtml" />
+    <Content Include="Views\Report\DuplicateBillingReport.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">
