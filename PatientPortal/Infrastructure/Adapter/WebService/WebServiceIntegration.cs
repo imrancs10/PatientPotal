@@ -57,7 +57,8 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
                                 "<PatientTransactionId>" + insertModel.PatientTransactionId + "</PatientTransactionId>" +
                                 "<CreateDate>" + insertModel.CreateDate + "</CreateDate>	" +
                                 "<ValidUpto>" + insertModel.ValidUpto + "</ValidUpto>" +
-                           "</PatientInfo >" +
+                                "<Type>" + insertModel.Type + "</Type>" +
+                           "</PatientInfo>" +
                         "</NewDataSet>";
 
             return str;
