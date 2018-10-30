@@ -141,7 +141,7 @@ namespace PatientPortal.Controllers
                 PatientInfoModel pateintModel = getPatientInfoModelForSession(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null, MaritalStatus, title, aadharNumber);
                 if (pateintModel != null)
                 {
-                    SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode,mobilenumber);
+                    SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode, mobilenumber);
                     Session["otp"] = verificationCode;
                     //Session["PatientId"] = ((PatientInfo)result["data"]).PatientId;
                     Session["PatientInfo"] = pateintModel;
@@ -155,7 +155,7 @@ namespace PatientPortal.Controllers
             }
         }
 
-        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode,string mobilenumber)
+        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode, string mobilenumber)
         {
             await Task.Run(() =>
             {
@@ -360,7 +360,8 @@ namespace PatientPortal.Controllers
                         ResponseCode = objResMsgDTO.ResponseCode,
                         StatusCode = objResMsgDTO.StatusCode,
                         TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
-                        TransactionNumber = objResMsgDTO.PgMeTrnRefNo
+                        TransactionNumber = objResMsgDTO.PgMeTrnRefNo,
+                        Type = TransactionType.Renewal.ToString()
                     };
                     var transactionData = _details.SavePatientTransaction(transaction);
                     info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
@@ -368,10 +369,11 @@ namespace PatientPortal.Controllers
                     transaction.OrderId = info.RegistrationNumber;
                     Session["PatientInfoRenewal"] = null;
                     TempData["transaction"] = transaction;
-                    //send patient renewal data to HIS Database
-                    //HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
-                    //WebServiceIntegration service = new WebServiceIntegration();
-                    //string serviceResult = service.GetPatientInfoinsert(insertModel);
+                    //send patient data to HIS portal
+                    HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
+                    insertModel.Type = Convert.ToInt32(TransactionType.Renewal);
+                    WebServiceIntegration service = new WebServiceIntegration();
+                    string serviceResult = service.GetPatientInfoinsert(insertModel);
                     if (Convert.ToBoolean(TempData["Expired"]) == true)
                     {
                         return RedirectToAction("TransactionResponseRenewalExpired");
@@ -406,7 +408,8 @@ namespace PatientPortal.Controllers
                                 ResponseCode = objResMsgDTO.ResponseCode,
                                 StatusCode = objResMsgDTO.StatusCode,
                                 TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
-                                TransactionNumber = objResMsgDTO.PgMeTrnRefNo
+                                TransactionNumber = objResMsgDTO.PgMeTrnRefNo,
+                                Type = TransactionType.Register.ToString()
                             };
                             var transactionData = _details.SavePatientTransaction(transaction);
                             info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
@@ -416,6 +419,7 @@ namespace PatientPortal.Controllers
                             Session["PatientInfo"] = null;
                             //send patient data to HIS portal
                             HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
+                            insertModel.Type = Convert.ToInt32(TransactionType.Register);
                             WebServiceIntegration service = new WebServiceIntegration();
                             string serviceResult = service.GetPatientInfoinsert(insertModel);
                         }

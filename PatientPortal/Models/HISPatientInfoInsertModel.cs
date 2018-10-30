@@ -31,6 +31,6 @@ namespace PatientPortal.Models
         public string Amount { get; set; }
         public string PatientTransactionId { get; set; }
         public string CreateDate { get; set; }
-
+        public int Type { get; set; }
     }
 }

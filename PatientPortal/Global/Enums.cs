@@ -7,6 +7,11 @@ namespace PatientPortal.Global
 {
     public static class Enums
     {
+        public enum TransactionType
+        {
+            Register = 0,
+            Renewal = 1
+        }
         public enum LoginMessage
         {
             Authenticated = 1,
