@@ -59,20 +59,20 @@
         </div>
     </div>
 
-    
-        @*<div class="col-md-8 col-md-offset-2 col-sm-12 no-padding-sm">*@
+
+    @*<div class="col-md-8 col-md-offset-2 col-sm-12 no-padding-sm">*@
     <div class="col-md-12 loginpage-container">
         @*<h2>SomeException</h2>
 
-        <hgroup class="title">
+            <hgroup class="title">
 
-            <h1 class="error">Error.</h1>
+                <h1 class="error">Error.</h1>
 
-            <h2 class="error">Some thing when Wrong kindly check after few hours</h2>
+                <h2 class="error">Some thing when Wrong kindly check after few hours</h2>
 
-            <h2 class="error"><a href="~/Home/Index">Go to Login Page</a></h2>
+                <h2 class="error"><a href="~/Home/Index">Go to Login Page</a></h2>
 
-        </hgroup>*@
+            </hgroup>*@
 
         <div class="header">
             <h1 style="color:#ffd800;padding:10px;">404 error page</h1>
@@ -84,7 +84,7 @@
                 <h2>SomeException</h2>
                 <h3>Error</h3>
                 <p>Some thing when Wrong kindly check after few hours</p>
-                <a href="~/Home/Index"><i class="fa fa-angle-double-left" aria-hidden="true"></i>Go to Login Page</a>
+                @Html.ActionLink("Go to Login Page", "Index", "Home", new { }, null)
             </div>
         </div>
     </div>

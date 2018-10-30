@@ -130,11 +130,18 @@ namespace PatientPortal.Controllers
             }
             else
             {
+                PatientDetails details = new PatientDetails();
+                var patientInfo = details.GetPatientDetailByMobileNumberANDEmail(mobilenumber.Trim(), email.Trim());
+                if (patientInfo != null)
+                {
+                    SetAlertMessage("Mobile Number or Email Id already in our database, kindly chhange it or reset your account.", "Register");
+                    return RedirectToAction("Register");
+                }
                 string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
                 PatientInfoModel pateintModel = getPatientInfoModelForSession(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null, MaritalStatus, title, aadharNumber);
                 if (pateintModel != null)
                 {
-                    SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode);
+                    SendMailFordeviceVerification(firstname, middlename, lastname, email, verificationCode, mobilenumber);
                     Session["otp"] = verificationCode;
                     //Session["PatientId"] = ((PatientInfo)result["data"]).PatientId;
                     Session["PatientInfo"] = pateintModel;
@@ -148,10 +155,11 @@ namespace PatientPortal.Controllers
             }
         }
 
-        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode)
+        private async Task SendMailFordeviceVerification(string firstname, string middlename, string lastname, string email, string verificationCode, string mobilenumber)
         {
             await Task.Run(() =>
             {
+                //Send Email
                 Message msg = new Message()
                 {
                     MessageTo = email,
@@ -162,6 +170,14 @@ namespace PatientPortal.Controllers
                 };
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
+
+                //Send SMS
+                msg.Body = "Hello " + string.Format("{0} {1}", firstname, lastname) + "\nAs you requested, here is a OTP " + verificationCode + " you can use it to verify your mobile number.\n Regards:\n Patient Portal(RMLHIMS)";
+                msg.MessageTo = mobilenumber;
+                msg.MessageType = MessageType.OTP;
+                sendMessageStrategy = new SendMessageStrategyForSMS(msg);
+                sendMessageStrategy.SendMessages();
+
             });
         }
 
@@ -344,7 +360,8 @@ namespace PatientPortal.Controllers
                         ResponseCode = objResMsgDTO.ResponseCode,
                         StatusCode = objResMsgDTO.StatusCode,
                         TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
-                        TransactionNumber = objResMsgDTO.PgMeTrnRefNo
+                        TransactionNumber = objResMsgDTO.PgMeTrnRefNo,
+                        Type = TransactionType.Renewal.ToString()
                     };
                     var transactionData = _details.SavePatientTransaction(transaction);
                     info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
@@ -352,11 +369,16 @@ namespace PatientPortal.Controllers
                     transaction.OrderId = info.RegistrationNumber;
                     Session["PatientInfoRenewal"] = null;
                     TempData["transaction"] = transaction;
+                    //send patient data to HIS portal
+                    HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
+                    insertModel.Type = Convert.ToInt32(TransactionType.Renewal);
+                    WebServiceIntegration service = new WebServiceIntegration();
+                    string serviceResult = service.GetPatientInfoinsert(insertModel);
                     if (Convert.ToBoolean(TempData["Expired"]) == true)
                     {
                         return RedirectToAction("TransactionResponseRenewalExpired");
                     }
-                    else if(Convert.ToBoolean(TempData["Expired"]) == false)
+                    else if (Convert.ToBoolean(TempData["Expired"]) == false)
                     {
                         return RedirectToAction("TransactionResponseRenewal");
                     }
@@ -386,7 +408,8 @@ namespace PatientPortal.Controllers
                                 ResponseCode = objResMsgDTO.ResponseCode,
                                 StatusCode = objResMsgDTO.StatusCode,
                                 TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
-                                TransactionNumber = objResMsgDTO.PgMeTrnRefNo
+                                TransactionNumber = objResMsgDTO.PgMeTrnRefNo,
+                                Type = TransactionType.Register.ToString()
                             };
                             var transactionData = _details.SavePatientTransaction(transaction);
                             info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
@@ -396,6 +419,7 @@ namespace PatientPortal.Controllers
                             Session["PatientInfo"] = null;
                             //send patient data to HIS portal
                             HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
+                            insertModel.Type = Convert.ToInt32(TransactionType.Register);
                             WebServiceIntegration service = new WebServiceIntegration();
                             string serviceResult = service.GetPatientInfoinsert(insertModel);
                         }
@@ -426,7 +450,7 @@ namespace PatientPortal.Controllers
             TempData["Expired"] = null;
             return View();
         }
-        
+
         private static HISPatientInfoInsertModel setregistrationModelForHISPortal(PatientInfo info)
         {
             return new HISPatientInfoInsertModel()
@@ -435,7 +459,8 @@ namespace PatientPortal.Controllers
                 City = info.City.CityName,
                 CRNumber = info.CRNumber,
                 DepartmentId = Convert.ToString(info.DepartmentId.Value),
-                DOB = Convert.ToString(info.DOB),
+                //DOB = Convert.ToString(info.DOB.ToString("yyyy-MM-dd")),
+                DOB = info.DOB != null ? info.DOB.Value.ToString("yyyy-MM-dd") : string.Empty,
                 Email = info.Email,
                 FatherOrHusbandName = info.FatherOrHusbandName,
                 FirstName = info.FirstName,
@@ -451,10 +476,10 @@ namespace PatientPortal.Controllers
                 Religion = info.Religion,
                 State = info.State.StateName,
                 Title = info.Title,
-                ValidUpto = Convert.ToString(info.ValidUpto),
-                CreateDate = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionDate),
+                ValidUpto = Convert.ToString(info.ValidUpto.Value.ToString("yyyy-MM-dd")),
+                CreateDate = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionDate.Value.ToString("yyyy-MM-dd")),
                 Amount = Convert.ToString(info.PatientTransactions.FirstOrDefault().Amount),
-                PatientTransactionId = Convert.ToString(info.PatientTransactions.FirstOrDefault().PatientTransactionId)
+                PatientTransactionId = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionNumber)
             };
         }
 
@@ -803,6 +828,12 @@ namespace PatientPortal.Controllers
         [CustomAuthorize]
         public ActionResult MakePayment()
         {
+            return View();
+        }
+
+        [CustomAuthorize]
+        public ActionResult MakePaymentRenewal()
+        {
             PatientDetails _details = new PatientDetails();
             var result = _details.GetPatientDetailById(User.Id);
             if (result != null)
@@ -884,6 +915,15 @@ namespace PatientPortal.Controllers
         [HttpPost]
         public ActionResult CRIntegrate(string CRNumber)
         {
+            PatientDetails details = new PatientDetails();
+            var patientInfo = details.GetPatientDetailByRegistrationNumberOrCRNumber(CRNumber);
+
+            if (patientInfo != null)
+            {
+                SetAlertMessage("CR Number is already exist in our database, choose another one.", "CR Integrate");
+                return View();
+            }
+
             WebServiceIntegration service = new WebServiceIntegration();
             var patient = service.GetPatientInfoBYCRNumber(CRNumber);
             if (patient != null)
@@ -928,7 +968,7 @@ namespace PatientPortal.Controllers
             }
             else
             {
-                SetAlertMessage("CR Number not found or expire, Kindly contact to hospital.", "password Create");
+                SetAlertMessage("CR Number not found or expire, Kindly contact to hospital.", "CR Integrate");
                 return View();
             }
         }

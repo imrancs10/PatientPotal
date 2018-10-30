@@ -3,42 +3,48 @@
 @using PatientPortal.Infrastructure.Authentication;
 @using DataLayer;
 @using PatientPortal.Controllers;
+@using PatientPortal.Global;
 @{
-    var hospital = GetHospitalDetail();
-    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
-    string imgsrc = "../img/p1.jpg";
-    if (hospital != null && hospital.HospitalLogo != null)
-    {
-        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
-        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
-    }
+                /**/
 
-    var patientinfo = GetPatientInfo();
-    var patientOPDInfo = GetPatientOPDDetail();
-    string photoSrc = string.Empty;
-    string daysRemaning = string.Empty;
-    bool showingDaysRemaining = false;
-    if (patientinfo != null && patientinfo.Gender == "Male")
-    {
-        photoSrc = "../img/avatar-male.jpg";
-    }
-    else
-    {
-        photoSrc = "../img/avatar-female.png";
-    }
-    if (patientinfo != null && patientinfo.Photo != null && patientinfo.Photo.Length > 0)
-    {
-        var base64 = Convert.ToBase64String(patientinfo.Photo);
-        photoSrc = string.Format("data:image/jpg;base64,{0}", base64);
-    }
-    if (patientinfo != null && patientinfo.ValidUpto != null)
-    {
-        daysRemaning = Convert.ToString((patientinfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
-        if (Convert.ToInt32(daysRemaning) <= 10)
-        {
-            showingDaysRemaining = true;
-        }
-    }
+                /**/
+
+                var hospital = GetHospitalDetail();
+                var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+                string imgsrc = "../img/p1.jpg";
+                if (hospital != null && hospital.HospitalLogo != null)
+                {
+                    var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+                    imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                    WebSession.HospitalLogo = imgsrc;
+                }
+
+                var patientinfo = GetPatientInfo();
+                var patientOPDInfo = GetPatientOPDDetail();
+                string photoSrc = string.Empty;
+                string daysRemaning = string.Empty;
+                bool showingDaysRemaining = false;
+                if (patientinfo != null && patientinfo.Gender == "Male")
+                {
+                    photoSrc = "../img/avatar-male.jpg";
+                }
+                else
+                {
+                    photoSrc = "../img/avatar-female.png";
+                }
+                if (patientinfo != null && patientinfo.Photo != null && patientinfo.Photo.Length > 0)
+                {
+                    var base64 = Convert.ToBase64String(patientinfo.Photo);
+                    photoSrc = string.Format("data:image/jpg;base64,{0}", base64);
+                }
+                if (patientinfo != null && patientinfo.ValidUpto != null)
+                {
+                    daysRemaning = Convert.ToString((patientinfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
+                    if (Convert.ToInt32(daysRemaning) <= 10)
+                    {
+                        showingDaysRemaining = true;
+                    }
+                }
 }
 <!DOCTYPE html>
 <html>
@@ -74,18 +80,32 @@
 <body>
     <script>
         $(function () {
-            $('.dropdown-toggle').click(function () {
-                $('.hoe-header-profile').toggleClass('open');
+            //$('.dropdown-toggle').click(function () {
+            //    $('.hoe-header-profile').toggleClass('open');
+            //});
+            $('.hoe-sidebar-toggle').click(function () {
+                if ($('#hiddenToggle').val() == "No") {
+                    $('body').attr('hoe-navigation-type', 'vertical');
+                    $('#hoe-header').removeClass('hoe-minimized-lpanel')
+                    $('#hoeapp-container').removeClass('hoe-minimized-lpanel');
+                    $('#hiddenToggle').val("Yes");
+                }
+                else {
+                    $('body').attr('hoe-navigation-type', 'vertical-compact');
+                    $('#hoe-header').addClass('hoe-minimized-lpanel');
+                    $('#hoeapp-container').addClass('hoe-minimized-lpanel');
+                    $('#hiddenToggle').val("No");
+                }
             });
         });
     </script>
-
+    <input type="hidden" id="hiddenToggle" value="Yes" />
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container1">
             <div class="navbar-header" style="width:100%;">
                 <div class="row">
                     <div class="col-md-8 blink">@Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
-                    <div class="col-md-4 blink hidden-xs"><h4 style="color:#fff;margin-left:95px;">Emergency no:- +91-1234-567-890</h4></div>
+                    <div class="col-md-4 blink hidden-xs"><h5 style="color:#fff;margin-left:95px;">Helpline No:- 0522-6663002</h5></div>
                 </div>
 
                 @*<div style="float:right">
@@ -99,7 +119,7 @@
 
         <header id="hoe-header" hoe-lpanel-effect="shrink">
             <div class="hoe-left-header">
-                <a href="#"><i class="far fa-prescription"></i> <span>Patient Portal</span></a>
+                <a href="#" style="float:left;padding-left:10px;"><i class="fa fa-plus-square"></i> <span>Patient Portal</span></a>
                 <span class="hoe-sidebar-toggle"><a href="#"></a></span>
             </div>
 
@@ -112,8 +132,8 @@
                             <div class="row">
                                 <div class="col-md-11 hidden-xs" style="white-space:nowrap">
                                     <h4>
-                                        Your Registration will expired in @daysRemaning days,
-                                        @Html.ActionLink("click here to Renew", "MakePayment", "Home", new { area = "" }, new { })
+                                        Your Registration will expired in @daysRemaning days
+                                        @*@Html.ActionLink("click here to Renew", "MakePaymentRenewal", "Home", new { area = "" }, new { })*@
                                     </h4>
                                 </div>
                                 @*<div class="col-md-1"><h4></h4></div>*@
@@ -163,8 +183,24 @@
                         </a>
                         <div class="media-body">
                             <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>
-                            <small>Patient</small> <br />
-                            <small style="color:#ffd800;">Admitted</small>&nbsp;&nbsp;&nbsp;<small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
+                            @*<small>Patient</small>*@
+                            @*<br />*@
+                            @{
+
+                                string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admitted" ? "red" : "green";
+                                <small style="color:@color">
+                                    @if (@Convert.ToString(patientOPDInfo.patStatus) == "Admitted")
+                                    {
+                                        <text>Admitted</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Not Admitted</text>
+                                    }
+                                </small>
+                            }
+
+                            <br /><small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
                         </div>
                     </div>
                 </div>
@@ -230,23 +266,23 @@
                                 </a>
                             </li>
                             <!--<li>
-        <a href="/Report/PatientLedger">
-            <span class="menu-text">Patient Ledger</span>
-            <span class="selected"></span>
-        </a>
-    </li>
-    <li>
-        <a href="/patient/GetLabReport">
-            <span class="menu-text">View Report</span>
-            <span class="selected"></span>
-        </a>
-    </li>
-    <li>
-        <a href="/Report/ReportViewing">
-            <span class="menu-text">Ledger Report</span>
-            <span class="selected"></span>
-        </a>
-    </li>-->
+                                <a href="/Report/PatientLedger">
+                                    <span class="menu-text">Patient Ledger</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/patient/GetLabReport">
+                                    <span class="menu-text">View Report</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Report/ReportViewing">
+                                    <span class="menu-text">Ledger Report</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>-->
                         </ul>
                     </li>
                     <li class="hoe-has-menu">
@@ -264,16 +300,16 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!--<li>
                         <a class="isDisabled" href="javascript:void(0)">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Pending Orders</span>
                             <span class="label sul">New</span>
                             <span class="selected"></span>
                         </a>
-                    </li>
+                    </li>-->
                     <li>
-                        <a class="isDisabled" href="javascript:void(0)">
+                        <a href="~/Home/MakePayment">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Make Payment</span>
                             <span class="label sul">New</span>
@@ -281,7 +317,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="isDisabled" href="javascript:void(0)">
+                        <a href="/Report/DuplicateBillingReport">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Duplicate Receipts</span>
                             <span class="label sul">New</span>
@@ -299,7 +335,10 @@
         </div>
         <hr class="text-center navbar-fixed-bottom" />
         <footer class="text-center navbar-fixed-bottom">
-            <p>&copy; @DateTime.Now.Year - Patient Portal</p>
+            <p>
+                &copy; @DateTime.Now.Year - Patient Portal || Online Visitors:
+                <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/433806/t/5"></script>
+            </p>
         </footer>
     }
     @if (TempData["Alert_Title"] != null)

@@ -1,0 +1,118 @@
+﻿@using DataLayer
+
+@using PatientPortal.Global
+@model List<PatientBillReport>
+@{
+    ViewBag.Title = "Duplicate Billing Report";
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+
+<form action="/Report/DownloadReportFile" method="post" id="_form">
+    <input type="hidden" id="hdnHospitalLogo" value="@WebSession.HospitalLogo"  />
+    <div class="" style="padding-top:20px;">
+        <div class="col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Duplicate Billing Reports</div>
+                <div class="panel-body">
+                    <input type="hidden" name="fileurl" id="_fileurl" value="" />
+                    <table class="table table-bordered table-hover table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th>Bill Date</th>
+                                <th>Bill No</th>
+                                <th>Bill Type</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>@item.BillDate.ToShortDateString()</td>
+                                        <td>@item.BillNo</td>
+                                        <td title="'+javascript:getBillType(@item.BillType)+'">@item.BillType</td>
+                                        <td>@item.BillAmount</td>
+                                        <td>
+                                            <button type="button" onclick="printReport(this)" class="btn btn-primary">Print Duplicate Receipt</button>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="panel-footer">
+                    *SV-Procedure/Diagnostic Billing,
+                    *PH-Pharmacy Billing-Refund,
+                    *GP-Patient Payment,
+                    *GR-Receipt from Patient,
+                    *PHR-Pharmacy Return,
+                    *SR-Sales Return
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<script>
+    var _billType = {
+        SV: 'Procedure/Diagnostic Billing',
+        PH: 'Pharmacy Billing-Refund',
+        GP: 'Patient Payment',
+        GR: 'Receipt from Patient',
+        PHR: 'Pharmacy Return',
+        SR: 'Sales Return'
+    }
+    function getBillType(_type) {
+        var billType = _billType[_type];
+        return billType === undefined ? 'Not Define' : billType;
+    }
+    $(document).on('click', '[id*="_download"]', function () {
+        $('#_form').attr('action', '/Report/DownloadReportFile');
+        $('#_fileurl').val($(this).data('url'));
+        $('#_form').submit();
+    });
+
+    $(document).on('click', '[id*="view"]', function () {
+        $('#_form').attr('action', '/Report/ViewReportFile');
+        $('#_fileurl').val($(this).data('url'));
+        // $('#_form').submit();
+    });
+
+    function printReport(btn) {
+        var tr = $(btn).parent().parent();
+        var table = '<table>' +
+            '<tr>' +
+            '<td style="width:200px">Bill Date</td>' +
+            '<td>' + $(tr).find('td:eq(0)').text() + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td style="width:200px">Bill Number</td>' +
+            '<td>' + $(tr).find('td:eq(1)').text() + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td style="width:200px">Bill Type</td>' +
+            '<td>' + getBillType($(tr).find('td:eq(2)').text()) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td style="width:200px">Bill Amount</td>' +
+            '<td>' + $(tr).find('td:eq(3)').text() + '</td>' +
+            '</tr>' +
+            '</table >';
+        var pageTitle = 'Duplicate Bill Report';
+        stylesheet = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
+            win = window.open('', 'Print', 'width=500,height=300');
+
+        win.document.write('<html><head><title>' + pageTitle + '</title>' +
+            '<link rel="stylesheet" href="' + stylesheet + '">' +
+            '</head><body style="font-size=11px;"><hr/><div style="text-align:center;"><img src="' + $('#hdnHospitalLogo').val() + '"/></div><hr/>' + table + '</body></html>');
+        win.document.close();
+        win.print();
+        //win.close();
+        return false;
+    }
+</script>

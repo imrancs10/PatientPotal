@@ -13,7 +13,15 @@ namespace PatientPortal.Controllers
     public class ReportController : Controller
     {
         // GET: Report
+        [HttpGet]
         public ActionResult GetBillingReport()
+        {
+            ReportDetails _details = new ReportDetails();
+            return View(_details.GetBillReportData());
+        }
+
+        [HttpGet]
+        public ActionResult DuplicateBillingReport()
         {
             ReportDetails _details = new ReportDetails();
             return View(_details.GetBillReportData());

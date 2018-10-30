@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PatientPortal</RootNamespace>
     <AssemblyName>PatientPortal</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -276,6 +276,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\boxstyle.css" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\index.css" />
+    <Content Include="Content\jquery.slide.css" />
     <Content Include="Content\Menu.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -310,17 +312,24 @@
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner.jpg" />
     <Content Include="img\click.gif" />
+    <Content Include="img\click02.gif" />
     <Content Include="img\img.jpg" />
     <Content Include="img\jpg_img.jpg" />
     <Content Include="img\opd.jpg" />
     <Content Include="img\opd.png" />
     <Content Include="img\p01.jpg" />
+    <Content Include="img\p1-old.jpg" />
     <Content Include="img\p1.jpg" />
     <Content Include="img\p2.jpg" />
+    <Content Include="img\p3.jpg" />
     <Content Include="img\pdf-icon.jpg" />
     <Content Include="img\pp.jpg" />
     <Content Include="img\pp11.jpg" />
     <Content Include="img\ppp.png" />
+    <Content Include="img\slider002.jpg" />
+    <Content Include="img\slider004.jpg" />
+    <Content Include="img\slider005.jpg" />
+    <Content Include="img\slider006.jpg" />
     <Content Include="img\slider01.jpg" />
     <Content Include="img\slider02.jpg" />
     <Content Include="img\slider03.jpg" />
@@ -331,6 +340,7 @@
     <Content Include="img\slider2.jpg" />
     <Content Include="img\slider3.jpg" />
     <Content Include="img\triangle-down.svg" />
+    <Content Include="Properties\PublishProfiles\FolderProfile.pubxml.user" />
     <Content Include="Scripts\App\Appointment\Appoint.js" />
     <Content Include="Scripts\App\Appointment\PatientProfile.js" />
     <Content Include="Scripts\App\Global\App.js" />
@@ -365,6 +375,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -381,16 +392,29 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Reports\Bill\2018\October\21118.pdf" />
+    <Content Include="Reports\Bill\2018\October\23487238974.pdf" />
+    <Content Include="Reports\Lab\2018\October\21118.pdf" />
+    <Content Include="Reports\Lab\2018\October\23487238974.pdf" />
+    <Content Include="Reports\Lab\2018\October\LB2017233656.pdf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\jquery.slide.js" />
     <Content Include="Scripts\dist\jquery.slide.min.js" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-minicolors.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.bootstrap.wizard.js" />
+    <Content Include="Scripts\jquery.color.js" />
+    <Content Include="Scripts\jquery.easypiechart.js" />
+    <Content Include="Scripts\jquery.mask.js" />
+    <Content Include="Scripts\jquery.mixitup.js" />
+    <Content Include="Scripts\jquery.nestable.js" />
+    <Content Include="Scripts\jquery.selectBoxit.js" />
+    <Content Include="Scripts\jquery.slide.js" />
+    <Content Include="Scripts\jquery.slide.min.js" />
+    <Content Include="Scripts\jquery.sparkline.js" />
+    <Content Include="Scripts\jquery.tagsinput.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -419,11 +443,9 @@
     <Content Include="Views\Shared\_PatientSearch.cshtml" />
     <Content Include="Views\Admin\PatientLabReport.cshtml" />
     <Content Include="Views\Home\TransactionPayReNewal.cshtml" />
-    <Content Include="Views\Home\MakePayment.cshtml" />
+    <Content Include="Views\Home\MakePaymentRenewal.cshtml" />
     <Content Include="Views\Home\TransactionResponseRenewal.cshtml" />
     <Content Include="Views\Report\PatientLedger.cshtml" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -436,6 +458,8 @@
     <Content Include="Views\Home\TransactionPayReNewalExpired.cshtml" />
     <Content Include="Views\Home\TransactionResponseRenewalExpired.cshtml" />
     <Content Include="Views\Shared\ExceptionPage.cshtml" />
+    <Content Include="Views\Report\DuplicateBillingReport.cshtml" />
+    <Content Include="Views\Home\MakePayment.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">
@@ -495,8 +519,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Reports\Bill\" />
-    <Folder Include="Reports\Lab\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
