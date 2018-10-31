@@ -89,21 +89,21 @@
         var tr = $(btn).parent().parent();
          var tablePatient = '<table>' +
             '<tr>' +
-             '<td style="width:150px;">Patient Name</td>' +
+             '<td style="width:200px;">Patient Name</td>' +
              '<td>' + $('#hdnName').val() + '</td>' +
-             '<td style="width:150px">Registration No</td>' +
+             '<td style="width:200px">Registration No</td>' +
              '<td>' + $('#hdnRegNo').val() + '</td>' +
             '</tr>' +
              '<tr>' +
-             '<td style="width:150px">Age</td>' +
+             '<td style="width:200px">Age</td>' +
              '<td>32</td>' +
-            '<td style="width:150px">Sex</td>' +
+            '<td style="width:200px">Sex</td>' +
             '<td>Male</td>' +
             '</tr>' +
             '<tr>' +
-            '<td style="width:150px">DOB</td>' +
+            '<td style="width:200px">DOB</td>' +
              '<td>16, Jul 2018</td>' +
-             '<td style="width:150px">Mobile</td>' +
+             '<td style="width:200px">Mobile</td>' +
              '<td>9990614499</td>' +
             '</tr>' +
             '</table >';
@@ -111,6 +111,8 @@
             '<tr>' +
             '<td style="width:200px">Bill Date</td>' +
             '<td>' + $(tr).find('td:eq(0)').text() + '</td>' +
+            '</tr>' +
+            '<tr>' +
             '<td style="width:200px">Bill Number</td>' +
             '<td>' + $(tr).find('td:eq(1)').text() + '</td>' +
             '</tr>' +
@@ -119,7 +121,7 @@
             '<td>' + getBillType($(tr).find('td:eq(2)').text()) + '</td>' +
             '</tr>' +
             '</table >';
-        var pageTitle = 'Duplicate Bill Report';
+        var pageTitle = 'Duplicate Bill Receipt';
         stylesheet = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
             win = window.open('', 'Print', 'width=500,height=300');
 
@@ -128,10 +130,10 @@
             '</head><body style="font-size=11px;">' +
             '<hr/>' +
             '<div style="text-align:center;"><img src="' + $('#hdnHospitalLogo').val() + '"/></div><br/>' +
-            '<div style="text-align:center;">Patient Information</div ><hr/>' +
+            '<div style="text-align:center;">Patient Bill Information</div ><hr/>' +
             
             tablePatient+
-            '<br/><div style="text-align:center;">Bill Summary</div ><hr/>'
+            '<br/><div style="text-align:left;">Bill Summary</div ><hr/>'
             + table +
             '<br><br><hr/>' +
             '<div style="text-align:right;" >Bill Amount : ' + $(tr).find('td:eq(3)').text() + '</div>'+
