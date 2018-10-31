@@ -10,7 +10,11 @@
 <form action="/Report/DownloadReportFile" method="post" id="_form">
     <input type="hidden" id="hdnHospitalLogo" value="@WebSession.HospitalLogo" />
     <input type="hidden" id="hdnRegNo" value="@WebSession.PatientRegNo" />
-    <input type="hidden" id="hdnName" value="@WebSession.PatientRegNo" />
+    <input type="hidden" id="hdnName" value="@WebSession.PatientName" />
+    <input type="hidden" id="hdnAge" value="@WebSession.PatientAge" />
+    <input type="hidden" id="hdnMobile" value="@WebSession.PatientMobile" />
+    <input type="hidden" id="hdnDob" value="@WebSession.PatientDOB" />
+    <input type="hidden" id="hdnGender" value="@WebSession.PatientGender" />
     <div class="" style="padding-top:20px;">
         <div class="col-sm-12 col-lg-12">
             <div class="panel panel-primary">
@@ -96,15 +100,15 @@
             '</tr>' +
              '<tr>' +
              '<td style="width:150px">Age</td>' +
-             '<td>32</td>' +
+             '<td>' + $('#hdnAge').val() + '</td>' +
             '<td style="width:150px">Sex</td>' +
-            '<td>Male</td>' +
+             '<td>' + $('#hdnGender').val() + '</td>' +
             '</tr>' +
             '<tr>' +
             '<td style="width:150px">DOB</td>' +
-             '<td>16, Jul 2018</td>' +
+             '<td>' + $('#hdnDob').val() + '</td>' +
              '<td style="width:150px">Mobile</td>' +
-             '<td>9990614499</td>' +
+             '<td>' + $('#hdnMobile').val() + '</td>' +
             '</tr>' +
             '</table >';
         var table = '<table>' +
