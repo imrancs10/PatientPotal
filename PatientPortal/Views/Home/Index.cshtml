@@ -43,7 +43,7 @@
     <script src="~/Scripts/App/Global/App.js"></script>
     <script src="~/Scripts/App/Global/Utility.js"></script>
     <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
-    <script src="~/Scripts/App/Login/Login.js"></script>
+    <script src="~/Scripts/App/Login/PatientLogin.js"></script>
     <link rel="stylesheet" href="~/Scripts/App/index.css" />
     <link rel="stylesheet" href="~/Scripts/App/jquery.slide.css" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
@@ -157,7 +157,7 @@
                 <div class="col-md-8 hidden-xs">
                     <marquee behavior="scroll" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop();"
                              OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" direction="left" scrollamount="3" scrolldelay="1">
-                        @{
+                        @*@{
                             PatientPortal.Models.PDModel pdmodel;
                             string totOPD = "0000";
                             string totIPD = "0000";
@@ -169,18 +169,18 @@
                                 totIPD = pdmodel.totIPD;
                                 total = Convert.ToString(Convert.ToInt32(pdmodel.totOPD) + Convert.ToInt32(pdmodel.totIPD));
                             }
-                        }
+                        }*@
                         <div align="left">
                             <a href="#" target="_parent" style="float:left;margin-left:10px; margin-top: 15px;color:#000;">
-                                No. of OPD: <span style="color:#953b39;">
-                                    @totOPD
+                                No. of OPD: <span style="color:#953b39;" id="TotalOPDText">
+                                    @*@totOPD*@
                                 </span>
-                                || No.of IN Patient: <span style="color:#953b39;">
-                                    @totIPD
+                                || No.of IN Patient: <span style="color:#953b39;" id="TotalIPDText">
+                                    @*@totIPD*@
                                 </span>
                                 || No.Of Total Patient:
-                                <span style="color:#953b39;">
-                                    @total
+                                <span style="color:#953b39;" id="TotalPatientText">
+                                    @*@total*@
                                 </span>
                             </a>
                         </div>
@@ -203,48 +203,9 @@
                             <div class="col-sm-12">
                                 <h4> <strong>The institute has presently following specialties:-</strong></h4>
                                 <br>
-                                @{
-                                    if (ViewData["Departments"] != null)
-                                    {
-                                        List<DepartmentModel> departments = ViewData["Departments"] as List<DepartmentModel>;
-                                        int rowCount = departments.Count() / 3;
-                                        int row = 0;
-                                        int index = 0;
-                                        <div class="col-sm-4 lists">
-                                            @for (int i = 0; i < rowCount; i++)
-                                            {
-                                                <p>
-                                                    <img src="~/img/arrow.png" style="height:20px;width:20px;" />
-                                                    <span class="num">@(++index)</span>
-                                                    @departments[i].DeparmentName
-                                                </p>
-                                                row = row + 1;
-                                            }
-                                        </div>
-                                        <div class="col-sm-4 lists">
-                                            @for (int i = 0; i < rowCount; i++)
-                                            {
-                                                <p>
-                                                    <img src="~/img/arrow.png" style="height:20px;width:20px;" /> 
-                                                    <span class="num">@(++index)</span>
-                                                    @departments[row].DeparmentName
-                                                </p>
-                                                row = row + 1;
-                                            }
-                                        </div>
-                                        <div class="col-sm-4 lists">
-                                            @for (int i = 0; i < (departments.Count() - 2 * rowCount); i++)
-                                            {
-                                                <p>
-                                                    <img src="~/img/arrow.png" style="height:20px;width:20px;" /> 
-                                                    <span class="num">@(++index)</span>
-                                                    @departments[row].DeparmentName
-                                                </p>
-                                                row = row + 1;
-                                            }
-                                        </div>
-                                    }
-                                }
+                                <div id="divDepartments">
+
+                                </div>
                             </div>
                         </div>
                         <br />

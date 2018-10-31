@@ -31,13 +31,28 @@ namespace PatientPortal.Controllers
         }
         public ActionResult Index()
         {
-            DepartmentDetails _details = new DepartmentDetails();
-            var result = _details.DepartmentList();
-            ViewData["Departments"] = result;
-            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail("0");
-            ViewData["PDDetail"] = opdDetail;
+            //DepartmentDetails _details = new DepartmentDetails();
+            //var result = _details.DepartmentList();
+            //ViewData["Departments"] = result;
+            //var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail("0");
+            //ViewData["PDDetail"] = opdDetail;
             return View();
         }
+
+        [HttpPost]
+        public System.Web.Mvc.JsonResult GetDepartmentAndOPDDetail()
+        {
+            DepartmentDetails _details = new DepartmentDetails();
+            var result = _details.DepartmentList();
+            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail("0");
+            DepartmentOPDModel model = new DepartmentOPDModel()
+            {
+                Departments = result,
+                OPDModel = opdDetail
+            };
+            return Json(model);
+        }
+
 
         [HttpPost]
         public ActionResult GetPatientLogin(string username, string password)

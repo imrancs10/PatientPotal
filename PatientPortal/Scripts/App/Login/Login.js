@@ -44,6 +44,7 @@ $(document).ready(function () {
             dataType: 'json',
             type: 'POST',
             url: '/Home/GetSates',
+            async: true,
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 $.each(data, function (key, entry) {

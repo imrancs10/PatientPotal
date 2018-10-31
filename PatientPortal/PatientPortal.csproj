@@ -233,6 +233,7 @@
     <Compile Include="Infrastructure\Utility\Serializer.cs" />
     <Compile Include="Infrastructure\Utility\VerificationCodeGeneration.cs" />
     <Compile Include="Models\Common\CommonModel.cs" />
+    <Compile Include="Models\DepartmentOPDModel.cs" />
     <Compile Include="Models\PDModel.cs" />
     <Compile Include="Models\Masters\AppSettingModel.cs" />
     <Compile Include="Models\Masters\DepartmentModel.cs" />
@@ -347,6 +348,7 @@
     <Content Include="Scripts\App\Global\Utility.js" />
     <Content Include="Scripts\App\index.css" />
     <Content Include="Scripts\App\jquery.slide.css" />
+    <Content Include="Scripts\App\Login\PatientLogin.js" />
     <Content Include="Scripts\App\Login\Login.js" />
     <Content Include="Scripts\App\Masters\appSetting.js" />
     <Content Include="Scripts\App\Masters\Department.js" />
