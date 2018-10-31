@@ -96,7 +96,7 @@ namespace PatientPortal.Controllers
                     }
                 }
 
-                return View("Index");
+                return RedirectToAction("Index");
             }
         }
 

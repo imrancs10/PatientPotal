@@ -33,6 +33,20 @@ namespace PatientPortal.BAL.Patient
                 WebSession.PatientRegNo = result.RegistrationNumber;
                 WebSession.PatientCRNo = result.CRNumber;
                 WebSession.PatientId = result.PatientId;
+                WebSession.PatientDOB = result.DOB==null?default(DateTime).ToShortDateString():Convert.ToDateTime(result.DOB).ToShortDateString();
+                WebSession.PatientGender = result.Gender;
+                WebSession.PatientMobile = result.MobileNumber;
+                WebSession.PatientName = string.Format("{0} {1}", result.FirstName, result.LastName);
+                DateTime zeroTime = new DateTime(1, 1, 1);
+
+                DateTime a = Convert.ToDateTime(result.DOB);
+                DateTime b = DateTime.Now;
+
+                TimeSpan span = b - a;
+                // Because we start at year 1 for the Gregorian
+                // calendar, we must subtract a year here.
+                int years = (zeroTime + span).Year - 1;
+                WebSession.PatientAge = years;
 
                 var loginEntry = (from obj in result.PatientLoginEntries.AsEnumerable()
                                   where obj.Locked == true

@@ -103,5 +103,34 @@ namespace PatientPortal.Global
             get { return HttpContext.Current.Session["HospitalLogo"] == null ? string.Empty : HttpContext.Current.Session["HospitalLogo"].ToString(); }
             set { HttpContext.Current.Session["HospitalLogo"] = value; }
         }
+
+        public static string PatientMobile
+        {
+            get { return HttpContext.Current.Session["PatientMobile"] == null ? string.Empty : HttpContext.Current.Session["PatientMobile"].ToString(); }
+            set { HttpContext.Current.Session["PatientMobile"] = value; }
+        }
+
+        public static string PatientGender
+        {
+            get { return HttpContext.Current.Session["PatientGender"] == null ? string.Empty : HttpContext.Current.Session["PatientGender"].ToString(); }
+            set { HttpContext.Current.Session["PatientGender"] = value; }
+        }
+
+        public static string PatientName
+        {
+            get { return HttpContext.Current.Session["PatientName"] == null ? string.Empty : HttpContext.Current.Session["PatientName"].ToString(); }
+            set { HttpContext.Current.Session["PatientName"] = value; }
+        }
+
+        public static string PatientDOB
+        {
+            get { return HttpContext.Current.Session["PatientDOB"] == null ? string.Empty : HttpContext.Current.Session["PatientDOB"].ToString(); }
+            set { HttpContext.Current.Session["PatientDOB"] = value; }
+        }
+        public static int PatientAge
+        {
+            get { return HttpContext.Current.Session["PatientAge"] == null ? default(int):Convert.ToInt32(HttpContext.Current.Session["PatientAge"].ToString()); }
+            set { HttpContext.Current.Session["PatientAge"] = value; }
+        }
     }
 }
