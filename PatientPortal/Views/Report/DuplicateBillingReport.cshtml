@@ -91,40 +91,56 @@
 
     function printReport(btn) {
         var tr = $(btn).parent().parent();
-         var tablePatient = '<table>' +
+        var tablePatient = '<div style="text-align:right;margin-left:60px;">' +
+            '<table table-bordered>' +
             '<tr>' +
-             '<td style="width:200px;">Patient Name</td>' +
-             '<td>' + $('#hdnName').val() + '</td>' +
-             '<td style="width:200px">Registration No</td>' +
-             '<td>' + $('#hdnRegNo').val() + '</td>' +
-            '</tr>' +
-             '<tr>' +
-             '<td style="width:150px">Age</td>' +
-             '<td>' + $('#hdnAge').val() + '</td>' +
-            '<td style="width:150px">Sex</td>' +
-             '<td>' + $('#hdnGender').val() + '</td>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;">Patient Name</td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;">' + $('#hdnName').val() + '</td>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;"><b>Registration No</b></td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;">' + $('#hdnRegNo').val() + '</td>' +
             '</tr>' +
             '<tr>' +
-            '<td style="width:150px">DOB</td>' +
-             '<td>' + $('#hdnDob').val() + '</td>' +
-             '<td style="width:150px">Mobile</td>' +
-             '<td>' + $('#hdnMobile').val() + '</td>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;"><b>Age</b></td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;">32</td>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;"><b>Sex</b></td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;">Male</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;"><b>DOB</b></td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;">16, Jul 2018</td>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;"><b>Mobile</b></td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;border:2px solid #ddd;padding:10px;height:30px;">9990614499</td>' +
             '</tr>' +
             '</table >';
-        var table = '<table>' +
+        var table =
+            '<table style="border:2px solid #ddd;">' +
             '<tr>' +
-            '<td style="width:200px">Bill Date</td>' +
-            '<td>' + $(tr).find('td:eq(0)').text() + '</td>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;">Bill Date</td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;">' + $(tr).find('td:eq(0)').text() + '</td>' +
             '</tr>' +
             '<tr>' +
-            '<td style="width:200px">Bill Number</td>' +
-            '<td>' + $(tr).find('td:eq(1)').text() + '</td>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;">Bill Number</td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;">' + $(tr).find('td:eq(1)').text() + '</td>' +
             '</tr>' +
             '<tr>' +
-            '<td style="width:200px">Bill Type</td>' +
-            '<td>' + getBillType($(tr).find('td:eq(2)').text()) + '</td>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;">Bill Type</td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;">' + getBillType($(tr).find('td:eq(2)').text()) + '</td>' +
+            '</tr>' +
+
+            '<tr>' +
+            '<td style="width:300px;margin-right:30px;color:#b83638;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;">Bill Amount :</td>' +
+            '<td style="width:300px;margin-left:30px;color:#000;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;">' + $(tr).find('td:eq(3)').text() + '</td>' +
             '</tr>' +
             '</table >';
+        var tableAmount =
+            '<table style="border:2px solid #ddd;">' +
+            '<tr>' +
+            '<td style="text-align:center;width:900px;margin-right:30px;color:#b83638;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;colspan="4";">Total Amount :</td>' +
+            '<td style="width:300px;text-align:centre;margin-left:30px;color:#000;font-weight:700;padding:10px;border:2px solid #ddd;height:30px;">' + '<b>' + 'Rs.' + '</b>' + $(tr).find('td:eq(3)').text() + '</td>' +
+            '</tr>' +
+            '</table >'; +
+
+                '</div>'
         var pageTitle = 'Duplicate Bill Receipt';
         stylesheet = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
             win = window.open('', 'Print', 'width=500,height=300');
@@ -134,15 +150,14 @@
             '</head><body style="font-size=11px;">' +
             '<hr/>' +
             '<div style="text-align:center;"><img src="' + $('#hdnHospitalLogo').val() + '"/></div><br/>' +
-            '<div style="text-align:center;">Patient Bill Information</div ><hr/>' +
-            
-            tablePatient+
-            '<br/><div style="text-align:left;">Bill Summary</div ><hr/>'
+            '<div style="text-align:center;font-size:18px;font-weight:700;">Patient Bill Information</div ><hr/>' +
+
+            tablePatient +
+            '<br/><div style="text-align:left;color:#000;font-weight:800;font-size:20px;">Bill Summary</div ><hr/>'
             + table +
-            '<br><br><hr/>' +
-            '<div style="text-align:right;" >Bill Amount : ' + $(tr).find('td:eq(3)').text() + '</div>'+
-            '<br><br><br><br><br><br><br><br>' +
-            '<hr/><div style="text-align:right;" >Total Amount : ' + $(tr).find('td:eq(3)').text() +'</div><hr/></body></html>');
+            '<br/>'
+            + tableAmount +
+            '<hr/><hr/></body></html>');
         win.document.close();
         win.print();
         //win.close();
