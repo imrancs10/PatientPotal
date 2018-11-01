@@ -1009,7 +1009,7 @@ namespace PatientPortal.Controllers
             var crData = new PatientInfoModel()
             {
                 FirstName = patient.FirstName,
-                MiddleName = patient.MiddleName ,
+                MiddleName = patient.MiddleName,
                 LastName = patient.LastName,
                 DOB = patient.DOB,
                 Gender = patient.Gender,

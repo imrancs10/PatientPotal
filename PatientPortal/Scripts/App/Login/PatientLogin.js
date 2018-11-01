@@ -58,21 +58,22 @@ $(document).ready(function () {
                     var row = 0;
                     var index = 0;
                     html = html + "<div class='col-sm-4 lists'>";
-                    for (var i = 0; i < rowCount; i++) {
-                        html = html + "<p><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span>"
-                            + departments[i].DeparmentName + "</p>";
+                    var i = 0;
+                    for (i = 0; i < rowCount; i++) {
+                        html = html + "<p><a href='" + departments[i].DepartmentUrl + "' target='_blank'><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span> "
+                            + departments[i].DeparmentName + "</a></p>";
                         row = row + 1;
                     }
                     html = html + "</div><div class='col-sm-4 lists'>";
-                    for (var i = 0; i < rowCount; i++) {
-                        html = html + "<p><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span>" +
-                            departments[row].DeparmentName + "</p>";
+                    for (i = 0; i < rowCount; i++) {
+                        html = html + "<p><a href='" + departments[i].DepartmentUrl + "' target='_blank'><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span> " +
+                            departments[row].DeparmentName + "</a></p>";
                         row = row + 1;
                     }
                     html = html + "</div><div class='col-sm-4 lists'>";
-                    for (var i = 0; i < (departments.length - 2 * rowCount); i++) {
-                        html = html + "<p><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span>" +
-                            departments[row].DeparmentName + "</p>";
+                    for (i = 0; i < (departments.length - 2 * rowCount); i++) {
+                        html = html + "<p><a href='" + departments[i].DepartmentUrl + "' target='_blank'><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span> " +
+                            departments[row].DeparmentName + "</a></p>";
                         row = row + 1;
                     }
                     html = html + "</div>";

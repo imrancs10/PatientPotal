@@ -58,6 +58,7 @@
           </Key>
           <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="DepartmentName" Type="varchar" MaxLength="200" />
+          <Property Name="DepartmentUrl" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -993,6 +994,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <NavigationProperty Name="Doctors" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
           <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalModel.FK_PatientInfoCRClone_Department" FromRole="Department" ToRole="PatientInfoCRClone" />
+          <Property Name="DepartmentUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -1664,6 +1666,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="PatientPortalModel.Department">
               <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentUrl" ColumnName="DepartmentUrl" />
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
               </MappingFragment>

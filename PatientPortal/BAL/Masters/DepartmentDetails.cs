@@ -67,7 +67,8 @@ namespace PatientPortal.BAL.Masters
                          select new DepartmentModel
                          {
                              DeparmentName = dept.DepartmentName,
-                             DepartmentId = dept.DepartmentID
+                             DepartmentId = dept.DepartmentID,
+                             DepartmentUrl = dept.DepartmentUrl
                          }).ToList();
             return _list != null ? _list : new List<DepartmentModel>();
         }
