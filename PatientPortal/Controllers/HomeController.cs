@@ -474,7 +474,8 @@ namespace PatientPortal.Controllers
                 ValidUpto = Convert.ToString(info.ValidUpto.Value.ToString("yyyy-MM-dd")),
                 CreateDate = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionDate.Value.ToString("yyyy-MM-dd")),
                 Amount = Convert.ToString(info.PatientTransactions.FirstOrDefault().Amount),
-                PatientTransactionId = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionNumber)
+                PatientTransactionId = Convert.ToString(info.PatientTransactions.FirstOrDefault().PatientTransactionId),
+                TransactionNumber = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionNumber)
             };
         }
 

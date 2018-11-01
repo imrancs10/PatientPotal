@@ -55,6 +55,7 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
                                 "<FatherOrHusbandName>" + insertModel.FatherOrHusbandName + "</FatherOrHusbandName>	" +
                                 "<Amount>" + insertModel.Amount + "</Amount>" +
                                 "<PatientTransactionId>" + insertModel.PatientTransactionId + "</PatientTransactionId>" +
+                                "<TransactionNumber>" + insertModel.TransactionNumber + "</TransactionNumber>" +
                                 "<CreateDate>" + insertModel.CreateDate + "</CreateDate>	" +
                                 "<ValidUpto>" + insertModel.ValidUpto + "</ValidUpto>" +
                                 "<Type>" + insertModel.Type + "</Type>" +
