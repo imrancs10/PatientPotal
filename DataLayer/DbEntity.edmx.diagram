@@ -46,6 +46,11 @@
         <AssociationConnector Association="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" />
         <AssociationConnector Association="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" />
         <AssociationConnector Association="PatientPortalModel.FK_PatientTransaction_PatientInfo" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientInfoCRClone" Width="1.5" PointX="5.25" PointY="1.375" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientInfoCRClone_City" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientInfoCRClone_Department" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientInfoCRClone_PatientInfoCRClone" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientInfoCRClone_State" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

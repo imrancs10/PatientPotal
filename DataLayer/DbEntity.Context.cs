@@ -46,5 +46,6 @@ namespace DataLayer
         public virtual DbSet<PatientTransaction> PatientTransactions { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<PateintLeadger> PateintLeadgers { get; set; }
+        public virtual DbSet<PatientInfoCRClone> PatientInfoCRClones { get; set; }
     }
 }

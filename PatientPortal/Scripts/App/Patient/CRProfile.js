@@ -40,7 +40,7 @@ $(document).ready(function () {
     }
 
     utility.bindDdlByAjax(app.urls.commonDepartmentList, 'department', 'DeparmentName', 'DepartmentId', function () {
-        $("#department").val(jsonData.Department);
+        $("#department").val(jsonData.DepartmentId);
     });
 
     if (jsonData.PinCode === 0) {

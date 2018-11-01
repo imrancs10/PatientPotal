@@ -259,6 +259,38 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="AadharNumber" Type="varchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="PatientInfoCRClone">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="14" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="MaritalStatus" Type="varchar" MaxLength="100" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="PinCode" Type="int" />
+          <Property Name="Religion" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="OTP" Type="varchar" MaxLength="50" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
+          <Property Name="ResetCode" Type="varchar" MaxLength="100" />
+          <Property Name="CRNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ValidUpto" Type="datetime" />
+          <Property Name="AadharNumber" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="PatientLabReport">
           <Key>
             <PropertyRef Name="ReferanceId" />
@@ -517,6 +549,54 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientInfoCRClone_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="PatientInfoCRClone" Type="Self.PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="PatientInfoCRClone" Type="Self.PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_PatientInfoCRClone">
+          <End Role="PatientInfoCRClone" Type="Self.PatientInfoCRClone" Multiplicity="1" />
+          <End Role="PatientInfoCRClone1" Type="Self.PatientInfoCRClone" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfoCRClone">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone1">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="PatientInfoCRClone" Type="Self.PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PatientLoginEntry_PatientInfo">
           <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="1" />
           <End Role="PatientLoginEntry" Type="Self.PatientLoginEntry" Multiplicity="*" />
@@ -569,6 +649,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <EntitySet Name="MeridiemMaster" EntityType="Self.MeridiemMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientBillReport" EntityType="Self.PatientBillReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientInfoCRClone" EntityType="Self.PatientInfoCRClone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLabReport" EntityType="Self.PatientLabReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginEntry" EntityType="Self.PatientLoginEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginHistory" EntityType="Self.PatientLoginHistory" Schema="dbo" store:Type="Tables" />
@@ -697,6 +778,22 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
             <End Role="State" EntitySet="State" />
             <End Role="PatientInfo" EntitySet="PatientInfo" />
           </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_City" Association="Self.FK_PatientInfoCRClone_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_Department" Association="Self.FK_PatientInfoCRClone_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_PatientInfoCRClone" Association="Self.FK_PatientInfoCRClone_PatientInfoCRClone">
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
+            <End Role="PatientInfoCRClone1" EntitySet="PatientInfoCRClone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_State" Association="Self.FK_PatientInfoCRClone_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
+          </AssociationSet>
           <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="Self.FK_PatientLoginEntry_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfo" />
             <End Role="PatientLoginEntry" EntitySet="PatientLoginEntry" />
@@ -816,6 +913,23 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientTransaction" EntitySet="PatientTransactions" />
           </AssociationSet>
+          <EntitySet Name="PatientInfoCRClones" EntityType="PatientPortalModel.PatientInfoCRClone" />
+          <AssociationSet Name="FK_PatientInfoCRClone_City" Association="PatientPortalModel.FK_PatientInfoCRClone_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_Department" Association="PatientPortalModel.FK_PatientInfoCRClone_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_PatientInfoCRClone" Association="PatientPortalModel.FK_PatientInfoCRClone_PatientInfoCRClone">
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
+            <End Role="PatientInfoCRClone1" EntitySet="PatientInfoCRClones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoCRClone_State" Association="PatientPortalModel.FK_PatientInfoCRClone_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
           <Key>
@@ -860,6 +974,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="StateId" Type="Int32" />
           <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_City_State" FromRole="City" ToRole="State" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_City" FromRole="City" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalModel.FK_PatientInfoCRClone_City" FromRole="City" ToRole="PatientInfoCRClone" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -877,6 +992,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Doctors" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalModel.FK_PatientInfoCRClone_Department" FromRole="Department" ToRole="PatientInfoCRClone" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -1104,6 +1220,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="StateName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cities" Relationship="PatientPortalModel.FK_City_State" FromRole="State" ToRole="City" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
+          <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalModel.FK_PatientInfoCRClone_State" FromRole="State" ToRole="PatientInfoCRClone" />
         </EntityType>
         <EntityType Name="PateintLeadger">
           <Key>
@@ -1399,6 +1516,91 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
             </Principal>
             <Dependent Role="PatientTransaction">
               <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PatientInfoCRClone">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PinCode" Type="Int32" />
+          <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="OTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FatherOrHusbandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValidUpto" Type="DateTime" Precision="3" />
+          <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="City" Relationship="PatientPortalModel.FK_PatientInfoCRClone_City" FromRole="PatientInfoCRClone" ToRole="City" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfoCRClone_Department" FromRole="PatientInfoCRClone" ToRole="Department" />
+          <NavigationProperty Name="PatientInfoCRClone1" Relationship="PatientPortalModel.FK_PatientInfoCRClone_PatientInfoCRClone" FromRole="PatientInfoCRClone" ToRole="PatientInfoCRClone1" />
+          <NavigationProperty Name="PatientInfoCRClone2" Relationship="PatientPortalModel.FK_PatientInfoCRClone_PatientInfoCRClone" FromRole="PatientInfoCRClone1" ToRole="PatientInfoCRClone" />
+          <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_PatientInfoCRClone_State" FromRole="PatientInfoCRClone" ToRole="State" />
+        </EntityType>
+        <Association Name="FK_PatientInfoCRClone_City">
+          <End Type="PatientPortalModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfoCRClone" Role="PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_Department">
+          <End Type="PatientPortalModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfoCRClone" Role="PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_PatientInfoCRClone">
+          <End Type="PatientPortalModel.PatientInfoCRClone" Role="PatientInfoCRClone" Multiplicity="1" />
+          <End Type="PatientPortalModel.PatientInfoCRClone" Role="PatientInfoCRClone1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PatientInfoCRClone">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone1">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoCRClone_State">
+          <End Type="PatientPortalModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfoCRClone" Role="PatientInfoCRClone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfoCRClone">
+              <PropertyRef Name="StateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1730,6 +1932,39 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
                 <ScalarProperty Name="opdid" ColumnName="opdid" />
                 <ScalarProperty Name="godcode" ColumnName="godcode" />
                 <ScalarProperty Name="Billid" ColumnName="Billid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientInfoCRClones">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientInfoCRClone">
+              <MappingFragment StoreEntitySet="PatientInfoCRClone">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
+                <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
+                <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />
+                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
+                <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

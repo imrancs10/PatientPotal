@@ -33,7 +33,7 @@ namespace PatientPortal.BAL.Patient
                 WebSession.PatientRegNo = result.RegistrationNumber;
                 WebSession.PatientCRNo = result.CRNumber;
                 WebSession.PatientId = result.PatientId;
-                WebSession.PatientDOB = result.DOB==null?default(DateTime).ToShortDateString():Convert.ToDateTime(result.DOB).ToShortDateString();
+                WebSession.PatientDOB = result.DOB == null ? default(DateTime).ToShortDateString() : Convert.ToDateTime(result.DOB).ToShortDateString();
                 WebSession.PatientGender = result.Gender;
                 WebSession.PatientMobile = result.MobileNumber;
                 WebSession.PatientName = string.Format("{0} {1}", result.FirstName, result.LastName);
@@ -154,6 +154,24 @@ namespace PatientPortal.BAL.Patient
             return _patientRow;
         }
 
+        public PatientInfoCRClone UpdatePatientDetailClone(PatientInfoCRClone info)
+        {
+            _db = new PatientPortalEntities();
+            var _patientRow = _db.PatientInfoCRClones.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+            if (_patientRow != null)
+            {
+                _patientRow.OTP = info.OTP;
+                _patientRow.ResetCode = info.ResetCode;
+                _patientRow.ValidUpto = info.ValidUpto > DateTime.Now ? info.ValidUpto : _patientRow.ValidUpto;
+                _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
+                _patientRow.CRNumber = !string.IsNullOrEmpty(info.CRNumber) ? info.CRNumber : _patientRow.CRNumber;
+                _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber;
+                _db.Entry(_patientRow).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return _patientRow;
+        }
+
         public PatientInfo UpdatePatientValidity(PatientInfo info)
         {
             _db = new PatientPortalEntities();
@@ -192,6 +210,74 @@ namespace PatientPortal.BAL.Patient
                 var _patientRow = _db.PatientInfoes.Include(x => x.Department).Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
                 if (_patientRow != null)
                 {
+                    _patientRow.Email = info.Email;
+                    _patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
+                    //_patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
+                    //_patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; ;
+                    //_patientRow.Address = info.Address;
+                    //_patientRow.City = info.City;
+                    //_patientRow.Country = info.Country;
+                    //_patientRow.DepartmentId = info.DepartmentId;
+                    //_patientRow.DOB = info.DOB;
+                    //_patientRow.FirstName = info.FirstName;
+                    //_patientRow.Gender = info.Gender;
+                    //_patientRow.LastName = info.LastName;
+                    //_patientRow.MiddleName = info.MiddleName;
+                    //_patientRow.MobileNumber = info.MobileNumber;
+                    //_patientRow.PinCode = info.PinCode;
+                    //_patientRow.Religion = info.Religion;
+                    //_patientRow.State = info.State;
+                    //_patientRow.FatherOrHusbandName = info.FatherOrHusbandName;
+                    //_patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
+                    //_patientRow.MaritalStatus = info.MaritalStatus;
+                    //_patientRow.Title = info.Title;
+                    //_patientRow.AadharNumber = info.AadharNumber;
+                    _db.Entry(_patientRow).State = EntityState.Modified;
+                    _db.SaveChanges();
+                    result.Add("status", CrudStatus.Saved.ToString());
+                    result.Add("data", _patientRow);
+                    return result;
+                }
+                else
+                {
+                    result.Add("status", CrudStatus.NotSaved.ToString());
+                    result.Add("data", info);
+                    return result;
+                }
+            }
+            else
+            {
+                var _deptRow = _db.PatientInfoes.Include(x => x.Department).Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
+                if (_deptRow == null)
+                {
+                    info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
+                    info.CreatedDate = DateTime.Now;
+                    _db.Entry(info).State = EntityState.Added;
+                    _effectRow = _db.SaveChanges();
+                    result.Add("status", CrudStatus.Saved.ToString());
+                    info.Department = _db.PatientInfoes.Include(x => x.Department).FirstOrDefault().Department;
+                    result.Add("data", info);
+                    return result;
+                }
+                else
+                {
+                    result.Add("status", CrudStatus.DataAlreadyExist.ToString());
+                    result.Add("data", _deptRow);
+                    return result;
+                }
+            }
+        }
+
+        public Dictionary<string, object> CreateOrUpdatePatientDetailClone(PatientInfoCRClone info)
+        {
+            _db = new PatientPortalEntities();
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            int _effectRow = 0;
+            if (info.PatientId > 0)
+            {
+                var _patientRow = _db.PatientInfoCRClones.Include(x => x.Department).Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+                if (_patientRow != null)
+                {
                     _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
                     _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; ;
                     _patientRow.Address = info.Address;
@@ -228,7 +314,7 @@ namespace PatientPortal.BAL.Patient
             }
             else
             {
-                var _deptRow = _db.PatientInfoes.Include(x => x.Department).Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
+                var _deptRow = _db.PatientInfoCRClones.Include(x => x.Department).Where(x => x.MobileNumber.Equals(info.MobileNumber) || x.Email.Equals(info.Email)).FirstOrDefault();
                 if (_deptRow == null)
                 {
                     info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
@@ -236,7 +322,7 @@ namespace PatientPortal.BAL.Patient
                     _db.Entry(info).State = EntityState.Added;
                     _effectRow = _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());
-                    info.Department = _db.PatientInfoes.Include(x => x.Department).FirstOrDefault().Department;
+                    info.Department = _db.PatientInfoCRClones.Include(x => x.Department).FirstOrDefault().Department;
                     result.Add("data", info);
                     return result;
                 }
@@ -381,6 +467,20 @@ namespace PatientPortal.BAL.Patient
             _db = new PatientPortalEntities();
             _db.Configuration.LazyLoadingEnabled = false;
             return _db.Cities.Where(x => x.CityName.Equals(cityName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+        }
+
+        public void DeletePatientInfoCRData(string crNumber)
+        {
+            _db = new PatientPortalEntities();
+            var deleteData = _db.PatientInfoCRClones.Where(x => x.CRNumber.Equals(crNumber)).FirstOrDefault();
+            _db.PatientInfoCRClones.Remove(deleteData);
+            _db.SaveChanges();
+        }
+
+        public PatientInfoCRClone GetPatientCloneDetailByCRNumber(string crNumber)
+        {
+            _db = new PatientPortalEntities();
+            return _db.PatientInfoCRClones.Where(x => x.CRNumber == crNumber).FirstOrDefault();
         }
     }
 }

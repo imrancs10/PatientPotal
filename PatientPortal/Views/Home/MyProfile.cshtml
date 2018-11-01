@@ -28,7 +28,7 @@
                     My Profile -- Registration No : <b>@json.RegistrationNumber</b>
                     @if (!isEditMode)
                     {
-                        @*<a href="/Home/EditProfile" class="btn btn-warning pull-right" style="margin-top: -6px;">Edit</a>*@
+                        <a href="/Home/EditProfile" class="btn btn-warning pull-right" style="margin-top: -6px;">Edit</a>
                     }
                 </div>
                 <div class="panel-body">
@@ -143,9 +143,9 @@
                                             <div id="stateLabel"></div>
                                         </div>
                                         @*<div class="form-group hidden">
-                                            <label>Country</label>
-                                            <div id="countryLabel"></div>
-                                        </div>*@
+                                                <label>Country</label>
+                                                <div id="countryLabel"></div>
+                                            </div>*@
                                     </div>
                                 </div>
                             }
@@ -156,7 +156,7 @@
                                         <div class="form-group">
                                             <label>Title</label>
                                             <div>
-                                                <select id="title" class="form-control" name="title" required>
+                                                <select id="title" class="form-control" name="title" disabled>
                                                     <option value="">Select</option>
                                                     <option value="Mr.">Mr.</option>
                                                     <option value="Mrs.">Mrs.</option>
@@ -170,14 +170,14 @@
                                             <label>Middle Name</label>
                                             <div>
                                                 <input type="text" value="@json.MiddleName" name="middlename" class="form-control" id="middlename"
-                                                       placeholder="Enter Middle Name " maxlength="50" autocomplete="off">
+                                                       placeholder="Enter Middle Name " maxlength="50" autocomplete="off" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Father/Husband Name</label>
                                             <div>
                                                 <input type="text" value="@json.FatherOrHusbandName" name="FatherHusbandName" data-valid="required" class="form-control" id="FatherHusbandName"
-                                                       placeholder="Enter Father/Husband Name" maxlength="100" autocomplete="off" required>
+                                                       placeholder="Enter Father/Husband Name" maxlength="100" autocomplete="off" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -190,7 +190,7 @@
                                         <div class="form-group">
                                             <label>Gender</label>
                                             <div>
-                                                <select id="Gender" class="form-control" name="Gender" required>
+                                                <select id="Gender" class="form-control" name="Gender" disabled>
                                                     <option value="">Select</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -200,7 +200,7 @@
                                         <div class="form-group">
                                             <label>Department</label>
                                             <div>
-                                                <select class="form-control" name="department" id="department"></select>
+                                                <select class="form-control" name="department" id="department" disabled></select>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -208,41 +208,41 @@
                                             <div>
                                                 <input type="text" value="@json.PinCode" name="pincode" class="form-control"
                                                        id="pincode" onkeypress="return isNumber(event)"
-                                                       placeholder="Enter Pin Code" maxlength="6" autocomplete="off">
+                                                       placeholder="Enter Pin Code" maxlength="6" autocomplete="off" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>State</label>
                                             <div>
-                                                <select class="form-control" id="state" name="state" data-live-search="true" data-valid="required" required></select>
+                                                <select class="form-control" id="state" name="state" data-live-search="true" data-valid="required" disabled></select>
                                             </div>
                                         </div>
-                                        @*<div class="form-group">
-                                            <label>Valid Up To</label>
+                                        <div class="form-group">
+                                            <label>City</label>
                                             <div>
-                                                <div>@Convert.ToDateTime(json.ValidUpto).ToShortDateString()</div>
+                                                <select class="form-control" name="city" id="city" disabled></select>
                                             </div>
-                                        </div>*@
+                                        </div>
                                     </div>
                                     <div class="col-sm-6 col-lg-6">
                                         <div class="form-group">
                                             <label>Fisrt Name</label>
                                             <div>
                                                 <input type="text" value="@json.FirstName" name="firstname" data-valid="required" class="form-control"
-                                                       id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off" required />
+                                                       id="firstname" placeholder="Enter First Name " maxlength="50" autocomplete="off" disabled />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Last Name</label>
                                             <div>
                                                 <input type="text" value="@json.LastName" name="lastname" data-valid="required" class="form-control" id="lastname"
-                                                       placeholder="Enter LastName" maxlength="50" autocomplete="off" required>
+                                                       placeholder="Enter LastName" maxlength="50" autocomplete="off" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Marital Status</label>
                                             <div>
-                                                <select class="form-control" id="MaritalStatus" name="MaritalStatus" required>
+                                                <select class="form-control" id="MaritalStatus" name="MaritalStatus" disabled>
                                                     <option value="">Select</option>
                                                     <option value="S">Single</option>
                                                     <option value="M">Married</option>
@@ -252,7 +252,7 @@
                                         <div class="form-group">
                                             <label>Aadhar Number</label>
                                             <div>
-                                                <input name="aadharNumber" id="aadharNumber" class="form-control" placeholder="Enter your Aadhar Number" 
+                                                <input name="aadharNumber" id="aadharNumber" class="form-control" placeholder="Enter your Aadhar Number" disabled
                                                        value="@json.AadharNumber" onkeypress="return isNumber(event)" minlength="12" maxlength='12' type="text" autocomplete="off">
                                             </div>
                                         </div>
@@ -261,20 +261,20 @@
                                             <div>
                                                 <input id="mobilenumber" class="form-control" required name="mobilenumber" placeholder="Enter Mobile Number"
                                                        autocomplete="off" onkeypress="return isNumber(event)" value="@json.MobileNumber" type="text" maxlength="10"
-                                                       data-valid="required" data-type="phone" minlength="10" />
+                                                       data-valid="required" data-type="phone" minlength="10" disabled/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>DOB</label>
                                             <div>
                                                 <input type="date" value="@Convert.ToDateTime(json.DOB).ToString("yyyy-MM-dd")" name="DOB" data-valid="required" class="form-control"
-                                                       id="DOB" placeholder="Enter DOB" maxlength="50" autocomplete="off" required>
+                                                       id="DOB" placeholder="Enter DOB" maxlength="50" autocomplete="off" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Religion</label>
                                             <div>
-                                                <select class="form-control" id="religion" name="religion" required>
+                                                <select class="form-control" id="religion" name="religion" disabled>
                                                     <option value="">Select</option>
                                                     <option value="Hindu" title="Hindu">Hindu</option>
                                                     <option value="Jain" title="Jain">Jain</option>
@@ -293,19 +293,7 @@
                                             <label>Address</label>
                                             <div>
                                                 <input type="text" value="@json.Address" name="address" data-valid="required" class="form-control" id="address"
-                                                       placeholder="Enter Address " maxlength="50" autocomplete="off" required>
-                                            </div>
-                                        </div>
-                                        @*<div class="form-group hidden">
-            <label>Country</label>
-            <div>
-                <select class="form-control" id="country" name="country" data-valid="required" required></select>
-            </div>
-        </div>*@
-                                        <div class="form-group">
-                                            <label>City</label>
-                                            <div>
-                                                <select class="form-control" name="city" id="city" required></select>
+                                                       placeholder="Enter Address " maxlength="50" autocomplete="off" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group">

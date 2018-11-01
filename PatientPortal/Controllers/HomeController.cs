@@ -31,28 +31,8 @@ namespace PatientPortal.Controllers
         }
         public ActionResult Index()
         {
-            //DepartmentDetails _details = new DepartmentDetails();
-            //var result = _details.DepartmentList();
-            //ViewData["Departments"] = result;
-            //var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail("0");
-            //ViewData["PDDetail"] = opdDetail;
             return View();
         }
-
-        [HttpPost]
-        public System.Web.Mvc.JsonResult GetDepartmentAndOPDDetail()
-        {
-            DepartmentDetails _details = new DepartmentDetails();
-            var result = _details.DepartmentList();
-            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail("0");
-            DepartmentOPDModel model = new DepartmentOPDModel()
-            {
-                Departments = result,
-                OPDModel = opdDetail
-            };
-            return Json(model);
-        }
-
 
         [HttpPost]
         public ActionResult GetPatientLogin(string username, string password)
@@ -640,37 +620,45 @@ namespace PatientPortal.Controllers
             };
             return model;
         }
-        private static Dictionary<string, object> SavePatientInfo(string MaritalStatus, string Title, string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string aadharNumber)
+        private static Dictionary<string, object> SavePatientInfo(string MaritalStatus, string Title, string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string aadharNumber, bool IsClone = false)
         {
             PatientDetails _details = new PatientDetails();
             int pinResult = 0;
-            PatientInfo info = new PatientInfo()
-            {
-                AadharNumber = aadharNumber,
-                FirstName = firstname,
-                MiddleName = middlename,
-                LastName = lastname,
-                DOB = Convert.ToDateTime(DOB),
-                Gender = Gender,
-                MobileNumber = mobilenumber.Trim(),
-                Email = email.Trim(),
-                Address = address,
-                CityId = Convert.ToInt32(city),
-                Country = country,
-                PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0,
-                Religion = religion,
-                OTP = verificationCode,
-                DepartmentId = Convert.ToInt32(department),
-                StateId = Convert.ToInt32(state),
-                FatherOrHusbandName = FatherHusbandName,
-                MaritalStatus = MaritalStatus,
-                Title = Title
-            };
+            dynamic info;
+            if (IsClone == false)
+                info = new PatientInfo();
+            else
+                info = new PatientInfoCRClone();
+
+            info.AadharNumber = aadharNumber;
+            info.FirstName = firstname;
+            info.MiddleName = middlename;
+            info.LastName = lastname;
+            info.DOB = Convert.ToDateTime(DOB);
+            info.Gender = Gender;
+            info.MobileNumber = mobilenumber;
+            info.Email = email;
+            info.Address = address;
+            info.CityId = Convert.ToInt32(city);
+            info.Country = country;
+            info.PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0;
+            info.Religion = religion;
+            info.OTP = verificationCode;
+            info.DepartmentId = Convert.ToInt32(department);
+            info.StateId = Convert.ToInt32(state);
+            info.FatherOrHusbandName = FatherHusbandName;
+            info.MaritalStatus = MaritalStatus;
+            info.Title = Title;
+
             if (patientId > 0)
                 info.PatientId = patientId;
             if (image != null && image.Length > 0)
                 info.Photo = image;
-            var result = _details.CreateOrUpdatePatientDetail(info);
+            Dictionary<string, object> result;
+            if (IsClone == false)
+                result = _details.CreateOrUpdatePatientDetail(info);
+            else
+                result = _details.CreateOrUpdatePatientDetailClone(info);
             return result;
         }
         private static PatientInfoModel getPatientInfoModelForSession(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string MaritalStatus, string title, string aadharNumber)
@@ -714,12 +702,7 @@ namespace PatientPortal.Controllers
         public ActionResult UpdateProfile(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, HttpPostedFileBase photo, string FatherHusbandName, string MaritalStatus, string title, string aadharNumber)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
-            if (mobilenumber.Trim().Length != 10)
-            {
-                SetAlertMessage("Please Enter correct Mobile Number", "Register");
-                return RedirectToAction("Register");
-            }
-            else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
+            if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
             {
                 SetAlertMessage("Please Enter correct Email Address", "Register");
                 return RedirectToAction("Register");
@@ -939,53 +922,113 @@ namespace PatientPortal.Controllers
                 return View();
             }
 
-            WebServiceIntegration service = new WebServiceIntegration();
-            var patient = service.GetPatientInfoBYCRNumber(CRNumber);
-            if (patient != null)
+            var patientInfoClone = details.GetPatientCloneDetailByCRNumber(CRNumber);
+            if (patientInfoClone != null)
             {
-                int pin = 0;
-
-
-                var crData = new PatientInfoModel()
-                {
-                    FirstName = patient.Firstname != "N/A" ? patient.Firstname : string.Empty,
-                    MiddleName = patient.Middlename != "N/A" ? patient.Middlename : string.Empty,
-                    LastName = patient.Lastname != "N/A" ? patient.Lastname : string.Empty,
-                    DOB = !string.IsNullOrEmpty(patient.Age) ? DateTime.Now.AddYears(-Convert.ToInt32(patient.Age)) : DateTime.Now,
-                    Gender = patient.Gender == "F" ? "Female" : "Male",
-                    MobileNumber = patient.Mobileno != "N/A" ? patient.Mobileno : string.Empty,
-                    Email = patient.Email != "N/A" ? patient.Email : string.Empty,
-                    Address = patient.Address != "N/A" ? patient.Address : string.Empty,
-                    CityId = patient.City != "N/A" ? GetCityIdByCItyName(patient.City) : string.Empty,
-                    Country = patient.Country != "N/A" ? patient.Country : string.Empty,
-                    PinCode = int.TryParse(patient.Pincode, out pin) ? pin : 0,
-                    Religion = patient.Religion != "N/A" ? patient.Religion : string.Empty,
-                    Department = Convert.ToString(patient.deptid),
-                    StateId = patient.State != "N/A" ? GetStateIdByStateName(patient.State) : string.Empty,
-                    FatherOrHusbandName = patient.FatherOrHusbandName != "N/A" ? patient.FatherOrHusbandName : string.Empty,
-                    CRNumber = patient.Registrationnumber != "N/A" ? patient.Registrationnumber : string.Empty,
-                    Title = patient.Title != "N/A" ? patient.Title : string.Empty,
-                    AadharNumber = patient.AadharNo != "N/A" ? patient.AadharNo : string.Empty,
-                    MaritalStatus = patient.MaritalStatus != "N/A" ? patient.MaritalStatus : string.Empty,
-                    DoR = patient.DoR != "N/A" ? patient.DoR : string.Empty,
-                    ValidUpto = patient.ValidUpto != "N/A" ? Convert.ToDateTime(patient.ValidUpto) : Convert.ToDateTime(patient.DoR).AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"])),
-                };
-                TimeSpan ageDiff = DateTime.Now.Subtract(Convert.ToDateTime(patient.DoR));
-                crData.DOB = crData.DOB.Value.Add(ageDiff);
-                if (crData.LastName == string.Empty && !string.IsNullOrEmpty(crData.MiddleName))
-                {
-                    crData.LastName = crData.MiddleName;
-                    crData.MiddleName = string.Empty;
-                }
+                PatientInfoModel crData = GetPatientInfoModelClone(patientInfoClone);
                 ViewData["CRData"] = crData;
                 Session["crData"] = crData;
                 return View();
             }
             else
             {
-                SetAlertMessage("CR Number not found or expire, Kindly contact to hospital.", "CR Integrate");
-                return View();
+                WebServiceIntegration service = new WebServiceIntegration();
+                var patient = service.GetPatientInfoBYCRNumber(CRNumber);
+                if (patient != null)
+                {
+                    PatientInfoModel crData = GetPatientInfoModel(patient);
+
+                    TimeSpan ageDiff = DateTime.Now.Subtract(Convert.ToDateTime(patient.DoR));
+                    crData.DOB = crData.DOB.Value.Add(ageDiff);
+                    if (crData.LastName == string.Empty && !string.IsNullOrEmpty(crData.MiddleName))
+                    {
+                        crData.LastName = crData.MiddleName;
+                        crData.MiddleName = string.Empty;
+                    }
+                    ViewData["CRData"] = crData;
+                    Session["crData"] = crData;
+
+                    //Save CR Patient Data to Patient Clone table when data comes from web service
+                    Dictionary<string, object> result = SavePatientInfo(crData.MaritalStatus, crData.Title, crData.FirstName, crData.MiddleName, crData.LastName, Convert.ToDateTime(crData.DOB).ToShortDateString(), crData.Gender, crData.MobileNumber, crData.Email, crData.Address, crData.CityId, crData.Country, Convert.ToString(crData.PinCode), crData.Religion, Convert.ToString(crData.DepartmentId), "", crData.StateId, crData.FatherOrHusbandName, 0, null, crData.AadharNumber, true);
+                    if (result["status"].ToString() == CrudStatus.Saved.ToString())
+                    {
+                        string serialNumber = VerificationCodeGeneration.GetSerialNumber();
+                        PatientInfoCRClone info = new PatientInfoCRClone()
+                        {
+                            RegistrationNumber = serialNumber,
+                            CRNumber = !string.IsNullOrEmpty(Convert.ToString(crData.CRNumber)) ? Convert.ToString(crData.CRNumber) : string.Empty,
+                            PatientId = ((PatientInfo)result["data"]).PatientId,
+                            ValidUpto = crData.ValidUpto
+                        };
+                        PatientDetails _details = new PatientDetails();
+                        info = _details.UpdatePatientDetailClone(info);
+                    }
+                    return View();
+                }
+                else
+                {
+                    SetAlertMessage("CR Number not found or expire, Kindly contact to hospital.", "CR Integrate");
+                    return View();
+                }
             }
+        }
+
+        private PatientInfoModel GetPatientInfoModel(HISPatientInfoModel patient)
+        {
+            int pin = 0;
+            var crData = new PatientInfoModel()
+            {
+                FirstName = patient.Firstname != "N/A" ? patient.Firstname : string.Empty,
+                MiddleName = patient.Middlename != "N/A" ? patient.Middlename : string.Empty,
+                LastName = patient.Lastname != "N/A" ? patient.Lastname : string.Empty,
+                DOB = !string.IsNullOrEmpty(patient.Age) ? DateTime.Now.AddYears(-Convert.ToInt32(patient.Age)) : DateTime.Now,
+                Gender = patient.Gender == "F" ? "Female" : "Male",
+                MobileNumber = patient.Mobileno != "N/A" ? patient.Mobileno : string.Empty,
+                Email = patient.Email != "N/A" ? patient.Email : string.Empty,
+                Address = patient.Address != "N/A" ? patient.Address : string.Empty,
+                CityId = patient.City != "N/A" ? GetCityIdByCItyName(patient.City) : string.Empty,
+                Country = patient.Country != "N/A" ? patient.Country : string.Empty,
+                PinCode = int.TryParse(patient.Pincode, out pin) ? pin : 0,
+                Religion = patient.Religion != "N/A" ? patient.Religion : string.Empty,
+                DepartmentId = patient.deptid,
+                StateId = patient.State != "N/A" ? GetStateIdByStateName(patient.State) : string.Empty,
+                FatherOrHusbandName = patient.FatherOrHusbandName != "N/A" ? patient.FatherOrHusbandName : string.Empty,
+                CRNumber = patient.Registrationnumber != "N/A" ? patient.Registrationnumber : string.Empty,
+                Title = patient.Title != "N/A" ? patient.Title : string.Empty,
+                AadharNumber = patient.AadharNo != "N/A" ? patient.AadharNo : string.Empty,
+                MaritalStatus = patient.MaritalStatus != "N/A" ? patient.MaritalStatus : string.Empty,
+                DoR = patient.DoR != "N/A" ? patient.DoR : string.Empty,
+                ValidUpto = patient.ValidUpto != "N/A" ? Convert.ToDateTime(patient.ValidUpto) : Convert.ToDateTime(patient.DoR).AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"])),
+            };
+            return crData;
+        }
+        private PatientInfoModel GetPatientInfoModelClone(PatientInfoCRClone patient)
+        {
+            int pin = 0;
+            var crData = new PatientInfoModel()
+            {
+                FirstName = patient.FirstName,
+                MiddleName = patient.MiddleName ,
+                LastName = patient.LastName,
+                DOB = patient.DOB,
+                Gender = patient.Gender,
+                MobileNumber = patient.MobileNumber,
+                Email = patient.Email,
+                Address = patient.Address,
+                CityId = Convert.ToString(patient.CityId),
+                Country = patient.Country,
+                PinCode = patient.PinCode,
+                Religion = patient.Religion,
+                DepartmentId = patient.DepartmentId.Value,
+                StateId = Convert.ToString(patient.StateId),
+                FatherOrHusbandName = patient.FatherOrHusbandName,
+                CRNumber = patient.RegistrationNumber,
+                Title = patient.Title,
+                AadharNumber = patient.AadharNumber,
+                MaritalStatus = patient.MaritalStatus,
+                ValidUpto = patient.ValidUpto,
+            };
+            return crData;
         }
 
         [HttpPost]
@@ -1018,6 +1061,7 @@ namespace PatientPortal.Controllers
                     info = _details.UpdatePatientDetail(info);
                     SendMailTransactionResponse(serialNumber, info);
                     Session["crData"] = null;
+                    _details.DeletePatientInfoCRData(crData.CRNumber);
                 }
                 else
                 {
@@ -1066,5 +1110,20 @@ namespace PatientPortal.Controllers
             PatientDetails _details = new PatientDetails();
             return Convert.ToString(_details.GetCityIdByCItyName(cityName).CityId);
         }
+
+        [HttpPost]
+        public System.Web.Mvc.JsonResult GetDepartmentAndOPDDetail()
+        {
+            DepartmentDetails _details = new DepartmentDetails();
+            var result = _details.DepartmentList();
+            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail("0");
+            DepartmentOPDModel model = new DepartmentOPDModel()
+            {
+                Departments = result,
+                OPDModel = opdDetail
+            };
+            return Json(model);
+        }
+
     }
 }
