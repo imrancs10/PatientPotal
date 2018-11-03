@@ -12,3 +12,8 @@ $(document).on('click', '#_url', function () {
         $('.url').show();
     }
 });
+
+$(document).ready(function () {
+    utility.bindDdlByAjax(app.urls.doctorList, 'ddlDoctor', 'DoctorName', 'DoctorId', function () {
+    });
+});

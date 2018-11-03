@@ -45,7 +45,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetLabReport(HttpPostedFileBase reportfile,DateTime ReportDate, int PatientId, string BillNo, string RefNo, string LabName, string ReportUrl)
+        public ActionResult SetLabReport(HttpPostedFileBase reportfile,DateTime ReportDate, int PatientId, string BillNo, string RefNo, string LabName, string ReportUrl,string doctorId)
         {
             string ReportPath = string.Empty;
             if (reportfile != null)
@@ -58,7 +58,7 @@ namespace PatientPortal.Controllers
                 ReportPath = ReportUrl;
             }
             ReportDetails _details = new ReportDetails();
-            _details.SetLabReportData(PatientId, BillNo, RefNo, ReportPath, LabName, ReportDate);
+            _details.SetLabReportData(PatientId, BillNo, RefNo, ReportPath, LabName, ReportDate, doctorId);
             return View("PatientLabReport");
         }
 

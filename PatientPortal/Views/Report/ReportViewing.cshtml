@@ -1,6 +1,6 @@
 ﻿@using DataLayer
 
-@model List<PatientLabReport>
+@model List<LabreportPdf>
 @{
     ViewBag.Title = "Report Viewing";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
@@ -27,17 +27,17 @@
                                 foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@item.RefNo</td>
+                                        <td>@item.Labref</td>
                                         <td>@item.LabName</td>
                                         <td>@item.BillNo</td>
-                                        <td>@item.CreatedDate.ToShortDateString()</td>
+                                        <td>@Convert.ToDateTime(item.CreatedDate).ToShortDateString()</td>
                                         <td>
                                             <div class="btn-group">
-                                                @if (!string.IsNullOrEmpty(item.ReportUrl))
+                                                @if (!string.IsNullOrEmpty(item.Url))
                                                 {
                                                     <div class="btn-group">
-                                                        <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
-                                                        <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
+                                                        <a href="~/Report/ViewReportFile?fileUrl=@item.Url&view=GetBillingReport" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">View</a>
+                                                        <button type="button" id="_download" data-url="@item.Url" class="btn btn-primary">Download</button>
                                                     </div>
                                                 }
                                                 else

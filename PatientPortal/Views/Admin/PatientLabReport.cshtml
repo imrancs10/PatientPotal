@@ -11,6 +11,12 @@
             <div class="panel-body">
                 @Html.Partial("_PatientSearch")
                 <div class="form-group">
+                    <label for="">Doctor</label>
+                    <select class="form-control" id="ddlDoctor" name="doctorId" required>
+                        <option value="">Select Doctor</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="">Bill No.</label>
                     <input type="number" name="Billno" required="required" id="txtBillNo" autocomplete="off" maxlength="50" class="form-control" placeholder="Bill No" />
                 </div>

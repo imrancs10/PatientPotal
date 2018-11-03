@@ -4,9 +4,7 @@
 
 var labreport = {};
 
-$(document).ready(function () {
 
-});
 
 labreport.openModal = function (row) {
     var patientId = $(row).parent().parent().find('td').eq(0).html();

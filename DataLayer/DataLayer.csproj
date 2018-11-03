@@ -101,6 +101,9 @@
     <Compile Include="LabReport.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="LabreportPdf.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="MeridiemMaster.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
@@ -114,9 +117,6 @@
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="PatientInfoCRClone.cs">
-      <DependentUpon>DbEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PatientLabReport.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="PatientLoginEntry.cs">
