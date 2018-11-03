@@ -353,6 +353,7 @@
     <Content Include="Scripts\App\Masters\appSetting.js" />
     <Content Include="Scripts\App\Masters\Department.js" />
     <Content Include="Scripts\App\Masters\DoctorLeave.js" />
+    <Content Include="Scripts\App\Masters\SyncHISData.js" />
     <Content Include="Scripts\App\Masters\LabReport.js" />
     <Content Include="Scripts\App\Masters\Doctors.js" />
     <Content Include="Scripts\App\Masters\Schedule.js" />
@@ -462,6 +463,7 @@
     <Content Include="Views\Shared\ExceptionPage.cshtml" />
     <Content Include="Views\Report\DuplicateBillingReport.cshtml" />
     <Content Include="Views\Home\MakePayment.cshtml" />
+    <Content Include="Views\Masters\SyncHISFailedTransaction.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">

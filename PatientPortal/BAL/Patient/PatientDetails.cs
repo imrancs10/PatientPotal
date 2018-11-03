@@ -133,7 +133,7 @@ namespace PatientPortal.BAL.Patient
         {
             _db = new PatientPortalEntities();
 
-            return _db.PatientInfoes.Include(x => x.Department).Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
+            return _db.PatientInfoes.Include(x => x.Department).Include(x => x.PatientTransactions).Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
         }
 
         public PatientInfo UpdatePatientDetail(PatientInfo info)
@@ -182,6 +182,20 @@ namespace PatientPortal.BAL.Patient
                     _patientRow.ValidUpto = _patientRow.ValidUpto.Value.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
                 else
                     _patientRow.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
+                _db.Entry(_patientRow).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return _patientRow;
+        }
+
+        public PatientInfo UpdatePatientHISSyncStatus(PatientInfo info)
+        {
+            _db = new PatientPortalEntities();
+            var _patientRow = _db.PatientInfoes.Where(x => x.PatientId.Equals(info.PatientId)).FirstOrDefault();
+            if (_patientRow != null)
+            {
+                _patientRow.RenewalStatusHIS = !string.IsNullOrEmpty(info.RenewalStatusHIS) ? info.RenewalStatusHIS : _patientRow.RenewalStatusHIS;
+                _patientRow.RegistrationStatusHIS = !string.IsNullOrEmpty(info.RegistrationStatusHIS) ? info.RegistrationStatusHIS : _patientRow.RegistrationStatusHIS;
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();
             }
@@ -481,6 +495,11 @@ namespace PatientPortal.BAL.Patient
         {
             _db = new PatientPortalEntities();
             return _db.PatientInfoCRClones.Where(x => x.CRNumber == crNumber).FirstOrDefault();
+        }
+        public List<PatientInfo> SyncHISFailedPatientList()
+        {
+            _db = new PatientPortalEntities();
+            return _db.PatientInfoes.Where(x => x.RenewalStatusHIS.ToUpper() != "S" || x.RegistrationStatusHIS.ToUpper() != "S").ToList();
         }
     }
 }

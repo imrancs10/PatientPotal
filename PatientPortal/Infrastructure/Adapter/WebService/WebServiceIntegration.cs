@@ -24,7 +24,7 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
         public string GetPatientInfoinsert(HISPatientInfoInsertModel insertModel)
         {
             //Serializer serilizer = new Serializer();
-            string xml = getXMLDataForRegistration(insertModel);//serilizer.SerializeToXML(insertModel);
+            string xml = getXMLDataForRegistration(insertModel);
             GetPatient_Info_insert pateintInfoService = new GetPatient_Info_insert();
             return pateintInfoService.GetPatientInfoinsert(xml);
         }

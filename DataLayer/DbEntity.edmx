@@ -259,6 +259,8 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="ValidUpto" Type="datetime" />
           <Property Name="AadharNumber" Type="varchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="RenewalStatusHIS" Type="varchar" MaxLength="500" />
+          <Property Name="RegistrationStatusHIS" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="PatientInfoCRClone">
           <Key>
@@ -1162,6 +1164,8 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <NavigationProperty Name="PatientLoginEntries" Relationship="PatientPortalModel.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="PatientPortalModel.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="PatientPortalModel.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
+          <Property Name="RenewalStatusHIS" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RegistrationStatusHIS" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PatientLabReport">
           <Key>
@@ -1792,6 +1796,8 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <EntitySetMapping Name="PatientInfoes">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
               <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="RegistrationStatusHIS" ColumnName="RegistrationStatusHIS" />
+                <ScalarProperty Name="RenewalStatusHIS" ColumnName="RenewalStatusHIS" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
                 <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />

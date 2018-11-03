@@ -369,6 +369,15 @@ namespace PatientPortal.Controllers
                     insertModel.Type = Convert.ToInt32(TransactionType.Renewal);
                     WebServiceIntegration service = new WebServiceIntegration();
                     string serviceResult = service.GetPatientInfoinsert(insertModel);
+
+                    //save status to DB
+                    PatientInfo user = new PatientInfo()
+                    {
+                        PatientId = info.PatientId,
+                        RenewalStatusHIS = serviceResult
+                    };
+                    _details.UpdatePatientHISSyncStatus(info);
+
                     if (Convert.ToBoolean(TempData["Expired"]) == true)
                     {
                         return RedirectToAction("TransactionResponseRenewalExpired");
@@ -417,6 +426,14 @@ namespace PatientPortal.Controllers
                             insertModel.Type = Convert.ToInt32(TransactionType.Register);
                             WebServiceIntegration service = new WebServiceIntegration();
                             string serviceResult = service.GetPatientInfoinsert(insertModel);
+
+                            //save status to DB
+                            PatientInfo user = new PatientInfo()
+                            {
+                                PatientId = patientId,
+                                RegistrationStatusHIS = serviceResult
+                            };
+                            _details.UpdatePatientHISSyncStatus(info);
                         }
                     }
                     else
@@ -446,7 +463,7 @@ namespace PatientPortal.Controllers
             return View();
         }
 
-        private static HISPatientInfoInsertModel setregistrationModelForHISPortal(PatientInfo info)
+        public static HISPatientInfoInsertModel setregistrationModelForHISPortal(PatientInfo info)
         {
             return new HISPatientInfoInsertModel()
             {

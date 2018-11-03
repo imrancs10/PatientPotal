@@ -7,7 +7,11 @@ using System.Web.Mvc;
 using DataLayer;
 using PatientPortal.BAL.Masters;
 using PatientPortal.BAL.Patient;
+using PatientPortal.Infrastructure.Adapter.WebService;
+using PatientPortal.Models;
 using PatientPortal.Models.Masters;
+using static PatientPortal.Global.Enums;
+using JsonResult = System.Web.Mvc.JsonResult;
 
 namespace PatientPortal.Controllers
 {
@@ -244,6 +248,53 @@ namespace PatientPortal.Controllers
                 SetAlertMessage("Lab Report not saved", "Lab Report");
                 return RedirectToAction("LabReport", new { search = searchText });
             }
+        }
+
+        public ActionResult SyncHISFailedTransaction()
+        {
+            PatientDetails _details = new PatientDetails();
+            var result = _details.SyncHISFailedPatientList();
+            ViewData["PatientInfo"] = result;
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult SyncHISData(int patientId, int transactionType)
+        {
+            //send patient data to HIS portal
+            PatientDetails _details = new PatientDetails();
+            PatientInfo info = _details.GetPatientDetailById(patientId);
+            HISPatientInfoInsertModel insertModel = HomeController.setregistrationModelForHISPortal(info);
+            insertModel.Type = transactionType;
+            WebServiceIntegration service = new WebServiceIntegration();
+            string serviceResult = service.GetPatientInfoinsert(insertModel);
+
+            //save status to DB
+            PatientInfo user = new PatientInfo()
+            {
+                PatientId = info.PatientId
+            };
+            if (insertModel.Type == Convert.ToInt32(TransactionType.Register))
+                user.RegistrationStatusHIS = serviceResult;
+            else
+                user.RenewalStatusHIS = serviceResult;
+            _details.UpdatePatientHISSyncStatus(user);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SyncHISAlreadyData(int patientId)
+        {
+            PatientDetails _details = new PatientDetails();
+            //save status to DB
+            PatientInfo user = new PatientInfo()
+            {
+                PatientId = patientId,
+                RenewalStatusHIS = "S",
+                RegistrationStatusHIS = "S"
+            };
+            _details.UpdatePatientHISSyncStatus(user);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

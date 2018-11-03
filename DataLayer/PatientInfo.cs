@@ -53,6 +53,8 @@ namespace DataLayer
         public Nullable<System.DateTime> ValidUpto { get; set; }
         public string AadharNumber { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string RenewalStatusHIS { get; set; }
+        public string RegistrationStatusHIS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }
