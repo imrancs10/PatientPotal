@@ -38,12 +38,12 @@
                                     <tr>
                                         <td class="hidden">@patient.PatientId</td>
                                         <td>
-                                            @if (patient.RenewalStatusHIS.ToUpper() != "S")
+                                            @if (patient.RenewalStatusHIS != "S")
                                             {
                                                 <a class="btn" onclick="synHISData.SyncHISRenewal(this)" name="btnSyncRenewal"
                                                    style="padding:0;cursor:pointer;color:blue;">Sync Renewal |</a>
                                             }
-                                            @if (patient.RegistrationStatusHIS.ToUpper() != "S")
+                                            @if (patient.RegistrationStatusHIS != "S")
                                             {
                                                 <a class="btn" onclick="synHISData.SyncHISRegistration(this)" name="btnSyncRegistration" 
                                                    style="padding:0;cursor:pointer;color:blue;">Sync Registration | </a>
