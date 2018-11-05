@@ -400,6 +400,7 @@
     <Content Include="Reports\Lab\2018\October\21118.pdf" />
     <Content Include="Reports\Lab\2018\October\23487238974.pdf" />
     <Content Include="Reports\Lab\2018\October\LB2017233656.pdf" />
+    <Content Include="Reports\Bill\2018\November\1234.pdf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\jquery.slide.js" />
     <Content Include="Scripts\dist\jquery.slide.min.js" />
