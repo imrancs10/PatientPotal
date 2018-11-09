@@ -336,7 +336,7 @@ namespace PatientPortal.Controllers
                 AWLMEAPI transact = new AWLMEAPI();
                 objResMsgDTO = transact.parseTrnResMsg(merchantResponse, EncryptKey);
 
-                if (objResMsgDTO.ResponseCode == Convert.ToString(ConfigurationManager.AppSettings["TransactionFailedResponseCode"]))
+                if (objResMsgDTO.ResponseCode == Convert.ToString(ConfigurationManager.AppSettings["TransactionFailedResponseCode"]) || objResMsgDTO.StatusCode != "S")
                 {
                     ViewData["FailTransaction"] = true;
                     return View();
