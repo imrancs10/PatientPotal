@@ -33,11 +33,18 @@
                                         <td>@Convert.ToDateTime(item.CreatedDate).ToShortDateString()</td>
                                         <td>
                                             <div class="btn-group">
-                                                @if (!string.IsNullOrEmpty(item.Url))
+                                                @if (!string.IsNullOrEmpty(item.Url) && (!item.Url.Contains("http") && !item.Url.Contains("https")))
                                                 {
                                                     <div class="btn-group">
                                                         <a href="~/Report/ViewReportFile?fileUrl=@item.Url&view=GetBillingReport" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">View</a>
                                                         <button type="button" id="_download" data-url="@item.Url" class="btn btn-primary">Download</button>
+                                                    </div>
+                                                }
+                                                else if (!string.IsNullOrEmpty(item.Url) && (item.Url.Contains("http") || item.Url.Contains("https")))
+                                                {
+                                                    <div class="btn-group">
+                                                        <a href="@item.Url" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">View</a>
+                                                        <a href="@item.Url" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">Download</a>
                                                     </div>
                                                 }
                                                 else

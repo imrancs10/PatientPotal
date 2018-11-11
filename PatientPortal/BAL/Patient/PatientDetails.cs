@@ -21,7 +21,7 @@ namespace PatientPortal.BAL.Patient
             //string hashPassword = Utility.GetHashString(Password);
             var result = _db.PatientInfoes.Include(x => x.Department)
                                     .Include(x => x.PatientLoginEntries)
-                                    .Where(x => x.RegistrationNumber == UserId
+                                    .Where(x => (x.RegistrationNumber == UserId || x.CRNumber == UserId)
                                          && x.Password == Password
                                          && DbFunctions.TruncateTime(x.ValidUpto) >= DbFunctions.TruncateTime(DateTime.Now))
                                     .FirstOrDefault();

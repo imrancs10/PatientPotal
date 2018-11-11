@@ -284,6 +284,8 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="RenewalStatusHIS" Type="varchar" MaxLength="500" />
           <Property Name="RegistrationStatusHIS" Type="varchar" MaxLength="500" />
+          <Property Name="pid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="PatientInfoCRClone">
           <Key>
@@ -316,6 +318,8 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="ValidUpto" Type="datetime" />
           <Property Name="AadharNumber" Type="varchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="pid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -1079,6 +1083,8 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <NavigationProperty Name="PatientLoginEntries" Relationship="Self.FK_PatientLoginEntry_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginEntry" />
           <NavigationProperty Name="PatientLoginHistories" Relationship="Self.FK_PatientLoginHistory_PatientInfo" FromRole="PatientInfo" ToRole="PatientLoginHistory" />
           <NavigationProperty Name="PatientTransactions" Relationship="Self.FK_PatientTransaction_PatientInfo" FromRole="PatientInfo" ToRole="PatientTransaction" />
+          <Property Name="pid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PatientInfoCRClone">
           <Key>
@@ -1116,6 +1122,8 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <NavigationProperty Name="PatientInfoCRClone1" Relationship="Self.FK_PatientInfoCRClone_PatientInfoCRClone" FromRole="PatientInfoCRClone" ToRole="PatientInfoCRClone1" />
           <NavigationProperty Name="PatientInfoCRClone2" Relationship="Self.FK_PatientInfoCRClone_PatientInfoCRClone" FromRole="PatientInfoCRClone1" ToRole="PatientInfoCRClone" />
           <NavigationProperty Name="State" Relationship="Self.FK_PatientInfoCRClone_State" FromRole="PatientInfoCRClone" ToRole="State" />
+          <Property Name="pid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
@@ -1839,6 +1847,8 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <EntitySetMapping Name="PatientInfoes">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientInfo">
               <MappingFragment StoreEntitySet="PatientInfo">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
@@ -1874,6 +1884,8 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <EntitySetMapping Name="PatientInfoCRClones">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientInfoCRClone">
               <MappingFragment StoreEntitySet="PatientInfoCRClone">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
                 <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />

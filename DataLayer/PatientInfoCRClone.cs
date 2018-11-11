@@ -41,6 +41,8 @@ namespace DataLayer
         public Nullable<System.DateTime> ValidUpto { get; set; }
         public string AadharNumber { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<decimal> pid { get; set; }
+        public string Location { get; set; }
     
         public virtual City City { get; set; }
         public virtual Department Department { get; set; }

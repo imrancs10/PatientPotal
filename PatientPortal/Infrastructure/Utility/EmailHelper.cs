@@ -28,6 +28,15 @@ namespace PatientPortal.Infrastructure.Utility
             body += "Patient Portal Information System Customer Support";
             return body;
         }
+        public static string GetRegistrationCRSuccessEmail(string firstname, string middlename, string lastname, string registrationnumber, string link)
+        {
+            string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
+            body += "As you requested, your CR registration is created, you can use to create your Password by clicking on below URL.<br/>";
+            body += "<br/><b></b>" + link + "<br/><br/>";
+            body += "Thank You,<br/>";
+            body += "Patient Portal Information System Customer Support";
+            return body;
+        }
 
         public static string GetRegistrationSuccessEmailRenew(string firstname, string middlename, string lastname, PatientTransaction transaction)
         {

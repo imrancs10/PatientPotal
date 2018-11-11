@@ -496,7 +496,7 @@ namespace PatientPortal.Controllers
             };
         }
 
-        private async Task SendMailTransactionResponse(string serialNumber, PatientInfo info)
+        private async Task SendMailTransactionResponse(string serialNumber, PatientInfo info, bool isclone = false)
         {
             await Task.Run(() =>
             {
@@ -510,6 +510,9 @@ namespace PatientPortal.Controllers
                     Subject = "Registration Created",
                     Body = EmailHelper.GetRegistrationSuccessEmail(info.FirstName, info.MiddleName, info.LastName, serialNumber, baseUrl + passwordCreateURL)
                 };
+
+                if (isclone)
+                    msg.Body = EmailHelper.GetRegistrationCRSuccessEmail(info.FirstName, info.MiddleName, info.LastName, serialNumber, baseUrl + passwordCreateURL);
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
@@ -1077,7 +1080,7 @@ namespace PatientPortal.Controllers
                     };
                     PatientDetails _details = new PatientDetails();
                     info = _details.UpdatePatientDetail(info);
-                    SendMailTransactionResponse(serialNumber, info);
+                    SendMailTransactionResponse(serialNumber, info, true);
                     Session["crData"] = null;
                     _details.DeletePatientInfoCRData(crData.CRNumber);
                 }

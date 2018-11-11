@@ -74,7 +74,7 @@ namespace PatientPortal.Controllers
                 }
                 return View(_view);
             }
-            return View(_view);
+            return RedirectToRoute(fileUrl);
         }
     }
 }
