@@ -105,6 +105,12 @@ namespace PatientPortal.BAL.Patient
             return _db.PatientInfoes.Where(x => x.RegistrationNumber == UserId).FirstOrDefault();
         }
 
+        public PatientInfo GetPatientDetailByRegistrationNumberAndMobileNumber(string regNumber, string mobilenumber)
+        {
+            _db = new PatientPortalEntities();
+            return _db.PatientInfoes.Where(x => x.RegistrationNumber == regNumber && x.MobileNumber == mobilenumber).FirstOrDefault();
+        }
+
         public PatientInfo GetPatientDetailByRegistrationNumberOrCRNumber(string UserId)
         {
             _db = new PatientPortalEntities();

@@ -758,13 +758,13 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult ForgetPassword(string registernumber)
+        public ActionResult ForgetPassword(string registernumber,string mobilenumber)
         {
             PatientDetails _detail = new PatientDetails();
-            var patient = _detail.GetPatientDetailByRegistrationNumber(registernumber);
+            var patient = _detail.GetPatientDetailByRegistrationNumberAndMobileNumber(registernumber, mobilenumber);
             if (patient == null)
             {
-                SetAlertMessage("Registration number is not Correct.", "Forget Password");
+                SetAlertMessage("Registration or Mobile number is not Correct.", "Forget Password");
                 return View();
             }
             else
