@@ -7,24 +7,25 @@ using PatientPortal.BAL;
 using PatientPortal.BAL.Reports;
 using System.IO;
 using PatientPortal.BAL.Commom;
+using PatientPortal.Infrastructure.Authentication;
 
 namespace PatientPortal.Controllers
 {
-    public class ReportController : Controller
+    public class ReportController : CommonController
     {
         // GET: Report
         [HttpGet]
         public ActionResult GetBillingReport()
         {
             ReportDetails _details = new ReportDetails();
-            return View(_details.GetBillReportData());
+            return View(_details.GetBillReportData(User.Id));
         }
 
         [HttpGet]
         public ActionResult DuplicateBillingReport()
         {
             ReportDetails _details = new ReportDetails();
-            return View(_details.GetBillReportData());
+            return View(_details.GetBillReportData(User.Id));
         }
 
         public ActionResult ReportViewing()

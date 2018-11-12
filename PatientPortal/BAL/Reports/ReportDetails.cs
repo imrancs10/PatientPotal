@@ -13,10 +13,10 @@ namespace PatientPortal.BAL.Reports
     {
         PatientPortalEntities _db = null;
 
-        public List<PatientBillReport> GetBillReportData()
+        public List<PatientBillReport> GetBillReportData(int patientId)
         {
             _db = new PatientPortalEntities();
-            return _db.PatientBillReports.ToList();
+            return _db.PatientBillReports.Where(x => x.PatientId == patientId).ToList();
         }
 
         public Enums.CrudStatus SetBillReportData(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount)
