@@ -34,20 +34,33 @@
                                         <td title="'+javascript:getBillType(@item.BillType)+'">@item.BillType</td>
                                         <td>@item.BillAmount</td>
                                         <td>
-                                            @if (!string.IsNullOrEmpty(item.ReportUrl))
+                                            <div>
+                                            @if (!string.IsNullOrEmpty(item.ReportUrl) && (!item.ReportUrl.Contains("http") && !item.ReportUrl.Contains("https")))
                                             {
                                                 <div class="btn-group">
-                                                    <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&_view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
+                                                    <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
                                                     <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
                                                 </div>
                                             }
-                                        </td>
-                                    </tr>
-                                }
+                                            else if (!string.IsNullOrEmpty(item.ReportUrl) && (item.ReportUrl.Contains("http") || item.ReportUrl.Contains("https")))
+                                            {
+                                                <div class="btn-group">
+                                                    <a href="@item.ReportUrl" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
+                                                    <a href="@item.ReportUrl" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">Download</a>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <text>No Reports</text>
+                                            }
+                        </div>
+                        </td>
+                        </tr>
+                    }
                             }
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                            </table>
+                        </div>
                 <div class="panel-footer">
                     *SV-Procedure/Diagnostic Billing,
                     *PH-Pharmacy Billing-Refund,
