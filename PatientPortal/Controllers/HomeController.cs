@@ -431,7 +431,9 @@ namespace PatientPortal.Controllers
                             PatientInfo user = new PatientInfo()
                             {
                                 PatientId = patientId,
-                                RegistrationStatusHIS = serviceResult
+                                RegistrationStatusHIS = serviceResult,
+                                
+
                             };
                             _details.UpdatePatientHISSyncStatus(info);
                         }
@@ -641,7 +643,7 @@ namespace PatientPortal.Controllers
             };
             return model;
         }
-        private static Dictionary<string, object> SavePatientInfo(string MaritalStatus, string Title, string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string aadharNumber, bool IsClone = false)
+        private static Dictionary<string, object> SavePatientInfo(string MaritalStatus, string Title, string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string pincode, string religion, string department, string verificationCode, string state, string FatherHusbandName, int patientId, byte[] image, string aadharNumber, bool IsClone = false, string pid = null, string location = null)
         {
             PatientDetails _details = new PatientDetails();
             int pinResult = 0;
@@ -670,6 +672,8 @@ namespace PatientPortal.Controllers
             info.FatherOrHusbandName = FatherHusbandName;
             info.MaritalStatus = MaritalStatus;
             info.Title = Title;
+            info.pid = Convert.ToDecimal(pid);
+            info.Location = location;
 
             if (patientId > 0)
                 info.PatientId = patientId;
@@ -970,7 +974,7 @@ namespace PatientPortal.Controllers
                     Session["crData"] = crData;
 
                     //Save CR Patient Data to Patient Clone table when data comes from web service
-                    Dictionary<string, object> result = SavePatientInfo(crData.MaritalStatus, crData.Title, crData.FirstName, crData.MiddleName, crData.LastName, Convert.ToDateTime(crData.DOB).ToShortDateString(), crData.Gender, crData.MobileNumber, crData.Email, crData.Address, crData.CityId, crData.Country, Convert.ToString(crData.PinCode), crData.Religion, Convert.ToString(crData.DepartmentId), "", crData.StateId, crData.FatherOrHusbandName, 0, null, crData.AadharNumber, true);
+                    Dictionary<string, object> result = SavePatientInfo(crData.MaritalStatus, crData.Title, crData.FirstName, crData.MiddleName, crData.LastName, Convert.ToDateTime(crData.DOB).ToShortDateString(), crData.Gender, crData.MobileNumber, crData.Email, crData.Address, crData.CityId, crData.Country, Convert.ToString(crData.PinCode), crData.Religion, Convert.ToString(crData.DepartmentId), "", crData.StateId, crData.FatherOrHusbandName, 0, null, crData.AadharNumber, true, crData.Pid, crData.Location);
                     if (result["status"].ToString() == CrudStatus.Saved.ToString())
                     {
                         string serialNumber = VerificationCodeGeneration.GetSerialNumber();
@@ -1020,6 +1024,8 @@ namespace PatientPortal.Controllers
                 MaritalStatus = patient.MaritalStatus != "N/A" ? patient.MaritalStatus : string.Empty,
                 DoR = patient.DoR != "N/A" ? patient.DoR : string.Empty,
                 ValidUpto = patient.ValidUpto != "N/A" ? Convert.ToDateTime(patient.ValidUpto) : Convert.ToDateTime(patient.DoR).AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"])),
+                Pid = patient.Pid != "N/A" ? patient.Pid : string.Empty,
+                Location = patient.Location != "N/A" ? patient.Location : string.Empty,
             };
             return crData;
         }
@@ -1048,6 +1054,8 @@ namespace PatientPortal.Controllers
                 AadharNumber = patient.AadharNumber,
                 MaritalStatus = patient.MaritalStatus,
                 ValidUpto = patient.ValidUpto,
+                Pid = Convert.ToString(patient.pid),
+                Location = patient.Location
             };
             return crData;
         }
