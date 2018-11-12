@@ -1066,11 +1066,20 @@ namespace PatientPortal.Controllers
             }
             else
             {
+                var crData = (PatientInfoModel)Session["crData"];
+                PatientDetails _details = new PatientDetails();
+                var existingPatient = _details.GetPatientDetailByMobileNumberANDEmail(mobilenumber, email);
+                if (existingPatient != null)
+                {
+                    SetAlertMessage("Patient is alerady register with same Mobile Number or EmailId", "CR Intergrate");
+                    Session["crData"] = null;
+                    _details.DeletePatientInfoCRData(crData.CRNumber);
+                    return RedirectToAction("CRIntegrate");
+                }
                 Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null, aadharNumber);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     string serialNumber = VerificationCodeGeneration.GetSerialNumber();
-                    var crData = (PatientInfoModel)Session["crData"];
                     PatientInfo info = new PatientInfo()
                     {
                         RegistrationNumber = serialNumber,
@@ -1078,7 +1087,7 @@ namespace PatientPortal.Controllers
                         PatientId = ((PatientInfo)result["data"]).PatientId,
                         ValidUpto = crData.ValidUpto
                     };
-                    PatientDetails _details = new PatientDetails();
+
                     info = _details.UpdatePatientDetail(info);
                     SendMailTransactionResponse(serialNumber, info, true);
                     Session["crData"] = null;
