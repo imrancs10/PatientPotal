@@ -457,6 +457,18 @@ namespace PatientPortal.BAL.Patient
             _db.Configuration.LazyLoadingEnabled = false;
             return _db.States.ToList();
         }
+        public List<City> GetAllCities()
+        {
+            _db = new PatientPortalEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            return _db.Cities.ToList();
+        }
+        public List<Department> GetAllDepartment()
+        {
+            _db = new PatientPortalEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            return _db.Departments.ToList();
+        }
         public List<City> GetCities(int stateId)
         {
             _db = new PatientPortalEntities();

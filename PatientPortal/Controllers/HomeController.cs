@@ -660,13 +660,13 @@ namespace PatientPortal.Controllers
             info.MobileNumber = mobilenumber;
             info.Email = email;
             info.Address = address;
-            info.CityId = Convert.ToInt32(city);
+            info.CityId = int.TryParse(city, out int cityId) ? cityId : _details.GetAllCities().FirstOrDefault().CityId;
             info.Country = country;
             info.PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0;
             info.Religion = religion;
             info.OTP = verificationCode;
-            info.DepartmentId = Convert.ToInt32(department);
-            info.StateId = Convert.ToInt32(state);
+            info.DepartmentId = int.TryParse(department, out int departmentId) ? departmentId : _details.GetAllDepartment().FirstOrDefault().DepartmentID;
+            info.StateId = int.TryParse(state, out int stateId) ? stateId : _details.GetStates().FirstOrDefault().StateId;
             info.FatherOrHusbandName = FatherHusbandName;
             info.MaritalStatus = MaritalStatus;
             info.Title = Title;
@@ -758,7 +758,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult ForgetPassword(string registernumber,string mobilenumber)
+        public ActionResult ForgetPassword(string registernumber, string mobilenumber)
         {
             PatientDetails _detail = new PatientDetails();
             var patient = _detail.GetPatientDetailByRegistrationNumberAndMobileNumber(registernumber, mobilenumber);
@@ -978,7 +978,7 @@ namespace PatientPortal.Controllers
                         {
                             RegistrationNumber = serialNumber,
                             CRNumber = !string.IsNullOrEmpty(Convert.ToString(crData.CRNumber)) ? Convert.ToString(crData.CRNumber) : string.Empty,
-                            PatientId = ((PatientInfo)result["data"]).PatientId,
+                            PatientId = ((PatientInfoCRClone)result["data"]).PatientId,
                             ValidUpto = crData.ValidUpto
                         };
                         PatientDetails _details = new PatientDetails();
@@ -1132,13 +1132,13 @@ namespace PatientPortal.Controllers
         private string GetStateIdByStateName(string stateName)
         {
             PatientDetails _details = new PatientDetails();
-            return Convert.ToString(_details.GetStateIdByStateName(stateName).StateId);
+            return Convert.ToString(_details.GetStateIdByStateName(stateName)?.StateId);
         }
 
         private string GetCityIdByCItyName(string cityName)
         {
             PatientDetails _details = new PatientDetails();
-            return Convert.ToString(_details.GetCityIdByCItyName(cityName).CityId);
+            return Convert.ToString(_details.GetCityIdByCItyName(cityName)?.CityId);
         }
 
         [HttpPost]
