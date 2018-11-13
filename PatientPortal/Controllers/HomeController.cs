@@ -34,7 +34,6 @@ namespace PatientPortal.Controllers
         }
         public ActionResult Index()
         {
-            logger.Debug("applcaition started");
             return View();
         }
 
