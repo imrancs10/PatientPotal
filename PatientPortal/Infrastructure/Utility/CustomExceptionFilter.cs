@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace PatientPortal.Infrastructure.Utility
 {
     public class CustomExceptionFilter : ActionFilterAttribute, IExceptionFilter
     {
+        ILog logger = LogManager.GetLogger(typeof(CustomExceptionFilter));
         public void OnException(ExceptionContext filterContext)
         {
             Exception e = filterContext.Exception;
@@ -16,6 +18,7 @@ namespace PatientPortal.Infrastructure.Utility
             {
                 ViewName = "ExceptionPage"
             };
+            logger.Error(e.InnerException);
         }
     }
 

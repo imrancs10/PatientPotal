@@ -19,11 +19,14 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using static PatientPortal.Global.Enums;
+using log4net;
 
 namespace PatientPortal.Controllers
 {
     public class HomeController : CommonController
     {
+        //Declaring Log4Net
+        ILog logger = LogManager.GetLogger(typeof(HomeController));  
         [CustomAuthorize]
         public ActionResult Dashboard()
         {
@@ -31,6 +34,7 @@ namespace PatientPortal.Controllers
         }
         public ActionResult Index()
         {
+            logger.Debug("applcaition started");
             return View();
         }
 
@@ -155,6 +159,7 @@ namespace PatientPortal.Controllers
             await Task.Run(() =>
             {
                 //Send Email
+                logger.Debug("Send Email Started");
                 Message msg = new Message()
                 {
                     MessageTo = email,
@@ -165,14 +170,16 @@ namespace PatientPortal.Controllers
                 };
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                 sendMessageStrategy.SendMessages();
+                logger.Debug("Send Email sucessed");
 
                 //Send SMS
+                logger.Debug("Send SMS started");
                 msg.Body = "Hello " + string.Format("{0} {1}", firstname, lastname) + "\nAs you requested, here is a OTP " + verificationCode + " you can use it to verify your mobile number.\n Regards:\n Patient Portal(RMLHIMS)";
                 msg.MessageTo = mobilenumber;
                 msg.MessageType = MessageType.OTP;
                 sendMessageStrategy = new SendMessageStrategyForSMS(msg);
                 sendMessageStrategy.SendMessages();
-
+                logger.Debug("Send SMS sucessed");
             });
         }
 

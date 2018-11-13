@@ -23,8 +23,7 @@ namespace PatientPortal
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalFilters.Filters.Add(new CustomExceptionFilter());
-
-
+            log4net.Config.XmlConfigurator.Configure();
         }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
