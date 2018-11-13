@@ -57,7 +57,7 @@ namespace PatientPortal.BAL.Reports
         public List<LabreportPdf> GetLabReportData()
         {
             _db = new PatientPortalEntities();
-            return _db.LabreportPdfs.ToList();
+            return _db.LabreportPdfs.Where(x => x.pid == WebSession.PatientId).ToList();
         }
 
         public List<PatientLedgerModel> GetPatientLedger()
