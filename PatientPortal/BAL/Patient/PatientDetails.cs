@@ -153,6 +153,8 @@ namespace PatientPortal.BAL.Patient
                 _patientRow.ValidUpto = info.ValidUpto > DateTime.Now ? info.ValidUpto : _patientRow.ValidUpto;
                 _patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
                 _patientRow.CRNumber = !string.IsNullOrEmpty(info.CRNumber) ? info.CRNumber : _patientRow.CRNumber;
+                _patientRow.pid = decimal.TryParse(Convert.ToString(info.pid), out decimal externalPid) ? externalPid : _patientRow.pid;
+                _patientRow.Location = !string.IsNullOrEmpty(info.Location) ? info.Location : _patientRow.Location;
                 _patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber;
                 _db.Entry(_patientRow).State = EntityState.Modified;
                 _db.SaveChanges();

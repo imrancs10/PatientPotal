@@ -427,12 +427,29 @@ namespace PatientPortal.Controllers
                             WebServiceIntegration service = new WebServiceIntegration();
                             string serviceResult = service.GetPatientInfoinsert(insertModel);
 
+                            if (serviceResult.Contains("-"))
+                            {
+                                var pidLocation = serviceResult.Split('-');
+                                if (pidLocation.Length == 2)
+                                {
+                                    int pId = Convert.ToInt32(pidLocation[0]);
+                                    string location = Convert.ToString(pidLocation[1]);
+                                    PatientInfo infoPatient = new PatientInfo()
+                                    {
+                                        pid = pId,
+                                        Location = location,
+                                        PatientId = patientId
+                                    };
+                                    info = _details.UpdatePatientDetail(infoPatient);
+                                }
+                            }
+
                             //save status to DB
                             PatientInfo user = new PatientInfo()
                             {
                                 PatientId = patientId,
-                                RegistrationStatusHIS = serviceResult,
-                                
+                                RegistrationStatusHIS = serviceResult.Contains("-") ? "S" : serviceResult,
+
 
                             };
                             _details.UpdatePatientHISSyncStatus(info);
