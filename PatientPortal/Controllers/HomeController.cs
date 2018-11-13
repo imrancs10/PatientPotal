@@ -1121,7 +1121,7 @@ namespace PatientPortal.Controllers
                     _details.DeletePatientInfoCRData(crData.CRNumber);
                     return RedirectToAction("CRIntegrate");
                 }
-                Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null, aadharNumber);
+                Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null, aadharNumber, false, crData.Pid, crData.Location);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     string serialNumber = VerificationCodeGeneration.GetSerialNumber();
