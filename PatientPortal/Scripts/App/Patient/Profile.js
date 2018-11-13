@@ -17,39 +17,45 @@ $(document).ready(function () {
     fillCountryStateCity();
     function fillCountryStateCity() {
         //Get CIty
-        $.ajax({
-            dataType: 'json',
-            type: 'POST',
-            url: '/Home/GetCitieByCItyId',
-            data: '{citiId: "' + jsonData.CityId + '" }',
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                $("#cityLabel").html(data.CityName);
-            },
-            failure: function (response) {
-                alert(response);
-            },
-            error: function (response) {
-                alert(response.responseText);
-            }
-        });
+        if (jsonData.CityId !== '') {
+            $.ajax({
+                dataType: 'json',
+                type: 'POST',
+                url: '/Home/GetCitieByCItyId',
+                data: '{citiId: "' + jsonData.CityId + '" }',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#cityLabel").html(data.CityName);
+                },
+                failure: function (response) {
+                    alert(response);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+        
         //get State
-        $.ajax({
-            dataType: 'json',
-            type: 'POST',
-            url: '/Home/GetStateByStateId',
-            data: '{stateId: "' + jsonData.StateId + '" }',
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                $("#stateLabel").html(data.StateName);
-            },
-            failure: function (response) {
-                alert(response);
-            },
-            error: function (response) {
-                alert(response.responseText);
-            }
-        });
+        if (jsonData.StateId !== '') {
+            $.ajax({
+                dataType: 'json',
+                type: 'POST',
+                url: '/Home/GetStateByStateId',
+                data: '{stateId: "' + jsonData.StateId + '" }',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#stateLabel").html(data.StateName);
+                },
+                failure: function (response) {
+                    alert(response);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+        
     }
 
     setSelectedGender();

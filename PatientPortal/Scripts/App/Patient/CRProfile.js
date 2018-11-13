@@ -9,34 +9,20 @@ $(document).ready(function () {
     }
     disableControl();
     function disableControl() {
-        if (jsonData.Title !== '')
-            $('#title').attr('disabled', 'disabled');
-        if (jsonData.FirstName !== '')
-            $('#firstname').attr('disabled', 'disabled');
-        if (jsonData.MiddleName !== '')
-            $('#middlename').attr('disabled', 'disabled');
-        if (jsonData.LastName !== '')
-            $('#lastname').attr('disabled', 'disabled');
-        if (jsonData.FatherOrHusbandName !== '')
-            $('#FatherHusbandName').attr('disabled', 'disabled');
-        if (jsonData.MaritalStatus !== '')
-            $('#MaritalStatus').attr('disabled', 'disabled');
-        if (jsonData.MobileNumber !== '')
-            $('#mobilenumber').attr('disabled', 'disabled');
-        if (jsonData.Gender !== '')
-            $('#Gender').attr('disabled', 'disabled');
-        if (jsonData.DOB !== '')
-            $('#DOB').attr('disabled', 'disabled');
-        if (jsonData.Address !== '')
-            $('#address').attr('disabled', 'disabled');
-        if (jsonData.StateId !== '')
-            $('#state').attr('disabled', 'disabled');
-        if (jsonData.CityId !== '')
-            $('#city').attr('disabled', 'disabled');
-        if (jsonData.Department !== '')
-            $('#department').attr('disabled', 'disabled');
-        if (jsonData.Religion !== '')
-            $('#religion').attr('disabled', 'disabled');
+        $('#title').attr('disabled', 'disabled');
+        $('#firstname').attr('disabled', 'disabled');
+        $('#middlename').attr('disabled', 'disabled');
+        $('#lastname').attr('disabled', 'disabled');
+        $('#FatherHusbandName').attr('disabled', 'disabled');
+        $('#MaritalStatus').attr('disabled', 'disabled');
+        $('#mobilenumber').attr('disabled', 'disabled');
+        $('#Gender').attr('disabled', 'disabled');
+        $('#DOB').attr('disabled', 'disabled');
+        $('#address').attr('disabled', 'disabled');
+        $('#state').attr('disabled', 'disabled');
+        $('#city').attr('disabled', 'disabled');
+        $('#department').attr('disabled', 'disabled');
+        $('#religion').attr('disabled', 'disabled');
     }
 
     utility.bindDdlByAjax(app.urls.commonDepartmentList, 'department', 'DeparmentName', 'DepartmentId', function () {
@@ -103,25 +89,27 @@ $(document).ready(function () {
         dropdown.empty();
         dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
-        $.ajax({
-            dataType: 'json',
-            type: 'POST',
-            url: '/Home/GetCities',
-            data: '{stateId: "' + stateId + '" }',
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                $.each(data, function (key, entry) {
-                    dropdown.append($('<option></option>').attr('value', entry.CityId).text(entry.CityName));
-                });
-                dropdown.val(jsonData.CityId);
-            },
-            failure: function (response) {
-                alert(response);
-            },
-            error: function (response) {
-                alert(response.responseText);
-            }
-        });
+        if (stateId !== '') {
+            $.ajax({
+                dataType: 'json',
+                type: 'POST',
+                url: '/Home/GetCities',
+                data: '{stateId: "' + stateId + '" }',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $.each(data, function (key, entry) {
+                        dropdown.append($('<option></option>').attr('value', entry.CityId).text(entry.CityName));
+                    });
+                    dropdown.val(jsonData.CityId);
+                },
+                failure: function (response) {
+                    alert(response);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
     }
 
     $('#state').on('change', function (e) {
@@ -135,24 +123,27 @@ $(document).ready(function () {
         dropdown.empty();
         dropdown.append('<option value="">Select</option>');
         dropdown.prop('selectedIndex', 0);
-        $.ajax({
-            dataType: 'json',
-            type: 'POST',
-            url: '/Home/GetCities',
-            data: '{stateId: "' + stateId + '" }',
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                $.each(data, function (key, entry) {
-                    dropdown.append($('<option></option>').attr('value', entry.CityId).text(entry.CityName));
-                })
-            },
-            failure: function (response) {
-                alert(response);
-            },
-            error: function (response) {
-                alert(response.responseText);
-            }
-        });
+        if (stateId !== '') {
+            $.ajax({
+                dataType: 'json',
+                type: 'POST',
+                url: '/Home/GetCities',
+                data: '{stateId: "' + stateId + '" }',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $.each(data, function (key, entry) {
+                        dropdown.append($('<option></option>').attr('value', entry.CityId).text(entry.CityName));
+                    })
+                },
+                failure: function (response) {
+                    alert(response);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
     }
 
 });

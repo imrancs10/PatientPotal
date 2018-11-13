@@ -674,23 +674,34 @@ namespace PatientPortal.Controllers
             info.FirstName = firstname;
             info.MiddleName = middlename;
             info.LastName = lastname;
-            info.DOB = Convert.ToDateTime(DOB);
+            if (!string.IsNullOrEmpty(DOB))
+                info.DOB = Convert.ToDateTime(DOB);
             info.Gender = Gender;
             info.MobileNumber = mobilenumber;
             info.Email = email;
             info.Address = address;
-            info.CityId = int.TryParse(city, out int cityId) ? cityId : _details.GetAllCities().FirstOrDefault().CityId;
             info.Country = country;
             info.PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0;
             info.Religion = religion;
             info.OTP = verificationCode;
-            info.DepartmentId = int.TryParse(department, out int departmentId) ? departmentId : _details.GetAllDepartment().FirstOrDefault().DepartmentID;
-            info.StateId = int.TryParse(state, out int stateId) ? stateId : _details.GetStates().FirstOrDefault().StateId;
             info.FatherOrHusbandName = FatherHusbandName;
             info.MaritalStatus = MaritalStatus;
             info.Title = Title;
             info.pid = Convert.ToDecimal(pid);
             info.Location = location;
+
+            if (!string.IsNullOrEmpty(city))
+                info.CityId = Convert.ToInt32(city);
+            else
+                info.CityId = null;
+            if (!string.IsNullOrEmpty(state))
+                info.StateId = Convert.ToInt32(state);
+            else
+                info.StateId = null;
+            if (!string.IsNullOrEmpty(department))
+                info.DepartmentId = Convert.ToInt32(department);
+            else
+                info.DepartmentId = null;
 
             if (patientId > 0)
                 info.PatientId = patientId;
@@ -1005,6 +1016,13 @@ namespace PatientPortal.Controllers
                         PatientDetails _details = new PatientDetails();
                         info = _details.UpdatePatientDetailClone(info);
                     }
+                    else if (result["status"].ToString() == CrudStatus.DataAlreadyExist.ToString())
+                    {
+                        ViewData["CRData"] = null;
+                        Session["crData"] = null;
+                        SetAlertMessage("Mobile Number or Email Id is already used for other account, Kindly contact to hospital.", "CR Integrate");
+                        return View();
+                    }
                     return View();
                 }
                 else
@@ -1066,7 +1084,7 @@ namespace PatientPortal.Controllers
                 DepartmentId = patient.DepartmentId.Value,
                 StateId = Convert.ToString(patient.StateId),
                 FatherOrHusbandName = patient.FatherOrHusbandName,
-                CRNumber = patient.RegistrationNumber,
+                CRNumber = patient.CRNumber,
                 Title = patient.Title,
                 AadharNumber = patient.AadharNumber,
                 MaritalStatus = patient.MaritalStatus,
@@ -1081,13 +1099,15 @@ namespace PatientPortal.Controllers
         public ActionResult SubmitCRDetail(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string title, string MaritalStatus, string aadharNumber)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
-            if (mobilenumber.Trim().Length != 10)
-            {
-                SetAlertMessage("Please Enter correct Mobile Number", "Register");
-            }
-            else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
+            //if (mobilenumber.Trim().Length != 10)
+            //{
+            //    SetAlertMessage("Please Enter correct Mobile Number", "Register");
+            //}
+            //else 
+            if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
             {
                 SetAlertMessage("Please Enter correct Email Address", "Register");
+                return RedirectToAction("CRIntegrate", new { successMSG = false });
             }
             else
             {
@@ -1117,13 +1137,15 @@ namespace PatientPortal.Controllers
                     SendMailTransactionResponse(serialNumber, info, true);
                     Session["crData"] = null;
                     _details.DeletePatientInfoCRData(crData.CRNumber);
+                    return RedirectToAction("CRIntegrate", new { successMSG = true });
                 }
                 else
                 {
                     SetAlertMessage("User is not saved, might be of Email Id or Mobile No is already taken.", "Submit CR Detail");
+                    return RedirectToAction("CRIntegrate", new { successMSG = false });
                 }
             }
-            return RedirectToAction("CRIntegrate", new { successMSG = true });
+
         }
 
         [HttpPost]
