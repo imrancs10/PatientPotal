@@ -44,28 +44,28 @@
 
     @if (Convert.ToBoolean(ViewData["FailTransaction"]) == true)
     {
-        <form id="form" class="form-horizontal" action="PaymentTransaction" method="post" autocomplete="off">
-            <div class="container body-content" style="padding-bottom: 20px;">
-                <div id="loginContainer" class="dialog dialog-effect-in" style="width:550px">
-                    <div class="dialog-front">
-                        <div class="dialog-content">
-                            <fieldset>
-                                <legend style="background-color:lightgoldenrodyellow;text-align:center;">
-                                    <font style="font-size:18px">Transaction Response Fail</font><br />
-                                    <font style="font-size:13px">
-                                        <b>Your Transaction is Fail</b><br />
-                                        Please try again by clicking on Make Payment Button<br />
-                                    </font>
-                                </legend>
-                                <div>
-                                    <input type="submit" name="makepayment" class="btn btn-primary btn-blue btn-block btn-lg" value="Retry Payment" style="float:right;width:200px;">
-                                </div>
-                            </fieldset>
-                        </div>
+    <form id="form" class="form-horizontal" action="PaymentTransaction" method="post" autocomplete="off">
+        <div class="container body-content" style="padding-bottom: 20px;">
+            <div id="loginContainer" class="dialog dialog-effect-in" style="width:550px">
+                <div class="dialog-front">
+                    <div class="dialog-content">
+                        <fieldset>
+                            <legend style="background-color:lightgoldenrodyellow;text-align:center;">
+                                <font style="font-size:18px">Transaction Response Fail</font><br />
+                                <font style="font-size:13px">
+                                    <b>Your Transaction is Fail</b><br />
+                                    Please try again by clicking on Make Payment Button<br />
+                                </font>
+                            </legend>
+                            <div>
+                                <input type="submit" name="makepayment" class="btn btn-primary btn-blue btn-block btn-lg" value="Retry Payment" style="float:right;width:200px;">
+                            </div>
+                        </fieldset>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
+    </form>
     }
     else
     {
@@ -114,6 +114,7 @@
                 </div>
             </div>
             <div style="padding-top:5px;padding-bottom:5px;padding-left:450px;">
+                <input type="hidden" id="hdnHospitalLogo" value="@WebSession.HospitalLogo" />
                 <input type="button" id="btnPrint" value="Print" class="btn btn-success" style="float:left;width:100px" />&nbsp;&nbsp;
                 <div class="divider">
                     <input type="button" id="" value="Go to Login" class="btn btn-success" onclick="window.location='../';" style="float:left;width:100px" />
@@ -135,7 +136,9 @@
                 frameDoc.document.open();
                 //Create a new HTML document.
                 frameDoc.document.write('<html><head><title>Payment Reciept</title>');
-                frameDoc.document.write('</head><body>');
+                frameDoc.document.write('</head><body>' + '<hr/>' +
+                    '<div style="text-align:center;"><img src="' + $('#hdnHospitalLogo').val()+ '"/></div><br/>' +
+                    '<div style="text-align:center;font-size:18px;font-weight:700;">Patient Registration Payment Reciept</div ><hr/>');
                 //Append the external CSS file.
                 frameDoc.document.write('<link href="Login.css" rel="stylesheet" type="text/css" />');
                 //Append the DIV contents.

@@ -174,7 +174,7 @@ namespace PatientPortal.Controllers
 
                 //Send SMS
                 logger.Debug("Send SMS started");
-                msg.Body = "Hello " + string.Format("{0} {1}", firstname, lastname) + "\nAs you requested, here is a OTP " + verificationCode + " you can use it to verify your mobile number.\n Regards:\n Patient Portal(RMLHIMS)";
+                msg.Body = "Hello " + string.Format("{0} {1}", firstname, lastname) + "\nAs you requested, here is a OTP " + verificationCode + " you can use it to verify your mobile number before 15 minutes.\n Regards:\n Patient Portal(RMLHIMS)";
                 msg.MessageTo = mobilenumber;
                 msg.MessageType = MessageType.OTP;
                 sendMessageStrategy = new SendMessageStrategyForSMS(msg);
