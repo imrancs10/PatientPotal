@@ -20,6 +20,7 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using static PatientPortal.Global.Enums;
 using log4net;
+using PatientPortal.Global;
 
 namespace PatientPortal.Controllers
 {
@@ -253,9 +254,10 @@ namespace PatientPortal.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult CreatePassword(string registrationNumber)
+        public ActionResult CreatePassword(string id)
         {
             PatientDetails _details = new PatientDetails();
+            string registrationNumber = CryptoEngine.Decrypt(id);
             var result = _details.GetPatientDetailByRegistrationNumber(registrationNumber);
             if (result != null)
             {
@@ -525,7 +527,7 @@ namespace PatientPortal.Controllers
         {
             await Task.Run(() =>
             {
-                string passwordCreateURL = "Home/CreatePassword?registrationNumber=" + serialNumber;
+                string passwordCreateURL = "Home/CreatePassword?id=" + CryptoEngine.Encrypt(serialNumber);
                 string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
 
                 Message msg = new Message()
