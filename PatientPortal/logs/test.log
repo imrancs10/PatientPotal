@@ -1,1 +1,5 @@
 2018-11-13 21:24:54,279 [10] DEBUG PatientPortal.Controllers.HomeController applcaition started
+2018-11-14 21:06:24,820 [16] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-11-14 21:06:29,941 [16] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-11-14 21:06:29,941 [16] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-11-14 21:06:30,601 [16] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
