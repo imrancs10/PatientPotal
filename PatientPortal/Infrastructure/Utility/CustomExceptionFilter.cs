@@ -13,11 +13,11 @@ namespace PatientPortal.Infrastructure.Utility
         public void OnException(ExceptionContext filterContext)
         {
             Exception e = filterContext.Exception;
-            filterContext.ExceptionHandled = true;
-            filterContext.Result = new ViewResult()
-            {
-                ViewName = "ExceptionPage"
-            };
+            //filterContext.ExceptionHandled = true;
+            //filterContext.Result = new ViewResult()
+            //{
+            //    ViewName = "ExceptionPage"
+            //};
             logger.Error(e.InnerException);
         }
     }

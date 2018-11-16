@@ -5,53 +5,55 @@
 @using PatientPortal.Controllers;
 @using PatientPortal.Global;
 @{
-                /**/
+    /**/
 
-                /**/
+    /**/
 
-                var hospital = GetHospitalDetail();
-                var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
-                string imgsrc = "../img/p1.jpg";
-                if (hospital != null && hospital.HospitalLogo != null)
-                {
-                    var base64 = Convert.ToBase64String(hospital.HospitalLogo);
-                    imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
-                    WebSession.HospitalLogo = imgsrc;
-                }
+    /**/
 
-                var patientinfo = GetPatientInfo();
-                var patientOPDInfo = GetPatientOPDDetail();
-                string photoSrc = string.Empty;
-                string daysRemaning = string.Empty;
-                bool showingDaysRemaining = false;
-                if (patientinfo != null && patientinfo.Gender == "Male")
-                {
-                    photoSrc = "../img/avatar-male.jpg";
-                }
-                else
-                {
-                    photoSrc = "../img/avatar-female.png";
-                }
-                if (patientinfo != null && patientinfo.Photo != null && patientinfo.Photo.Length > 0)
-                {
-                    var base64 = Convert.ToBase64String(patientinfo.Photo);
-                    photoSrc = string.Format("data:image/jpg;base64,{0}", base64);
-                }
-                if (patientinfo != null && patientinfo.ValidUpto != null)
-                {
-                    daysRemaning = Convert.ToString((patientinfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
-                    if (Convert.ToInt32(daysRemaning) <= 10)
-                    {
-                        showingDaysRemaining = true;
-                    }
-                }
+    var hospital = GetHospitalDetail();
+    var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
+    string imgsrc = "../img/p1.jpg";
+    if (hospital != null && hospital.HospitalLogo != null)
+    {
+        var base64 = Convert.ToBase64String(hospital.HospitalLogo);
+        imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+    WebSession.HospitalLogo = imgsrc;
+
+    var patientinfo = GetPatientInfo();
+    var patientOPDInfo = GetPatientOPDDetail();
+    string photoSrc = string.Empty;
+    string daysRemaning = string.Empty;
+    bool showingDaysRemaining = false;
+    if (patientinfo != null && patientinfo.Gender == "Male")
+    {
+        photoSrc = "../img/avatar-male.jpg";
+    }
+    else
+    {
+        photoSrc = "../img/avatar-female.png";
+    }
+    if (patientinfo != null && patientinfo.Photo != null && patientinfo.Photo.Length > 0)
+    {
+        var base64 = Convert.ToBase64String(patientinfo.Photo);
+        photoSrc = string.Format("data:image/jpg;base64,{0}", base64);
+    }
+    if (patientinfo != null && patientinfo.ValidUpto != null)
+    {
+        daysRemaning = Convert.ToString((patientinfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
+        if (Convert.ToInt32(daysRemaning) <= 10)
+        {
+            showingDaysRemaining = true;
+        }
+    }
 }
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title -@hospitalName</title>
+    <title>@hospitalName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -308,14 +310,17 @@
                             <span class="selected"></span>
                         </a>
                     </li>-->
-                    <li>
-                        <a href="~/Home/MakePayment">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="menu-text">Make Payment</span>
-                            <span class="label sul">New</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
+                    @if (showingDaysRemaining)
+                    {
+                        <li>
+                            <a href="~/Home/MakePayment">
+                                <i class="fa fa-bar-chart"></i>
+                                <span class="menu-text">Make Payment</span>
+                                <span class="label sul">New</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    }
                     <li>
                         <a href="/Report/DuplicateBillingReport">
                             <i class="fa fa-bar-chart"></i>

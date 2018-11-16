@@ -33,7 +33,7 @@
     <script src="~/Scripts/App/Global/App.js"></script>
     <script src="~/Scripts/App/Global/Utility.js"></script>
     <link href="~/Content/App/Login/Login.css" rel="stylesheet" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 </head>
 <body>
     <script type="text/javascript">
@@ -147,7 +147,7 @@
                         <div class="form-group">
                             <label for="DOB" class="control-label col-md-4 col-sm-12 col-xs-12">Date of Birth<font color="FF0000">*</font></label>
                             <div class="col-md-4 col-sm-6 col-xs-6">
-                                <input type="date" id="DOB" class="form-control" name="DOB" required maxlength="6" />
+                                <input type="date" id="DOB" class="form-control" name="DOB" required maxlength="6" data-date-format="DD-MM-YYYY" placeholder="dd-MM-yyyy"  />
                             </div>
                         </div>
                         <div class="form-group">
@@ -345,6 +345,17 @@
     <div id="alertModel" style="display:none;" title="">
         <p></p>
     </div>
+    <script type="text/javascript">
+        $("input[type=date]").on("change", function () {
+            if (this.value !== '') {
+                this.setAttribute(
+                    "data-date",
+                    moment(this.value, "YYYY-MM-DD")
+                        .format(this.getAttribute("data-date-format"))
+                )
+            }
+        }).trigger("change")
+    </script>
     <style>
         #profileimage {
             width: 120px;
