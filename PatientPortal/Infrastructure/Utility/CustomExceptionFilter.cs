@@ -12,13 +12,13 @@ namespace PatientPortal.Infrastructure.Utility
         ILog logger = LogManager.GetLogger(typeof(CustomExceptionFilter));
         public void OnException(ExceptionContext filterContext)
         {
-            Exception e = filterContext.Exception;
-            filterContext.ExceptionHandled = true;
-            filterContext.Result = new ViewResult()
-            {
-                ViewName = "ExceptionPage"
-            };
-            logger.Error(e.InnerException);
+            //Exception e = filterContext.Exception;
+            //filterContext.ExceptionHandled = true;
+            //filterContext.Result = new ViewResult()
+            //{
+            //    ViewName = "ExceptionPage"
+            //};
+            //logger.Error(e.InnerException);
         }
     }
 

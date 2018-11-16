@@ -59,3 +59,7 @@ Error Number:53,State:0,Class:20
    at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
 ClientConnectionId:00000000-0000-0000-0000-000000000000
 Error Number:53,State:0,Class:20
+2018-11-15 12:36:02,256 [5] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-11-15 12:36:07,620 [5] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-11-15 12:36:07,620 [5] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-11-15 12:36:08,362 [5] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
