@@ -27,7 +27,7 @@ namespace PatientPortal.Controllers
     public class HomeController : CommonController
     {
         //Declaring Log4Net
-        ILog logger = LogManager.GetLogger(typeof(HomeController));  
+        ILog logger = LogManager.GetLogger(typeof(HomeController));
         [CustomAuthorize]
         public ActionResult Dashboard()
         {
@@ -495,10 +495,9 @@ namespace PatientPortal.Controllers
             return new HISPatientInfoInsertModel()
             {
                 Address = info.Address,
-                City = info.City.CityName,
+                City = info.City != null ? info.City.CityName : string.Empty,
                 CRNumber = info.CRNumber,
-                DepartmentId = Convert.ToString(info.DepartmentId.Value),
-                //DOB = Convert.ToString(info.DOB.ToString("yyyy-MM-dd")),
+                DepartmentId = info.DepartmentId != null ? Convert.ToString(info.DepartmentId.Value) : null,
                 DOB = info.DOB != null ? info.DOB.Value.ToString("yyyy-MM-dd") : string.Empty,
                 Email = info.Email,
                 FatherOrHusbandName = info.FatherOrHusbandName,
@@ -513,7 +512,7 @@ namespace PatientPortal.Controllers
                 PinCode = Convert.ToString(info.PinCode),
                 RegistrationNumber = info.RegistrationNumber,
                 Religion = info.Religion,
-                State = info.State.StateName,
+                State = info.State != null ? info.State.StateName : string.Empty,
                 Title = info.Title,
                 ValidUpto = Convert.ToString(info.ValidUpto.Value.ToString("yyyy-MM-dd")),
                 CreateDate = Convert.ToString(info.PatientTransactions.FirstOrDefault().TransactionDate.Value.ToString("yyyy-MM-dd")),

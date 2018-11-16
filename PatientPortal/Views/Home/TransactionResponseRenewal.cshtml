@@ -48,7 +48,7 @@ else
                                         <font style="font-size:18px">Transaction Response</font><br />
                                         <font style="font-size:13px">
                                             <b>Your Transaction is successful</b><br />
-                                            Your registration is Renew, now you can login to account.
+                                            Your registration is Renew.
                                         </font>
                                     </legend>
 
@@ -90,9 +90,9 @@ else
 
 <script>
     $(document).on('click', '#btnPrint', function () {
-        var pageTitle = 'Patient Ledger Report';
+        var pageTitle = 'Registration Renewal';
         stylesheet = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
-            win = window.open('', 'Print', 'width=500,height=300');
+            win = window.open('', 'Print', 'width=700,height=900');
         var dd = $('#successDiv').clone();
         //dd.find('tbody').append($('.table:eq(1) tbody tr').clone());
 
