@@ -38,10 +38,14 @@ namespace PatientPortal.BAL.Commom
             try
             {
                 string baseUrl = AppDomain.CurrentDomain.BaseDirectory.ToString();
+                string baseUrlServer = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Authority +
+                                        HttpContext.Current.Request.ApplicationPath.TrimEnd('/');
                 string filepath = baseUrl;
+                string serverfilepath = baseUrlServer;
                 if (file.ContentLength > 0)
                 {
                     filepath += "\\Reports";
+                    serverfilepath += "//Reports";
                     if (!Directory.Exists(filepath))
                     {
                         Directory.CreateDirectory(filepath);
@@ -53,16 +57,19 @@ namespace PatientPortal.BAL.Commom
                         if (_type == Enums.ReportType.Bill)
                         {
                             filepath += "\\Bill";
+                            serverfilepath += "//Bill";
                             if (!Directory.Exists(filepath))
                             {
                                 Directory.CreateDirectory(filepath);
                             }
                             filepath += "\\" + DateTime.Now.Year.ToString();
+                            serverfilepath += "//" + DateTime.Now.Year.ToString();
                             if (!Directory.Exists(filepath))
                             {
                                 Directory.CreateDirectory(filepath);
                             }
                             filepath += "\\" + Months[DateTime.Now.Month];
+                            serverfilepath += "//" + Months[DateTime.Now.Month];
                             if (!Directory.Exists(filepath))
                             {
                                 Directory.CreateDirectory(filepath);
@@ -71,27 +78,32 @@ namespace PatientPortal.BAL.Commom
                         else if (_type == Enums.ReportType.Lab)
                         {
                             filepath += "\\Lab";
+                            serverfilepath += "//Lab";
                             if (!Directory.Exists(filepath))
                             {
                                 Directory.CreateDirectory(filepath);
                             }
                             filepath += "\\" + DateTime.Now.Year.ToString();
+                            serverfilepath += "//" + DateTime.Now.Year.ToString();
                             if (!Directory.Exists(filepath))
                             {
                                 Directory.CreateDirectory(filepath);
                             }
                             filepath += "\\" + Months[DateTime.Now.Month];
+                            serverfilepath += "//" + Months[DateTime.Now.Month];
                             if (!Directory.Exists(filepath))
                             {
                                 Directory.CreateDirectory(filepath);
                             }
                         }
                         filepath += "\\" + RefNo;
+                        serverfilepath += "//" + RefNo;
                         if (file.ContentLength > 0)
                         {
                             filepath += Path.GetExtension(file.FileName);
+                            serverfilepath += Path.GetExtension(file.FileName);
                             file.SaveAs(filepath);
-                            return filepath;
+                            return serverfilepath;
                         }
                     }
                 }

@@ -44,7 +44,7 @@
                                                 {
                                                     <div class="btn-group">
                                                         <a href="@item.Url" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">View</a>
-                                                        <a href="@item.Url" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">Download</a>
+                                                        <a href="#" id="_download" data-url="@item.Url" target="_blank" class="btn btn-primary" download="@item.Url">Download</a>
                                                     </div>
                                                 }
                                                 else
@@ -65,10 +65,10 @@
     </div>
 </form>
 <script>
-    $(document).on('click', '[id*="_download"]', function () {
-        $('#_fileurl').val($(this).data('url'));
-        $('#_form').submit();
-    });
+    //$(document).on('click', '[id*="_download"]', function () {
+    //    $('#_fileurl').val($(this).data('url'));
+    //    $('#_form').submit();
+    //});
 
     $(document).on('click', '[id*="view"]', function () {
         $('#_form').attr('action', '/Report/ViewReportFile');

@@ -35,32 +35,32 @@
                                         <td>@item.BillAmount</td>
                                         <td>
                                             <div>
-                                            @if (!string.IsNullOrEmpty(item.ReportUrl) && (!item.ReportUrl.Contains("http") && !item.ReportUrl.Contains("https")))
-                                            {
-                                                <div class="btn-group">
-                                                    <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
-                                                    <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
-                                                </div>
-                                            }
-                                            else if (!string.IsNullOrEmpty(item.ReportUrl) && (item.ReportUrl.Contains("http") || item.ReportUrl.Contains("https")))
-                                            {
-                                                <div class="btn-group">
-                                                    <a href="@item.ReportUrl" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
-                                                    <a href="@item.ReportUrl" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">Download</a>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <text>No Reports</text>
-                                            }
-                        </div>
-                        </td>
-                        </tr>
-                    }
+                                                @if (!string.IsNullOrEmpty(item.ReportUrl) && (!item.ReportUrl.Contains("http") && !item.ReportUrl.Contains("https")))
+                                                {
+                                                    <div class="btn-group">
+                                                        <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
+                                                        <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
+                                                    </div>
+                                                }
+                                                else if (!string.IsNullOrEmpty(item.ReportUrl) && (item.ReportUrl.Contains("http") || item.ReportUrl.Contains("https")))
+                                                {
+                                                    <div class="btn-group">
+                                                        <a href="@item.ReportUrl" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
+                                                        <a href="#" id="_download" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary" download="@item.ReportUrl">Download</a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <text>No Reports</text>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             }
-                            </tbody>
-                            </table>
-                        </div>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="panel-footer">
                     *SV-Procedure/Diagnostic Billing,
                     *PH-Pharmacy Billing-Refund,
@@ -87,15 +87,15 @@
         var billType = _billType[_type];
         return billType === undefined ? 'Not Define' : billType;
     }
-    $(document).on('click', '[id*="_download"]', function () {
-        $('#_form').attr('action', '/Report/DownloadReportFile');
-        $('#_fileurl').val($(this).data('url'));
-        $('#_form').submit();
-    });
+    //$(document).on('click', '[id*="_download"]', function () {
+    //    $('#_form').attr('action', '/Report/DownloadReportFile');
+    //    $('#_fileurl').val($(this).data('url'));
+    //    $('#_form').submit();
+    //});
 
     $(document).on('click', '[id*="view"]', function () {
         $('#_form').attr('action', '/Report/ViewReportFile');
         $('#_fileurl').val($(this).data('url'));
-       // $('#_form').submit();
+        // $('#_form').submit();
     });
 </script>
