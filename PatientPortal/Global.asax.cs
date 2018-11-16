@@ -24,6 +24,13 @@ namespace PatientPortal
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalFilters.Filters.Add(new CustomExceptionFilter());
             log4net.Config.XmlConfigurator.Configure();
+            Application["Totaluser"] = 0;
+        }
+        protected void Session_Start()
+        {
+            Application.Lock();
+            Application["Totaluser"] = (int)Application["Totaluser"] + 1;
+            Application.UnLock();
         }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
