@@ -1209,5 +1209,13 @@ namespace PatientPortal.Controllers
             return Json(model);
         }
 
+        public ActionResult ResendOTP()
+        {
+            string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
+            var pateintModel = Session["PatientInfo"] as PatientInfoModel;
+            SendMailFordeviceVerification(pateintModel.FirstName, pateintModel.MiddleName, pateintModel.LastName, pateintModel.Email, verificationCode, pateintModel.MobileNumber);
+            Session["otp"] = verificationCode;
+            return RedirectToAction("Register", new { actionName = "getotpscreen" });
+        }
     }
 }
