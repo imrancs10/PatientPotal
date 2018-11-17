@@ -18,14 +18,14 @@ namespace PatientPortal.Controllers
         public ActionResult GetBillingReport()
         {
             ReportDetails _details = new ReportDetails();
-            return View(_details.GetBillReportData(User.Id));
+            return View(_details.GetBillReportData());
         }
 
         [HttpGet]
         public ActionResult DuplicateBillingReport()
         {
             ReportDetails _details = new ReportDetails();
-            return View(_details.GetBillReportData(User.Id));
+            return View(_details.GetBillReportData());
         }
 
         public ActionResult ReportViewing()
