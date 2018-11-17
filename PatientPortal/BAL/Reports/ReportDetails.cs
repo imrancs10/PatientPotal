@@ -13,15 +13,16 @@ namespace PatientPortal.BAL.Reports
     {
         PatientPortalEntities _db = null;
 
-        public List<PatientBillReport> GetBillReportData(int patientId)
+        public List<PatientBillReport> GetBillReportData()
         {
             _db = new PatientPortalEntities();
-            return _db.PatientBillReports.Where(x => x.PatientId == patientId).ToList();
+            return _db.PatientBillReports.Include(x => x.PatientInfo).Where(x => x.PatientInfo.PatientId == WebSession.PatientId).ToList();
         }
 
         public Enums.CrudStatus SetBillReportData(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount)
         {
             _db = new PatientPortalEntities();
+            var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == PatientId).FirstOrDefault();
             PatientBillReport _report = new PatientBillReport();
             _report.BillAmount = BillAmount;
             _report.BillDate = BillDate;
@@ -30,7 +31,7 @@ namespace PatientPortal.BAL.Reports
             _report.ReportUrl = ReportUrl;
             _report.CreatedDate = DateTime.Now;
             _report.ModificationDate = DateTime.Now;
-            _report.PatientId = PatientId;
+            _report.PatientId = Convert.ToInt32(patientInfo.pid);
             _db.PatientBillReports.Add(_report);
             int _result = _db.SaveChanges();
             return _result > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
@@ -39,6 +40,7 @@ namespace PatientPortal.BAL.Reports
         public Enums.CrudStatus SetLabReportData(int PatientId, string BillNo, string RefNo, string ReportUrl, string LabName, DateTime ReportDate, string doctorId)
         {
             _db = new PatientPortalEntities();
+            var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == PatientId).FirstOrDefault();
             LabreportPdf _report = new LabreportPdf();
             _report.ReportDate = ReportDate;
             _report.Labref = RefNo;
@@ -47,7 +49,7 @@ namespace PatientPortal.BAL.Reports
             _report.CreatedDate = DateTime.Now;
             _report.Url = ReportUrl;
             _report.ModificationDate = DateTime.Now;
-            _report.pid = PatientId;
+            _report.pid = patientInfo.pid;
             _report.DoctorId = Convert.ToInt32(doctorId);
             _db.LabreportPdfs.Add(_report);
             int _result = _db.SaveChanges();
@@ -57,7 +59,8 @@ namespace PatientPortal.BAL.Reports
         public List<LabreportPdf> GetLabReportData()
         {
             _db = new PatientPortalEntities();
-            return _db.LabreportPdfs.Where(x => x.pid == WebSession.PatientId).ToList();
+            var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == WebSession.PatientId).FirstOrDefault();
+            return _db.LabreportPdfs.Where(x => x.pid == patientInfo.pid).ToList();
         }
 
         public List<PatientLedgerModel> GetPatientLedger()
