@@ -63,3 +63,15 @@ Error Number:53,State:0,Class:20
 2018-11-15 12:36:07,620 [5] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
 2018-11-15 12:36:07,620 [5] DEBUG PatientPortal.Controllers.HomeController Send SMS started
 2018-11-15 12:36:08,362 [5] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-11-17 04:32:43,422 [8] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-11-17 04:32:50,311 [8] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-11-17 04:32:50,311 [8] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-11-17 04:32:51,020 [8] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-11-17 05:00:38,612 [7] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-11-17 05:00:44,947 [7] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-11-17 05:00:44,947 [7] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-11-17 05:00:45,223 [7] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-11-17 05:14:52,169 [6] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-11-17 05:14:57,950 [6] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-11-17 05:14:57,950 [6] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-11-17 05:14:58,261 [6] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
