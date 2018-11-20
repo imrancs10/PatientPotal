@@ -1,5 +1,6 @@
 ﻿@using DataLayer
 @using System.Configuration;
+@using PatientPortal.Global;
 
 @model List<PatientBillReport>
 @{
@@ -39,8 +40,8 @@
                                                 @if (string.IsNullOrEmpty(item.ReportUrl))
                                                 {
                                                     <div class="btn-group">
-                                                        <a href="@ConfigurationManager.AppSettings["HISBillReportUrl"])?billid=@item.BillId&vtype=@item.BillType" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
-                                                        <a href="#" id="_download" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"])?billid=@item.BillId&vtype=@item.BillType">Download</a>
+                                                        <a href="@ConfigurationManager.AppSettings["HISBillReportUrl"])?billid=@CryptoEngine.Encrypt(Convert.ToString(item.BillId))&vtype=@CryptoEngine.Encrypt(Convert.ToString(item.BillType))" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
+                                                        <a href="#" id="_download" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"])?billid=@CryptoEngine.Encrypt(Convert.ToString(item.BillId))&vtype=@CryptoEngine.Encrypt(Convert.ToString(item.BillType))">Download</a>
                                                     </div>
                                                 }
                                                 else if (!string.IsNullOrEmpty(item.ReportUrl) && (item.ReportUrl.Contains("http") || item.ReportUrl.Contains("https")))
