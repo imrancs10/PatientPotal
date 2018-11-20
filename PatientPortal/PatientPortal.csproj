@@ -406,6 +406,11 @@
     <Content Include="Reports\Lab\2018\October\23487238974.pdf" />
     <Content Include="Reports\Lab\2018\October\LB2017233656.pdf" />
     <Content Include="Reports\Bill\2018\November\1234.pdf" />
+    <Content Include="Reports\Lab\2018\November\435.pdf" />
+    <Content Include="Reports\Lab\2018\December\786586.pdf" />
+    <Content Include="Reports\Lab\2018\December\PP345.pdf" />
+    <Content Include="Reports\Bill\2018\December\123456.pdf" />
+    <Content Include="Reports\Bill\2018\December\678.pdf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\jquery.slide.js" />
     <Content Include="Scripts\dist\jquery.slide.min.js" />

@@ -30,7 +30,7 @@
                                         <td>@item.Labref</td>
                                         <td>@item.LabName</td>
                                         <td>@item.BillNo</td>
-                                        <td>@Convert.ToDateTime(item.CreatedDate).ToShortDateString()</td>
+                                        <td>@Convert.ToDateTime(item.ReportDate).ToShortDateString()</td>
                                         <td>
                                             <div class="btn-group">
                                                 @if (!string.IsNullOrEmpty(item.Url) && (!item.Url.Contains("http") && !item.Url.Contains("https")))
