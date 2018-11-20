@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/Scripts/App/Report/BillingReport.js"></script>
-<form action="/admin/SetBillingReport" method="post" style="padding-top:50px;" enctype = "multipart/form-data">
+<form action="/admin/SetBillingReport" method="post" style="padding-top:50px;" enctype="multipart/form-data">
     <div class="col-sm-4 col-lg-4 col-lg-offset-4">
         <div class="panel panel-primary">
             <div class="panel-heading">Billing Report</div>
@@ -30,16 +30,16 @@
                     <label for="">Report Path</label>
                     <div class="radio-inline">
                         <label class="radio-inline"><input type="radio" name="ReportPath" id="_file" value="file" checked>File Upload</label>
-                        <label class="radio-inline"><input type="radio" name="ReportPath" id="_url" value="url">Enter Url</label>
+                        <label class="radio-inline hidden"><input type="radio" name="ReportPath" id="_url" value="url" class="hidden">Enter Url</label>
                     </div>
-                </div> 
+                </div>
                 <div class="form-group file">
                     <label for="">File Upload</label>
                     <input type="file" name="reportfile" id="_fileUpload" class="form-control" />
                 </div>
                 <div class="form-group url" style="display:none;">
                     <label for="">Report URL</label>
-                    <input type="text" name="reporturl" id="reporturl" class="form-control" />
+                    <input type="text" name="reporturl" id="reporturl" class="form-control hidden" />
                 </div>
             </div>
             <div class="panel-footer">

@@ -2,6 +2,7 @@
 using PatientPortal.BAL.Reports;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,7 +38,7 @@ namespace PatientPortal.Controllers
             }
             else
             {
-                ReportPath = ReportUrl;
+                ReportPath = string.Empty;
             }
             ReportDetails _details = new ReportDetails();
             _details.SetBillReportData(PatientId, BillNo, BillType, BillDate, ReportPath, BillAmount);
@@ -45,7 +46,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetLabReport(HttpPostedFileBase reportfile,DateTime ReportDate, int PatientId, string BillNo, string RefNo, string LabName, string ReportUrl,string doctorId)
+        public ActionResult SetLabReport(HttpPostedFileBase reportfile, DateTime ReportDate, int PatientId, string BillNo, string RefNo, string LabName, string ReportUrl, string doctorId)
         {
             string ReportPath = string.Empty;
             if (reportfile != null)

@@ -14,13 +14,14 @@ namespace DataLayer
     
     public partial class PatientBillReport
     {
-        public int BillId { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> BillId { get; set; }
         public string BillNo { get; set; }
-        public System.DateTime BillDate { get; set; }
+        public Nullable<System.DateTime> BillDate { get; set; }
         public string BillType { get; set; }
-        public decimal BillAmount { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public System.DateTime ModificationDate { get; set; }
+        public Nullable<decimal> BillAmount { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModificationDate { get; set; }
         public string ReportUrl { get; set; }
         public Nullable<int> PatientId { get; set; }
     

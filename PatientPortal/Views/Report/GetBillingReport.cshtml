@@ -1,4 +1,5 @@
 ﻿@using DataLayer
+@using System.Configuration;
 
 @model List<PatientBillReport>
 @{
@@ -29,17 +30,17 @@
                                 {
 
                                     <tr>
-                                        <td>@item.BillDate.ToShortDateString()</td>
+                                        <td>@item.BillDate.Value.ToShortDateString()</td>
                                         <td>@item.BillNo</td>
                                         <td title="'+javascript:getBillType(@item.BillType)+'">@item.BillType</td>
                                         <td>@item.BillAmount</td>
                                         <td>
                                             <div>
-                                                @if (!string.IsNullOrEmpty(item.ReportUrl) && (!item.ReportUrl.Contains("http") && !item.ReportUrl.Contains("https")))
+                                                @if (string.IsNullOrEmpty(item.ReportUrl))
                                                 {
                                                     <div class="btn-group">
-                                                        <a href="~/Report/ViewReportFile?fileUrl=@item.ReportUrl&view=GetBillingReport" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
-                                                        <button type="button" id="_download" data-url="@item.ReportUrl" class="btn btn-primary">Download</button>
+                                                        <a href="@ConfigurationManager.AppSettings["HISBillReportUrl"])?billid=@item.BillId&vtype=@item.BillType" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
+                                                        <a href="#" id="_download" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"])?billid=@item.BillId&vtype=@item.BillType">Download</a>
                                                     </div>
                                                 }
                                                 else if (!string.IsNullOrEmpty(item.ReportUrl) && (item.ReportUrl.Contains("http") || item.ReportUrl.Contains("https")))
