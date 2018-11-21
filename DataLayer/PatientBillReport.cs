@@ -23,8 +23,6 @@ namespace DataLayer
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModificationDate { get; set; }
         public string ReportUrl { get; set; }
-        public Nullable<int> PatientId { get; set; }
-    
-        public virtual PatientInfo PatientInfo { get; set; }
+        public Nullable<decimal> PId { get; set; }
     }
 }

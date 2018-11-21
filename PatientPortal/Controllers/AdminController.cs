@@ -28,7 +28,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetBillingReport(HttpPostedFileBase reportfile, int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount)
+        public ActionResult SetBillingReport(HttpPostedFileBase reportfile, int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount,string BillID)
         {
             string ReportPath = string.Empty;
             if (reportfile != null)
@@ -41,7 +41,7 @@ namespace PatientPortal.Controllers
                 ReportPath = string.Empty;
             }
             ReportDetails _details = new ReportDetails();
-            _details.SetBillReportData(PatientId, BillNo, BillType, BillDate, ReportPath, BillAmount);
+            _details.SetBillReportData(PatientId, BillNo, BillType, BillDate, ReportPath, BillAmount, BillID);
             return View("PatientBillReport");
         }
 

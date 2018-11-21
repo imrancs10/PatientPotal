@@ -182,14 +182,14 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
         <EntityType Name="PateintLeadger">
           <Key>
             <PropertyRef Name="Billid" />
-            <PropertyRef Name="Patientid" />
+            <PropertyRef Name="PId" />
             <PropertyRef Name="billdate" />
           </Key>
           <Property Name="Billid" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="godcode" Type="varchar" MaxLength="3" />
           <Property Name="opdid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="counterid" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="Patientid" Type="int" Nullable="false" />
+          <Property Name="PId" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="regtranid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="inpatientid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="vtype" Type="char" MaxLength="2" />
@@ -250,7 +250,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModificationDate" Type="datetime" />
           <Property Name="ReportUrl" Type="nvarchar" MaxLength="500" />
-          <Property Name="PatientId" Type="int" />
+          <Property Name="PId" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
@@ -362,18 +362,6 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="500" />
         </EntityType>
-        <Association Name="FK__PatientBi__Patie__3A4CA8FD">
-          <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="0..1" />
-          <End Role="PatientBillReport" Type="Self.PatientBillReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientInfo">
-              <PropertyRef Name="PatientId" />
-            </Principal>
-            <Dependent Role="PatientBillReport">
-              <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AppointmentInfo_Doctor">
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
           <End Role="AppointmentInfo" Type="Self.AppointmentInfo" Multiplicity="*" />
@@ -678,7 +666,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
     [PateintLeadger].[godcode] AS [godcode], 
     [PateintLeadger].[opdid] AS [opdid], 
     [PateintLeadger].[counterid] AS [counterid], 
-    [PateintLeadger].[Patientid] AS [Patientid], 
+    [PateintLeadger].[PId] AS [PId], 
     [PateintLeadger].[regtranid] AS [regtranid], 
     [PateintLeadger].[inpatientid] AS [inpatientid], 
     [PateintLeadger].[vtype] AS [vtype], 
@@ -727,10 +715,6 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
     [PateintLeadger].[entrytype] AS [entrytype]
     FROM [dbo].[PateintLeadger] AS [PateintLeadger]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__PatientBi__Patie__3A4CA8FD" Association="Self.FK__PatientBi__Patie__3A4CA8FD">
-            <End Role="PatientInfo" EntitySet="PatientInfo" />
-            <End Role="PatientBillReport" EntitySet="PatientBillReport" />
-          </AssociationSet>
           <AssociationSet Name="FK_AppointmentInfo_Doctor" Association="Self.FK_AppointmentInfo_Doctor">
             <End Role="Doctor" EntitySet="Doctor" />
             <End Role="AppointmentInfo" EntitySet="AppointmentInfo" />
@@ -914,10 +898,6 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <AssociationSet Name="FK_LabReport_PatientInfo" Association="PatientPortalModel.FK_LabReport_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="LabReport" EntitySet="LabReports" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PatientBi__Patie__3A4CA8FD" Association="PatientPortalModel.FK__PatientBi__Patie__3A4CA8FD">
-            <End Role="PatientInfo" EntitySet="PatientInfoes" />
-            <End Role="PatientBillReport" EntitySet="PatientBillReports" />
           </AssociationSet>
           <AssociationSet Name="FK_PatientInfo_PatientInfo" Association="PatientPortalModel.FK_PatientInfo_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
@@ -1158,8 +1138,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModificationDate" Type="DateTime" Precision="3" />
           <Property Name="ReportUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PatientId" Type="Int32" />
-          <NavigationProperty Name="PatientInfo" Relationship="PatientPortalModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientBillReport" ToRole="PatientInfo" />
+          <Property Name="PId" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
@@ -1200,7 +1179,6 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <NavigationProperty Name="City" Relationship="PatientPortalModel.FK_PatientInfo_City" FromRole="PatientInfo" ToRole="City" />
           <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="PatientInfo" ToRole="Department" />
           <NavigationProperty Name="LabReports" Relationship="PatientPortalModel.FK_LabReport_PatientInfo" FromRole="PatientInfo" ToRole="LabReport" />
-          <NavigationProperty Name="PatientBillReports" Relationship="PatientPortalModel.FK__PatientBi__Patie__3A4CA8FD" FromRole="PatientInfo" ToRole="PatientBillReport" />
           <NavigationProperty Name="PatientInfo1" Relationship="PatientPortalModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo" ToRole="PatientInfo1" />
           <NavigationProperty Name="PatientInfo2" Relationship="PatientPortalModel.FK_PatientInfo_PatientInfo" FromRole="PatientInfo1" ToRole="PatientInfo" />
           <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="PatientInfo" ToRole="State" />
@@ -1296,14 +1274,14 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
         <EntityType Name="PateintLeadger">
           <Key>
             <PropertyRef Name="Billid" />
-            <PropertyRef Name="Patientid" />
+            <PropertyRef Name="PId" />
             <PropertyRef Name="billdate" />
           </Key>
           <Property Name="Billid" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="godcode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="opdid" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="counterid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Patientid" Type="Int32" Nullable="false" />
+          <Property Name="PId" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="regtranid" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="inpatientid" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="vtype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
@@ -1543,18 +1521,6 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PatientBi__Patie__3A4CA8FD">
-          <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="0..1" />
-          <End Type="PatientPortalModel.PatientBillReport" Role="PatientBillReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PatientInfo">
-              <PropertyRef Name="PatientId" />
-            </Principal>
-            <Dependent Role="PatientBillReport">
-              <PropertyRef Name="PatientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PatientInfo_PatientInfo">
           <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo" Multiplicity="1" />
           <End Type="PatientPortalModel.PatientInfo" Role="PatientInfo1" Multiplicity="0..1" />
@@ -1639,7 +1605,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1834,7 +1800,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
           <EntitySetMapping Name="PatientBillReports">
             <EntityTypeMapping TypeName="PatientPortalModel.PatientBillReport">
               <MappingFragment StoreEntitySet="PatientBillReport">
-                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="PId" ColumnName="PId" />
                 <ScalarProperty Name="ReportUrl" ColumnName="ReportUrl" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -2012,7 +1978,7 @@ warning 6002: The table/view 'PatientPortal.dbo.PateintLeadger' does not have a 
                 <ScalarProperty Name="vtype" ColumnName="vtype" />
                 <ScalarProperty Name="inpatientid" ColumnName="inpatientid" />
                 <ScalarProperty Name="regtranid" ColumnName="regtranid" />
-                <ScalarProperty Name="Patientid" ColumnName="Patientid" />
+                <ScalarProperty Name="PId" ColumnName="PId" />
                 <ScalarProperty Name="counterid" ColumnName="counterid" />
                 <ScalarProperty Name="opdid" ColumnName="opdid" />
                 <ScalarProperty Name="godcode" ColumnName="godcode" />

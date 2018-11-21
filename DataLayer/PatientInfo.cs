@@ -19,7 +19,6 @@ namespace DataLayer
         {
             this.AppointmentInfoes = new HashSet<AppointmentInfo>();
             this.LabReports = new HashSet<LabReport>();
-            this.PatientBillReports = new HashSet<PatientBillReport>();
             this.PatientLoginEntries = new HashSet<PatientLoginEntry>();
             this.PatientLoginHistories = new HashSet<PatientLoginHistory>();
             this.PatientTransactions = new HashSet<PatientTransaction>();
@@ -63,8 +62,6 @@ namespace DataLayer
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LabReport> LabReports { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PatientBillReport> PatientBillReports { get; set; }
         public virtual PatientInfo PatientInfo1 { get; set; }
         public virtual PatientInfo PatientInfo2 { get; set; }
         public virtual State State { get; set; }

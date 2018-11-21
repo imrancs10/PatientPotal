@@ -21,6 +21,7 @@ using System.Web.Security;
 using static PatientPortal.Global.Enums;
 using log4net;
 using PatientPortal.Global;
+using System.Globalization;
 
 namespace PatientPortal.Controllers
 {
@@ -734,7 +735,7 @@ namespace PatientPortal.Controllers
                 Country = country,
                 Department = dept != null ? dept.DepartmentName : string.Empty,
                 DOB = Convert.ToDateTime(DOB),
-                Email = email,
+            Email = email,
                 FirstName = firstname,
                 Gender = Gender,
                 LastName = lastname,

@@ -16,10 +16,11 @@ namespace PatientPortal.BAL.Reports
         public List<PatientBillReport> GetBillReportData()
         {
             _db = new PatientPortalEntities();
-            return _db.PatientBillReports.Include(x => x.PatientInfo).Where(x => x.PatientInfo.PatientId == WebSession.PatientId).ToList();
+            var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == WebSession.PatientId).FirstOrDefault();
+            return _db.PatientBillReports.Where(x => x.PId == patientInfo.pid).ToList();
         }
 
-        public Enums.CrudStatus SetBillReportData(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount)
+        public Enums.CrudStatus SetBillReportData(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount, string BillID)
         {
             _db = new PatientPortalEntities();
             var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == PatientId).FirstOrDefault();
@@ -27,11 +28,12 @@ namespace PatientPortal.BAL.Reports
             _report.BillAmount = BillAmount;
             _report.BillDate = BillDate;
             _report.BillNo = BillNo;
+            _report.BillId = Convert.ToInt32(BillID);
             _report.BillType = BillType;
             _report.ReportUrl = ReportUrl;
             _report.CreatedDate = DateTime.Now;
             _report.ModificationDate = DateTime.Now;
-            _report.PatientId = Convert.ToInt32(patientInfo.pid);
+            _report.PId = Convert.ToInt32(patientInfo.pid);
             _db.PatientBillReports.Add(_report);
             int _result = _db.SaveChanges();
             return _result > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
@@ -67,7 +69,8 @@ namespace PatientPortal.BAL.Reports
         {
             _db = new PatientPortalEntities();
             DateTime _period = DateTime.Now.AddMonths(-WebSession.PatientLedgerPeriodInMonth);
-            var data = _db.PateintLeadgers.Where(x => x.Patientid == WebSession.PatientId && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(_period)).ToList();
+            var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == WebSession.PatientId).FirstOrDefault();
+            var data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(_period)).ToList();
             List<PatientLedgerModel> ledgerList = new List<PatientLedgerModel>();
 
             if (data != null)
