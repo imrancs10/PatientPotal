@@ -84,3 +84,32 @@ Error Number:53,State:0,Class:20
 2018-11-17 15:41:39,485 [29] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
 2018-11-17 15:41:39,485 [29] DEBUG PatientPortal.Controllers.HomeController Send SMS started
 2018-11-17 15:41:39,830 [29] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-11-20 12:22:04,377 [12] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-20 12:33:31,540 [18] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-20 13:10:51,278 [7] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-20 13:17:39,763 [6] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-20 13:38:33,619 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-20 15:08:40,339 [7] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-20 15:24:35,182 [6] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-20 15:41:21,069 [6] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-21 08:38:40,201 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-21 08:41:38,884 [6] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-21 08:42:53,992 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-21 08:49:59,838 [6] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-21 12:07:21,182 [16] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 02:22:28,262 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 02:27:51,679 [28] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 02:41:09,688 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 03:03:51,081 [6] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 03:34:34,469 [11] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-11-22 03:34:43,530 [11] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-11-22 03:34:43,531 [11] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-11-22 03:34:44,494 [11] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-11-22 04:03:51,398 [7] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 04:13:42,694 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 04:28:09,794 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 04:28:34,576 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 04:29:45,837 [7] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 04:50:11,402 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 04:53:14,265 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-22 04:57:22,251 [7] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
