@@ -82,8 +82,8 @@ namespace PatientPortal.BAL.Reports
                     newLedger.Date = currentLedger.billdate == null ? DateTime.Now : Convert.ToDateTime(currentLedger.billdate);
                     newLedger.Description = currentLedger.remarks;
                     newLedger.IPNo = currentLedger.ipno;
-                    newLedger.Payment = currentLedger.gramount.ToString();
-                    newLedger.Receipt = currentLedger.netamt.ToString();
+                    newLedger.Payment = currentLedger.netamt.ToString();
+                    newLedger.Receipt = currentLedger.receiptno;
                     newLedger.Type = currentLedger.vtype;
                     newLedger.VNo = currentLedger.vno;
                     ledgerList.Add(newLedger);
