@@ -19,7 +19,7 @@ namespace PatientPortal.Controllers
         {
             ReportDetails _details = new ReportDetails();
             var result = _details.GetBillReportData();
-            return View();
+            return View(result);
         }
 
         [HttpGet]

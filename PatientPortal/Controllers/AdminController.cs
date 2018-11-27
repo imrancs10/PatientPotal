@@ -28,18 +28,20 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetBillingReport(HttpPostedFileBase reportfile, int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount,string BillID)
+        //HttpPostedFileBase reportfile,
+        public ActionResult SetBillingReport(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount,string BillID)
         {
             string ReportPath = string.Empty;
-            if (reportfile != null)
-            {
-                CommonDetails fileupload = new CommonDetails();
-                ReportPath = fileupload.ReportFileUpload(reportfile, Global.Enums.ReportType.Bill, BillNo);
-            }
-            else
-            {
-                ReportPath = string.Empty;
-            }
+            //if (reportfile != null)
+            //{
+            //    CommonDetails fileupload = new CommonDetails();
+            //    ReportPath = fileupload.ReportFileUpload(reportfile, Global.Enums.ReportType.Bill, BillNo);
+            //}
+            //else
+            //{
+            //    ReportPath = string.Empty;
+            //}
+            ReportPath = string.Empty;
             ReportDetails _details = new ReportDetails();
             _details.SetBillReportData(PatientId, BillNo, BillType, BillDate, ReportPath, BillAmount, BillID);
             return View("PatientBillReport");

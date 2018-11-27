@@ -14,6 +14,7 @@ namespace DataLayer
     
     public partial class PateintLeadger
     {
+        public int Id { get; set; }
         public decimal Billid { get; set; }
         public string godcode { get; set; }
         public Nullable<decimal> opdid { get; set; }

@@ -2,7 +2,7 @@
 @using System.Configuration;
 @using PatientPortal.Global;
 
-@model List<PatientBillReport>
+@model List<PateintLeadger>
 @{
     ViewBag.Title = "Billing Report";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
@@ -31,24 +31,17 @@
                                 {
 
                                     <tr>
-                                        <td>@item.BillDate.Value.ToShortDateString()</td>
-                                        <td>@item.BillNo</td>
-                                        <td title="'+javascript:getBillType(@item.BillType)+'">@item.BillType</td>
-                                        <td>@item.BillAmount</td>
+                                        <td>@item.billdate.ToShortDateString()</td>
+                                        <td>@item.billno</td>
+                                        <td title="'+javascript:getBillType(@item.vtype)+'">@item.vtype</td>
+                                        <td>@item.netamt</td>
                                         <td>
                                             <div>
-                                                @if (string.IsNullOrEmpty(item.ReportUrl))
+                                                @if (!string.IsNullOrEmpty(Convert.ToString(item.Billid)))
                                                 {
                                                     <div class="btn-group">
-                                                        <a href="@ConfigurationManager.AppSettings["HISBillReportUrl"])?billid=@CryptoEngine.Encrypt(Convert.ToString(item.BillId))&vtype=@CryptoEngine.Encrypt(Convert.ToString(item.BillType))" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
-                                                        <a href="#" id="_download" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"])?billid=@CryptoEngine.Encrypt(Convert.ToString(item.BillId))&vtype=@CryptoEngine.Encrypt(Convert.ToString(item.BillType))">Download</a>
-                                                    </div>
-                                                }
-                                                else if (!string.IsNullOrEmpty(item.ReportUrl) && (item.ReportUrl.Contains("http") || item.ReportUrl.Contains("https")))
-                                                {
-                                                    <div class="btn-group">
-                                                        <a href="@item.ReportUrl" id="_view" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary">View</a>
-                                                        <a href="@item.ReportUrl" id="_download" data-url="@item.ReportUrl" target="_blank" class="btn btn-primary" download>Download</a>
+                                                        <a href="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@CryptoEngine.Encrypt(Convert.ToString(item.Billid))&vtype=@CryptoEngine.Encrypt(Convert.ToString(item.vtype))" id="_view" target="_blank" class="btn btn-primary">View</a>
+                                                        <a href="#" id="_download" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@CryptoEngine.Encrypt(Convert.ToString(item.Billid))&vtype=@CryptoEngine.Encrypt(Convert.ToString(item.vtype))">Download</a>
                                                     </div>
                                                 }
                                                 else

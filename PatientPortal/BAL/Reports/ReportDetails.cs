@@ -13,28 +13,26 @@ namespace PatientPortal.BAL.Reports
     {
         PatientPortalEntities _db = null;
 
-        public List<PatientBillReport> GetBillReportData()
+        public List<PateintLeadger> GetBillReportData()
         {
             _db = new PatientPortalEntities();
             var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == WebSession.PatientId).FirstOrDefault();
-            return _db.PatientBillReports.Where(x => x.PId == patientInfo.pid).ToList();
+            return _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid).ToList();
         }
 
         public Enums.CrudStatus SetBillReportData(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount, string BillID)
         {
             _db = new PatientPortalEntities();
             var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == PatientId).FirstOrDefault();
-            PatientBillReport _report = new PatientBillReport();
-            _report.BillAmount = BillAmount;
-            _report.BillDate = BillDate;
-            _report.BillNo = BillNo;
-            _report.BillId = Convert.ToInt32(BillID);
-            _report.BillType = BillType;
-            _report.ReportUrl = ReportUrl;
-            _report.CreatedDate = DateTime.Now;
-            _report.ModificationDate = DateTime.Now;
+            PateintLeadger _report = new PateintLeadger();
+            _report.netamt = BillAmount;
+            _report.billdate = BillDate;
+            _report.billno = BillNo;
+            _report.Billid = Convert.ToInt32(BillID);
+            _report.vtype = BillType;
+            //_report.ReportUrl = ReportUrl;
             _report.PId = Convert.ToInt32(patientInfo.pid);
-            _db.PatientBillReports.Add(_report);
+            _db.PateintLeadgers.Add(_report);
             int _result = _db.SaveChanges();
             return _result > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
         }
