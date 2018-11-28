@@ -734,7 +734,7 @@ namespace PatientPortal.Controllers
                 CityId = city,
                 Country = country,
                 Department = dept != null ? dept.DepartmentName : string.Empty,
-                DOB = DateTime.Parse(DOB),
+                //DOB = DateTime.Parse(DOB, CultureInfo.InvariantCulture),
                 Email = email,
                 FirstName = firstname,
                 Gender = Gender,
@@ -749,6 +749,15 @@ namespace PatientPortal.Controllers
                 MaritalStatus = MaritalStatus,
                 Title = title
             };
+            bool isOK = DateTime.TryParseExact(DOB, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result);
+            if (isOK)
+            {
+                model.DOB = result;
+            }
+            else
+            {
+                model.DOB = null;
+            }
             return model;
         }
         [CustomAuthorize]
