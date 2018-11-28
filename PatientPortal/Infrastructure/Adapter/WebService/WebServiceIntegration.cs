@@ -5,11 +5,15 @@ using PatientPortal.Models;
 using PatientPortal.PateintInfoService;
 using System.IO;
 using System.Text;
+using log4net;
 
 namespace PatientPortal.Infrastructure.Adapter.WebService
 {
+
     public class WebServiceIntegration
     {
+        ILog logger = LogManager.GetLogger(typeof(WebServiceIntegration));
+
         public HISPatientInfoModel GetPatientInfoBYCRNumber(string crNumber)
         {
             GetPatientDetails service = new GetPatientDetails();
@@ -67,13 +71,21 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
 
         public PDModel GetPatientOPDDetail(string crNumber)
         {
-            GetPatOpdDetails service = new GetPatOpdDetails();
-            var result = service.GetPatientOPDDetails(crNumber);
-            if (result.ToLower().Contains("no record"))
-                return null;
-            Serializer serilizer = new Serializer();
-            result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
-            return serilizer.Deserialize<PDModel>(result, "Table1");
+            try
+            {
+                GetPatOpdDetails service = new GetPatOpdDetails();
+                var result = service.GetPatientOPDDetails(crNumber);
+                if (result.ToLower().Contains("no record"))
+                    return null;
+                Serializer serilizer = new Serializer();
+                result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
+                return serilizer.Deserialize<PDModel>(result, "Table1");
+            }
+            catch (System.Exception ex)
+            {
+                logger.Error(ex.StackTrace);
+            }
+            return null;
         }
     }
 }
