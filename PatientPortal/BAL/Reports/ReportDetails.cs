@@ -78,7 +78,7 @@ namespace PatientPortal.BAL.Reports
                     PatientLedgerModel newLedger = new PatientLedgerModel();
                     newLedger.Balance = currentLedger.subtotal.ToString();
                     newLedger.Date = currentLedger.billdate == null ? DateTime.Now : Convert.ToDateTime(currentLedger.billdate);
-                    newLedger.Description = currentLedger.remarks;
+                    newLedger.Description = getBillType(currentLedger.vtype);
                     newLedger.IPNo = currentLedger.ipno;
                     newLedger.Payment = currentLedger.netamt.ToString();
                     newLedger.Receipt = currentLedger.receiptno;
@@ -88,6 +88,33 @@ namespace PatientPortal.BAL.Reports
                 }
             }
             return ledgerList;
+        }
+
+        private string getBillType(string billtype)
+        {
+            string desc = string.Empty;
+            switch (billtype)
+            {
+                case "SV":
+                    desc = "Procedure/Diagnostic Billing";
+                    break;
+                case "PH":
+                    desc = "Pharmacy Billing-Refund";
+                    break;
+                case "GP":
+                    desc = "Patient Payment";
+                    break;
+                case "GR":
+                    desc = "Receipt from Patient";
+                    break;
+                case "PHR":
+                    desc = "Pharmacy Return";
+                    break;
+                case "SR":
+                    desc = "Sales Return";
+                    break;
+            }
+            return desc;
         }
     }
 }

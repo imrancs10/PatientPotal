@@ -154,7 +154,7 @@ namespace PatientPortal.Controllers
             var result = _details.GetPatientDetailById(User.Id);
             PatientInfoModel model = new PatientInfoModel
             {
-                RegistrationNumber = result.RegistrationNumber,
+                RegistrationNumber = !string.IsNullOrEmpty(result.CRNumber) ? result.CRNumber : result.RegistrationNumber,
                 Address = result.Address,
                 CityId = Convert.ToString(result.City),
                 Country = result.Country,

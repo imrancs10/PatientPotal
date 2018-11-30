@@ -19,29 +19,29 @@
                             <tr>
                                 <th>Date</th>
                                 <th>I.P. No.</th>
-                                <th>Type</th>
+                                @*<th>Type</th>*@
                                 <th>V. No</th>
                                 <th>Description</th>
                                 <th>Payment</th>
                                 <th>Receipt</th>
-                                <th>Balance</th>
+                                @*<th>Balance</th>*@
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (PatientLedgerModel item in Model)
                             {
-                                if (Array.IndexOf(new string[] { "GR", "GP"}, item.Type) > -1)
+                                if (Array.IndexOf(new string[] { "GR", "GP" }, item.Type) > -1)
                                 {
-                                <tr>
-                                    <td>@item.Date.ToShortDateString()</td>
-                                    <td>@item.IPNo</td>
-                                    <td>@item.Type</td>
-                                    <td>@item.VNo</td>
-                                    <td>@item.Description</td>
-                                    <td>@item.Payment</td>
-                                    <td>@item.Receipt</td>
-                                    <td>@item.Balance</td>
-                                </tr>
+                                    <tr>
+                                        <td>@item.Date.ToShortDateString()</td>
+                                        <td>@item.IPNo</td>
+                                        @*<td>@item.Type</td>*@
+                                        <td>@item.VNo</td>
+                                        <td>@item.Description</td>
+                                        <td>@item.Payment</td>
+                                        <td>@item.Receipt</td>
+                                        @*<td>@item.Balance</td>*@
+                                    </tr>
                                 }
                             }
                         </tbody>
@@ -59,28 +59,28 @@
                             <tr>
                                 <th>Date</th>
                                 <th>I.P. No.</th>
-                                <th>Type</th>
+                                @*<th>Type</th>*@
                                 <th>V. No</th>
                                 <th>Description</th>
                                 <th>Payment</th>
                                 <th>Receipt No.</th>
-                                <th>Balance</th>
+                                @*<th>Balance</th>*@
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (PatientLedgerModel item in Model)
                             {
-                                if (Array.IndexOf(new string[] { "PH", "SV", "PHR","SR" }, item.Type)>-1)
+                                if (Array.IndexOf(new string[] { "PH", "SV", "PHR", "SR" }, item.Type) > -1)
                                 {
                                     <tr>
                                         <td>@item.Date.ToShortDateString()</td>
                                         <td>@item.IPNo</td>
-                                        <td>@item.Type</td>
+                                        @*<td>@item.Type</td>*@
                                         <td>@item.VNo</td>
                                         <td>@item.Description</td>
                                         <td>@item.Payment</td>
                                         <td>@item.Receipt</td>
-                                        <td>@item.Balance</td>
+                                        @*<td>@item.Balance</td>*@
                                     </tr>
                                 }
                             }
@@ -90,6 +90,7 @@
             </div>
         </div>
     </div>
+
 </form>
 <script>
     $(document).on('click', '#btnPrint', function () {

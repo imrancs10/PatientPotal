@@ -170,6 +170,14 @@
           <Property Name="RefNo" Type="nvarchar" MaxLength="50" />
           <Property Name="DoctorId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="MasterLookup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="MeridiemMaster">
           <Key>
             <PropertyRef Name="MeridiemID" />
@@ -634,6 +642,7 @@
           <EntitySet Name="HospitalDetail" EntityType="Self.HospitalDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LabReport" EntityType="Self.LabReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LabreportPdf" EntityType="Self.LabreportPdf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterLookup" EntityType="Self.MasterLookup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeridiemMaster" EntityType="Self.MeridiemMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PateintLeadger" EntityType="Self.PateintLeadger" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
@@ -853,6 +862,7 @@
             <End Role="State" EntitySet="States" />
             <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClones" />
           </AssociationSet>
+          <EntitySet Name="MasterLookups" EntityType="PatientPortalModel.MasterLookup" />
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
           <Key>
@@ -1515,6 +1525,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MasterLookup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1878,6 +1896,15 @@
               <MappingFragment StoreEntitySet="State">
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterLookups">
+            <EntityTypeMapping TypeName="PatientPortalModel.MasterLookup">
+              <MappingFragment StoreEntitySet="MasterLookup">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -104,6 +104,9 @@
     <Compile Include="LabreportPdf.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="MasterLookup.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="MeridiemMaster.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>

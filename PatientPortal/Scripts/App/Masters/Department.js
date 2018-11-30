@@ -85,7 +85,7 @@ department.update = function (row) {
     var deptId = $(row).data('id');
     var url = app.urls.departmentEdit;
     utility.ajax.helperWithData(url, { deptName: deptName, deptId: deptId }, function (data) {
-        if (data = 'Data has been updated') {
+        if (data == 'Data has been updated') {
             utility.alert.setAlert(utility.alert.alertType.success, 'Data has been updated');
             department.getData();
         }
@@ -105,7 +105,7 @@ department.delete = function (row) {
     var url = app.urls.departmentDelete;
     utility.confirmBox('Are you sure..!\n\n You wanr to delete', 'Confirmation', function () {
         utility.ajax.helperWithData(url, { deptId: deptId }, function (data) {
-            if (data = 'Data delete from database') {
+            if (data == 'Data delete from database') {
                 utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
                 department.getData();
             }
@@ -122,7 +122,7 @@ department.save = function (row) {
     var deptName = $(row).parent().parent().parent().find('input[type="text"]').val();
     var url = app.urls.departmentSave;
     utility.ajax.helperWithData(url, { deptName: deptName }, function (data) {
-        if (data = 'Data has been saved') {
+        if (data == 'Data has been saved') {
             $(row).parent().parent().parent()[0].remove();
             utility.alert.setAlert(utility.alert.alertType.success, 'Data has been saved');
             department.getData();

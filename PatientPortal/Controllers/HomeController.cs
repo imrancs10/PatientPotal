@@ -22,6 +22,7 @@ using static PatientPortal.Global.Enums;
 using log4net;
 using PatientPortal.Global;
 using System.Globalization;
+using PatientPortal.BAL.Lookup;
 
 namespace PatientPortal.Controllers
 {
@@ -36,6 +37,8 @@ namespace PatientPortal.Controllers
         }
         public ActionResult Index()
         {
+            LookupDetails _details = new LookupDetails();
+            ViewData["Lookup"] = _details.GetLookupDetail();
             return View();
         }
 
@@ -300,7 +303,6 @@ namespace PatientPortal.Controllers
         }
 
         [HttpGet]
-        [CustomAuthorize]
         public ActionResult ResetPassword(string resetCode)
         {
             ViewData["resetCode"] = resetCode;
@@ -308,12 +310,31 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        [CustomAuthorize]
         public ActionResult ResetPassword(string password, string confirmpassword, string resetCode)
         {
             if (password.Trim() != confirmpassword.Trim())
             {
                 SetAlertMessage("Password and Confirm Password are not match", "password Create");
+                return View();
+            }
+            else if (password.Trim().Length < 8)
+            {
+                SetAlertMessage("password must be at least 8 characters long.", "password Create");
+                return View();
+            }
+            else if (!password.Trim().Any(ch => char.IsUpper(ch)))
+            {
+                SetAlertMessage("password must be at least 1 Upper Case characters.", "password Create");
+                return View();
+            }
+            else if (!password.Trim().Any(ch => char.IsNumber(ch)))
+            {
+                SetAlertMessage("password must be at least 1 Numeric characters.", "password Create");
+                return View();
+            }
+            else if (!password.Trim().Any(ch => !char.IsLetterOrDigit(ch)))
+            {
+                SetAlertMessage("password must be at least 1 Special characters.", "password Create");
                 return View();
             }
             else
@@ -644,7 +665,7 @@ namespace PatientPortal.Controllers
             var result = _details.GetPatientDetailById(userId);
             PatientInfoModel model = new PatientInfoModel
             {
-                RegistrationNumber = result.RegistrationNumber,
+                RegistrationNumber = !string.IsNullOrEmpty(result.CRNumber) ? result.CRNumber : result.RegistrationNumber,
                 Address = result.Address,
                 CityId = Convert.ToString(result.CityId),
                 Country = result.Country,
@@ -923,6 +944,26 @@ namespace PatientPortal.Controllers
             if (newpassword.Trim() != confirmnewpassword.Trim())
             {
                 SetAlertMessage("Password and Confirm Password are not match", "password Reset");
+                return View();
+            }
+            else if (newpassword.Trim().Length < 8)
+            {
+                SetAlertMessage("password must be at least 8 characters long.", "password Create");
+                return View();
+            }
+            else if (!newpassword.Trim().Any(ch => char.IsUpper(ch)))
+            {
+                SetAlertMessage("password must be at least 1 Upper Case characters.", "password Create");
+                return View();
+            }
+            else if (!newpassword.Trim().Any(ch => char.IsNumber(ch)))
+            {
+                SetAlertMessage("password must be at least 1 Numeric characters.", "password Create");
+                return View();
+            }
+            else if (!newpassword.Trim().Any(ch => !char.IsLetterOrDigit(ch)))
+            {
+                SetAlertMessage("password must be at least 1 Special characters.", "password Create");
                 return View();
             }
             else
