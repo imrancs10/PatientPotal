@@ -1,7 +1,7 @@
 ﻿@using DataLayer
 
 @using PatientPortal.Global
-@model List<PatientBillReport>
+@model List<PateintLeadger>
 @{
     ViewBag.Title = "Duplicate Billing Report";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
@@ -37,10 +37,10 @@
                                 {
 
                                     <tr>
-                                        <td>@item.BillDate.Value.ToShortDateString()</td>
-                                        <td>@item.BillNo</td>
-                                        <td title="'+javascript:getBillType(@item.BillType)+'">@item.BillType</td>
-                                        <td>@item.BillAmount</td>
+                                        <td>@item.billdate.ToShortDateString()</td>
+                                        <td>@item.billno</td>
+                                        <td title="'+javascript:getBillType(@item.vtype)+'">@item.vtype</td>
+                                        <td>@item.netamt</td>
                                         <td>
                                             <button type="button" onclick="printReport(this)" class="btn btn-primary">Duplicate Receipt</button>
                                         </td>
