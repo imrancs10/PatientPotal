@@ -157,3 +157,27 @@ Error Number:53,State:0,Class:20
    at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
    at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
    at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-01 20:12:50,806 [6] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-12-01 20:12:57,254 [6] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-12-01 20:12:57,255 [6] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-12-01 20:12:58,262 [6] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-12-01 20:27:58,271 [18] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-12-01 20:28:02,700 [18] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-12-01 20:28:02,700 [18] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-12-01 20:28:03,361 [18] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-12-01 20:30:30,806 [16] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-12-01 20:30:34,435 [16] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-12-01 20:30:34,435 [16] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-12-01 20:30:34,845 [16] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-12-01 20:32:01,439 [16] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-12-01 20:32:06,038 [16] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-12-01 20:32:06,038 [16] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-12-01 20:32:06,313 [16] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-12-01 20:42:23,439 [8] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-12-01 20:42:27,071 [8] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-12-01 20:42:27,071 [8] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-12-01 20:42:27,353 [8] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-12-01 20:56:21,623 [18] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-12-01 20:56:25,600 [18] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-12-01 20:56:25,600 [18] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-12-01 20:56:26,400 [18] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed

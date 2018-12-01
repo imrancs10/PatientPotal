@@ -87,24 +87,39 @@
                                             Kindly click on that link to create your password
                                         </font>
                                     </legend>
+                                    <div class="row" style="margin-left:10px;">
+                                        <div class="col-md-11 col-md-offset-0">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="registrationnumber" class="control-label">Registration Number:</label>
+                                                        <label id="registrationnumber" class="form-control" name="registrationnumber">@result.OrderId</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="amount" class="control-label">Transaction Amount:</label>
+                                                        <label id="amount" class="form-control" name="amount">@result.Amount</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="refenceno" class="control-label">Transaction Referance No:</label>
+                                                        <label id="refenceno" class="form-control" name="refenceno">@result.TransactionNumber</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="date" class="control-label">Transaction Date:</label>
+                                                        <label id="date" class="form-control" name="date">@result.TransactionDate</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="registrationnumber" class="control-label">Registration Number:</label>
-                                        <label id="registrationnumber" class="form-control" name="registrationnumber">@result.OrderId</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amount" class="control-label">Transaction Amount:</label>
-                                        <label id="amount" class="form-control" name="amount">@result.Amount</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="refenceno" class="control-label">Transaction Referance No:</label>
-                                        <label id="refenceno" class="form-control" name="refenceno">@result.TransactionNumber</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="date" class="control-label">Transaction Date:</label>
-                                        <label id="date" class="form-control" name="date">@result.TransactionDate</label>
-                                    </div>
-                                </fieldset>
+
+</fieldset>
                             </form>
                         }
                         else
