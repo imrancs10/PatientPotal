@@ -139,7 +139,7 @@ namespace PatientPortal.BAL.Patient
         {
             _db = new PatientPortalEntities();
 
-            return _db.PatientInfoes.Include(x => x.Department).Include(x => x.PatientTransactions).Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
+            return _db.PatientInfoes.Include(x => x.Department).Include(x => x.PatientTransactions).Include(x => x.AppointmentInfoes).Where(x => x.PatientId.Equals(Id)).FirstOrDefault();
         }
 
         public PatientInfo UpdatePatientDetail(PatientInfo info)
@@ -295,7 +295,7 @@ namespace PatientPortal.BAL.Patient
             _db = new PatientPortalEntities();
             Dictionary<string, object> result = new Dictionary<string, object>();
             int _effectRow = 0;
-            var _deptRow = _db.PatientInfoCRClones.Where(x => (x.Email != null && x.Email != "" && x.Email.Equals(info.Email)) 
+            var _deptRow = _db.PatientInfoCRClones.Where(x => (x.Email != null && x.Email != "" && x.Email.Equals(info.Email))
                                                                 || x.MobileNumber.Equals(info.MobileNumber)).FirstOrDefault();
             if (_deptRow == null)
             {

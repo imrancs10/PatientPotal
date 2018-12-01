@@ -4,13 +4,8 @@
 @using DataLayer;
 @using PatientPortal.Controllers;
 @using PatientPortal.Global;
+@using System.Data.Entity;
 @{
-    /**/
-
-    /**/
-
-    /**/
-
     var hospital = GetHospitalDetail();
     var hospitalName = hospital != null ? hospital.HospitalName : "Patient Portal Management System";
     string imgsrc = "../img/p1.jpg";
@@ -26,6 +21,8 @@
     string photoSrc = string.Empty;
     string daysRemaning = string.Empty;
     bool showingDaysRemaining = false;
+    bool showingAppointmentAlert = false;
+    var Appointments = patientinfo.AppointmentInfoes.Where(y => y.AppointmentDateFrom.Date > DateTime.Now.Date).FirstOrDefault();
     if (patientinfo != null && patientinfo.Gender == "Male")
     {
         photoSrc = "../img/avatar-male.jpg";
@@ -45,6 +42,14 @@
         if (Convert.ToInt32(daysRemaning) <= 10)
         {
             showingDaysRemaining = true;
+        }
+    }
+    if (Appointments != null)
+    {
+        daysRemaning = Convert.ToString((Appointments.AppointmentDateFrom.Date - DateTime.Now.Date).TotalDays);
+        if (Convert.ToInt32(daysRemaning) <= 1)
+        {
+            showingAppointmentAlert = true;
         }
     }
 }
@@ -135,16 +140,28 @@
                                 <div class="col-md-11 hidden-xs" style="white-space:nowrap">
                                     <h4>
                                         Your Registration will expired in @daysRemaning days
-                                        @*@Html.ActionLink("click here to Renew", "MakePaymentRenewal", "Home", new { area = "" }, new { })*@
                                     </h4>
                                 </div>
-                                @*<div class="col-md-1"><h4></h4></div>*@
                             </div>
 
                         </div>
                     </div>
                 }
+                @if (showingAppointmentAlert)
+                {
+                    <div class="col-md-12">
+                        <div class="renewtext">
+                            <div class="row">
+                                <div class="col-md-11 hidden-xs" style="white-space:nowrap">
+                                    <h4>
+                                        Your Appointment is Scheduled on @Appointments.AppointmentDateFrom.ToShortDateString() at @Appointments.AppointmentDateFrom.ToShortTimeString()
+                                    </h4>
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+                }
                 <ul class="right-navbar" style="padding-top:7px;">
                     <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -269,23 +286,23 @@
                                 </a>
                             </li>
                             <!--<li>
-                <a href="/Report/PatientLedger">
-                    <span class="menu-text">Patient Ledger</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-            <li>
-                <a href="/patient/GetLabReport">
-                    <span class="menu-text">View Report</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-            <li>
-                <a href="/Report/ReportViewing">
-                    <span class="menu-text">Ledger Report</span>
-                    <span class="selected"></span>
-                </a>
-            </li>-->
+                                <a href="/Report/PatientLedger">
+                                    <span class="menu-text">Patient Ledger</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/patient/GetLabReport">
+                                    <span class="menu-text">View Report</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Report/ReportViewing">
+                                    <span class="menu-text">Ledger Report</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>-->
                         </ul>
                     </li>
                     <li class="hoe-has-menu">
@@ -304,13 +321,13 @@
                         </ul>
                     </li>
                     <!--<li>
-        <a class="isDisabled" href="javascript:void(0)">
-            <i class="fa fa-bar-chart"></i>
-            <span class="menu-text">Pending Orders</span>
-            <span class="label sul">New</span>
-            <span class="selected"></span>
-        </a>
-    </li>-->
+                        <a class="isDisabled" href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Pending Orders</span>
+                            <span class="label sul">New</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>-->
                     @if (showingDaysRemaining)
                     {
                         <li>
