@@ -142,10 +142,10 @@
                         </div>
                     </form>
                     <div class="login-page-register-section" style="">
-                        <p>Don't have an account?</p>
+                        <p class="blinkfont">Don't have an account?</p>
                         <div class="form-group">
                             <div class="src_field_box">
-                                <a href="../home/Register" id="registerBTN" class="btn btn-lg btn-blue btn-block ripplelink"> REGISTER </a>
+                                <a href="../home/Register" id="registerBTN" class="btn btn-lg btn-blue btn-block ripplelink"> NEW REGISTRATION </a>
                             </div>
                         </div>
                     </div>
@@ -158,7 +158,7 @@
     <div class="container1">
         <div class="col-md-12">
             <div style="background:#d3d7e6; height:52px;width:101%;">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     @*<a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank" class="btn btn-lg btn-dark btn-block ripplelink"> OPD SCHEDULE </a>*@
                     <a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank"> <img src="~/img/click.gif" class="img-responsive" style="height:48px;width:220px;" /></a>
                 </div>
@@ -166,18 +166,18 @@
                     <marquee behavior="scroll" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop();"
                              OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" direction="left" scrollamount="3" scrolldelay="1">
                         @*@{
-                                PatientPortal.Models.PDModel pdmodel;
-                                string totOPD = "0000";
-                                string totIPD = "0000";
-                                string total = "0000";
-                                if (ViewData["PDDetail"] != null)
-                                {
-                                    pdmodel = ViewData["PDDetail"] as PatientPortal.Models.PDModel;
-                                    totOPD = pdmodel.totOPD;
-                                    totIPD = pdmodel.totIPD;
-                                    total = Convert.ToString(Convert.ToInt32(pdmodel.totOPD) + Convert.ToInt32(pdmodel.totIPD));
-                                }
-                            }*@
+                    PatientPortal.Models.PDModel pdmodel;
+                    string totOPD = "0000";
+                    string totIPD = "0000";
+                    string total = "0000";
+                    if (ViewData["PDDetail"] != null)
+                    {
+                        pdmodel = ViewData["PDDetail"] as PatientPortal.Models.PDModel;
+                        totOPD = pdmodel.totOPD;
+                        totIPD = pdmodel.totIPD;
+                        total = Convert.ToString(Convert.ToInt32(pdmodel.totOPD) + Convert.ToInt32(pdmodel.totIPD));
+                    }
+                }*@
                         <div align="left">
                             <a href="#" target="_parent" style="float:left;margin-left:10px; margin-top: 15px;color:#000;">
                                 No. of OPD: <span style="color:#953b39;" id="TotalOPDText">
@@ -194,7 +194,10 @@
                         </div>
                     </marquee>
                 </div>
-
+                <div class="col-md-2">
+                    @*<a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank" class="btn btn-lg btn-dark btn-block ripplelink"> OPD SCHEDULE </a>*@
+                    <a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank"> <img src="~/img/report.png" class="img-responsive" style="height:48px;width:180px; margin-top: 3px;" /></a>
+                </div>
             </div>
         </div>
     </div>

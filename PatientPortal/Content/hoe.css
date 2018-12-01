@@ -84,9 +84,11 @@ body{position:relative;}
     z-index: 999;
     width: 175px;
 }
-.hoe-left-header a {
-    color: #FFF;
-}
+    .hoe-left-header a {
+        color: #FFF;
+        font-size: 18px;
+        font-family: georgia;
+    }
 .hoe-left-header a:hover,
 .hoe-left-header a:focus {
     color: #FFF;

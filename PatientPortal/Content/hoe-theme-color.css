@@ -162,6 +162,7 @@
 #hoeapp-container[hoe-color-type="lpanel-bg2"].hoe-minimized-lpanel #hoe-left-panel {
     background: #3498DB;
     color: #d7e9fc;
+    
 }
 #hoeapp-container[hoe-color-type="lpanel-bg2"].hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:hover > a,
 #hoeapp-container[hoe-color-type="lpanel-bg2"].hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:focus > a {

@@ -85,8 +85,9 @@
   width: 40px;
 }
 .hoe-right-header .hoe-rheader-submenu > a {
-  color: #7e7e7e;
-  padding: 17px 15px;
+    color: #7e7e7e;
+    padding: 17px 15px;
+    font-size: 17px;
 }
 .hoe-right-header .hoe-rheader-submenu > a > i.fa{display:unset;}
 .hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li { 

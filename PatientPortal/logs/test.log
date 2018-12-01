@@ -149,63 +149,11 @@ Error Number:53,State:0,Class:20
 2018-11-27 16:42:46,467 [13] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
 2018-11-27 16:43:40,892 [12] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
 2018-11-27 17:41:57,727 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-27 22:06:14,727 [6] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter System.Data.Entity.Core.UpdateException: Unable to update the EntitySet 'PateintLeadger' because it has a DefiningQuery and no <InsertFunction> element exists in the <ModificationFunctionMapping> element to support the current operation.
-   at System.Data.Entity.SqlServer.SqlGen.DmlSqlGenerator.ExpressionTranslator.Visit(DbScanExpression expression)
-   at System.Data.Entity.Core.Common.CommandTrees.DbScanExpression.Accept(DbExpressionVisitor visitor)
-   at System.Data.Entity.SqlServer.SqlGen.DmlSqlGenerator.GenerateInsertSql(DbInsertCommandTree tree, SqlGenerator sqlGenerator, List`1& parameters, Boolean generateReturningSql, Boolean upperCaseKeywords, Boolean createParameters)
-   at System.Data.Entity.SqlServer.SqlGen.SqlGenerator.GenerateSql(DbCommandTree tree, SqlVersion sqlVersion, List`1& parameters, CommandType& commandType, HashSet`1& paramsToForceNonUnicode)
-   at System.Data.Entity.SqlServer.SqlProviderServices.CreateCommand(DbProviderManifest providerManifest, DbCommandTree commandTree)
-   at System.Data.Entity.SqlServer.SqlProviderServices.CreateDbCommandDefinition(DbProviderManifest providerManifest, DbCommandTree commandTree)
-   at System.Data.Entity.Core.Common.DbProviderServices.CreateDbCommandDefinition(DbProviderManifest providerManifest, DbCommandTree commandTree, DbInterceptionContext interceptionContext)
-   at System.Data.Entity.Core.Common.DbProviderServices.CreateCommandDefinition(DbCommandTree commandTree, DbInterceptionContext interceptionContext)
-   at System.Data.Entity.Core.Common.DbProviderServices.CreateCommand(DbCommandTree commandTree, DbInterceptionContext interceptionContext)
-   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.CreateCommand(DbModificationCommandTree commandTree)
-   at System.Data.Entity.Core.Mapping.Update.Internal.DynamicUpdateCommand.CreateCommand(Dictionary`2 identifierValues)
-   at System.Data.Entity.Core.Mapping.Update.Internal.DynamicUpdateCommand.Execute(Dictionary`2 identifierValues, List`1 generatedValues)
-   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
-   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.<Update>b__2(UpdateTranslator ut)
-   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update[T](T noChangesResult, Func`2 updateFunction)
-   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update()
-   at System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesToStore>b__35()
-   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
-   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
-   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass2a.<SaveChangesInternal>b__27()
-   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
-   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)
-   at System.Data.Entity.Core.Objects.ObjectContext.SaveChanges(SaveOptions options)
-   at System.Data.Entity.Internal.InternalContext.SaveChanges()
-2018-11-27 22:14:42,787 [10] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter System.Net.Sockets.SocketException (0x80004005): A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 103.78.201.146:80
-   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
-   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
-2018-11-27 22:15:06,771 [18] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter System.Net.Sockets.SocketException (0x80004005): A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 103.78.201.146:80
-   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
-   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
-2018-11-27 22:19:51,607 [9] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-27 22:22:15,823 [9] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-27 22:22:39,766 [9] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-27 22:28:02,495 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-27 22:28:02,495 [10] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-27 22:28:49,403 [23] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-28 11:26:46,090 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
-   at System.Net.HttpWebRequest.GetRequestStream()
-   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
-   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno) in D:\Personnal\PatientPortal\WorkingCode\PatientPotal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
-   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\Personnal\PatientPortal\WorkingCode\PatientPotal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 77
-2018-11-28 11:34:56,452 [12] DEBUG PatientPortal.Controllers.HomeController Send Email Started
-2018-11-28 11:35:01,218 [12] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
-2018-11-28 11:35:01,218 [12] DEBUG PatientPortal.Controllers.HomeController Send SMS started
-2018-11-28 11:35:01,962 [12] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
-2018-11-28 11:44:21,506 [9] DEBUG PatientPortal.Controllers.HomeController Send Email Started
-2018-11-28 11:44:27,726 [9] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
-2018-11-28 11:44:27,726 [9] DEBUG PatientPortal.Controllers.HomeController Send SMS started
-2018-11-28 11:44:28,151 [9] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
-2018-11-28 12:07:54,893 [11] DEBUG PatientPortal.Controllers.HomeController Send Email Started
-2018-11-28 12:07:59,432 [11] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
-2018-11-28 12:07:59,432 [11] DEBUG PatientPortal.Controllers.HomeController Send SMS started
-2018-11-28 12:08:00,015 [11] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
-2018-11-30 20:39:40,325 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-30 21:47:35,442 [6] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-30 22:20:23,278 [6] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-30 23:08:26,743 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-11-30 23:19:47,090 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
-2018-12-01 00:19:01,879 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-28 13:17:04,821 [14] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-11-28 13:17:10,093 [14] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-11-28 13:17:10,093 [14] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-11-28 13:17:10,463 [14] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-11-30 22:40:46,289 [8] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82

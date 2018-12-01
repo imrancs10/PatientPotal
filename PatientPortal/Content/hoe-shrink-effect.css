@@ -31,8 +31,9 @@ padding-right: 50px;
 #hoeapp-container[hoe-lpanel-effect="shrink"] #main-content{
 	margin-left: 180px;
 }
-#hoeapp-container[hoe-lpanel-effect="shrink"].hoe-minimized-lpanel #main-content{
-	margin-left: 50px;
+#hoeapp-container[hoe-lpanel-effect="shrink"].hoe-minimized-lpanel #main-content {
+    margin-left: 50px;
+    z-index: -99999999999;
 }
 /*################ Theme Header With shrink Effect Close #####################*/
 
