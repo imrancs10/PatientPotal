@@ -83,7 +83,7 @@ hr {
 .navbar-fixed-bottom {
     bottom: 0;
     margin-bottom: 0;
-    background-color: #953b39;
+    background-color: #f5770b;
     color: #fff;
 }
 
@@ -92,7 +92,7 @@ p {
 }
 
 .navbar-inverse {
-    background-color: #953b39;
+    background-color: #f5770b;
     /*border-color: #080808;*/
 }
 /*Registration CSS*/

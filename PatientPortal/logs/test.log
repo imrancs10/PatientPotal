@@ -149,3 +149,11 @@ Error Number:53,State:0,Class:20
 2018-11-27 16:42:46,467 [13] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
 2018-11-27 16:43:40,892 [12] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
 2018-11-27 17:41:57,727 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-11-28 13:17:04,821 [14] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2018-11-28 13:17:10,093 [14] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2018-11-28 13:17:10,093 [14] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2018-11-28 13:17:10,463 [14] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-11-30 22:40:46,289 [8] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82

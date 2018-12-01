@@ -531,7 +531,7 @@ h4,
 
 h5,
 .h5 {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 h6,
@@ -2025,11 +2025,11 @@ textarea.input-lg {
   outline-offset: -2px;
 }
 
-.btn:hover,
-.btn:focus {
-  color: #333333;
-  text-decoration: none;
-}
+    .btn:hover,
+    .btn:focus {
+        color: #8f1112;
+        text-decoration: none;
+    }
 
 .btn:active,
 .btn.active {
@@ -4212,8 +4212,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
     .navbar-brand {
         float: left;
-        padding: 12px 15px;
-        font-size: 17px;
+        padding: 12px 1px;
+        font-size: 20px;
         line-height: 20px;
     }
     
@@ -6930,11 +6930,11 @@ td.visible-print {
         }
 
         50% {
-            background-color: #953b39;
+            background-color: #000;
         }
 
         75% {
-            background-color: #3879d9;
+            background-color: #000;
         }
 
         100% {
@@ -6950,11 +6950,15 @@ td.visible-print {
         border-radius: 4px;
         color: White;
     }
-
-    .blink {
-        color: white;
-        animation: blink 1s linear infinite;
-    }
+.blink {
+    color: white;
+    animation: blink 1s linear infinite;
+    font-family: georgia;
+}
+.blink h5 {
+    font-size:20px;
+    font-family: georgia;
+}
 
     @keyframes blink {
         0% {
@@ -6969,6 +6973,32 @@ td.visible-print {
             opacity: 2;
         }
     }
+
+.blinkfont {
+    color: #615f5f;
+    font-size: 17px;
+    animation: blink 1s linear infinite;
+    font-family: georgia;
+}
+
+    .blinkfont h5 {
+        font-size: 20px;
+        font-family: georgia;
+    }
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 2;
+    }
+}
     /* Add a black background color to the top navigation 
 .topnav {
     background-color: #333;
