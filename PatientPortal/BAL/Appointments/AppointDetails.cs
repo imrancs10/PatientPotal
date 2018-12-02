@@ -185,16 +185,33 @@ namespace PatientPortal.BAL.Appointments
             return result;
         }
 
-        public int PatientAppointmentCount(int _patientId)
+        public AppointmentModel PatientAppointmentCount(int _patientId)
         {
             _db = new PatientPortalEntities();
-            var _list = (from docAppointment in _db.AppointmentInfoes
-                         where docAppointment.PatientInfo.PatientId.Equals(_patientId)
-                         && docAppointment.AppointmentDateFrom > DateTime.Now
-                         && (docAppointment.IsCancelled == false || docAppointment.IsCancelled == null)
-                         select docAppointment
+            var appointment = (from docAppointment in _db.AppointmentInfoes
+                               where docAppointment.PatientInfo.PatientId.Equals(_patientId)
+                               && docAppointment.AppointmentDateFrom > DateTime.Now
+                               && (docAppointment.IsCancelled == false || docAppointment.IsCancelled == null)
+                               select docAppointment
                          ).ToList();
-            return _list.Count;
+            var _LastAppointment = (from docAppointment in _db.AppointmentInfoes
+                                    where docAppointment.PatientInfo.PatientId.Equals(_patientId)
+                                    && docAppointment.AppointmentDateFrom < DateTime.Now
+                                    && (docAppointment.IsCancelled == false || docAppointment.IsCancelled == null)
+                                    select docAppointment
+                         ).OrderByDescending(x => x.AppointmentDateFrom).ToList();
+            AppointmentModel model = new AppointmentModel()
+            {
+                AppointmentCount = appointment.Count,
+                LastAppointment = _LastAppointment.FirstOrDefault()
+            };
+            return model;
         }
+    }
+
+    public class AppointmentModel
+    {
+        public int AppointmentCount { get; set; }
+        public AppointmentInfo LastAppointment { get; set; }
     }
 }

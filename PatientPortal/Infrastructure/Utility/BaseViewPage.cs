@@ -45,14 +45,14 @@ namespace PatientPortal.Infrastructure.Utility
             return _details.GetHospitalDetail();
         }
 
-        public virtual int GetAppointmentCount()
+        public virtual AppointmentModel GetAppointmentDetail()
         {
             if (User != null)
             {
                 AppointDetails _details = new AppointDetails();
                 return _details.PatientAppointmentCount(User.Id);
             }
-            return 0;
+            return null;
         }
 
         public virtual PatientInfo GetPatientInfo()
