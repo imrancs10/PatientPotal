@@ -5,7 +5,19 @@
     ViewBag.Title = "My Profile";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
 }
-
+@{
+    var patientinfo = GetPatientInfo();
+    string daysRemaning = string.Empty;
+    bool showingDaysRemaining = false;
+    if (patientinfo != null && patientinfo.ValidUpto != null)
+    {
+        daysRemaning = Convert.ToString((patientinfo.ValidUpto.Value.Date - DateTime.Now.Date).TotalDays);
+        if (Convert.ToInt32(daysRemaning) <= 10)
+        {
+            showingDaysRemaining = true;
+        }
+    }
+}
 <div class="" style="margin-top:0px;padding-top:20px;">
     <div class="col-sm-12 col-lg-12">
         <div class="panel panel-primary">
@@ -14,13 +26,37 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <ul class="makepayment">
-                        <li>
-                            <span><i></i></span>
-                            Make Payment against your Registration Renewal
-                            @Html.ActionLink(" click here to Renew", "MakePaymentRenewal", "Home", new { area = "" }, new { })
-                        </li>
-                    </ul>
+                    @if (showingDaysRemaining)
+                    {
+                        <ul class="makepayment">
+                            <li>
+                                <span><i></i></span>
+                                Make Payment against your Registration Renewal
+                                @Html.ActionLink(" click here to Renew", "MakePaymentRenewal", "Home", new { area = "" }, new { })
+                            </li>
+                            <li>
+                                <span><i></i></span>
+                                Make Payment against your Bill
+                                @Html.ActionLink(" click here to Pay", "MakePaymentBill", "Home", new { area = "" }, new { })
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="makepayment">
+                            <li>
+                                <span><i></i></span>
+                                Make Payment against your Registration Renewal
+                                <a class="isDisabled" href="javascript:void(0)"> click here to Renew</a>
+                            </li>
+                            <li>
+                                <span><i></i></span>
+                                Make Payment against your Bill
+                                @Html.ActionLink(" click here to Pay", "MakePaymentBill", "Home", new { area = "" }, new { })
+                            </li>
+                        </ul>
+                    }
+
                 </div>
             </div>
         </div>

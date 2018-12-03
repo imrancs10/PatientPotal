@@ -10,7 +10,8 @@ namespace PatientPortal.Global
         public enum TransactionType
         {
             Register = 0,
-            Renewal = 1
+            Renewal = 1,
+            PayBill = 1
         }
         public enum LoginMessage
         {

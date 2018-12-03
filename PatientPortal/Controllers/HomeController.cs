@@ -200,12 +200,25 @@ namespace PatientPortal.Controllers
                 return RedirectToAction("Register", new { actionName = "getotpscreen" });
             }
         }
-
-        public ActionResult PaymentTransaction()
+        [HttpPost]
+        public ActionResult PaymentTransactionBillAmount(string amount)
+        {
+            return PaymentTransaction(amount);
+        }
+        public ActionResult PaymentTransaction(string amount = null)
         {
             string MerchantId = Convert.ToString(ConfigurationManager.AppSettings["MerchantId"]);
             string EncryptKey = Convert.ToString(ConfigurationManager.AppSettings["EncryptKey"]);
-            string TransactionAmount = Convert.ToString(ConfigurationManager.AppSettings["TransactionAmount"]);
+            string TransactionAmount = string.Empty;
+            if (amount == null)
+            {
+                TransactionAmount = Convert.ToString(ConfigurationManager.AppSettings["TransactionAmount"]);
+            }
+            else
+            {
+                TransactionAmount = amount;
+            }
+
             string ResponseUrl = Convert.ToString(ConfigurationManager.AppSettings["ResponseUrl"]);
             string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
             try
@@ -236,6 +249,7 @@ namespace PatientPortal.Controllers
                 Message = objReqMsgDTO.ReqMsg;
                 Session["Message"] = Message;
                 Session["MID"] = objReqMsgDTO.Mid;
+                TempData["TransactionAmount"] = TransactionAmount;
                 return RedirectToAction("TransactionPay");
             }
             catch (Exception ex)
@@ -247,9 +261,14 @@ namespace PatientPortal.Controllers
 
         public ActionResult TransactionPay()
         {
+            ViewData["TransactionAmount"] = TempData["TransactionAmount"];
             return View();
         }
         public ActionResult TransactionPayReNewal()
+        {
+            return View();
+        }
+        public ActionResult TransactionPayBill()
         {
             return View();
         }
@@ -417,6 +436,43 @@ namespace PatientPortal.Controllers
                         return RedirectToAction("TransactionResponseRenewal");
                     }
                 }
+                else if (Session["PatientInfoBill"] != null)
+                {
+                    var info = (PatientInfo)Session["PatientInfoBill"];
+                    PatientDetails _details = new PatientDetails();
+                    PatientTransaction transaction = new PatientTransaction()
+                    {
+                        PatientId = info.PatientId,
+                        Amount = Convert.ToInt32(objResMsgDTO.TrnAmt),
+                        OrderId = objResMsgDTO.OrderId,
+                        ResponseCode = objResMsgDTO.ResponseCode,
+                        StatusCode = objResMsgDTO.StatusCode,
+                        TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
+                        TransactionNumber = objResMsgDTO.PgMeTrnRefNo,
+                        Type = TransactionType.PayBill.ToString()
+                    };
+                    var transactionData = _details.SavePatientTransaction(transaction);
+                    info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
+                    SendMailTransactionResponsePayBill(info.RegistrationNumber, info, transaction);
+                    transaction.OrderId = info.RegistrationNumber;
+                    Session["PatientInfoBill"] = null;
+                    TempData["transaction"] = transaction;
+                    //send patient data to HIS portal
+                    HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
+                    insertModel.Type = Convert.ToInt32(TransactionType.PayBill);
+                    WebServiceIntegration service = new WebServiceIntegration();
+                    string serviceResult = service.GetPatientInfoinsert(insertModel);
+
+                    //save status to DB
+                    PatientInfo user = new PatientInfo()
+                    {
+                        PatientId = info.PatientId,
+                        RenewalStatusHIS = serviceResult
+                    };
+                    _details.UpdatePatientHISSyncStatus(info);
+
+                    return RedirectToAction("TransactionResponseBill");
+                }
                 else
                 {
                     PatientDetails _details = new PatientDetails();
@@ -504,6 +560,13 @@ namespace PatientPortal.Controllers
             TempData["Expired"] = null;
             return View();
         }
+
+        public ActionResult TransactionResponseBill()
+        {
+            PatientTransaction transaction = TempData["transaction"] as PatientTransaction;
+            ViewData["TransactionSuccessResult"] = transaction;
+            return View();
+        }
         public ActionResult TransactionResponseRenewalExpired()
         {
             PatientTransaction transaction = TempData["transaction"] as PatientTransaction;
@@ -577,6 +640,23 @@ namespace PatientPortal.Controllers
                     MessageNameTo = info.FirstName + " " + info.MiddleName + (string.IsNullOrWhiteSpace(info.MiddleName) ? "" : " ") + info.LastName,
                     Subject = "Registration Renew",
                     Body = EmailHelper.GetRegistrationSuccessEmailRenew(info.FirstName, info.MiddleName, info.LastName, transaction)
+                };
+
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+            });
+        }
+
+        private async Task SendMailTransactionResponsePayBill(string serialNumber, PatientInfo info, PatientTransaction transaction)
+        {
+            await Task.Run(() =>
+            {
+                Message msg = new Message()
+                {
+                    MessageTo = info.Email,
+                    MessageNameTo = info.FirstName + " " + info.MiddleName + (string.IsNullOrWhiteSpace(info.MiddleName) ? "" : " ") + info.LastName,
+                    Subject = "Bill Payment",
+                    Body = EmailHelper.GetBillPaymentSuccessEmail(info.FirstName, info.MiddleName, info.LastName, transaction)
                 };
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
@@ -934,7 +1014,21 @@ namespace PatientPortal.Controllers
             {
                 return View("Logout");
             }
-
+        }
+        [CustomAuthorize]
+        public ActionResult MakePaymentBill()
+        {
+            PatientDetails _details = new PatientDetails();
+            var result = _details.GetPatientDetailById(User.Id);
+            if (result != null)
+            {
+                Session["PatientInfoBill"] = result;
+                return RedirectToAction("TransactionPayBill");
+            }
+            else
+            {
+                return View("Logout");
+            }
         }
 
         [HttpPost]

@@ -22,7 +22,11 @@
             <input type="hidden" name="MID" id="MID" value=@Session["MID"] />
             <asp:Literal runat="server" ID="ltrPostData"></asp:Literal>
             <br />
-            <asp:Label runat="server" ID="lbl" style="text-align:center" Font-Bold="true" Font-Size="X-Large" CssClass="StrongText"> Please Do not close and Refresh Browser <br />Payment Process on the way for Registration Fee <span style="font-size:larger;color:brown"> @Convert.ToString(ConfigurationManager.AppSettings["TransactionAmount"]) Rs.</span></asp:Label>
+            <asp:Label runat="server" ID="lbl" style="text-align:center" Font-Bold="true" Font-Size="X-Large" CssClass="StrongText">
+                Please Do not close and Refresh Browser <br />Payment Process on the way for Registration Fee <span style="font-size:larger;color:brown">
+                    @Convert.ToString(ViewData["TransactionAmount"]) Rs.
+                </span>
+            </asp:Label>
         </div>
     </form>
 </body>

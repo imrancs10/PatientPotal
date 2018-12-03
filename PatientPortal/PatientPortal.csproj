@@ -477,6 +477,9 @@
     <Content Include="Views\Report\DuplicateBillingReport.cshtml" />
     <Content Include="Views\Home\MakePayment.cshtml" />
     <Content Include="Views\Masters\SyncHISFailedTransaction.cshtml" />
+    <Content Include="Views\Home\MakePaymentBill.cshtml" />
+    <Content Include="Views\Home\TransactionPayBill.cshtml" />
+    <Content Include="Views\Home\TransactionResponseBill.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">
