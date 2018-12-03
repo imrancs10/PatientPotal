@@ -63,12 +63,18 @@ namespace PatientPortal.BAL.Reports
             return _db.LabreportPdfs.Where(x => x.pid == patientInfo.pid).ToList();
         }
 
-        public List<PatientLedgerModel> GetPatientLedger()
+        public List<PatientLedgerModel> GetPatientLedger(DateTime? fromDate = null, DateTime? toDate = null)
         {
             _db = new PatientPortalEntities();
             DateTime _period = DateTime.Now.AddMonths(-WebSession.PatientLedgerPeriodInMonth);
             var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == WebSession.PatientId).FirstOrDefault();
-            var data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(_period)).ToList();
+            List<PateintLeadger> data = new List<PateintLeadger>();
+            if (fromDate == null && toDate == null)
+                data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(_period)).ToList();
+            else
+            {
+                data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(fromDate) && DbFunctions.TruncateTime(x.billdate) <= DbFunctions.TruncateTime(toDate)).ToList();
+            }
             List<PatientLedgerModel> ledgerList = new List<PatientLedgerModel>();
 
             if (data != null)
