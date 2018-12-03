@@ -276,4 +276,70 @@ p {
         -webkit-animation: sk-bouncedelay 1.0s infinite ease-in-out both;
         animation: sk-bouncedelay 1.0s infinite ease-in-out both;
     }
+.blink {
+    color: white;
+    animation: blink 1s linear infinite;
+    font-family: georgia;
+}
+.blink h5 {
+    font-size:20px;
+    font-family: georgia;
+	margin-top: 15px;
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1170px;
+  }
+    @keyframes blink {
+        0% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 2;
+        }
+    }
+
+.blinkfont {
+    color: #615f5f;
+    font-size: 17px;
+    animation: blink 1s linear infinite;
+    font-family: georgia;
+}
+
+    .blinkfont h5 {
+        font-size: 20px;
+        font-family: georgia;
+    }
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 2;
+    }
+}
+/*body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #333333;
+  background-color: #ffffff;
+}*/
+.navbar-brand {
+    float: left;
+    padding: 15px 15px;
+    font-size: 20px;
+    line-height: 20px;
+}
 
