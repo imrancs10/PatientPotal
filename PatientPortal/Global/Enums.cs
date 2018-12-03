@@ -11,7 +11,7 @@ namespace PatientPortal.Global
         {
             Register = 0,
             Renewal = 1,
-            PayBill = 1
+            PayBill = 2
         }
         public enum LoginMessage
         {
