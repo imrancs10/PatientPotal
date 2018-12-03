@@ -8,6 +8,7 @@ using PatientPortal.BAL.Reports;
 using System.IO;
 using PatientPortal.BAL.Commom;
 using PatientPortal.Infrastructure.Authentication;
+using System.Globalization;
 
 namespace PatientPortal.Controllers
 {
@@ -39,6 +40,33 @@ namespace PatientPortal.Controllers
         {
             ReportDetails _details = new ReportDetails();
             return View(_details.GetPatientLedger());
+        }
+
+        [HttpPost]
+        public ActionResult FilterLeadgerReport(string DateFrom, string DateTo)
+        {
+            DateTime FromDate = DateTime.Now.AddMonths(-6);
+            bool isOKfromdate = DateTime.TryParseExact(DateFrom, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result);
+            if (isOKfromdate)
+            {
+                FromDate = result;
+            }
+            DateTime ToDate = DateTime.Now;
+            bool isOKtodate = DateTime.TryParseExact(DateTo, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime resultTo);
+            if (isOKfromdate)
+            {
+                ToDate = resultTo;
+            }
+            int monthsApart = 12 * (FromDate.Year - ToDate.Year) + FromDate.Month - ToDate.Month;
+            int diff = Math.Abs(monthsApart);
+            if (diff > 6)
+            {
+                SetAlertMessage("Date Duration should between 6 month", "Leadger Report");
+                return RedirectToAction("PatientLedger");
+            }
+            ReportDetails _details = new ReportDetails();
+            var leaders = _details.GetPatientLedger(FromDate, ToDate);
+            return View("PatientLedger", leaders);
         }
 
         public ActionResult DownloadReportFile(string fileUrl)
