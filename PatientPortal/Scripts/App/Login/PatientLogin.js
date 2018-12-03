@@ -66,13 +66,13 @@ $(document).ready(function () {
                     }
                     html = html + "</div><div class='col-sm-4 lists'>";
                     for (i = 0; i < rowCount; i++) {
-                        html = html + "<p><a href='" + departments[i].DepartmentUrl + "' target='_blank'><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span> " +
+                        html = html + "<p><a href='" + departments[row].DepartmentUrl + "' target='_blank'><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span> " +
                             departments[row].DeparmentName + "</a></p>";
                         row = row + 1;
                     }
                     html = html + "</div><div class='col-sm-4 lists'>";
                     for (i = 0; i < (departments.length - 2 * rowCount); i++) {
-                        html = html + "<p><a href='" + departments[i].DepartmentUrl + "' target='_blank'><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span> " +
+                        html = html + "<p><a href='" + departments[row].DepartmentUrl + "' target='_blank'><img src='../img/arrow.png' style='height:20px;width:20px;' /><span class='num'>" + (++index) + "</span> " +
                             departments[row].DeparmentName + "</a></p>";
                         row = row + 1;
                     }

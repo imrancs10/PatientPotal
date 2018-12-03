@@ -332,8 +332,8 @@
                             <span class="selected"></span>
                         </a>
                     </li>-->
-                    @*@if (@Convert.ToString(patientOPDInfo.patStatus) == "Admitted" || showingDaysRemaining)
-                    {*@
+                    @if (@Convert.ToString(patientOPDInfo.patStatus) == "Admitted" || showingDaysRemaining)
+                    {
                         <li>
                             <a href="~/Home/MakePayment">
                                 <i class="fa fa-bar-chart"></i>
@@ -342,7 +342,7 @@
                                 <span class="selected"></span>
                             </a>
                         </li>
-                    @*}
+                    }
                     else
                     {
                         <li>
@@ -353,7 +353,7 @@
                                 <span class="selected"></span>
                             </a>
                         </li>
-                    }*@
+                    }
                     <li>
                         <a href="/Report/DuplicateBillingReport">
                             <i class="fa fa-bar-chart"></i>
