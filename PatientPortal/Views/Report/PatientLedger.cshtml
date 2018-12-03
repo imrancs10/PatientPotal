@@ -38,8 +38,17 @@
                                         @*<td>@item.Type</td>*@
                                         <td>@item.VNo</td>
                                         <td>@item.Description</td>
-                                        <td>@item.Payment</td>
-                                        <td>@item.Receipt</td>
+                                        @if (Array.IndexOf(new string[] { "GP" }, item.Type) > -1)
+                                        {
+                                            <td>@item.Payment</td>
+                                            <td></td>
+                                        }
+                                        else if (Array.IndexOf(new string[] { "GR" }, item.Type) > -1)
+                                        {
+                                            <td></td>
+                                            <td>@item.Receipt</td>
+                                        }
+
                                         @*<td>@item.Balance</td>*@
                                     </tr>
                                 }
@@ -78,8 +87,16 @@
                                         @*<td>@item.Type</td>*@
                                         <td>@item.VNo</td>
                                         <td>@item.Description</td>
-                                        <td>@item.Payment</td>
-                                        <td>@item.Receipt</td>
+                                        @if (Array.IndexOf(new string[] { "PH", "SV" }, item.Type) > -1)
+                                        {
+                                            <td>@item.Payment</td>
+                                            <td></td>
+                                        }
+                                        else if (Array.IndexOf(new string[] { "PHR", "SR" }, item.Type) > -1)
+                                        {
+                                            <td></td>
+                                            <td>@item.Receipt</td>
+                                        }
                                         @*<td>@item.Balance</td>*@
                                     </tr>
                                 }
