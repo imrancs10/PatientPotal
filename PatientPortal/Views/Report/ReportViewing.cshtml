@@ -41,7 +41,7 @@
                                                         <button type="button" id="_download" data-url="@item.Url" class="btn btn-primary">Download</button>
                                                         @if (item.LabName.ToLower().Contains("radiology"))
                                                         {
-                                                            <a href="@ConfigurationManager.AppSettings["HISRadiologyReportUrl"]?Labref=@Convert.ToString(item.Labref))" target="_blank" class="btn btn-primary">View Lab Image</a>
+                                                            <a href="@ConfigurationManager.AppSettings["HISRadiologyReportUrl"]?labrefno=@Convert.ToString(item.Labref))" target="_blank" class="btn btn-primary">View Lab Image</a>
                                                         }
                                                     </div>
                                                 }
@@ -52,7 +52,7 @@
                                                         <a href="@item.Url" id="_download" data-url="@item.Url" target="_blank" class="btn btn-primary" download>Download</a>
                                                         @if (item.LabName.ToLower().Contains("radiology"))
                                                         {
-                                                            <a href="@ConfigurationManager.AppSettings["HISRadiologyReportUrl"]?Labref=@Convert.ToString(item.Labref))" target="_blank" class="btn btn-primary">View Lab Image</a>
+                                                            <a href="@ConfigurationManager.AppSettings["HISRadiologyReportUrl"]?labrefno=@Convert.ToString(item.Labref))" target="_blank" class="btn btn-primary">View Lab Image</a>
                                                         }
                                                     </div>
                                                 }
