@@ -15,7 +15,7 @@
         imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
     }
     WebSession.HospitalLogo = imgsrc;
-
+    
     var patientinfo = GetPatientInfo();
     var patientOPDInfo = GetPatientOPDDetail();
     string photoSrc = string.Empty;
@@ -205,12 +205,12 @@
                             <img class="img-circle" src="@photoSrc">
                         </a>
                         <div class="media-body">
-                            <h5 class="media-heading">Welcome <span>@((User as CustomPrincipal).FirstName)</span></h5>
-                            @*<small>Patient</small>*@
-                            @*<br />*@
+                            <h5 class="media-heading" style="color:#F70D1A;"><span>@((User as CustomPrincipal).FirstName) @((User as CustomPrincipal).MiddleName) @((User as CustomPrincipal).LastName)</span></h5>
+                            <small style="color:#8C001A;">Reg. No.:@patientinfo.RegistrationNumber</small>
+                            <br />
                             @{
 
-                                string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admitted" ? "red" : "green";
+                                string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admitted" ? "red" : "lime";
                                 <small style="color:@color">
                                     @if (@Convert.ToString(patientOPDInfo.patStatus) == "Admitted")
                                     {
