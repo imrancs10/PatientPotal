@@ -15,7 +15,7 @@
         imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
     }
     WebSession.HospitalLogo = imgsrc;
-    
+
     var patientinfo = GetPatientInfo();
     var patientOPDInfo = GetPatientOPDDetail();
     string photoSrc = string.Empty;
@@ -206,13 +206,23 @@
                         </a>
                         <div class="media-body">
                             <h5 class="media-heading" style="color:#F70D1A;"><span>@((User as CustomPrincipal).FirstName) @((User as CustomPrincipal).MiddleName) @((User as CustomPrincipal).LastName)</span></h5>
-                            <small style="color:#8C001A;">Reg. No.:@patientinfo.RegistrationNumber</small>
+                            <small style="color:#8C001A;">
+                                Reg. No.:
+                                @if (!string.IsNullOrEmpty(patientinfo.CRNumber))
+                                {
+                                    @patientinfo.CRNumber
+                                }
+                                else
+                                {
+                                    @patientinfo.RegistrationNumber
+                                }
+                            </small>
                             <br />
                             @{
 
-                                string color = @Convert.ToString(patientOPDInfo.patStatus) == "Admitted" ? "red" : "lime";
+                                string color = patientOPDInfo != null && @Convert.ToString(patientOPDInfo.patStatus) == "Admitted" ? "red" : "lime";
                                 <small style="color:@color">
-                                    @if (@Convert.ToString(patientOPDInfo.patStatus) == "Admitted")
+                                    @if (@patientOPDInfo != null && @Convert.ToString(patientOPDInfo.patStatus) == "Admitted")
                                     {
                                         <text>Admitted</text>
                                     }
@@ -223,7 +233,17 @@
                                 </small>
                             }
 
-                            <br /><small style="color:#ffd800;">Current Balance Rs:@Convert.ToString(patientOPDInfo.CurrBal)</small>
+                            <br /><small style="color:#ffd800;">
+                                Current Balance Rs:
+                                @if (patientOPDInfo != null)
+                                {
+                                    @Convert.ToString(patientOPDInfo.CurrBal)
+                                }
+                                else
+                                {
+                                    @Convert.ToString("0")
+                                }
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -332,7 +352,7 @@
                             <span class="selected"></span>
                         </a>
                     </li>-->
-                    @if (@Convert.ToString(patientOPDInfo.patStatus) == "Admitted" || showingDaysRemaining)
+                    @if ((@patientOPDInfo != null && @Convert.ToString(patientOPDInfo.patStatus) == "Admitted") || showingDaysRemaining)
                     {
                         <li>
                             <a href="~/Home/MakePayment">
