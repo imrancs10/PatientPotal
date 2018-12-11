@@ -42,8 +42,8 @@
                                                 <div class="btn-group">
                                                     @*@Html.ActionLink("View", "ViewBillReport", new { controller = "ControllerName" }, new { target = "_blank" })
                                                     @Html.ActionLink("Download", "ViewBillReport", new { controller = "ControllerName" }, new { target = "_blank" })*@
-                                                    <a href="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@CryptoEngine.Encrypt(Convert.ToString(item.Billid))&vtype=@CryptoEngine.Encrypt(Convert.ToString(item.vtype))" id="_view" target="_blank" class="btn btn-primary">View</a>
-                                                    <a href="#" id="_download" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@CryptoEngine.Encrypt(Convert.ToString(item.Billid))&vtype=@CryptoEngine.Encrypt(Convert.ToString(item.vtype))">Download</a>
+                                                    <a href="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@Convert.ToString(item.Billid)&vtype=@Convert.ToString(item.vtype)" id="_view" target="_blank" class="btn btn-primary">View</a>
+                                                    <a href="#" id="_download" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@Convert.ToString(item.Billid)&vtype=@Convert.ToString(item.vtype)">Download</a>
                                                 </div>
                                                 }
                                                 else
