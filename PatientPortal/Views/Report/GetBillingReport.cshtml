@@ -31,7 +31,7 @@
                                 {
 
                                     <tr>
-                                        <td>@item.billdate.ToShortDateString()</td>
+                                        <td>@item.billdate.ToString("dd/MM/yyyy")</td>
                                         <td>@item.billno</td>
                                         <td title="'+javascript:getBillType(@item.vtype)+'">@item.vtype</td>
                                         <td>@item.netamt</td>
