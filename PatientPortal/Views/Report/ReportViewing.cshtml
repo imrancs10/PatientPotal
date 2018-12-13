@@ -31,25 +31,38 @@
                                         <td>@item.Labref</td>
                                         <td>@item.LabName</td>
                                         <td>@item.BillNo</td>
-                                        <td>@Convert.ToDateTime(item.ReportDate).ToShortDateString()</td>
+                                        <td>@Convert.ToDateTime(item.ReportDate).ToString("dd/MM/yyyy")</td>
                                         <td>
                                             <div class="btn-group">
-                                                @if (!string.IsNullOrEmpty(item.Url) && (!item.Url.Contains("http") && !item.Url.Contains("https")))
+                                                @*@if (!string.IsNullOrEmpty(item.Url) && (!item.Url.Contains("http") && !item.Url.Contains("https")))
+                                                    {
+                                                        <div class="btn-group">
+                                                            <a href="~/Report/ViewReportFile?fileUrl=@item.Url&view=GetBillingReport" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">View</a>
+                                                            <button type="button" id="_download" data-url="@item.Url" class="btn btn-primary">Download</button>
+                                                            @if (item.LabName.ToLower().Contains("radiology"))
+                                                            {
+                                                                <a href="@ConfigurationManager.AppSettings["HISRadiologyReportUrl"]?labrefno=@Convert.ToString(item.Labref))" target="_blank" class="btn btn-primary">View Lab Image</a>
+                                                            }
+                                                        </div>
+                                                    }
+                                                    else if (!string.IsNullOrEmpty(item.Url) && (item.Url.Contains("http") || item.Url.Contains("https")))
+                                                    {
+                                                        <div class="btn-group">
+                                                            <a href="@item.Url" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">View</a>
+                                                            <a href="@item.Url" id="_download" data-url="@item.Url" target="_blank" class="btn btn-primary" download>Download</a>
+                                                            @if (item.LabName.ToLower().Contains("radiology"))
+                                                            {
+                                                                <a href="@ConfigurationManager.AppSettings["HISRadiologyReportUrl"]?labrefno=@Convert.ToString(item.Labref))" target="_blank" class="btn btn-primary">View Lab Image</a>
+                                                            }
+                                                        </div>
+                                                    }*@
+                                                @if (!string.IsNullOrEmpty(Convert.ToString(item.Labref)))
                                                 {
+                                                    var url = @ConfigurationManager.AppSettings["HISLabReportUrl"] + "/" + Convert.ToString(item.Labref) + ".pdf";
+                                                    var urlReplaced = url.Replace("/", "$");
                                                     <div class="btn-group">
-                                                        <a href="~/Report/ViewReportFile?fileUrl=@item.Url&view=GetBillingReport" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">View</a>
-                                                        <button type="button" id="_download" data-url="@item.Url" class="btn btn-primary">Download</button>
-                                                        @if (item.LabName.ToLower().Contains("radiology"))
-                                                        {
-                                                            <a href="@ConfigurationManager.AppSettings["HISRadiologyReportUrl"]?labrefno=@Convert.ToString(item.Labref))" target="_blank" class="btn btn-primary">View Lab Image</a>
-                                                        }
-                                                    </div>
-                                                }
-                                                else if (!string.IsNullOrEmpty(item.Url) && (item.Url.Contains("http") || item.Url.Contains("https")))
-                                                {
-                                                    <div class="btn-group">
-                                                        <a href="@item.Url" id="_view" data-url="@item.Url" target="_blank" class="btn btn-primary">View</a>
-                                                        <a href="@item.Url" id="_download" data-url="@item.Url" target="_blank" class="btn btn-primary" download>Download</a>
+                                                        <a href="@url" id="_view" target="_blank" class="btn btn-primary">View</a>
+                                                        <a href="~/Report/DownloadFile?url=@urlReplaced" id="_download" target="_blank" class="btn btn-primary">Download</a>
                                                         @if (item.LabName.ToLower().Contains("radiology"))
                                                         {
                                                             <a href="@ConfigurationManager.AppSettings["HISRadiologyReportUrl"]?labrefno=@Convert.ToString(item.Labref))" target="_blank" class="btn btn-primary">View Lab Image</a>

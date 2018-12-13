@@ -21,4 +21,11 @@ namespace PatientPortal.Models.Masters
         public string Designation { get; set; }
         public string Degree { get; set; }
     }
+
+    public class MasterLookupModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
+    }
 }

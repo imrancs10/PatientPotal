@@ -296,5 +296,46 @@ namespace PatientPortal.Controllers
             _details.UpdatePatientHISSyncStatus(user);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult AddMasterLookup()
+        {
+            return View();
+        }
+
+        public JsonResult GetMastersData()
+        {
+            _details = new DepartmentDetails();
+            return Json(_details.GetMastersData(), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult SaveMasterLookup(string name,string value)
+        {
+            _details = new DepartmentDetails();
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(value))
+            {
+                SetAlertMessage("Name or Value should not blank", "Master Data");
+                return null;
+            }
+
+            return Json(CrudResponse(_details.SaveMasterLookup(name,value)), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult EditMasterLookup(string name, string value, int deptId)
+        {
+            _details = new DepartmentDetails();
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(value))
+            {
+                SetAlertMessage("LName or Value should not blank", "Lab Report");
+                return null;
+            }
+            return Json(CrudResponse(_details.EditMasterLookup(name, value, deptId)), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteMasterLookup(int deptId)
+        {
+            _details = new DepartmentDetails();
+
+            return Json(CrudResponse(_details.DeleteMasterLookup(deptId)), JsonRequestBehavior.AllowGet);
+        }
     }
 }

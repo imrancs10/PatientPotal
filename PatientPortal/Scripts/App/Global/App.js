@@ -37,3 +37,8 @@ app.urls.masters.GetDoctorLeaveList = '/masters/GetDoctorLeaveList';
 app.urls.masters.SaveDoctorLeave = '/masters/SaveDoctorLeave';
 app.urls.masters.SaveAppSetting = '/masters/SaveAppSetting';
 app.urls.masters.GetAppSetting = '/masters/GetAppSetting';
+
+app.urls.masterLookupList = '/masters/GetMastersData';
+app.urls.masterLookupSave = '/masters/SaveMasterLookup';
+app.urls.masterLookupEdit = '/masters/EditMasterLookup';
+app.urls.masterLookupDelete = '/masters/DeleteMasterLookup';

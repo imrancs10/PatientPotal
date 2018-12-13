@@ -72,6 +72,18 @@ namespace PatientPortal.BAL.Masters
                          }).ToList();
             return _list != null ? _list : new List<DepartmentModel>();
         }
+        public List<MasterLookupModel> GetMastersData()
+        {
+            _db = new PatientPortalEntities();
+            var _list = (from dept in _db.MasterLookups
+                         select new MasterLookupModel
+                         {
+                             Name = dept.Name,
+                             Id = dept.Id,
+                             Value = dept.Value
+                         }).ToList();
+            return _list != null ? _list : new List<MasterLookupModel>();
+        }
 
         public Department GetDeparmentById(int deptId)
         {
@@ -83,6 +95,56 @@ namespace PatientPortal.BAL.Masters
                 return _deptRow;
             }
             return null;
+        }
+
+        public Enums.CrudStatus SaveMasterLookup(string name, string value)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _deptRow = _db.MasterLookups.Where(x => x.Name.Equals(name)).FirstOrDefault();
+            if (_deptRow == null)
+            {
+                MasterLookup _newDept = new MasterLookup();
+                _newDept.Name = name;
+                _newDept.Value = value;
+                _db.Entry(_newDept).State = EntityState.Added;
+                _effectRow = _db.SaveChanges();
+                return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
+            }
+            else
+                return Enums.CrudStatus.DataAlreadyExist;
+        }
+
+        public Enums.CrudStatus EditMasterLookup(string name, string value, int deptId)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _deptRow = _db.MasterLookups.Where(x => x.Id.Equals(deptId)).FirstOrDefault();
+            if (_deptRow != null)
+            {
+                _deptRow.Name = name;
+                _deptRow.Value = value;
+                _db.Entry(_deptRow).State = EntityState.Modified;
+                _effectRow = _db.SaveChanges();
+                return _effectRow > 0 ? Enums.CrudStatus.Updated : Enums.CrudStatus.NotUpdated;
+            }
+            else
+                return Enums.CrudStatus.DataNotFound;
+        }
+        public Enums.CrudStatus DeleteMasterLookup(int deptId)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _deptRow = _db.MasterLookups.Where(x => x.Id.Equals(deptId)).FirstOrDefault();
+            if (_deptRow != null)
+            {
+                _db.MasterLookups.Remove(_deptRow);
+                //_db.Entry(_deptRow).State = EntityState.Deleted;
+                _effectRow = _db.SaveChanges();
+                return _effectRow > 0 ? Enums.CrudStatus.Deleted : Enums.CrudStatus.NotDeleted;
+            }
+            else
+                return Enums.CrudStatus.DataNotFound;
         }
     }
 }

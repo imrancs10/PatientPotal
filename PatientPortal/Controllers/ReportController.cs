@@ -9,6 +9,7 @@ using System.IO;
 using PatientPortal.BAL.Commom;
 using PatientPortal.Infrastructure.Authentication;
 using System.Globalization;
+using System.Net;
 
 namespace PatientPortal.Controllers
 {
@@ -105,6 +106,18 @@ namespace PatientPortal.Controllers
                 return View(_view);
             }
             return RedirectToRoute(fileUrl);
+        }
+
+        public FileResult DownloadFile(string url)
+        {
+            WebClient client = new WebClient();
+            url = url.Replace("$", "/");
+            client.DownloadFile(url, @"C:\\DownloadPdf.pdf");
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(@"C:\\DownloadPdf.pdf");
+            var response = new FileContentResult(fileBytes, "application/octet-stream");
+            response.FileDownloadName = "labreport" + DateTime.Now.Date + ".pdf";
+            return response;
         }
     }
 }

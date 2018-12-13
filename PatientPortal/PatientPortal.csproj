@@ -357,6 +357,7 @@
     <Content Include="Scripts\App\Login\PatientLogin.js" />
     <Content Include="Scripts\App\Login\Login.js" />
     <Content Include="Scripts\App\Masters\appSetting.js" />
+    <Content Include="Scripts\App\Masters\MasterLookup.js" />
     <Content Include="Scripts\App\Masters\Department.js" />
     <Content Include="Scripts\App\Masters\DoctorLeave.js" />
     <Content Include="Scripts\App\Masters\SyncHISData.js" />
@@ -480,6 +481,7 @@
     <Content Include="Views\Home\MakePaymentBill.cshtml" />
     <Content Include="Views\Home\TransactionPayBill.cshtml" />
     <Content Include="Views\Home\TransactionResponseBill.cshtml" />
+    <Content Include="Views\Masters\AddMasterLookup.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">

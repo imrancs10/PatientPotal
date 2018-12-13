@@ -241,6 +241,7 @@
           <Property Name="pcode" Type="varchar" MaxLength="15" />
           <Property Name="ipno" Type="varchar" MaxLength="20" />
           <Property Name="entrytype" Type="char" MaxLength="2" />
+          <Property Name="Location" Type="varchar" MaxLength="3" />
         </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
@@ -1117,6 +1118,7 @@
           <Property Name="pcode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="ipno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="entrytype" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PatientInfo">
           <Key>
@@ -1728,6 +1730,7 @@
           <EntitySetMapping Name="PateintLeadgers">
             <EntityTypeMapping TypeName="PatientPortalModel.PateintLeadger">
               <MappingFragment StoreEntitySet="PateintLeadger">
+                <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="entrytype" ColumnName="entrytype" />
                 <ScalarProperty Name="ipno" ColumnName="ipno" />
                 <ScalarProperty Name="pcode" ColumnName="pcode" />
