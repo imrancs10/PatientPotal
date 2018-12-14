@@ -1,8 +1,6 @@
 ﻿using PatientPortal.Infrastructure.Authentication;
 using PatientPortal.Infrastructure.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -32,31 +30,40 @@ namespace PatientPortal
             Application["Totaluser"] = (int)Application["Totaluser"] + 1;
             Application.UnLock();
         }
-        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
         {
             HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
 
             if (authCookie != null)
             {
-                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                try
+                {
+                    FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
 
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
 
-                CustomPrincipalSerializeModel serializeModel = serializer.Deserialize<CustomPrincipalSerializeModel>(authTicket.UserData);
+                    CustomPrincipalSerializeModel serializeModel = serializer.Deserialize<CustomPrincipalSerializeModel>(authTicket.UserData);
 
-                CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
-                newUser.Id = serializeModel.Id;
-                newUser.FirstName = serializeModel.FirstName;
-                newUser.MiddleName = serializeModel.MiddleName;
-                newUser.LastName = serializeModel.LastName;
-                newUser.Email = serializeModel.Email;
-                newUser.Mobile = serializeModel.Mobile;
+                    CustomPrincipal newUser = new CustomPrincipal(authTicket.Name)
+                    {
+                        Id = serializeModel.Id,
+                        FirstName = serializeModel.FirstName,
+                        MiddleName = serializeModel.MiddleName,
+                        LastName = serializeModel.LastName,
+                        Email = serializeModel.Email,
+                        Mobile = serializeModel.Mobile
+                    };
 
-                HttpContext.Current.User = newUser;
+                    HttpContext.Current.User = newUser;
+                }
+                catch (Exception)
+                {
+                }
+
             }
         }
 
-        void Application_PreSendRequestHeaders(Object sender, EventArgs e)
+        private void Application_PreSendRequestHeaders(object sender, EventArgs e)
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
         }

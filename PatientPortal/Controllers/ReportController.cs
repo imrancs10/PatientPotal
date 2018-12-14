@@ -1,15 +1,12 @@
-﻿using System;
+﻿using PatientPortal.BAL.Reports;
+using PatientPortal.Infrastructure.Utility;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using PatientPortal.BAL;
-using PatientPortal.BAL.Reports;
-using System.IO;
-using PatientPortal.BAL.Commom;
-using PatientPortal.Infrastructure.Authentication;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Net;
+using System.Web.Mvc;
 
 namespace PatientPortal.Controllers
 {
@@ -20,7 +17,7 @@ namespace PatientPortal.Controllers
         public ActionResult GetBillingReport()
         {
             ReportDetails _details = new ReportDetails();
-            var result = _details.GetBillReportData();
+            List<DataLayer.PateintLeadger> result = _details.GetBillReportData();
             return View(result);
         }
 
@@ -66,7 +63,7 @@ namespace PatientPortal.Controllers
                 return RedirectToAction("PatientLedger");
             }
             ReportDetails _details = new ReportDetails();
-            var leaders = _details.GetPatientLedger(FromDate, ToDate);
+            List<Models.Patient.PatientLedgerModel> leaders = _details.GetPatientLedger(FromDate, ToDate);
             return View("PatientLedger", leaders);
         }
 
@@ -79,7 +76,7 @@ namespace PatientPortal.Controllers
                 string[] files = Directory.GetFiles(_fileDirectory);
                 if (files.Length > 0)
                 {
-                    var file = files.Where(x => x.Substring(x.LastIndexOf("\\") + 1) == _fileName).FirstOrDefault();
+                    string file = files.Where(x => x.Substring(x.LastIndexOf("\\") + 1) == _fileName).FirstOrDefault();
                     if (file != null)
                     {
                         byte[] FileBytes = System.IO.File.ReadAllBytes(file);
@@ -112,11 +109,14 @@ namespace PatientPortal.Controllers
         {
             WebClient client = new WebClient();
             url = url.Replace("$", "/");
-            client.DownloadFile(url, @"C:\\DownloadPdf.pdf");
+            string downloadsPath = KnownFolders.GetPath(KnownFolder.Downloads);
+            client.DownloadFile(url, downloadsPath + "DownloadLabPdf.pdf");
 
-            byte[] fileBytes = System.IO.File.ReadAllBytes(@"C:\\DownloadPdf.pdf");
-            var response = new FileContentResult(fileBytes, "application/octet-stream");
-            response.FileDownloadName = "labreport" + DateTime.Now.Date + ".pdf";
+            byte[] fileBytes = System.IO.File.ReadAllBytes(downloadsPath + "DownloadLabPdf.pdf");
+            FileContentResult response = new FileContentResult(fileBytes, "application/octet-stream")
+            {
+                FileDownloadName = "labreport" + DateTime.Now.Date + ".pdf"
+            };
             return response;
         }
     }
