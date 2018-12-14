@@ -110,9 +110,9 @@ namespace PatientPortal.Controllers
             WebClient client = new WebClient();
             url = url.Replace("$", "/");
             string downloadsPath = KnownFolders.GetPath(KnownFolder.Downloads);
-            client.DownloadFile(url, downloadsPath + "DownloadLabPdf.pdf");
+            client.DownloadFile(url, downloadsPath + "/" + "DownloadLabPdf.pdf");
 
-            byte[] fileBytes = System.IO.File.ReadAllBytes(downloadsPath + "DownloadLabPdf.pdf");
+            byte[] fileBytes = System.IO.File.ReadAllBytes(downloadsPath + "/" + "DownloadLabPdf.pdf");
             FileContentResult response = new FileContentResult(fileBytes, "application/octet-stream")
             {
                 FileDownloadName = "labreport" + DateTime.Now.Date + ".pdf"

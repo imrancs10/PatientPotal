@@ -39,7 +39,7 @@
                                             <div>
                                                 @if (!string.IsNullOrEmpty(Convert.ToString(item.Billid)))
                                                 {
-                                                    var url = @ConfigurationManager.AppSettings["HISBillReportUrl"] + "/" + Convert.ToString(item.Billid) + ".pdf";
+                                                    var url = @ConfigurationManager.AppSettings["HISBillReportUrl"] + "/" + Convert.ToString(item.Billid);
                                                     var urlReplaced = url.Replace("/", "$");
 
                                                 <div class="btn-group">
