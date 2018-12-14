@@ -39,11 +39,15 @@
                                             <div>
                                                 @if (!string.IsNullOrEmpty(Convert.ToString(item.Billid)))
                                                 {
+                                                    var url = @ConfigurationManager.AppSettings["HISBillReportUrl"] + "/" + Convert.ToString(item.Billid) + ".pdf";
+                                                    var urlReplaced = url.Replace("/", "$");
+
                                                 <div class="btn-group">
                                                     @*@Html.ActionLink("View", "ViewBillReport", new { controller = "ControllerName" }, new { target = "_blank" })
                                                     @Html.ActionLink("Download", "ViewBillReport", new { controller = "ControllerName" }, new { target = "_blank" })*@
                                                     <a href="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@Convert.ToString(item.Billid)&vtype=@Convert.ToString(item.vtype)" id="_view" target="_blank" class="btn btn-primary">View</a>
-                                                    <a href="#" id="_download" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@Convert.ToString(item.Billid)&vtype=@Convert.ToString(item.vtype)">Download</a>
+                                                    @*<a href="#" id="_download" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@Convert.ToString(item.Billid)&vtype=@Convert.ToString(item.vtype)">Download</a>*@
+                                                    <a href="~/Report/DownloadFile?url=@urlReplaced" id="_download" target="_blank" class="btn btn-primary">Download</a>
                                                 </div>
                                                 }
                                                 else
