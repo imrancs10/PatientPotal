@@ -483,6 +483,7 @@
     <Content Include="Views\Home\TransactionPayBill.cshtml" />
     <Content Include="Views\Home\TransactionResponseBill.cshtml" />
     <Content Include="Views\Masters\AddMasterLookup.cshtml" />
+    <Content Include="Views\Report\ViewBillingReport.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">

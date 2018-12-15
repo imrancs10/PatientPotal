@@ -4,6 +4,8 @@
 
 @model List<PateintLeadger>
 @{
+    /**/
+
     ViewBag.Title = "Billing Report";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
 }
@@ -40,12 +42,7 @@
                                                 @if (!string.IsNullOrEmpty(Convert.ToString(item.Billid)))
                                                 {
                                                     <div class="btn-group">
-                                                        @*@Html.ActionLink("View", "ViewBillReport", new { controller = "ControllerName" }, new { target = "_blank" })
-                                                            @Html.ActionLink("Download", "ViewBillReport", new { controller = "ControllerName" }, new { target = "_blank" })*@
-                                                        @*<a href="#" id="_download" target="_blank" class="btn btn-primary" download="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@Convert.ToString(item.Billid)&vtype=@Convert.ToString(item.vtype)">Download</a>*@
-                                                        @*<a href="~/Report/DownloadFile?url=@urlReplaced&ext=html" id="_download" target="_blank" class="btn btn-primary">Download</a>*@
-
-                                                        <a href="@ConfigurationManager.AppSettings["HISBillReportUrl"]?billid=@Convert.ToString(item.Billid)&vtype=@Convert.ToString(item.vtype)" id="_view" target="_blank" class="btn btn-primary">View/Download</a>
+                                                        <a href="ViewBillingReport?Id=@CryptoEngine.Encrypt(item.Billid.ToString())&type=@CryptoEngine.Encrypt(item.vtype.ToString())" id="_view" target="_blank" class="btn btn-primary">View/Download</a>
                                                     </div>
                                                 }
                                                 else
@@ -92,9 +89,9 @@
     //    $('#_form').submit();
     //});
 
-    $(document).on('click', '[id*="view"]', function () {
-        $('#_form').attr('action', '/Report/ViewReportFile');
-        $('#_fileurl').val($(this).data('url'));
-        // $('#_form').submit();
-    });
+    //$(document).on('click', '[id*="view"]', function () {
+    //    $('#_form').attr('action', '/Report/ViewReportFile');
+    //    $('#_fileurl').val($(this).data('url'));
+    //    // $('#_form').submit();
+    //});
 </script>

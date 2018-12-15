@@ -3,10 +3,12 @@ using PatientPortal.Global;
 using PatientPortal.Infrastructure.Utility;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Mvc;
 
 namespace PatientPortal.Controllers
@@ -120,9 +122,20 @@ namespace PatientPortal.Controllers
             };
             return response;
         }
-        public ActionResult getpath(string path)
+
+        public ActionResult ViewBillingReport(string Id,string type)
         {
-            return Json(path, JsonRequestBehavior.AllowGet);
+            var url = ConfigurationManager.AppSettings["HISBillReportUrl"] + "?billid=" + CryptoEngine.Decrypt(Convert.ToString(Id)) + "&vtype=" + CryptoEngine.Decrypt(Convert.ToString(type));
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            StreamReader responseStream = new StreamReader(response.GetResponseStream());
+
+            string resultado = responseStream.ReadToEnd();
+            resultado = resultado.Replace("img/rmllogo.jpg", "http://103.78.201.146/healer/img/rmllogo.jpg");
+            return Content(resultado); 
         }
         public FileStreamResult GetPDF(string path)
         {
