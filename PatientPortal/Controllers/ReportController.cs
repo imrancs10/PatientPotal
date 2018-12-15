@@ -108,19 +108,25 @@ namespace PatientPortal.Controllers
             return RedirectToRoute(fileUrl);
         }
 
-        public FileResult DownloadFile(string Id)
+        public ActionResult DownloadFile(string Id)
         {
-            WebClient client = new WebClient();
-            string url = ConfigurationManager.AppSettings["HISLabReportUrl"] + "/" + CryptoEngine.Decrypt(Convert.ToString(Id)) + ".pdf"; ;
-            string downloadsPath = KnownFolders.GetPath(KnownFolder.Downloads);
-            client.DownloadFile(url, downloadsPath + "/" + "DownloadLabPdf.pdf");
+            string url = ConfigurationManager.AppSettings["HISLabReportUrl"] + "/" + CryptoEngine.Decrypt(Convert.ToString(Id)) + ".pdf";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-            byte[] fileBytes = System.IO.File.ReadAllBytes(downloadsPath + "/" + "DownloadLabPdf.pdf");
-            FileContentResult response = new FileContentResult(fileBytes, "application/octet-stream")
+            StreamReader responseStream = new StreamReader(response.GetResponseStream());
+
+            var ms = new MemoryStream();
+            responseStream.BaseStream.CopyTo(ms);
+
+            var imageBytes = ms.ToArray();
+
+            FileContentResult responseFile = new FileContentResult(imageBytes, "application/octet-stream")
             {
                 FileDownloadName = "labreport" + DateTime.Now.Date + ".pdf"
             };
-            return response;
+            return responseFile;
         }
 
         public ActionResult ViewBillingReport(string Id,string type)
