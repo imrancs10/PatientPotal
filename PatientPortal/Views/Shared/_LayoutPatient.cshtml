@@ -252,26 +252,22 @@
                         <a href="~/Home/Dashboard">
                             <i class="fa fa-tachometer"></i>
                             <span class="menu-text">Dashboard</span>
-                            <span class="selected"></span>
                         </a>
                     </li>
                     <li class="hoe-has-menu">
                         <a href="javascript:void(0)">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">EMR</span>
-                            <span class="selected"></span>
                         </a>
-                        <ul class="hoe-sub-menu" style="display: none;">
+                        <ul class="hoe-sub-menu">
                             <li>
                                 <a href="~/Appointment/PatientProfile">
                                     <span class="menu-text">Patient Visit Summary</span>
-
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <span class="menu-text">Discharge Print</span>
-                                    <span class="selected"></span>
                                 </a>
                             </li>
                         </ul>
@@ -280,78 +276,45 @@
                         <a href="~/Appointment/GetAppointments">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Book Appointments</span>
-                            <span class="selected"></span>
                         </a>
                     </li>
                     <li>
                         <a href="~/Appointment/PatientProfile">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Cancellation of Appointment</span>
-                            <span class="selected"></span>
                         </a>
                     </li>
                     <li class="hoe-has-menu">
                         <a href="javascript:void(0)">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Report</span>
-                            <span class="selected"></span>
                         </a>
-                        <ul class="hoe-sub-menu" style="display: none;">
+                        <ul class="hoe-sub-menu">
                             <li>
                                 <a href="/Report/ReportViewing">
                                     <span class="menu-text">Patient Diganostic Reports</span>
-
                                 </a>
                             </li>
                             <li>
                                 <a href="/Report/GetBillingReport">
                                     <span class="menu-text">Billing Report</span>
-                                    <span class="selected"></span>
                                 </a>
                             </li>
-                            <!--<li>
-                                <a href="/Report/PatientLedger">
-                                    <span class="menu-text">Patient Ledger</span>
-                                    <span class="selected"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/patient/GetLabReport">
-                                    <span class="menu-text">View Report</span>
-                                    <span class="selected"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Report/ReportViewing">
-                                    <span class="menu-text">Ledger Report</span>
-                                    <span class="selected"></span>
-                                </a>
-                            </li>-->
                         </ul>
                     </li>
                     <li class="hoe-has-menu">
                         <a href="javascript:void(0)">
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Account Statement</span>
-                            <span class="selected"></span>
                         </a>
-                        <ul class="hoe-sub-menu" style="display: none;">
+                        <ul class="hoe-sub-menu">
                             <li>
                                 <a href="~/Report/PatientLedger">
                                     <span class="menu-text">Ledger Report</span>
-                                    <span class="selected"></span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <!--<li>
-                        <a class="isDisabled" href="javascript:void(0)">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="menu-text">Pending Orders</span>
-                            <span class="label sul">New</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>-->
                     @if ((@patientOPDInfo != null && @Convert.ToString(patientOPDInfo.patStatus) == "Admitted") || showingDaysRemaining)
                     {
                         <li>
@@ -359,7 +322,6 @@
                                 <i class="fa fa-bar-chart"></i>
                                 <span class="menu-text">Make Payment</span>
                                 <span class="label sul">New</span>
-                                <span class="selected"></span>
                             </a>
                         </li>
                     }
@@ -370,7 +332,6 @@
                                 <i class="fa fa-bar-chart"></i>
                                 <span class="menu-text">Make Payment</span>
                                 <span class="label sul">New</span>
-                                <span class="selected"></span>
                             </a>
                         </li>
                     }
@@ -379,7 +340,6 @@
                             <i class="fa fa-bar-chart"></i>
                             <span class="menu-text">Duplicate Receipts</span>
                             <span class="label sul">New</span>
-                            <span class="selected"></span>
                         </a>
                     </li>
                 </ul>
@@ -421,15 +381,29 @@
 
     <script>
         $(document).ready(function () {
+            debugger
             $('li.active').removeClass('active');
             $('#hoeapp-container a[href]').each(function (ind, ele) {
                 if ($(ele).attr('href').toLowerCase().indexOf(location.pathname.toLowerCase()) > -1) {
+                    debugger
                     $(ele).parent().addClass('active');
+                    $(ele).prepend('<span class="selected"></span>');
+                    if ($(ele).parent().parent().parent().prop('class') == 'hoe-has-menu')
+                        $(ele).parent().parent().show();
                 }
             });
-        });
-        $(function () {
 
+            $('.hoe-sub-menu').parent().click(function () {
+                debugger
+                var ul = $(this).find('.hoe-sub-menu');
+                if ($(ul).is(':visible'))
+                    $(ul).hide();
+                else
+                    $(ul).show();
+            });
+        });
+
+        $(function () {
             $("#dialog").dialog({
                 resizable: false,
                 height: "auto",
@@ -442,13 +416,6 @@
                 }
             });
         });
-        $('.hoe-sub-menu').parent().click(function () {
-            var ul = $(this).find('.hoe-sub-menu');
-            if ($(ul).is(':visible'))
-                $(ul).hide();
-            else
-                $(ul).show();
-        });
     </script>
 
     <div class="ajaxloader">
@@ -456,8 +423,9 @@
     </div>
     <style>
         .blink h5 {
-        margin-top:0px;
+            margin-top: 0px;
         }
+
         .ajaxloader {
             background: #808080a3;
             position: fixed;
@@ -480,18 +448,6 @@
         a {
             text-decoration: none !important;
         }
-
-        /*html {
-            height: 100%;
-        }
-
-        body {
-            height: 100%;
-        }
-
-        #content {
-            min-height: 100%;
-        }*/
     </style>
 </body>
 </html>
