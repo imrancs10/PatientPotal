@@ -1,5 +1,6 @@
 ﻿@using DataLayer
 @using System.Configuration;
+@using PatientPortal.Global;
 
 @model List<LabreportPdf>
 @{
@@ -59,10 +60,10 @@
                                                 @if (!string.IsNullOrEmpty(Convert.ToString(item.Labref)))
                                                 {
                                                     var url = @ConfigurationManager.AppSettings["HISLabReportUrl"] + "/" + Convert.ToString(item.Labref) + ".pdf";
-                                                    var urlReplaced = url.Replace("/", "$");
+                                                    var urlReplaced = url;// CryptoEngine.Encrypt(url);
                                                     <div class="btn-group">
-                                                        <a href="@url" id="_view" target="_blank" class="btn btn-primary">View</a>
-                                                        <a href="~/Report/DownloadFile?url=@urlReplaced" id="_download" target="_blank" class="btn btn-primary">Download</a>
+                                                        <a href="#" id="_view" data-url="@url" class="btn btn-primary">View</a>
+                                                        <a href="~/Report/DownloadFile?url=@urlReplaced&ext=pdf" id="_download" target="_blank" class="btn btn-primary">Download</a>
                                                         @if (item.LabName.ToLower().Contains("radiology"))
                                                         {
                                                             <a href="@ConfigurationManager.AppSettings["HISRadiologyReportUrl"]?labrefno=@Convert.ToString(item.Labref))" target="_blank" class="btn btn-primary">View Lab Image</a>
@@ -83,21 +84,48 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="viewReportModal" style="width:900px;height:1050px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><b>Lab Report</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="http://uppbpb.gov.in/notice/vigyapti08.08.2018.pdf"
+                            style="border: 0; width:800px; height:1000px;"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </form>
 <script>
-    //$(document).on('click', '[id*="_download"]', function () {
-    //    $('#_fileurl').val($(this).data('url'));
-    //    $('#_form').submit();
-    //});
-
     $(document).on('click', '[id*="view"]', function () {
-        $('#_form').attr('action', '/Report/ViewReportFile');
-        $('#_fileurl').val($(this).data('url'));
-        // $('#_form').submit();
+        alert();
+        $.ajax({
+                type: 'POST',
+                url: '@Url.Action("getpath")',
+                dataType: 'json',
+                data: { path: $(this).data('url') },
+                success: function (path) {
+                    window.open('@Url.Action("getpdf")?path=' + $(this).data('url'), "_blank", "scrollbars=yes,resizable=yes,top=500,left=500,width=500,height=700");
+                },
+                error: function (ex) {
+                alert(Error);
+                }
+            });
     });
 </script>
+
 
 
 
