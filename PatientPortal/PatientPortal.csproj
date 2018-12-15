@@ -484,6 +484,8 @@
     <Content Include="Views\Home\TransactionResponseBill.cshtml" />
     <Content Include="Views\Masters\AddMasterLookup.cshtml" />
     <Content Include="Views\Report\ViewBillingReport.cshtml" />
+    <Content Include="Views\Report\ViewLabReport.cshtml" />
+    <Content Include="Views\Report\ViewRadiologyLabReport.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">

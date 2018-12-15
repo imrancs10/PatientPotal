@@ -108,17 +108,17 @@ namespace PatientPortal.Controllers
             return RedirectToRoute(fileUrl);
         }
 
-        public FileResult DownloadFile(string url, string ext)
+        public FileResult DownloadFile(string Id)
         {
             WebClient client = new WebClient();
-            //url = CryptoEngine.Decrypt(url.Replace("*", "="));
+            string url = ConfigurationManager.AppSettings["HISLabReportUrl"] + "/" + CryptoEngine.Decrypt(Convert.ToString(Id)) + ".pdf"; ;
             string downloadsPath = KnownFolders.GetPath(KnownFolder.Downloads);
-            client.DownloadFile(url, downloadsPath + "/" + "DownloadLabPdf." + ext);
+            client.DownloadFile(url, downloadsPath + "/" + "DownloadLabPdf.pdf");
 
-            byte[] fileBytes = System.IO.File.ReadAllBytes(downloadsPath + "/" + "DownloadLabPdf." + ext);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(downloadsPath + "/" + "DownloadLabPdf.pdf");
             FileContentResult response = new FileContentResult(fileBytes, "application/octet-stream")
             {
-                FileDownloadName = "labreport" + DateTime.Now.Date + "." + ext
+                FileDownloadName = "labreport" + DateTime.Now.Date + ".pdf"
             };
             return response;
         }
@@ -138,77 +138,36 @@ namespace PatientPortal.Controllers
                                            ConfigurationManager.AppSettings["HISBillReportBaseUrl"] + "/img/rmllogo.jpg");
             return Content(resultado); 
         }
-        public FileStreamResult GetPDF(string path)
+        public ActionResult ViewLabReport(string Id)
         {
-            //Create a stream for the file
-            Stream stream = null;
+            string url = ConfigurationManager.AppSettings["HISLabReportUrl"] + "/" + CryptoEngine.Decrypt(Convert.ToString(Id)) + ".pdf";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-            //This controls how many bytes to read at a time and send to the client
-            int bytesToRead = 10000;
+            StreamReader responseStream = new StreamReader(response.GetResponseStream());
 
-            // Buffer to read bytes in chunk size specified above
-            byte[] buffer = new Byte[bytesToRead];
+            var ms = new MemoryStream();
+            responseStream.BaseStream.CopyTo(ms);
 
-            // The number of bytes read
-            try
-            {
-                //Create a WebRequest to get the file
-                HttpWebRequest fileReq = (HttpWebRequest)HttpWebRequest.Create(path);
+            var imageBytes = ms.ToArray();
+            return File(imageBytes, response.ContentType);
+        }
 
-                //Create a response for this request
-                HttpWebResponse fileResp = (HttpWebResponse)fileReq.GetResponse();
+        public ActionResult ViewRadiologyLabReport(string Id)
+        {
+            string url = ConfigurationManager.AppSettings["HISRadiologyReportUrl"] + "?labrefno=" + CryptoEngine.Decrypt(Convert.ToString(Id));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-                if (fileReq.ContentLength > 0)
-                    fileResp.ContentLength = fileReq.ContentLength;
+            StreamReader responseStream = new StreamReader(response.GetResponseStream());
 
-                //Get the Stream returned from the response
-                stream = fileResp.GetResponseStream();
+            var ms = new MemoryStream();
+            responseStream.BaseStream.CopyTo(ms);
 
-                // prepare the response to the client. resp is the client Response
-                var resp = HttpContext.Response;
-
-                //Indicate the type of data being sent
-                resp.ContentType = "application/octet-stream";
-
-                //Name the file 
-                string fileName = "test.pdf";
-                resp.AddHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-                resp.AddHeader("Content-Length", fileResp.ContentLength.ToString());
-
-                int length;
-                do
-                {
-                    // Verify that the client is connected.
-                    if (resp.IsClientConnected)
-                    {
-                        // Read data into the buffer.
-                        length = stream.Read(buffer, 0, bytesToRead);
-
-                        // and write it out to the response's output stream
-                        resp.OutputStream.Write(buffer, 0, length);
-
-                        // Flush the data
-                        resp.Flush();
-
-                        //Clear the buffer
-                        buffer = new Byte[bytesToRead];
-                    }
-                    else
-                    {
-                        // cancel the download if client has disconnected
-                        length = -1;
-                    }
-                } while (length > 0); //Repeat until no data is read
-            }
-            finally
-            {
-                if (stream != null)
-                {
-                    //Close the input stream
-                    stream.Close();
-                }
-            }
-            return File(stream, "application/pdf");
+            var imageBytes = ms.ToArray();
+            return File(imageBytes, response.ContentType);
         }
     }
 }
