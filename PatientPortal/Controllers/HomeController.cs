@@ -1112,6 +1112,12 @@ namespace PatientPortal.Controllers
             {
                 ViewData["success"] = true;
             }
+            else if (TempData["CRData"] != null)
+            {
+                ViewData["CRData"] = TempData["CRData"];
+                TempData["CRData"] = null;
+            }
+
             return View();
         }
 
@@ -1172,7 +1178,7 @@ namespace PatientPortal.Controllers
                     {
                         ViewData["CRData"] = null;
                         Session["crData"] = null;
-                        SetAlertMessage("Mobile Number or Email Id is already used for other account, Kindly contact to hospital.", "CR Integrate");
+                        SetAlertMessage("Email Id is already used for other account.", "CR Integrate");
                         return View();
                     }
                     return View();
@@ -1268,10 +1274,11 @@ namespace PatientPortal.Controllers
                 var existingPatient = _details.GetPatientDetailByMobileNumberANDEmail(mobilenumber, email);
                 if (existingPatient != null)
                 {
-                    SetAlertMessage("Patient is alerady register with same Mobile Number or EmailId", "CR Intergrate");
-                    Session["crData"] = null;
-                    _details.DeletePatientInfoCRData(crData.CRNumber);
-                    return RedirectToAction("CRIntegrate");
+                    SetAlertMessage("Patient is already register with same Mobile Number or EmailId", "CR Intergrate");
+                    //Session["crData"] = null;
+                    //_details.DeletePatientInfoCRData(crData.CRNumber);
+                    TempData["CRData"] = crData;
+                    return RedirectToAction("CRIntegrate"); ;
                 }
                 Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null, aadharNumber, false, crData.Pid, crData.Location);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())

@@ -55,7 +55,7 @@
                 <div class="row">
                     <div class="col-md-9 blink">@Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
                     <div class="col-md-3 blink hidden-xs">
-                        <h5 style="color:#fff;">
+                        <h5 style="color:#fff;margin-top: 15px!important;">
                             Helpline No:-
                             @{
                                 MasterLookup lookup = ViewData["Lookup"] as MasterLookup;
@@ -166,18 +166,18 @@
                     <marquee behavior="scroll" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop();"
                              OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" direction="left" scrollamount="3" scrolldelay="1">
                         @*@{
-                    PatientPortal.Models.PDModel pdmodel;
-                    string totOPD = "0000";
-                    string totIPD = "0000";
-                    string total = "0000";
-                    if (ViewData["PDDetail"] != null)
-                    {
-                        pdmodel = ViewData["PDDetail"] as PatientPortal.Models.PDModel;
-                        totOPD = pdmodel.totOPD;
-                        totIPD = pdmodel.totIPD;
-                        total = Convert.ToString(Convert.ToInt32(pdmodel.totOPD) + Convert.ToInt32(pdmodel.totIPD));
-                    }
-                }*@
+                                PatientPortal.Models.PDModel pdmodel;
+                                string totOPD = "0000";
+                                string totIPD = "0000";
+                                string total = "0000";
+                                if (ViewData["PDDetail"] != null)
+                                {
+                                    pdmodel = ViewData["PDDetail"] as PatientPortal.Models.PDModel;
+                                    totOPD = pdmodel.totOPD;
+                                    totIPD = pdmodel.totIPD;
+                                    total = Convert.ToString(Convert.ToInt32(pdmodel.totOPD) + Convert.ToInt32(pdmodel.totIPD));
+                                }
+                            }*@
                         <div align="left">
                             <a href="#" target="_parent" style="float:left;margin-left:10px; margin-top: 15px;color:#000;">
                                 No. of OPD: <span style="color:#953b39;" id="TotalOPDText">
