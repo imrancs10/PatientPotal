@@ -134,7 +134,8 @@ namespace PatientPortal.Controllers
             StreamReader responseStream = new StreamReader(response.GetResponseStream());
 
             string resultado = responseStream.ReadToEnd();
-            resultado = resultado.Replace("img/rmllogo.jpg", "http://103.78.201.146/healer/img/rmllogo.jpg");
+            resultado = resultado.Replace("img/rmllogo.jpg", 
+                                           ConfigurationManager.AppSettings["HISBillReportBaseUrl"] + "/img/rmllogo.jpg");
             return Content(resultado); 
         }
         public FileStreamResult GetPDF(string path)
