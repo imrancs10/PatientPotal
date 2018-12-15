@@ -148,6 +148,31 @@ namespace PatientPortal.Controllers
             }
             return View();
         }
+
+        public ActionResult CancellationAppointment()
+        {
+            if (User == null)
+            {
+                SetAlertMessage("User has been logged out", "Update Profile");
+                return RedirectToAction("Index");
+            }
+            var patient = GetPatientInfo();
+            if (patient != null)
+            {
+                User.FirstName = patient.FirstName;
+                User.MiddleName = patient.MiddleName;
+                User.LastName = patient.LastName;
+                User.Email = patient.Email;
+                ViewData["PatientData"] = patient;
+            }
+            else
+            {
+                SetAlertMessage("User not found", "Update Profile");
+                return RedirectToAction("Index");
+
+            }
+            return View();
+        }
         private PatientInfoModel GetPatientInfo()
         {
             PatientDetails _details = new PatientDetails();
