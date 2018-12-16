@@ -16,6 +16,7 @@
         var base64 = Convert.ToBase64String(hospital.HospitalLogo);
         imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
     }
+    List<MasterLookup> lookups = ViewData["Lookup"] as List<MasterLookup>;
 }
 <!DOCTYPE html>
 <html>
@@ -58,9 +59,14 @@
                         <h5 style="color:#fff;margin-top: 15px!important;">
                             Helpline No:-
                             @{
-                                MasterLookup lookup = ViewData["Lookup"] as MasterLookup;
-                                @lookup.Value
+                                string value = string.Empty;
+                                var helpLineNo = lookups.Where(x => x.Name == Enums.MasterLookupEnum.HelpLineNo.ToString()).FirstOrDefault();
+                                if (helpLineNo != null)
+                                {
+                                    value = helpLineNo.Value;
+                                }
                             }
+                            @value
                         </h5>
                     </div>
                 </div>
@@ -271,40 +277,108 @@
                                         <tr class="primary"><td colspan="3" style="text-align:center;"><strong>Important contact number for Information:- </strong></td></tr>
                                         <tr>
                                             <td><strong style="color: #0199CD; font-style:italic;">Helpline No. </strong></td>
-                                            <td>@lookup.Value</td>
+                                            <td>
+                                                @{
+                                                    value = string.Empty;
+                                                    helpLineNo = lookups.Where(x => x.Name == Enums.MasterLookupEnum.HelpLineNo.ToString()).FirstOrDefault();
+                                                    if (helpLineNo != null)
+                                                    {
+                                                        value = helpLineNo.Value;
+                                                    }
+                                                }
+                                                @value
+                                            </td>
                                         </tr>
 
                                         <tr>
                                             <td><strong style="color: #0199CD;font-style:italic;">OPD No.</strong></td>
-                                            <td>0522-6692000,001,004</td>
+                                            <td>
+                                                @{
+                                                    value = string.Empty;
+                                                    helpLineNo = lookups.Where(x => x.Name == Enums.MasterLookupEnum.OPDNo.ToString()).FirstOrDefault();
+                                                    if (helpLineNo != null)
+                                                    {
+                                                        value = helpLineNo.Value;
+                                                    }
+                                                }
+                                                @value
+                                            </td>
                                         </tr>
 
                                         <tr>
-                                            <td><strong style="color: #0199CD;font-style:italic;">Administrative Block Ph. No.</strong></td>
-                                            <td>0522-4918504,514</td>
+                                            <td><strong style="color: #0199CD;font-style:italic;">Administrative Block Ph.No.</strong></td>
+                                            <td>
+                                                @{
+                                                    value = string.Empty;
+                                                    helpLineNo = lookups.Where(x => x.Name == Enums.MasterLookupEnum.AdministrativeBlockPhNo.ToString()).FirstOrDefault();
+                                                    if (helpLineNo != null)
+                                                    {
+                                                        value = helpLineNo.Value;
+                                                    }
+                                                }
+                                                @value
+                                            </td>
                                         </tr>
 
                                         <tr>
                                             <td><strong style="color: #0199CD;font-style:italic;">Fax No.</strong></td>
-                                            <td>0522-4918506</td>
+                                            <td>
+                                                @{
+                                                    value = string.Empty;
+                                                    helpLineNo = lookups.Where(x => x.Name == Enums.MasterLookupEnum.FaxNo.ToString()).FirstOrDefault();
+                                                    if (helpLineNo != null)
+                                                    {
+                                                        value = helpLineNo.Value;
+                                                    }
+                                                }
+                                                @value
+                                            </td>
                                         </tr>
 
                                         <tr>
                                             <td><strong style="color: #0199CD;font-style:italic;">Mailing Address</strong></td>
                                             <td>
-                                                Dr. Ram Manohar Lohia Institute of Medical Sciences, Vibhuti Khand, Gomtinagar, Lucknow. 226010.
+                                                @{
+                                                    value = string.Empty;
+                                                    helpLineNo = lookups.Where(x => x.Name == Enums.MasterLookupEnum.MailingAddress.ToString()).FirstOrDefault();
+                                                    if (helpLineNo != null)
+                                                    {
+                                                        value = helpLineNo.Value;
+                                                    }
+                                                }
+                                                @value
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><strong style="color: #0199CD;font-style:italic;">Website </strong></td>
-                                            <td><a href="https://www.drrmlims.ac.in/" target="_blank">www.drrmlims.ac.in</a></td>
+                                            <td><strong style="color: #0199CD;font-style:italic;">Website</strong></td>
+                                            <td>
+                                                @{
+                                                    value = string.Empty;
+                                                    helpLineNo = lookups.Where(x => x.Name == Enums.MasterLookupEnum.Website.ToString()).FirstOrDefault();
+                                                    if (helpLineNo != null)
+                                                    {
+                                                        value = helpLineNo.Value;
+                                                    }
+                                                }
+                                                <a href="@value" target="_blank">
+                                                    @value
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><strong style="color: #0199CD;font-style:italic;">E-Mail</strong></td>
-                                            <td><a href="mailto:enquiry@drrmlims.ac.in ">enquiry@drrmlims.ac.in </a></td>
+                                            <td>
+                                                @{
+                                                    value = string.Empty;
+                                                    helpLineNo = lookups.Where(x => x.Name == Enums.MasterLookupEnum.EMail.ToString()).FirstOrDefault();
+                                                    if (helpLineNo != null)
+                                                    {
+                                                        value = helpLineNo.Value;
+                                                    }
+                                                }
+                                                <a href="mailto:@value">@value</a>
+                                            </td>
                                         </tr>
-
-
                                     </tbody>
                                 </table>
                             </div>

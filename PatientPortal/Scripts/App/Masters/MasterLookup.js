@@ -49,7 +49,7 @@ department.addNew = function () {
         var trLen = $(tbody).find('tr').length;
         var tr = '<tr>';
         var td = '<td>' + (trLen + 1) + '</td>';
-        td = td + '<td> <input type="text" class="form-control" name="txtName" value="" /></td>';
+        td = td + '<td> <input type="text" class="form-control" name="txtName" value="" placeholder="Name Without Space/Special character" /></td>';
         td = td + '<td> <input type="text" class="form-control" name="txtValue" value="" /></td>';
         td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
                             '<button type="button" class="btn btn-secondary" onclick="department.save(this)">Save</button>' +

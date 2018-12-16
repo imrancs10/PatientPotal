@@ -19,10 +19,10 @@ namespace PatientPortal.BAL.Lookup
         {
             HelpLineNo
         }
-        public MasterLookup GetLookupDetail()
+        public List<MasterLookup> GetLookupDetail()
         {
             _db = new PatientPortalEntities();
-            return _db.MasterLookups.Where(x => x.Name == LookupEnum.HelpLineNo.ToString()).FirstOrDefault();
+            return _db.MasterLookups.ToList();
         }
     }
 }

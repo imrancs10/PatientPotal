@@ -7,6 +7,17 @@ namespace PatientPortal.Global
 {
     public static class Enums
     {
+
+        public enum MasterLookupEnum
+        {
+            HelpLineNo,
+            OPDNo,
+            AdministrativeBlockPhNo,
+            FaxNo,
+            Website,
+            EMail,
+            MailingAddress
+        }
         public enum TransactionType
         {
             Register = 0,
