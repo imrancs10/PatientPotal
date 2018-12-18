@@ -138,7 +138,7 @@ namespace PatientPortal.Controllers
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
             StreamReader responseStream = new StreamReader(response.GetResponseStream());
-
+            
             string resultado = responseStream.ReadToEnd();
             resultado = resultado.Replace("img/rmllogo.jpg", 
                                            ConfigurationManager.AppSettings["HISBillReportBaseUrl"] + "/img/rmllogo.jpg");
