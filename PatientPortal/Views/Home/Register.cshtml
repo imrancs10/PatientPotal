@@ -308,7 +308,7 @@
                                         <input type="text" class="register-input" id="user_OTP" placeholder="Enter OTP Here" value="" name="OTP" data-valid="required">
                                     </div>
                                 </div>
-                               <div class="col-sm-4 col-lg-4">
+                                <div class="col-sm-4 col-lg-4">
                                     <div class="form-group">
                                         <a href="~/Home/ResendOTP" style="float:right;width:165px;font-weight: bold;margin-top:12px;" class="not-active" id="resendOtp">Resend OTP</a>
                                     </div>
@@ -356,10 +356,14 @@
         var otpButton = $('#resendOtp');
         var otpScreen = GetQueryStringParams('actionName');
         if (otpScreen == 'getotpscreen') {
+            var interval = setInterval(function () { otpButton.html("Resend OTP" + "(" + (40 - (++second)) + ")"); }, 1000);
             setTimeout(function () {
                 otpButton.removeClass('not-active');
                 otpButton.addClass('active');
+                clearInterval(interval);
+                otpButton.html("Resend OTP");
             }, 40000);
+            var second = 0;
         }
 
         function GetQueryStringParams(sParam) {
