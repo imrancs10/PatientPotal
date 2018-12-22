@@ -221,6 +221,7 @@ namespace PatientPortal.Controllers
 
             string ResponseUrl = Convert.ToString(ConfigurationManager.AppSettings["ResponseUrl"]);
             string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+            baseUrl = baseUrl.Replace(":82", "");
             try
             {
                 ReqMsgDTO objReqMsgDTO;
@@ -613,7 +614,7 @@ namespace PatientPortal.Controllers
             {
                 string passwordCreateURL = "Home/CreatePassword?id=" + CryptoEngine.Encrypt(serialNumber);
                 string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
-
+                baseUrl = baseUrl.Replace(":82", "");
                 Message msg = new Message()
                 {
                     MessageTo = info.Email,
@@ -935,7 +936,7 @@ namespace PatientPortal.Controllers
             {
                 string passwordCreateURL = "Home/ResetPassword?resetCode=" + resetCode;
                 string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
-
+                baseUrl = baseUrl.Replace(":82", "");
                 Message msg = new Message()
                 {
                     MessageTo = patient.Email,
