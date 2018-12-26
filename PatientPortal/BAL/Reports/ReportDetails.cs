@@ -87,7 +87,7 @@ namespace PatientPortal.BAL.Reports
                     newLedger.Description = getBillType(currentLedger.vtype);
                     newLedger.IPNo = currentLedger.ipno;
                     newLedger.Payment = currentLedger.netamt.ToString();
-                    newLedger.Receipt = currentLedger.receiptno;
+                    newLedger.Receipt = currentLedger.netamt.ToString();
                     newLedger.Type = currentLedger.vtype;
                     newLedger.VNo = currentLedger.vno;
                     ledgerList.Add(newLedger);

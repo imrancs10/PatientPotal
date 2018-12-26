@@ -108,7 +108,7 @@
                                         @*<td>@item.Type</td>*@
                                         <td>@item.VNo</td>
                                         <td>@item.Description</td>
-                                        @if (Array.IndexOf(new string[] { "PH", "SV" }, item.Type) > -1)
+                                        @if (Array.IndexOf(new string[] { "PH", "SV" , "SP" }, item.Type) > -1)
                                         {
                                             <td>@item.Payment</td>
                                             <td></td>
