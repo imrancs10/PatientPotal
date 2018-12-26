@@ -877,7 +877,7 @@ namespace PatientPortal.Controllers
             if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
             {
                 SetAlertMessage("Please Enter correct Email Address", "Register");
-                return RedirectToAction("Register");
+                return RedirectToAction("MyProfile");
             }
             else
             {
@@ -886,8 +886,8 @@ namespace PatientPortal.Controllers
                 {
                     image = new byte[photo.ContentLength];
                     photo.InputStream.Read(image, 0, photo.ContentLength);
-                    var img = new WebImage(image).Resize(2000, 2000, true, true);
-                    image = img.GetBytes();
+                    //var img = new WebImage(image).Resize(2000, 2000, true, true);
+                    //image = img.GetBytes();
                 }
                 Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, Convert.ToInt32(User.Id), image, aadharNumber);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
