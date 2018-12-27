@@ -1,6 +1,5 @@
 ﻿using PatientPortal.BAL.Reports;
 using PatientPortal.Global;
-using PatientPortal.Infrastructure.Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +7,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Mvc;
 
 namespace PatientPortal.Controllers
@@ -129,7 +127,7 @@ namespace PatientPortal.Controllers
             return responseFile;
         }
 
-        public ActionResult ViewBillingReport(string Id,string type)
+        public ActionResult ViewBillingReport(string Id, string type)
         {
             var url = ConfigurationManager.AppSettings["HISBillReportUrl"] + "?billid=" + CryptoEngine.Decrypt(Convert.ToString(Id)) + "&vtype=" + CryptoEngine.Decrypt(Convert.ToString(type));
 
@@ -138,11 +136,11 @@ namespace PatientPortal.Controllers
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
             StreamReader responseStream = new StreamReader(response.GetResponseStream());
-            
+
             string resultado = responseStream.ReadToEnd();
-            resultado = resultado.Replace("img/rmllogo.jpg", 
+            resultado = resultado.Replace("img/rmllogo.jpg",
                                            ConfigurationManager.AppSettings["HISBillReportBaseUrl"] + "/img/rmllogo.jpg");
-            return Content(resultado); 
+            return Content(resultado);
         }
         public ActionResult ViewLabReport(string Id)
         {
@@ -175,5 +173,44 @@ namespace PatientPortal.Controllers
             var imageBytes = ms.ToArray();
             return File(imageBytes, response.ContentType);
         }
+        //[HttpPost]
+        //public ActionResult PatientLedgerPaymentReport()
+        //{
+        //    ReportDetails _details = new ReportDetails();
+        //    //return View(_details.GetPatientLedger());
+        //    var draw = Request.Form.GetValues("draw").FirstOrDefault();
+        //    var start = Request.Form.GetValues("start").FirstOrDefault();
+        //    var length = Request.Form.GetValues("length").FirstOrDefault();
+        //    //Find Order Column
+        //    var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+        //    var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+        //    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+        //    int skip = start != null ? Convert.ToInt32(start) : 0;
+        //    int recordsTotal = 0;
+        //    // dc.Configuration.LazyLoadingEnabled = false; // if your table is relational, contain foreign key
+        //    var ledgerData = _details.GetPatientLedger().Where(x => x.Type == "GP" || x.Type == "GR").ToList();
+        //    ledgerData.ForEach(x =>
+        //    {
+        //        if (x.Type == "GP")
+        //        {
+        //            x.Receipt = "";
+        //        }
+        //        else
+        //        {
+        //            x.Payment = "";
+        //        }
+        //    });
+        //    //SORT
+        //    if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+        //    {
+        //        //v = v.OrderBy(sortColumn + " " + sortColumnDir);
+        //        ledgerData = ledgerData.OrderBy(x => x.Description).ToList();
+        //    }
+
+        //    recordsTotal = ledgerData.Count();
+        //    var data = ledgerData.Skip(skip).Take(pageSize).ToList();
+        //    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+        //}
     }
 }

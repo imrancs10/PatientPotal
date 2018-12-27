@@ -181,3 +181,6 @@ Error Number:53,State:0,Class:20
 2018-12-01 20:56:25,600 [18] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
 2018-12-01 20:56:25,600 [18] DEBUG PatientPortal.Controllers.HomeController Send SMS started
 2018-12-01 20:56:26,400 [18] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
+2018-12-27 01:24:54,628 [73] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-12-27 01:24:59,366 [51] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-12-27 22:07:49,264 [8] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
