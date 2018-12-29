@@ -111,8 +111,8 @@
         <div class="container1">
             <div class="navbar-header" style="width:100%;">
                 <div class="row">
-                    <div class="col-md-8 blink" style="font-family:Georgia !important;">@Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
-                    <div class="col-md-4 blink hidden-xs"><h5 style="color:#fff;margin-left:95px;font-family:Georgia !important;">Helpline No:- 0522-6663002</h5></div>
+                    <div class="col-md-8" style="font-family:Georgia !important;">@Html.ActionLink(hospitalName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
+                    <div class="col-md-4 hidden-xs"><h5 style="color:#fff;margin-left:95px;font-family:Georgia !important;">Helpline No:- 0522-6663002</h5></div>
                 </div>
 
                 @*<div style="float:right">
@@ -354,7 +354,7 @@
         <hr class="text-center navbar-fixed-bottom" />
         <footer class="text-center navbar-fixed-bottom">
             <p>
-                &copy; @DateTime.Now.Year - Patient Portal || Total Number of visitors: @ApplicationInstance.Application["Totaluser"]
+                Powered by Uptron Powertronics Limited (Undertaking of Government) &copy; @DateTime.Now.Year - Patient Portal || Total Number of visitors: @ApplicationInstance.Application["Totaluser"]
                 <!--Online Visitors:<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/433806/t/5"></script>-->
             </p>
         </footer>
