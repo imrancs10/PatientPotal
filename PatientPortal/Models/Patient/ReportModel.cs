@@ -23,5 +23,6 @@ namespace PatientPortal.Models.Patient
         public string Payment { get; set; }
         public string Receipt { get; set; }
         public string Balance { get; set; }
+        public string SaleType { get; set; }
     }
 }

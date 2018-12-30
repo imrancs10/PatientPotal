@@ -86,10 +86,11 @@ namespace PatientPortal.BAL.Reports
                     newLedger.Date = currentLedger.billdate == null ? DateTime.Now : Convert.ToDateTime(currentLedger.billdate);
                     newLedger.Description = getBillType(currentLedger.vtype);
                     newLedger.IPNo = currentLedger.ipno;
-                    newLedger.Payment = currentLedger.netamt.ToString();
-                    newLedger.Receipt = currentLedger.netamt.ToString();
+                    newLedger.Payment = Math.Round(currentLedger.netamt.Value, 2).ToString();
+                    newLedger.Receipt = Math.Round(currentLedger.netamt.Value, 2).ToString();
                     newLedger.Type = currentLedger.vtype;
                     newLedger.VNo = currentLedger.vno;
+                    newLedger.SaleType = !string.IsNullOrEmpty(currentLedger.saletype) ? currentLedger.saletype.ToUpper() : string.Empty;
                     ledgerList.Add(newLedger);
                 }
             }
@@ -118,6 +119,9 @@ namespace PatientPortal.BAL.Reports
                     break;
                 case "SR":
                     desc = "Sales Return";
+                    break;
+                case "RS":
+                    desc = "RS";
                     break;
             }
             return desc;

@@ -19,6 +19,10 @@ namespace PatientPortal.Controllers
         {
             ReportDetails _details = new ReportDetails();
             List<DataLayer.PateintLeadger> result = _details.GetBillReportData();
+            result.ForEach(x =>
+            {
+                x.netamt = Math.Round(x.netamt.Value, 2);
+            });
             return View(result);
         }
 
@@ -26,13 +30,19 @@ namespace PatientPortal.Controllers
         public ActionResult DuplicateBillingReport()
         {
             ReportDetails _details = new ReportDetails();
-            return View(_details.GetBillReportData());
+            var result = _details.GetBillReportData();
+            result.ForEach(x =>
+            {
+                x.netamt = Math.Round(x.netamt.Value, 2);
+            });
+            return View(result);
         }
 
         public ActionResult ReportViewing()
         {
             ReportDetails _details = new ReportDetails();
-            return View(_details.GetLabReportData());
+            var result = _details.GetLabReportData();
+            return View(result);
         }
 
         public ActionResult PatientLedger()

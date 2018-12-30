@@ -41,42 +41,42 @@
                                 <th>Date</th>
                                 <th>I.P. No.</th>
                                 @*
-                                <th>Type</th>*@
+                                    <th>Type</th>*@
                                 <th>V. No</th>
                                 <th>Description</th>
                                 <th>Payment</th>
                                 <th>Receipt</th>
                                 @*
-                                <th>Balance</th>*@
+                                    <th>Balance</th>*@
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (PatientLedgerModel item in Model)
                             {
-                            if (Array.IndexOf(new string[] { "GR", "GP" }, item.Type) > -1)
-                            {
-                            <tr>
-                                <td>@item.Date.ToShortDateString()</td>
-                                <td>@item.IPNo</td>
-                                @*
-                                <td>@item.Type</td>*@
-                                <td>@item.VNo</td>
-                                <td>@item.Description</td>
-                                @if (Array.IndexOf(new string[] { "GP" }, item.Type) > -1)
+                                if (Array.IndexOf(new string[] { "GR", "GP" }, item.Type) > -1)
                                 {
-                                <td>@item.Payment</td>
-                                <td></td>
-                                }
-                                else if (Array.IndexOf(new string[] { "GR" }, item.Type) > -1)
-                                {
-                                <td></td>
-                                <td>@item.Receipt</td>
-                                }
+                                    <tr>
+                                        <td>@item.Date.ToShortDateString()</td>
+                                        <td>@item.IPNo</td>
+                                        @*
+                                            <td>@item.Type</td>*@
+                                        <td>@item.VNo</td>
+                                        <td>@item.Description</td>
+                                        @if (Array.IndexOf(new string[] { "GP" }, item.Type) > -1)
+                                        {
+                                            <td>@item.Payment</td>
+                                            <td></td>
+                                        }
+                                        else if (Array.IndexOf(new string[] { "GR" }, item.Type) > -1)
+                                        {
+                                            <td></td>
+                                            <td>@item.Receipt</td>
+                                        }
 
-                                @*
-                                <td>@item.Balance</td>*@
-                            </tr>
-                            }
+                                        @*
+                                            <td>@item.Balance</td>*@
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>
@@ -104,7 +104,7 @@
                         <tbody>
                             @foreach (PatientLedgerModel item in Model)
                             {
-                                if (Array.IndexOf(new string[] { "PH", "SV", "PHR", "SR" }, item.Type) > -1)
+                                if (Array.IndexOf(new string[] { "PH", "SV", "PHR", "SR", "RS" }, item.Type) > -1 && item.SaleType == "PHR")
                                 {
                                     <tr>
                                         <td>@item.Date.ToShortDateString()</td>
@@ -117,7 +117,7 @@
                                             <td>@item.Payment</td>
                                             <td></td>
                                         }
-                                        else if (Array.IndexOf(new string[] { "PHR", "SR" }, item.Type) > -1)
+                                        else if (Array.IndexOf(new string[] { "PHR", "SR", "RS" }, item.Type) > -1)
                                         {
                                             <td></td>
                                             <td>@item.Receipt</td>
@@ -173,8 +173,8 @@
 </script>
 
 @*@section Scripts
-{*@
-    @*<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    {*@
+@*<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
             $("#PaymentLedgerReport").DataTable({
