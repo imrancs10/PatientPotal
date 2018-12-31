@@ -101,9 +101,10 @@
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
     
 }
-#hoeapp-container[hoe-color-type="lpanel-bg2"] #hoe-left-panel .profile-box {
-    border-bottom: 1px solid #3ea2e5;
-}
+    #hoeapp-container[hoe-color-type="lpanel-bg2"] #hoe-left-panel .profile-box {
+        border-bottom: 1px solid #3ea2e5;
+        background: #b5afaf;
+    }
 #hoeapp-container[hoe-color-type="lpanel-bg2"].hoe-minimized-lpanel #hoe-left-panel .profile-box {
     border-bottom: 0px;
 }
