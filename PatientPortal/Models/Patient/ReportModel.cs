@@ -15,7 +15,7 @@ namespace PatientPortal.Models.Patient
 
     public class PatientLedgerModel
     {
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string IPNo { get; set; }
         public string Type { get; set; }
         public string VNo { get; set; }

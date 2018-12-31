@@ -83,7 +83,7 @@ namespace PatientPortal.BAL.Reports
                 {
                     PatientLedgerModel newLedger = new PatientLedgerModel();
                     newLedger.Balance = currentLedger.subtotal.ToString();
-                    newLedger.Date = currentLedger.billdate == null ? DateTime.Now : Convert.ToDateTime(currentLedger.billdate);
+                    newLedger.Date = currentLedger.billdate == null ? DateTime.Now.ToString("dd/MM/yyyy") : Convert.ToDateTime(currentLedger.billdate).ToString("dd/MM/yyyy");
                     newLedger.Description = getBillType(currentLedger.vtype);
                     newLedger.IPNo = currentLedger.ipno;
                     newLedger.Payment = Math.Round(currentLedger.netamt.Value, 2).ToString();

@@ -183,44 +183,75 @@ namespace PatientPortal.Controllers
             var imageBytes = ms.ToArray();
             return File(imageBytes, response.ContentType);
         }
-        //[HttpPost]
-        //public ActionResult PatientLedgerPaymentReport()
-        //{
-        //    ReportDetails _details = new ReportDetails();
-        //    //return View(_details.GetPatientLedger());
-        //    var draw = Request.Form.GetValues("draw").FirstOrDefault();
-        //    var start = Request.Form.GetValues("start").FirstOrDefault();
-        //    var length = Request.Form.GetValues("length").FirstOrDefault();
-        //    //Find Order Column
-        //    var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
-        //    var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+        [HttpPost]
+        public ActionResult PatientLedgerPaymentReport()
+        {
+            ReportDetails _details = new ReportDetails();
+            //return View(_details.GetPatientLedger());
+            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var start = Request.Form.GetValues("start").FirstOrDefault();
+            var length = Request.Form.GetValues("length").FirstOrDefault();
+            //Find Order Column
+            //var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            //var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
 
-        //    int pageSize = length != null ? Convert.ToInt32(length) : 0;
-        //    int skip = start != null ? Convert.ToInt32(start) : 0;
-        //    int recordsTotal = 0;
-        //    // dc.Configuration.LazyLoadingEnabled = false; // if your table is relational, contain foreign key
-        //    var ledgerData = _details.GetPatientLedger().Where(x => x.Type == "GP" || x.Type == "GR").ToList();
-        //    ledgerData.ForEach(x =>
-        //    {
-        //        if (x.Type == "GP")
-        //        {
-        //            x.Receipt = "";
-        //        }
-        //        else
-        //        {
-        //            x.Payment = "";
-        //        }
-        //    });
-        //    //SORT
-        //    if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
-        //    {
-        //        //v = v.OrderBy(sortColumn + " " + sortColumnDir);
-        //        ledgerData = ledgerData.OrderBy(x => x.Description).ToList();
-        //    }
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+            var ledgerData = _details.GetPatientLedger().Where(x => x.Type == "GP" || x.Type == "GR").ToList();
+            ledgerData.ForEach(x =>
+            {
+                if (x.Type == "GP")
+                {
+                    x.Receipt = "";
+                }
+                else
+                {
+                    x.Payment = "";
+                }
+            });
+            //SORT
+            //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+            //{
+            //    //v = v.OrderBy(sortColumn + " " + sortColumnDir);
+            //    ledgerData = ledgerData.OrderByDescending(x => x.Date).ToList();
+            //}
 
-        //    recordsTotal = ledgerData.Count();
-        //    var data = ledgerData.Skip(skip).Take(pageSize).ToList();
-        //    return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
-        //}
+            recordsTotal = ledgerData.Count();
+            var data = ledgerData.Skip(skip).Take(pageSize).ToList();
+            return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult PatientLedgerFormacyReport()
+        {
+            ReportDetails _details = new ReportDetails();
+            //return View(_details.GetPatientLedger());
+            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var start = Request.Form.GetValues("start").FirstOrDefault();
+            var length = Request.Form.GetValues("length").FirstOrDefault();
+            //Find Order Column
+            //var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            //var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+            var ledgerData = _details.GetPatientLedger().Where(x => x.Type == "PH" || x.Type == "SV" || x.Type == "PHR" || x.Type == "SR" || x.Type == "RS").ToList();
+            ledgerData.ForEach(x =>
+            {
+                if (x.Type == "PH" || x.Type == "SV" || x.Type == "SP")
+                {
+                    x.Receipt = "";
+                }
+                else
+                {
+                    x.Payment = "";
+                }
+            });
+
+            recordsTotal = ledgerData.Count();
+            var data = ledgerData.Skip(skip).Take(pageSize).ToList();
+            return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
