@@ -14,50 +14,52 @@
                 <div class="panel-heading">Report Viewing</div>
                 <div class="panel-body">
                     <input type="hidden" name="fileurl" id="_fileurl" value="" />
-                    <table class="table table-bordered table-hover table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>Reference No</th>
-                                <th>Lab Name</th>
-                                <th>Bill No.</th>
-                                <th>Date</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{
-                                foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.Labref</td>
-                                        <td>@item.LabName</td>
-                                        <td>@item.BillNo</td>
-                                        <td>@Convert.ToDateTime(item.ReportDate).ToString("dd/MM/yyyy")</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                @if (!string.IsNullOrEmpty(Convert.ToString(item.Labref)))
-                                                {
-                                                    var labref = CryptoEngine.Encrypt(Convert.ToString(item.Labref));
-                                                    <div class="btn-group">
-                                                        <a href="~/Report/ViewLabReport?Id=@labref" id="_view" target="_blank" class="btn btn-primary">View</a>
-                                                        <a href="~/Report/DownloadFile?Id=@labref" id="_download" target="_blank" class="btn btn-primary">Download</a>
-                                                        @if (item.LabName.ToLower().Contains("radiology"))
-                                                        {
-                                                            <a href="~/Report/ViewRadiologyLabReport?Id=@labref" target="_blank" class="btn btn-primary">View Lab Image</a>
-                                                        }
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <text>No Reports</text>
-                                                }
-                                            </div>
-                                        </td>
-                                    </tr>
+                    <div class="table table-responsive">
+                        <table class="table table-bordered table-hover table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Reference No</th>
+                                    <th>Lab Name</th>
+                                    <th>Bill No.</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Labref</td>
+                                            <td>@item.LabName</td>
+                                            <td>@item.BillNo</td>
+                                            <td>@Convert.ToDateTime(item.ReportDate).ToString("dd/MM/yyyy")</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    @if (!string.IsNullOrEmpty(Convert.ToString(item.Labref)))
+                                                    {
+                                                        var labref = CryptoEngine.Encrypt(Convert.ToString(item.Labref));
+                                                        <div class="btn-group">
+                                                            <a href="~/Report/ViewLabReport?Id=@labref" id="_view" target="_blank" class="btn btn-primary">View</a>
+                                                            <a href="~/Report/DownloadFile?Id=@labref" id="_download" target="_blank" class="btn btn-primary">Download</a>
+                                                            @if (item.LabName.ToLower().Contains("radiology"))
+                                                            {
+                                                                <a href="~/Report/ViewRadiologyLabReport?Id=@labref" target="_blank" class="btn btn-primary">View Lab Image</a>
+                                                            }
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>No Reports</text>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
                                 }
-                            }
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

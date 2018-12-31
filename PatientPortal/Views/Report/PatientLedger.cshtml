@@ -35,42 +35,44 @@
                 <div class="panel-heading">Patient Leadger (Payment Receipts & Payment Given)<div style="margin-top:-7px;" class="pull-right"><input class="btn btn-info" type="button" value="Print" id="btnPrint" /> </div> </div>
                 <div class="panel-body">
                     <input type="hidden" name="fileurl" id="_fileurl" value="" />
-                    <table class="table table-bordered table-hover table-responsive table-striped" id="PaymentLedgerReport">
-                        @*<thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>I.P. No.</th>
-                                <th>V. No</th>
-                                <th>Description</th>
-                                <th>Payment</th>
-                                <th>Receipt</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (PatientLedgerModel item in Model)
-                            {
-                                if (Array.IndexOf(new string[] { "GR", "GP" }, item.Type) > -1)
-                                {
+                    <div class="table table-responsive">
+                        <table class="table table-bordered table-hover table-responsive table-striped" id="PaymentLedgerReport">
+                            @*<thead>
                                     <tr>
-                                        <td>@item.Date.ToShortDateString()</td>
-                                        <td>@item.IPNo</td>
-                                        <td>@item.VNo</td>
-                                        <td>@item.Description</td>
-                                        @if (Array.IndexOf(new string[] { "GP" }, item.Type) > -1)
-                                        {
-                                            <td>@item.Payment</td>
-                                            <td></td>
-                                        }
-                                        else if (Array.IndexOf(new string[] { "GR" }, item.Type) > -1)
-                                        {
-                                            <td></td>
-                                            <td>@item.Receipt</td>
-                                        }
+                                        <th>Date</th>
+                                        <th>I.P. No.</th>
+                                        <th>V. No</th>
+                                        <th>Description</th>
+                                        <th>Payment</th>
+                                        <th>Receipt</th>
                                     </tr>
-                                }
-                            }
-                        </tbody>*@
-                    </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (PatientLedgerModel item in Model)
+                                    {
+                                        if (Array.IndexOf(new string[] { "GR", "GP" }, item.Type) > -1)
+                                        {
+                                            <tr>
+                                                <td>@item.Date.ToShortDateString()</td>
+                                                <td>@item.IPNo</td>
+                                                <td>@item.VNo</td>
+                                                <td>@item.Description</td>
+                                                @if (Array.IndexOf(new string[] { "GP" }, item.Type) > -1)
+                                                {
+                                                    <td>@item.Payment</td>
+                                                    <td></td>
+                                                }
+                                                else if (Array.IndexOf(new string[] { "GR" }, item.Type) > -1)
+                                                {
+                                                    <td></td>
+                                                    <td>@item.Receipt</td>
+                                                }
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>*@
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,42 +81,44 @@
                 <div class="panel-heading">Patient Leadger (Procedure & Medicine)</div>
                 <div class="panel-body">
                     <input type="hidden" name="fileurl" id="_fileurl" value="" />
-                    <table class="table table-bordered table-hover table-responsive table-striped" id="MedicinLedgerReport">
-                        @*<thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>I.P. No.</th>
-                                <th>V. No</th>
-                                <th>Description</th>
-                                <th>Payment</th>
-                                <th>Receipt</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (PatientLedgerModel item in Model)
-                            {
-                                if (Array.IndexOf(new string[] { "PH", "SV", "PHR", "SR", "RS" }, item.Type) > -1 && item.SaleType == "PHR")
-                                {
+                    <div class="table table-responsive">
+                        <table class="table table-bordered table-hover table-responsive table-striped" id="MedicinLedgerReport">
+                            @*<thead>
                                     <tr>
-                                        <td>@item.Date.ToShortDateString()</td>
-                                        <td>@item.IPNo</td>
-                                        <td>@item.VNo</td>
-                                        <td>@item.Description</td>
-                                        @if (Array.IndexOf(new string[] { "PH", "SV", "SP" }, item.Type) > -1)
-                                        {
-                                            <td>@item.Payment</td>
-                                            <td></td>
-                                        }
-                                        else if (Array.IndexOf(new string[] { "PHR", "SR", "RS" }, item.Type) > -1)
-                                        {
-                                            <td></td>
-                                            <td>@item.Receipt</td>
-                                        }
+                                        <th>Date</th>
+                                        <th>I.P. No.</th>
+                                        <th>V. No</th>
+                                        <th>Description</th>
+                                        <th>Payment</th>
+                                        <th>Receipt</th>
                                     </tr>
-                                }
-                            }
-                        </tbody>*@
-                    </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (PatientLedgerModel item in Model)
+                                    {
+                                        if (Array.IndexOf(new string[] { "PH", "SV", "PHR", "SR", "RS" }, item.Type) > -1 && item.SaleType == "PHR")
+                                        {
+                                            <tr>
+                                                <td>@item.Date.ToShortDateString()</td>
+                                                <td>@item.IPNo</td>
+                                                <td>@item.VNo</td>
+                                                <td>@item.Description</td>
+                                                @if (Array.IndexOf(new string[] { "PH", "SV", "SP" }, item.Type) > -1)
+                                                {
+                                                    <td>@item.Payment</td>
+                                                    <td></td>
+                                                }
+                                                else if (Array.IndexOf(new string[] { "PHR", "SR", "RS" }, item.Type) > -1)
+                                                {
+                                                    <td></td>
+                                                    <td>@item.Receipt</td>
+                                                }
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>*@
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,7 +165,7 @@
 
 @section Scripts
     {
-<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
             //Payment report

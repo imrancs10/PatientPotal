@@ -188,6 +188,7 @@ body{position:relative;}
 }
 .form-group {
     margin-bottom: 6px !important;
+    margin-left:15px;
 }
 
     .form-group div {

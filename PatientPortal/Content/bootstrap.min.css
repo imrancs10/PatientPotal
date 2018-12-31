@@ -4873,7 +4873,7 @@ a.list-group-item {
 }
 
 .panel-body {
-    padding: 15px
+    padding: 15px;
 }
 
     .panel-body:before, .panel-body:after {

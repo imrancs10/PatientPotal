@@ -25,80 +25,84 @@
                     </div>
                 </div>
                 <div class="pp-card step2">
-                    <table class="table table-bordered table-responsive text-center" id="appointTable">
-                        <thead>
-                            <tr>
-                                <th colspan="7">
-                                    <span id="spanDeptName"></span>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th colspan="7">
-                                    <div class="btn-group pull-left" role="group" aria-label="...">
-                                        <button type="button" class="btn btn-default"  title="Go to Department selection screen" id="btnStep1">Back</button>
-                                        <button type="button" class="btn btn-default" title="Current selected Month-Year" id="lblmonthyear">Previous</button>
-                                        <button type="button" id="btnToday"  title="Go to Today's Date" class="btn btn-info">Today</button>
-                                    </div>
-                                    <div class="btn-group pull-right" role="group" aria-label="...">
-                                        <button type="button" id="premonth" title="Go to Previous Month" class="btn btn-default">Previous</button>
-                                        <button type="button" class="btn btn-success">Available</button>
-                                        <button type="button" class="btn btn-danger">Not Available</button>
-                                        <button type="button" class="btn btn-warning">Holiday</button>
-                                        <button type="button" id="nextmonth" class="btn btn-default" title="Go to Next Month" data-currentmonth="0">Next</button>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="cal-header">SUN</td>
-                                <td class="cal-header">MON</td>
-                                <td class="cal-header">TUE</td>
-                                <td class="cal-header">WED</td>
-                                <td class="cal-header">THU</td>
-                                <td class="cal-header">FRI</td>
-                                <td class="cal-header">SAT</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table table-responsive">
+                        <table class="table table-bordered table-responsive text-center" id="appointTable">
+                            <thead>
+                                <tr>
+                                    <th colspan="7">
+                                        <span id="spanDeptName"></span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="7">
+                                        <div class="btn-group pull-left" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-default" title="Go to Department selection screen" id="btnStep1">Back</button>
+                                            <button type="button" class="btn btn-default" title="Current selected Month-Year" id="lblmonthyear">Previous</button>
+                                            <button type="button" id="btnToday" title="Go to Today's Date" class="btn btn-info">Today</button>
+                                        </div>
+                                        <div class="btn-group pull-right" role="group" aria-label="...">
+                                            <button type="button" id="premonth" title="Go to Previous Month" class="btn btn-default">Previous</button>
+                                            <button type="button" class="btn btn-success">Available</button>
+                                            <button type="button" class="btn btn-danger">Not Available</button>
+                                            <button type="button" class="btn btn-warning">Holiday</button>
+                                            <button type="button" id="nextmonth" class="btn btn-default" title="Go to Next Month" data-currentmonth="0">Next</button>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="cal-header">SUN</td>
+                                    <td class="cal-header">MON</td>
+                                    <td class="cal-header">TUE</td>
+                                    <td class="cal-header">WED</td>
+                                    <td class="cal-header">THU</td>
+                                    <td class="cal-header">FRI</td>
+                                    <td class="cal-header">SAT</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="pp-card step3">
-                    <table class="table table-bordered table-responsive text-center" id="appointDoctorTable">
-                        <thead>
-                            <tr>
-                                <th colspan="3">
-                                    <div class="btn-group pull-left" role="group" aria-label="...">
-                                        <button type="button" data-data="" title="Go to Date selection screen" class="btn btn-info" id="btnStep2">Back</button>
-                                        <button type="button" data-data="" class="btn btn-warning" id="spanDepartment">Back</button>
-                                        <button type="button" data-data="" class="btn btn-warning" id="spanDate">Back</button>
-                                    </div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th class="cal-header" style="width:100px">Sr. No.</th>
-                                <th class="cal-header" style="width:250px">Doctor Name</th>
-                                <th class="cal-header">Available Schedule</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="cal-header">Sr. No.</td>
-                                <td class="cal-header">Doctor Name</td>
-                                <td class="cal-header">Available Schedule</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th class="text-center" colspan="3">
-                                    <span class="pull-left" id="selectAppointmant">
-                                    </span>
-                                    <div class="btn-group pull-right" role="group" aria-label="...">
-                                        <button type="button" data-data="" id="btnGetAppointment" class="btn btn-primary">Confirm Appointment</button>
-                                    </div>
-                                </th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <div class="table table-responsive">
+                        <table class="table table-bordered table-responsive text-center" id="appointDoctorTable">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">
+                                        <div class="btn-group pull-left" role="group" aria-label="...">
+                                            <button type="button" data-data="" title="Go to Date selection screen" class="btn btn-info" id="btnStep2">Back</button>
+                                            <button type="button" data-data="" class="btn btn-warning" id="spanDepartment">Back</button>
+                                            <button type="button" data-data="" class="btn btn-warning" id="spanDate">Back</button>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="cal-header" style="width:100px">Sr. No.</th>
+                                    <th class="cal-header" style="width:250px">Doctor Name</th>
+                                    <th class="cal-header">Available Schedule</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="cal-header">Sr. No.</td>
+                                    <td class="cal-header">Doctor Name</td>
+                                    <td class="cal-header">Available Schedule</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="text-center" colspan="3">
+                                        <span class="pull-left" id="selectAppointmant">
+                                        </span>
+                                        <div class="btn-group pull-right" role="group" aria-label="...">
+                                            <button type="button" data-data="" id="btnGetAppointment" class="btn btn-primary">Confirm Appointment</button>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

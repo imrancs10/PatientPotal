@@ -202,3 +202,68 @@ Error Number:53,State:0,Class:20
 2018-12-29 12:39:34,803 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
 2018-12-29 12:41:03,590 [11] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
 2018-12-29 12:42:55,730 [32] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-12-31 16:03:54,870 [5] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:07:34,095 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:09:40,167 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:11:24,814 [12] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:12:45,861 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:13:31,015 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:14:30,688 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:17:19,078 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:17:52,774 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:18:08,103 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:20:32,763 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:25:47,914 [17] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2018-12-31 16:31:43,400 [5] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:32:29,755 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:32:36,008 [7] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:34:27,211 [7] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82
+2018-12-31 16:36:05,046 [14] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 20
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 82

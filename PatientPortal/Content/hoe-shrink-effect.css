@@ -28,8 +28,9 @@ padding-right: 50px;
     left: 0px;
 }
 
-#hoeapp-container[hoe-lpanel-effect="shrink"] #main-content{
-	margin-left: 180px;
+#hoeapp-container[hoe-lpanel-effect="shrink"] #main-content {
+    margin-left: 180px;
+    width: 270px;
 }
 #hoeapp-container[hoe-lpanel-effect="shrink"].hoe-minimized-lpanel #main-content {
     margin-left: 50px;
@@ -45,6 +46,7 @@ padding-right: 50px;
     }
     #hoeapp-container[hoe-lpanel-effect="shrink"] #main-content {
         margin-left: 280px;
+        width: 80%;
     }
-
+    
 }

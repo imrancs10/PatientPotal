@@ -38,44 +38,46 @@
                     int index = 1;
                     if (patients != null && patients.Any())
                     {
-                        <table class="table table-bordered table-hover table-responsive text-center" id="doctorTable">
-                            <thead>
+                <div class="table table-responsive">
+                    <table class="table table-bordered table-hover table-responsive text-center" id="doctorTable">
+                        <thead>
+                            <tr>
+                                <th class="hidden"></th>
+                                <th>Action</th>
+                                <th style="width:6%">Sr. No.</th>
+                                <th>Registration No</th>
+                                <th>Name</th>
+                                <th>Father/Husband</th>
+                                <th>Deaprtment</th>
+                                <th>Email</th>
+                                <th>Mobile Number</th>
+                                <th>Gender</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var patient in patients)
+                            {
                                 <tr>
-                                    <th class="hidden"></th>
-                                    <th>Action</th>
-                                    <th style="width:6%">Sr. No.</th>
-                                    <th>Registration No</th>
-                                    <th>Name</th>
-                                    <th>Father/Husband</th>
-                                    <th>Deaprtment</th>
-                                    <th>Email</th>
-                                    <th>Mobile Number</th>
-                                    <th>Gender</th>
-                                    <th>Address</th>
+                                    <td class="hidden">@patient.PatientId</td>
+                                    <td>
+                                        <a class="btn" onclick="labreport.openModal(this)" name="btnAdd">Upload Report</a>
+                                    </td>
+                                    <td>@index</td>
+                                    <td>@patient.RegistrationNumber</td>
+                                    <td>@patient.FirstName @patient.MiddleName @patient.LastName</td>
+                                    <td>@patient.FatherOrHusbandName</td>
+                                    <td>@patient.Department.DepartmentName</td>
+                                    <td>@patient.Email</td>
+                                    <td>@patient.MobileNumber</td>
+                                    <td>@patient.Gender</td>
+                                    <td>@patient.Address</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var patient in patients)
-                                {
-                                    <tr>
-                                        <td class="hidden">@patient.PatientId</td>
-                                        <td>
-                                            <a class="btn" onclick="labreport.openModal(this)" name="btnAdd">Upload Report</a>
-                                        </td>
-                                        <td>@index</td>
-                                        <td>@patient.RegistrationNumber</td>
-                                        <td>@patient.FirstName @patient.MiddleName @patient.LastName</td>
-                                        <td>@patient.FatherOrHusbandName</td>
-                                        <td>@patient.Department.DepartmentName</td>
-                                        <td>@patient.Email</td>
-                                        <td>@patient.MobileNumber</td>
-                                        <td>@patient.Gender</td>
-                                        <td>@patient.Address</td>
-                                    </tr>
-                                    index = index + 1;
-                                }
-                            </tbody>
-                        </table>
+                                index = index + 1;
+                            }
+                        </tbody>
+                    </table>
+                </div>
                     }
                     else
                     {

@@ -17,45 +17,47 @@
                 <div class="panel-heading">Billing Reports</div>
                 <div class="panel-body">
                     <input type="hidden" name="fileurl" id="_fileurl" value="" />
-                    <table class="table table-bordered table-hover table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>Bill Date</th>
-                                <th>Bill No</th>
-                                <th>Bill Type</th>
-                                <th>Amount</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{
-                                foreach (var item in Model)
-                                {
+                    <div class="table table-responsive">
+                        <table class="table table-bordered table-hover table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Bill Date</th>
+                                    <th>Bill No</th>
+                                    <th>Bill Type</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
 
-                                    <tr>
-                                        <td>@item.billdate.ToString("dd/MM/yyyy")</td>
-                                        <td>@item.billno</td>
-                                        <td title="'+javascript:getBillType(@item.vtype)+'">@item.vtype</td>
-                                        <td>@item.netamt</td>
-                                        <td>
-                                            <div>
-                                                @if (!string.IsNullOrEmpty(Convert.ToString(item.Billid)))
-                                                {
-                                                    <div class="btn-group">
-                                                        <a href="ViewBillingReport?Id=@CryptoEngine.Encrypt(item.Billid.ToString())&type=@CryptoEngine.Encrypt(item.vtype.ToString())" id="_view" target="_blank" class="btn btn-primary">View/Download</a>
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <text>No Reports</text>
-                                                }
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>@item.billdate.ToString("dd/MM/yyyy")</td>
+                                            <td>@item.billno</td>
+                                            <td title="'+javascript:getBillType(@item.vtype)+'">@item.vtype</td>
+                                            <td>@item.netamt</td>
+                                            <td>
+                                                <div>
+                                                    @if (!string.IsNullOrEmpty(Convert.ToString(item.Billid)))
+                                                    {
+                                                        <div class="btn-group">
+                                                            <a href="ViewBillingReport?Id=@CryptoEngine.Encrypt(item.Billid.ToString())&type=@CryptoEngine.Encrypt(item.vtype.ToString())" id="_view" target="_blank" class="btn btn-primary">View/Download</a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>No Reports</text>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
                                 }
-                            }
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="panel-footer">
                     *SV-Procedure/Diagnostic Billing,

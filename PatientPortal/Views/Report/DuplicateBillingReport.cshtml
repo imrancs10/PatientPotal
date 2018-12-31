@@ -21,35 +21,36 @@
                 <div class="panel-heading">Duplicate Billing Reports</div>
                 <div class="panel-body">
                     <input type="hidden" name="fileurl" id="_fileurl" value="" />
-                    <table class="table table-bordered table-hover table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>Bill Date</th>
-                                <th>Bill No</th>
-                                <th>Bill Type</th>
-                                <th>Amount</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{
-                                foreach (var item in Model)
-                                {
+                    <div class="table table-responsive">
+                        <table class="table table-bordered table-hover table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Bill Date</th>
+                                    <th>Bill No</th>
+                                    <th>Bill Type</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
 
-                                    <tr>
-                                        <td>@item.billdate.ToShortDateString()</td>
-                                        <td>@item.billno</td>
-                                        <td title="'+javascript:getBillType(@item.vtype)+'">@item.vtype</td>
-                                        <td>@item.netamt</td>
-                                        <td>
-                                            <button type="button" onclick="printReport(this)" class="btn btn-primary">Duplicate Receipt</button>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>@item.billdate.ToShortDateString()</td>
+                                            <td>@item.billno</td>
+                                            <td title="'+javascript:getBillType(@item.vtype)+'">@item.vtype</td>
+                                            <td>@item.netamt</td>
+                                            <td>
+                                                <button type="button" onclick="printReport(this)" class="btn btn-primary">Duplicate Receipt</button>
+                                            </td>
+                                        </tr>
+                                    }
                                 }
-                            }
-                        </tbody>
-                    </table>
-
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="panel-footer">
                     *SV-Procedure/Diagnostic Billing,

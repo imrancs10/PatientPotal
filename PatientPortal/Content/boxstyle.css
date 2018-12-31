@@ -14,7 +14,7 @@
         background: #ffffff;
         border-radius: 5px;
         position: relative;
-        width: 168px;
+        width: 100%;
         margin-bottom: 10px;
     }
 
@@ -322,7 +322,7 @@
     .innercontentDashboard .dataBoxSec .dataBox {
         border-radius: 5px;
         position: relative;
-        width: 260px;
+        width: 100%;
         margin-bottom:15px;
     }
 }
