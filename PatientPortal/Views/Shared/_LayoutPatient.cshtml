@@ -237,11 +237,11 @@
                                 Current Balance Rs:
                                 @if (patientOPDInfo != null)
                                 {
-                                    @Convert.ToString(patientOPDInfo.CurrBal)
+                                    @Math.Round(Convert.ToDecimal(patientOPDInfo.CurrBal),2);
                                 }
                                 else
                                 {
-                                    @Convert.ToString("0")
+                                    @Math.Round(Convert.ToDecimal("0.00"),2);
                                 }
                             </small>
                         </div>
