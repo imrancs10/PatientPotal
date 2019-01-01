@@ -1,5 +1,6 @@
 ﻿using PatientPortal.BAL.Reports;
 using PatientPortal.Global;
+using PatientPortal.Models.Patient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -190,18 +191,35 @@ namespace PatientPortal.Controllers
         public ActionResult PatientLedgerPaymentReport()
         {
             ReportDetails _details = new ReportDetails();
-            //return View(_details.GetPatientLedger());
             var draw = Request.Form.GetValues("draw").FirstOrDefault();
             var start = Request.Form.GetValues("start").FirstOrDefault();
             var length = Request.Form.GetValues("length").FirstOrDefault();
-            //Find Order Column
-            //var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
-            //var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
-
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
-            var ledgerData = _details.GetPatientLedger().Where(x => x.Type == "GP" || x.Type == "GR").ToList();
+            List<PatientLedgerModel> ledgerData;
+            string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            if (!string.IsNullOrEmpty(filterDateRange))
+            {
+                DateTime FromDate = DateTime.Now.AddMonths(-6);
+                bool isOKfromdate = DateTime.TryParseExact(filterDateRange.Split('#')[0], "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result);
+                if (isOKfromdate)
+                {
+                    FromDate = result;
+                }
+                DateTime ToDate = DateTime.Now;
+                bool isOKtodate = DateTime.TryParseExact(filterDateRange.Split('#')[1], "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime resultTo);
+                if (isOKfromdate)
+                {
+                    ToDate = resultTo;
+                }
+                ledgerData = _details.GetPatientLedger(FromDate, ToDate).Where(x => x.Type == "GP" || x.Type == "GR").ToList();
+            }
+            else
+            {
+                ledgerData = _details.GetPatientLedger().Where(x => x.Type == "GP" || x.Type == "GR").ToList();
+            }
+
             ledgerData.ForEach(x =>
             {
                 if (x.Type == "GP")
@@ -213,13 +231,6 @@ namespace PatientPortal.Controllers
                     x.Payment = "";
                 }
             });
-            //SORT
-            //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
-            //{
-            //    //v = v.OrderBy(sortColumn + " " + sortColumnDir);
-            //    ledgerData = ledgerData.OrderByDescending(x => x.Date).ToList();
-            //}
-
             recordsTotal = ledgerData.Count();
             var data = ledgerData.Skip(skip).Take(pageSize).ToList();
             return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
@@ -228,18 +239,34 @@ namespace PatientPortal.Controllers
         public ActionResult PatientLedgerFormacyReport()
         {
             ReportDetails _details = new ReportDetails();
-            //return View(_details.GetPatientLedger());
             var draw = Request.Form.GetValues("draw").FirstOrDefault();
             var start = Request.Form.GetValues("start").FirstOrDefault();
             var length = Request.Form.GetValues("length").FirstOrDefault();
-            //Find Order Column
-            //var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
-            //var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
-
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
-            var ledgerData = _details.GetPatientLedger().Where(x => x.Type == "PH" || x.Type == "SV" || x.Type == "PHR" || x.Type == "SR" || x.Type == "RS").ToList();
+            List<PatientLedgerModel> ledgerData;
+            string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            if (!string.IsNullOrEmpty(filterDateRange))
+            {
+                DateTime FromDate = DateTime.Now.AddMonths(-6);
+                bool isOKfromdate = DateTime.TryParseExact(filterDateRange.Split('#')[0], "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result);
+                if (isOKfromdate)
+                {
+                    FromDate = result;
+                }
+                DateTime ToDate = DateTime.Now;
+                bool isOKtodate = DateTime.TryParseExact(filterDateRange.Split('#')[1], "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime resultTo);
+                if (isOKfromdate)
+                {
+                    ToDate = resultTo;
+                }
+                ledgerData = _details.GetPatientLedger(FromDate, ToDate).Where(x => x.Type == "PH" || x.Type == "SV" || x.Type == "PHR" || x.Type == "SR" || x.Type == "RS").ToList();
+            }
+            else
+            {
+                ledgerData = _details.GetPatientLedger().Where(x => x.Type == "PH" || x.Type == "SV" || x.Type == "PHR" || x.Type == "SR" || x.Type == "RS").ToList();
+            }
             ledgerData.ForEach(x =>
             {
                 if (x.Type == "PH" || x.Type == "SV" || x.Type == "SP")

@@ -381,11 +381,9 @@
 
     <script>
         $(document).ready(function () {
-            debugger
             $('li.active').removeClass('active');
             $('#hoeapp-container a[href]').each(function (ind, ele) {
                 if ($(ele).attr('href').toLowerCase().indexOf(location.pathname.toLowerCase()) > -1) {
-                    debugger
                     $(ele).parent().addClass('active');
                     $(ele).prepend('<span class="selected"></span>');
                     if ($(ele).parent().parent().parent().prop('class') == 'hoe-has-menu')
@@ -394,7 +392,6 @@
             });
 
             $('.hoe-sub-menu').parent().click(function () {
-                debugger
                 var ul = $(this).find('.hoe-sub-menu');
                 if ($(ul).is(':visible'))
                     $(ul).hide();
