@@ -76,6 +76,9 @@ namespace PatientPortal.Controllers
             ReportDetails _details = new ReportDetails();
             List<Models.Patient.PatientLedgerModel> leaders = _details.GetPatientLedger(FromDate, ToDate);
             return View("PatientLedger", leaders);
+
+
+
         }
 
         public ActionResult DownloadReportFile(string fileUrl)
