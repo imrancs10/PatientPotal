@@ -121,7 +121,10 @@ namespace PatientPortal.BAL.Reports
                     desc = "Sales Return";
                     break;
                 case "RS":
-                    desc = "RS";
+                    desc = "Pharmacy Return";
+                    break;
+                case "SP":
+                    desc = "Pharmacy Billing";
                     break;
             }
             return desc;

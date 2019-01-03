@@ -261,11 +261,11 @@ namespace PatientPortal.Controllers
                 {
                     ToDate = resultTo;
                 }
-                ledgerData = _details.GetPatientLedger(FromDate, ToDate).Where(x => x.Type == "PH" || x.Type == "SV" || x.Type == "PHR" || x.Type == "SR" || x.Type == "RS").ToList();
+                ledgerData = _details.GetPatientLedger(FromDate, ToDate).Where(x => x.Type == "PH" || x.Type == "SV" || x.Type == "SP" || x.Type == "PHR" || x.Type == "SR" || x.Type == "RS").ToList();
             }
             else
             {
-                ledgerData = _details.GetPatientLedger().Where(x => x.Type == "PH" || x.Type == "SV" || x.Type == "PHR" || x.Type == "SR" || x.Type == "RS").ToList();
+                ledgerData = _details.GetPatientLedger().Where(x => x.Type == "PH" || x.Type == "SV" || x.Type == "SP" || x.Type == "PHR" || x.Type == "SR" || x.Type == "RS").ToList();
             }
             ledgerData.ForEach(x =>
             {
