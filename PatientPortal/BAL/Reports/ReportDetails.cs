@@ -17,7 +17,15 @@ namespace PatientPortal.BAL.Reports
         {
             _db = new PatientPortalEntities();
             var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == WebSession.PatientId).FirstOrDefault();
-            return _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && x.schemeid == 0).OrderByDescending(x => x.billdate).ToList();
+            var result = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && x.schemeid == 0).OrderByDescending(x => x.billdate).ToList();
+            result.ForEach(x =>
+            {
+                x.netamt = Math.Round(x.netamt.Value, 2);
+                x.godcode = CryptoEngine.Encrypt(Convert.ToString(x.Billid));
+                x.vno = CryptoEngine.Encrypt(x.vtype);
+                x.salemode = x.billdate.ToString("dd/MM/yyyy");
+            });
+            return result;
         }
 
         public Enums.CrudStatus SetBillReportData(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount, string BillID)
@@ -60,7 +68,14 @@ namespace PatientPortal.BAL.Reports
         {
             _db = new PatientPortalEntities();
             var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == WebSession.PatientId).FirstOrDefault();
-            return _db.LabreportPdfs.Where(x => x.pid == patientInfo.pid).OrderBy(x => x.Labref).ToList();
+            _db.Configuration.LazyLoadingEnabled = false;
+            var result = _db.LabreportPdfs.Where(x => x.pid == patientInfo.pid).OrderBy(x => x.Labref).ToList();
+            result.ForEach(x =>
+            {
+                x.vno = CryptoEngine.Encrypt(x.Labref);
+                x.Location = x.ReportDate.Value.ToString("dd/MM/yyyy");
+            });
+            return result;
         }
 
         public List<PatientLedgerModel> GetPatientLedger(DateTime? fromDate = null, DateTime? toDate = null)

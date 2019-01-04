@@ -2,10 +2,7 @@
 @using System.Configuration;
 @using PatientPortal.Global;
 
-@model List<PateintLeadger>
 @{
-    /**/
-
     ViewBag.Title = "Billing Report";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
 }
@@ -18,45 +15,7 @@
                 <div class="panel-body">
                     <input type="hidden" name="fileurl" id="_fileurl" value="" />
                     <div class="table table-responsive">
-                        <table class="table table-bordered table-hover table-responsive table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Bill Date</th>
-                                    <th>Bill No</th>
-                                    <th>Bill Type</th>
-                                    <th>Amount</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    foreach (var item in Model)
-                                    {
-
-                                        <tr>
-                                            <td>@item.billdate.ToString("dd/MM/yyyy")</td>
-                                            <td>@item.billno</td>
-                                            <td title="'+javascript:getBillType(@item.vtype)+'">@item.vtype</td>
-                                            <td>@item.netamt</td>
-                                            <td>
-                                                <div>
-                                                    @if (!string.IsNullOrEmpty(Convert.ToString(item.Billid)))
-                                                    {
-                                                        <div class="btn-group">
-                                                            <a href="ViewBillingReport?Id=@CryptoEngine.Encrypt(item.Billid.ToString())&type=@CryptoEngine.Encrypt(item.vtype.ToString())" id="_view" target="_blank" class="btn btn-primary">View/Download</a>
-                                                        </div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <text>No Reports</text>
-                                                    }
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
+                        <table class="table table-bordered table-hover table-responsive table-striped" id="labreportTable"></table>
                     </div>
                 </div>
                 <div class="panel-footer">
@@ -85,15 +44,41 @@
         var billType = _billType[_type];
         return billType === undefined ? 'Not Define' : billType;
     }
-    //$(document).on('click', '[id*="_download"]', function () {
-    //    $('#_form').attr('action', '/Report/DownloadReportFile');
-    //    $('#_fileurl').val($(this).data('url'));
-    //    $('#_form').submit();
-    //});
-
-    //$(document).on('click', '[id*="view"]', function () {
-    //    $('#_form').attr('action', '/Report/ViewReportFile');
-    //    $('#_fileurl').val($(this).data('url'));
-    //    // $('#_form').submit();
-    //});
 </script>
+<link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#labreportTable").DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": false, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ordering": false,
+            "pageLength": 50,
+            "ajax": {
+                "url": "/Report/GetBillingReportAsync",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "salemode", "name": "salemode", "autoWidth": true, "title": "Bill Date" },
+                { "data": "billno", "name": "billno", "autoWidth": true, "title": "Bill No" },
+                { "data": "vtype", "name": "vtype", "autoWidth": true, "title": "Bill Type" },
+                { "data": "netamt", "name": "netamt", "autoWidth": true, "title": "Amount" },
+                {
+                    "title": "Action",
+                    "render": function (data, type, full, meta) {
+                        return '<a id="_view" target="_blank" class="btn btn-primary" href="ViewBillingReport?Id=' + full.godcode + '&type=' + full.vno + '">View/Download</a>';
+                    }
+                },
+            ]
+        });
+    });
+</script>
+<style>
+    #labreportTable td, #labreportTable th {
+        border-bottom: 0px;
+        border-right: 0px;
+    }
+</style>

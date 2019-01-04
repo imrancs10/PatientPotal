@@ -18,13 +18,25 @@ namespace PatientPortal.Controllers
         [HttpGet]
         public ActionResult GetBillingReport()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetBillingReportAsync()
+        {
             ReportDetails _details = new ReportDetails();
-            List<DataLayer.PateintLeadger> result = _details.GetBillReportData();
-            result.ForEach(x =>
-            {
-                x.netamt = Math.Round(x.netamt.Value, 2);
-            });
-            return View(result);
+            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var start = Request.Form.GetValues("start").FirstOrDefault();
+            var length = Request.Form.GetValues("length").FirstOrDefault();
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+            string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            var result = _details.GetBillReportData();
+
+            recordsTotal = result.Count();
+            var data = result.Skip(skip).Take(pageSize).ToList();
+            return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -41,9 +53,24 @@ namespace PatientPortal.Controllers
 
         public ActionResult ReportViewing()
         {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ReportViewingAsync()
+        {
             ReportDetails _details = new ReportDetails();
+            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var start = Request.Form.GetValues("start").FirstOrDefault();
+            var length = Request.Form.GetValues("length").FirstOrDefault();
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+            string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
             var result = _details.GetLabReportData();
-            return View(result);
+
+            recordsTotal = result.Count();
+            var data = result.Skip(skip).Take(pageSize).ToList();
+            return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PatientLedger()
