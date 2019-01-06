@@ -109,6 +109,16 @@ namespace PatientPortal.Global
             get { return HttpContext.Current.Session["PatientMobile"] == null ? string.Empty : HttpContext.Current.Session["PatientMobile"].ToString(); }
             set { HttpContext.Current.Session["PatientMobile"] = value; }
         }
+        public static string PatientAddress
+        {
+            get { return HttpContext.Current.Session["PatientAddress"] == null ? string.Empty : HttpContext.Current.Session["PatientAddress"].ToString(); }
+            set { HttpContext.Current.Session["PatientAddress"] = value; }
+        }
+        public static string PatientCity
+        {
+            get { return HttpContext.Current.Session["PatientCity"] == null ? string.Empty : HttpContext.Current.Session["PatientCity"].ToString(); }
+            set { HttpContext.Current.Session["PatientCity"] = value; }
+        }
 
         public static string PatientGender
         {

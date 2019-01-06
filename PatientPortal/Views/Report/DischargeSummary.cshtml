@@ -1,0 +1,59 @@
+﻿@using DataLayer
+@using System.Configuration;
+@using PatientPortal.Global;
+@using PatientPortal.Models;
+@model List<DischargeSummaryModel>
+@{
+    ViewBag.Title = "Discharge Summary";
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+<form id="_form">
+    <div class="" style="padding-top:20px;">
+        <div class="col-sm-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Discharge Summary</div>
+                <div class="panel-body">
+                    <input type="hidden" name="fileurl" id="_fileurl" value="" />
+                    <div class="table table-responsive">
+                        <table class="table table-bordered table-hover table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>IP Number</th>
+                                    <th>Admit Date</th>
+                                    <th>Admit Time</th>
+                                    <th>Discharge Date</th>
+                                    <th>Doctor</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.ipno</td>
+                                            <td>@item.AdmitDate</td>
+                                            <td>@Convert.ToDateTime(item.admittime).ToShortTimeString()</td>
+                                            <td>@item.DischargeDate</td>
+                                            <td>@item.DoctorName</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="/Report/ViewDischargeSummaryReport" target="_blank" class="btn btn-primary">View Report</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+

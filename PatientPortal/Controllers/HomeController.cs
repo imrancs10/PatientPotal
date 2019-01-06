@@ -1353,7 +1353,7 @@ namespace PatientPortal.Controllers
         {
             DepartmentDetails _details = new DepartmentDetails();
             var result = _details.DepartmentList();
-            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail("0");
+            var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail("0", (Convert.ToInt32(OPDTypeEnum.OPD)).ToString());
             DepartmentOPDModel model = new DepartmentOPDModel()
             {
                 Departments = result,

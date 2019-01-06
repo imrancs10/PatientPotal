@@ -7,7 +7,12 @@ namespace PatientPortal.Global
 {
     public static class Enums
     {
-
+        public enum OPDTypeEnum
+        {
+            IPD = 1,
+            OPD = 2,
+            DischargeSummary = 3
+        }
         public enum MasterLookupEnum
         {
             HelpLineNo,

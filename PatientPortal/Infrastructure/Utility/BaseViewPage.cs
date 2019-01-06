@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static PatientPortal.Global.Enums;
 
 namespace PatientPortal.Infrastructure.Utility
 {
@@ -70,7 +71,7 @@ namespace PatientPortal.Infrastructure.Utility
             if (User != null)
             {
                 string crNumber = string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientRegNo : WebSession.PatientCRNo;
-                var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail(crNumber);
+                var opdDetail = (new WebServiceIntegration()).GetPatientOPDDetail(crNumber, (Convert.ToInt32(OPDTypeEnum.IPD)).ToString());
                 return opdDetail;
             }
             return null;

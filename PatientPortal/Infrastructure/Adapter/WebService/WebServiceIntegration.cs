@@ -69,17 +69,20 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
             return str;
         }
 
-        public PDModel GetPatientOPDDetail(string crNumber)
+        public PDModel GetPatientOPDDetail(string crNumber, string type)
         {
             try
             {
                 GetPatOpdDetails service = new GetPatOpdDetails();
-                var result = service.GetPatientOPDDetails(crNumber);
+                var result = service.GetPatientOPDDetails(crNumber, type);
                 if (result.ToLower().Contains("no record"))
                     return null;
                 Serializer serilizer = new Serializer();
                 result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
-                return serilizer.Deserialize<PDModel>(result, "Table1");
+                if (type == "3")
+                    return serilizer.Deserialize<DischargeSummaryModel>(result, "Table1");
+                else
+                    return serilizer.Deserialize<PDModel>(result, "Table1");
             }
             catch (System.Exception ex)
             {

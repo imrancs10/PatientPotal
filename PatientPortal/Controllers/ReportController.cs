@@ -1,5 +1,7 @@
 ﻿using PatientPortal.BAL.Reports;
 using PatientPortal.Global;
+using PatientPortal.Infrastructure.Adapter.WebService;
+using PatientPortal.Models;
 using PatientPortal.Models.Patient;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using static PatientPortal.Global.Enums;
 
 namespace PatientPortal.Controllers
 {
@@ -309,6 +312,27 @@ namespace PatientPortal.Controllers
             recordsTotal = ledgerData.Count();
             var data = ledgerData.Skip(skip).Take(pageSize).ToList();
             return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DischargeSummary()
+        {
+            var report = (new WebServiceIntegration()).GetPatientOPDDetail("PP:2018/098723", 
+                                                                    (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString());
+            List<DischargeSummaryModel> list = new List<DischargeSummaryModel>();
+            list.Add(report as DischargeSummaryModel);
+            return View(list);
+        }
+        public ActionResult ViewDischargeSummaryReport()
+        {
+            var report = (new WebServiceIntegration()).GetPatientOPDDetail("PP:2018/098723", 
+                                            (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString()) as DischargeSummaryModel;
+            report.CRNumber = WebSession.PatientCRNo;
+            report.Name = WebSession.PatientName;
+            report.Gender = WebSession.PatientGender;
+            report.Address = WebSession.PatientAddress;
+            report.City = WebSession.PatientCity;
+            report.MobileNumber = WebSession.PatientMobile;
+            return View(report);
         }
     }
 }

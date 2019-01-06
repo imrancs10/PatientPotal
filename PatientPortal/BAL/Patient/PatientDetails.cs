@@ -19,7 +19,7 @@ namespace PatientPortal.BAL.Patient
             _db = new PatientPortalEntities();
             Dictionary<string, object> resultDic = new Dictionary<string, object>();
             //string hashPassword = Utility.GetHashString(Password);
-            var result = _db.PatientInfoes.Include(x => x.Department)
+            var result = _db.PatientInfoes.Include(x => x.Department).Include(x => x.City)
                                     .Include(x => x.PatientLoginEntries)
                                     .Where(x => (x.RegistrationNumber == UserId || x.CRNumber == UserId)
                                          && x.Password == Password
@@ -36,6 +36,8 @@ namespace PatientPortal.BAL.Patient
                 WebSession.PatientDOB = result.DOB == null ? default(DateTime).ToShortDateString() : Convert.ToDateTime(result.DOB).ToShortDateString();
                 WebSession.PatientGender = result.Gender;
                 WebSession.PatientMobile = result.MobileNumber;
+                WebSession.PatientAddress = result.Address;
+                WebSession.PatientCity = result.City.CityName;
                 WebSession.PatientName = string.Format("{0} {1}", result.FirstName, result.LastName);
                 DateTime zeroTime = new DateTime(1, 1, 1);
 
