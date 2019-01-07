@@ -316,7 +316,7 @@ namespace PatientPortal.Controllers
 
         public ActionResult DischargeSummary()
         {
-            var report = (new WebServiceIntegration()).GetPatientOPDDetail("PP:2018/098723", 
+            var report = (new WebServiceIntegration()).GetPatientOPDDetail(WebSession.PatientCRNo, 
                                                                     (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString());
             List<DischargeSummaryModel> list = new List<DischargeSummaryModel>();
             list.Add(report as DischargeSummaryModel);
@@ -324,7 +324,7 @@ namespace PatientPortal.Controllers
         }
         public ActionResult ViewDischargeSummaryReport()
         {
-            var report = (new WebServiceIntegration()).GetPatientOPDDetail("PP:2018/098723", 
+            var report = (new WebServiceIntegration()).GetPatientOPDDetail(WebSession.PatientCRNo, 
                                             (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString()) as DischargeSummaryModel;
             report.CRNumber = WebSession.PatientCRNo;
             report.Name = WebSession.PatientName;
