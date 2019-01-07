@@ -7,294 +7,155 @@
     ViewBag.Title = "Discharge Summary";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
 }
-<form id="_form">
-    <div class="" style="padding-top:20px;">
-        <div class="col-sm-12 col-lg-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Discharge Summary</div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="col-md-4">
+<div class="" style="padding-top:20px;">
+    <div class="col-sm-12 col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Discharge Summary
+                <div style="margin-top:-7px;" class="pull-right"><input class="btn btn-info" type="button" value="Print" id="btnPrint" /> </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-4" style="display:table;">
+                                    <div style="display:table-cell;vertical-align:middle;">
                                         <img src="~/img/hospital-logo.png" alt="logo" style="float:right;width:80px;height:80px;" />
                                     </div>
-                                    <div class="col-md-4">
-                                        <p><b>Dr. Ram Manohar Lohia Institute of Medical Sciences</b></p>
-                                        <p>Vibhuti Khand, Gomti Nagar, Lucknow - 226010</p>
-                                        <p>Ph. No: 0522 - 4918555,504 Fax No. 0522-4918506</p>
-                                        <p style="font-size:14px;"><b>Department of Medicine</b></p>
-                                        <p style="font-size:12px;"><b>Discharge Summary</b></p>
-                                    </div>
-                                    <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <p><b>Dr. Ram Manohar Lohia Institute of Medical Sciences</b></p>
+                                    <p>Vibhuti Khand, Gomti Nagar, Lucknow - 226010</p>
+                                    <p>Ph. No: 0522 - 4918555,504 Fax No. 0522-4918506</p>
+                                    <p style="font-size:14px;"><b>Department of Medicine</b></p>
+                                    <p style="font-size:12px;"><b>Discharge Summary</b></p>
+                                </div>
+                                <div class="col-md-4">
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        IP No :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.ipno
-                                    </div>
-                                    <div class="col-md-3">
-                                        Patient No :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.CRNumber
-                                    </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    IP No :
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        Patient's Name :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.Name
-                                    </div>
-                                    <div class="col-md-3">
-                                        Admission Date :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.AdmitDate
-                                    </div>
+                                <div class="col-md-3">
+                                    @Model.ipno
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        Age/Sex :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.iage/@Model.Gender
-                                    </div>
-                                    <div class="col-md-3">
-                                        Discharge Date :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.DischargeDate
-                                    </div>
+                                <div class="col-md-3">
+                                    Patient No :
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        Address :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.Address
-                                    </div>
-                                    <div class="col-md-3">
-                                        Phone No :
-                                    </div>
-                                    <div class="col-md-3">
+                                <div class="col-md-3">
+                                    @Model.CRNumber
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Patient's Name :
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.Name
+                                </div>
+                                <div class="col-md-3">
+                                    Admission Date :
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.AdmitDate
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Age/Sex :
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.iage/@Model.Gender
+                                </div>
+                                <div class="col-md-3">
+                                    Discharge Date :
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.DischargeDate
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Address :
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.Address
+                                </div>
+                                <div class="col-md-3">
+                                    Phone No :
+                                </div>
+                                <div class="col-md-3">
 
-                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        City :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.City
-                                    </div>
-                                    <div class="col-md-3">
-                                        Mobile No :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.MobileNumber
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    City :
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        Discharge Doctor :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.DoctorName
-                                    </div>
-                                    <div class="col-md-3">
-                                        Bed No :
-                                    </div>
-                                    <div class="col-md-3">
-                                        @Model.BedNo
-                                    </div>
+                                <div class="col-md-3">
+                                    @Model.City
+                                </div>
+                                <div class="col-md-3">
+                                    Mobile No :
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.MobileNumber
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    Discharge Doctor :
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.DoctorName
+                                </div>
+                                <div class="col-md-3">
+                                    Bed No :
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.BedNo
                                 </div>
                             </div>
                         </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-md-12">
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <B>
-                                        <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                            Diagnosis:-
-                                        </SPAN>
-                                    </B>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        &nbsp;
-                                        Symptomatic GSD with Thick walled GB with choledocholithiasis
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                    </SPAN>
-                                    <B>
-                                        <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                            Clinical Summary:-
-                                        </SPAN>
-                                    </B>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        A 50 year old average built female admitted with c/o abdominal pain x 2 months, vomiting few days back.
-                                        <BR>
-                                        H/o Hysterectomy&nbsp; x 9 years back.<BR>MRF: Hypertension (recently detected)<BR>No h/o DM/CAD.
-                                        <BR>
-                                        No h/o fever jaundice.
-                                        <BR>No h/o&nbsp;previous surgery.
-                                        <BR>
-                                    </SPAN>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        P/A-&nbsp; No mass, non tender.
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                    </SPAN>
-                                    <B>
-                                        <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>Outcome:-</SPAN>
-                                    </B>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:> Improving.</SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                    </SPAN>
-                                    <B>
-                                        <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                            Operative / Procedure Notes
-                                        </SPAN>
-                                    </B>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Date:-25/12/2018
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                    </SPAN>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                    </SPAN>
-                                    <B>
-                                        <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                            Procedure:-
-                                        </SPAN>
-                                    </B>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        &nbsp;
-                                        <STRONG>ERCP stone extraction and stenting</STRONG>
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:></SPAN>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        S
-                                        <B>
-                                            erological/Immunological/biological:- HIV/HCV/HBsAg-Negative
-                                            <BR>X-Ray chest:-WNL
-                                        </B>
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        <STRONG>CA 19.9- 107.13.<BR>CEA- 1.01<BR>TSH-6.07.<BR>HBA1C- 5.9%</STRONG>
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        <STRONG>
-                                            ERCP :- (03/01/2019) IMP:-
-                                        </STRONG> Choledocholithiasis- ERCP+ CBD clarance+ stenting done.
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        <STRONG>TRIPHASIC CT : ABDOMEN (29/12/2018) IMP:-</STRONG>
-                                        Cholelithiasis with choledocholithiasis. Asymmetric focal thickening of gall bladder walls. Mildly enlarged portocaval, cystic and periportal lymphnodes. Duodenal diverticulum. Bilateral renal artery aneurysms.
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        <STRONG>MRI: UPPER ABDOMEN &amp; MRCP:- (29/12/2018) IMP:-</STRONG>
-                                        Cholelithiasis with choledocholithiasis . Asymmetric focal thickening of gall bladder walls. Mildly enlarged portocaval, cystic and periportal lymphnodes. Duodenal diverticulum.
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal align=justify auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN>
-                                        <STRONG>
-                                            <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                                &nbsp;
-                                            </SPAN>&nbsp;Hospital Course:-
-                                        </STRONG>
-                                        The patient was admitted for evaluation. Cross sectional imaging showed e/o thick walled GB suspicious of&nbsp;neoplasia, along&nbsp;with lower CBD calculus. Hence ERCP clearance with stenting done. She is planned for discharge with advise to f/u after 2 weeks for definitive surgery.
-                                    </SPAN>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        &nbsp;
-                                    </SPAN>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                    </SPAN>
-                                    <B>
-                                        <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>ADVICE ON DISCHARGE</SPAN>
-                                    </B>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        :
-                                        <BR>
-                                        High protein Diet,&nbsp;
-                                        <BR>
-                                        Tab. Pantop&nbsp;40mg 1 tab OD (E/S)<BR>Tab. Drotin DS&nbsp;1 tab BD <BR>
-                                    </SPAN>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        Tab. Emset 8mg 1 tab&nbsp;SOS (for vomiting)
-                                        <BR>
-                                        Tab. Udiliv 300mg 1 tabTDS.<BR>Tab. Tazaloc 40mg.<BR>Syp. Duphalac 30ml HS.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal align=justify auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        <STRONG>
-                                            PLAN:<BR>
-                                        </STRONG>Lucknow approach.
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        Follow up after&nbsp;14 days in SGE OPD on Tuesday/Friday.
-                                    </SPAN>
-                                </P>
-                                <P class=MsoNormal auto?? mso-margin-bottom-alt: auto; mso-margin-top-alt: 10pt; 0in MARGIN: normal; LINE-HEIGHT:>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                    </SPAN>
-                                    <B>
-                                        <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                            Resident I/c Utkarsh Srivastava/ Suneed kumar/ Shibumon M.M.
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            Surgeon I/c Shakeel Masood.
-                                        </SPAN>
-                                    </B>
-                                    <SPAN Roman??? New ?Times mso-fareast-font-family: 12pt; FONT-SIZE: Roman?,?serif?; FONT-FAMILY:>
-                                        <?xml :namespace prefix=o ?>
-                                        <o:p>
-                                        </o:p>
-                                    </SPAN>
-                                </P>
-                            </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.Raw(@Model.Matter);
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</form>
+</div>
 
+<script>
+    $(document).on('click', '#btnPrint', function () {
+        var pageTitle = 'Discharge Summary Report';
+        stylesheet = '//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
+            win = window.open('', 'Print', 'width=500,height=300');
+        var dd = $('.panel-body').clone();
 
+        win.document.write('<html><head><title>' + pageTitle + '</title>' +
+            '<link rel="stylesheet" href="' + stylesheet + '">' +
+            '</head><body style="font-size=11px;"><div>' + dd.html() + '</div></body ></html > ');
+
+        //win.document.close();
+        //win.print();
+        //win.close();
+        return false;
+    });
+
+</script>
 
 
 
