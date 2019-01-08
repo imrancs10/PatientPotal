@@ -152,7 +152,8 @@ namespace PatientPortal.Controllers
 
         public ActionResult DownloadFile(string Id)
         {
-            string url = ConfigurationManager.AppSettings["HISLabReportUrl"] + "/" + CryptoEngine.Decrypt(Convert.ToString(Id)) + ".pdf";
+            string dbURL = CryptoEngine.Decrypt(Convert.ToString(Id)).Replace("~/LabRepPdf", "");
+            string url = ConfigurationManager.AppSettings["HISLabReportUrl"] + dbURL;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -188,7 +189,8 @@ namespace PatientPortal.Controllers
         }
         public ActionResult ViewLabReport(string Id)
         {
-            string url = ConfigurationManager.AppSettings["HISLabReportUrl"] + "/" + CryptoEngine.Decrypt(Convert.ToString(Id)) + ".pdf";
+            string dbURL = CryptoEngine.Decrypt(Convert.ToString(Id)).Replace("~/LabRepPdf", "");
+            string url = ConfigurationManager.AppSettings["HISLabReportUrl"] + dbURL;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -316,7 +318,7 @@ namespace PatientPortal.Controllers
 
         public ActionResult DischargeSummary()
         {
-            var report = (new WebServiceIntegration()).GetPatientOPDDetail(WebSession.PatientCRNo, 
+            var report = (new WebServiceIntegration()).GetPatientOPDDetail(WebSession.PatientCRNo,
                                                                     (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString());
             List<DischargeSummaryModel> list = new List<DischargeSummaryModel>();
             list.Add(report as DischargeSummaryModel);
@@ -324,7 +326,7 @@ namespace PatientPortal.Controllers
         }
         public ActionResult ViewDischargeSummaryReport()
         {
-            var report = (new WebServiceIntegration()).GetPatientOPDDetail(WebSession.PatientCRNo, 
+            var report = (new WebServiceIntegration()).GetPatientOPDDetail(WebSession.PatientCRNo,
                                             (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString()) as DischargeSummaryModel;
             report.CRNumber = WebSession.PatientCRNo;
             report.Name = WebSession.PatientName;

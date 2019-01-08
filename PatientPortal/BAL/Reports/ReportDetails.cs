@@ -72,7 +72,7 @@ namespace PatientPortal.BAL.Reports
             var result = _db.LabreportPdfs.Where(x => x.pid == patientInfo.pid).OrderBy(x => x.Labref).ToList();
             result.ForEach(x =>
             {
-                x.vno = CryptoEngine.Encrypt(x.Labref);
+                x.vno = CryptoEngine.Encrypt(x.Url);
                 x.Location = x.ReportDate.Value.ToString("dd/MM/yyyy");
             });
             return result;
