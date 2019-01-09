@@ -254,6 +254,7 @@ appointment.binddoctor = function (day, date) {
 }
 
 function Timelist(ele, appList) {
+    debugger
     appList = appList.length > 0 ? appList : [{ 'a': 0 }];
     var html = '';
     let appointmentSlotValue = isNaN(parseInt($('#hdnAppointmentPeriodInMinuts').val())) ? 30 : parseInt($('#hdnAppointmentPeriodInMinuts').val());

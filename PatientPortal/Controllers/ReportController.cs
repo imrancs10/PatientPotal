@@ -318,26 +318,26 @@ namespace PatientPortal.Controllers
 
         public ActionResult DischargeSummary()
         {
-            PDModel report = (new WebServiceIntegration()).GetPatientOPDDetail(
-                                                    !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo,
+            var reports = (new WebServiceIntegration()).GetDischargeSummaryDetail(
+                                                    "pp:2014/029822",
                                                     (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString());
-            List<DischargeSummaryModel> list = new List<DischargeSummaryModel>
-            {
-                report as DischargeSummaryModel
-            };
-            return View(list);
+            //List<DischargeSummaryModel> list = new List<DischargeSummaryModel>
+            //{
+            //    report as DischargeSummaryModel
+            //};
+            TempData["reports"] = reports;
+            return View(reports);
         }
-        public ActionResult ViewDischargeSummaryReport()
+        public ActionResult ViewDischargeSummaryReport(string ipNo)
         {
-            DischargeSummaryModel report = (new WebServiceIntegration()).GetPatientOPDDetail(
-                                            !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo,
-                                            (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString()) as DischargeSummaryModel;
-            report.CRNumber = !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo;
-            report.Name = WebSession.PatientName;
-            report.Gender = WebSession.PatientGender;
-            report.Address = WebSession.PatientAddress;
-            report.City = WebSession.PatientCity;
-            report.MobileNumber = WebSession.PatientMobile;
+            var reports = TempData["reports"] as List<DischargeSummaryModel>;
+            var report = reports.Where(x => x.ipno == ipNo).FirstOrDefault();
+            //report.CRNumber = !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo;
+            //report.Name = WebSession.PatientName;
+            //report.Gender = WebSession.PatientGender;
+            //report.Address = WebSession.PatientAddress;
+            //report.City = WebSession.PatientCity;
+            //report.MobileNumber = WebSession.PatientMobile;
             return View(report);
         }
     }

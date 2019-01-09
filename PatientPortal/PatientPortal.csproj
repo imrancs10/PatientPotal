@@ -247,6 +247,7 @@
     <Compile Include="Models\Common\CommonModel.cs" />
     <Compile Include="Models\DepartmentOPDModel.cs" />
     <Compile Include="Models\DischargeSummaryModel.cs" />
+    <Compile Include="Models\MyCustomer.cs" />
     <Compile Include="Models\PDModel.cs" />
     <Compile Include="Models\Masters\AppSettingModel.cs" />
     <Compile Include="Models\Masters\DepartmentModel.cs" />
@@ -385,10 +386,6 @@
     <Content Include="Json\countries.json" />
     <Content Include="Json\states.json" />
     <Content Include="Json\cities.json" />
-    <Content Include="LabReports\1011388682018\test.pdf" />
-    <Content Include="LabReports\3020356682018\BillDesk - All Your Payments. Single Location.pdf" />
-    <Content Include="LabReports\5871699082018\test.pdf" />
-    <Content Include="LabReports\3\BillDesk - All Your Payments. Single Location.pdf" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
@@ -413,17 +410,6 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Reports\Bill\2018\October\21118.pdf" />
-    <Content Include="Reports\Bill\2018\October\23487238974.pdf" />
-    <Content Include="Reports\Lab\2018\October\21118.pdf" />
-    <Content Include="Reports\Lab\2018\October\23487238974.pdf" />
-    <Content Include="Reports\Lab\2018\October\LB2017233656.pdf" />
-    <Content Include="Reports\Bill\2018\November\1234.pdf" />
-    <Content Include="Reports\Lab\2018\November\435.pdf" />
-    <Content Include="Reports\Lab\2018\December\786586.pdf" />
-    <Content Include="Reports\Lab\2018\December\PP345.pdf" />
-    <Content Include="Reports\Bill\2018\December\123456.pdf" />
-    <Content Include="Reports\Bill\2018\December\678.pdf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\jquery.slide.js" />
     <Content Include="Scripts\dist\jquery.slide.min.js" />
@@ -556,6 +542,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="LabReports\" />
+    <Folder Include="Reports\Bill\" />
+    <Folder Include="Reports\Lab\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>

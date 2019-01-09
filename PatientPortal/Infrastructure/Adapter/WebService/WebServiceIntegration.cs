@@ -6,6 +6,7 @@ using PatientPortal.PateintInfoService;
 using System.IO;
 using System.Text;
 using log4net;
+using System.Collections.Generic;
 
 namespace PatientPortal.Infrastructure.Adapter.WebService
 {
@@ -79,10 +80,32 @@ namespace PatientPortal.Infrastructure.Adapter.WebService
                     return null;
                 Serializer serilizer = new Serializer();
                 result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
-                if (type == "3")
-                    return serilizer.Deserialize<DischargeSummaryModel>(result, "Table1");
-                else
-                    return serilizer.Deserialize<PDModel>(result, "Table1");
+                return serilizer.Deserialize<PDModel>(result, "Table1");
+            }
+            catch (System.Exception ex)
+            {
+                logger.Error(ex.StackTrace);
+            }
+            return null;
+        }
+        public List<DischargeSummaryModel> GetDischargeSummaryDetail(string crNumber, string type)
+        {
+            try
+            {
+                GetPatOpdDetails service = new GetPatOpdDetails();
+                var result = service.GetPatientOPDDetails(crNumber, type);
+                if (result.ToLower().Contains("no record"))
+                    return null;
+                //result = result.Replace("<NewDataSet>", "").Replace("</NewDataSet>", "");
+                //if (type == "3")
+                string serializedListOfCustomers = File.ReadAllText("D:\\samplexml.txt", Encoding.UTF8);
+                serializedListOfCustomers = serializedListOfCustomers.Replace("Table1", "dischargeSummaryModel");
+                List<DischargeSummaryModel> custList = Serializer.DeserializeDischargeSummary<List<DischargeSummaryModel>>(serializedListOfCustomers);
+
+                string serializedListOfCustomers1 = File.ReadAllText("D:\\samplexml1.txt", Encoding.UTF8);
+                List<MyCustomer> custList1 = Serializer.DeserializeDischargeSummary<List<MyCustomer>>(serializedListOfCustomers1);
+
+                return Serializer.DeserializeDischargeSummary<List<DischargeSummaryModel>>(result);
             }
             catch (System.Exception ex)
             {
