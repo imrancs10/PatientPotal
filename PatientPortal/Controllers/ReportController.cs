@@ -28,17 +28,17 @@ namespace PatientPortal.Controllers
         public ActionResult GetBillingReportAsync()
         {
             ReportDetails _details = new ReportDetails();
-            var draw = Request.Form.GetValues("draw").FirstOrDefault();
-            var start = Request.Form.GetValues("start").FirstOrDefault();
-            var length = Request.Form.GetValues("length").FirstOrDefault();
+            string draw = Request.Form.GetValues("draw").FirstOrDefault();
+            string start = Request.Form.GetValues("start").FirstOrDefault();
+            string length = Request.Form.GetValues("length").FirstOrDefault();
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
             string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
-            var result = _details.GetBillReportData();
+            List<DataLayer.PateintLeadger> result = _details.GetBillReportData();
 
             recordsTotal = result.Count();
-            var data = result.Skip(skip).Take(pageSize).ToList();
+            List<DataLayer.PateintLeadger> data = result.Skip(skip).Take(pageSize).ToList();
             return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
         }
 
@@ -46,7 +46,7 @@ namespace PatientPortal.Controllers
         public ActionResult DuplicateBillingReport()
         {
             ReportDetails _details = new ReportDetails();
-            var result = _details.GetBillReportData();
+            List<DataLayer.PateintLeadger> result = _details.GetBillReportData();
             result.ForEach(x =>
             {
                 x.netamt = Math.Round(x.netamt.Value, 2);
@@ -62,17 +62,17 @@ namespace PatientPortal.Controllers
         public ActionResult ReportViewingAsync()
         {
             ReportDetails _details = new ReportDetails();
-            var draw = Request.Form.GetValues("draw").FirstOrDefault();
-            var start = Request.Form.GetValues("start").FirstOrDefault();
-            var length = Request.Form.GetValues("length").FirstOrDefault();
+            string draw = Request.Form.GetValues("draw").FirstOrDefault();
+            string start = Request.Form.GetValues("start").FirstOrDefault();
+            string length = Request.Form.GetValues("length").FirstOrDefault();
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
             string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
-            var result = _details.GetLabReportData();
+            List<DataLayer.LabreportPdf> result = _details.GetLabReportData();
 
             recordsTotal = result.Count();
-            var data = result.Skip(skip).Take(pageSize).ToList();
+            List<DataLayer.LabreportPdf> data = result.Skip(skip).Take(pageSize).ToList();
             return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
         }
 
@@ -160,10 +160,10 @@ namespace PatientPortal.Controllers
 
             StreamReader responseStream = new StreamReader(response.GetResponseStream());
 
-            var ms = new MemoryStream();
+            MemoryStream ms = new MemoryStream();
             responseStream.BaseStream.CopyTo(ms);
 
-            var imageBytes = ms.ToArray();
+            byte[] imageBytes = ms.ToArray();
 
             FileContentResult responseFile = new FileContentResult(imageBytes, "application/octet-stream")
             {
@@ -174,7 +174,7 @@ namespace PatientPortal.Controllers
 
         public ActionResult ViewBillingReport(string Id, string type)
         {
-            var url = ConfigurationManager.AppSettings["HISBillReportUrl"] + "?billid=" + CryptoEngine.Decrypt(Convert.ToString(Id)) + "&vtype=" + CryptoEngine.Decrypt(Convert.ToString(type));
+            string url = ConfigurationManager.AppSettings["HISBillReportUrl"] + "?billid=" + CryptoEngine.Decrypt(Convert.ToString(Id)) + "&vtype=" + CryptoEngine.Decrypt(Convert.ToString(type));
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -197,10 +197,10 @@ namespace PatientPortal.Controllers
 
             StreamReader responseStream = new StreamReader(response.GetResponseStream());
 
-            var ms = new MemoryStream();
+            MemoryStream ms = new MemoryStream();
             responseStream.BaseStream.CopyTo(ms);
 
-            var imageBytes = ms.ToArray();
+            byte[] imageBytes = ms.ToArray();
             return File(imageBytes, response.ContentType);
         }
 
@@ -213,19 +213,19 @@ namespace PatientPortal.Controllers
 
             StreamReader responseStream = new StreamReader(response.GetResponseStream());
 
-            var ms = new MemoryStream();
+            MemoryStream ms = new MemoryStream();
             responseStream.BaseStream.CopyTo(ms);
 
-            var imageBytes = ms.ToArray();
+            byte[] imageBytes = ms.ToArray();
             return File(imageBytes, response.ContentType);
         }
         [HttpPost]
         public ActionResult PatientLedgerPaymentReport()
         {
             ReportDetails _details = new ReportDetails();
-            var draw = Request.Form.GetValues("draw").FirstOrDefault();
-            var start = Request.Form.GetValues("start").FirstOrDefault();
-            var length = Request.Form.GetValues("length").FirstOrDefault();
+            string draw = Request.Form.GetValues("draw").FirstOrDefault();
+            string start = Request.Form.GetValues("start").FirstOrDefault();
+            string length = Request.Form.GetValues("length").FirstOrDefault();
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
@@ -264,16 +264,16 @@ namespace PatientPortal.Controllers
                 }
             });
             recordsTotal = ledgerData.Count();
-            var data = ledgerData.Skip(skip).Take(pageSize).ToList();
+            List<PatientLedgerModel> data = ledgerData.Skip(skip).Take(pageSize).ToList();
             return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult PatientLedgerFormacyReport()
         {
             ReportDetails _details = new ReportDetails();
-            var draw = Request.Form.GetValues("draw").FirstOrDefault();
-            var start = Request.Form.GetValues("start").FirstOrDefault();
-            var length = Request.Form.GetValues("length").FirstOrDefault();
+            string draw = Request.Form.GetValues("draw").FirstOrDefault();
+            string start = Request.Form.GetValues("start").FirstOrDefault();
+            string length = Request.Form.GetValues("length").FirstOrDefault();
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
@@ -312,23 +312,27 @@ namespace PatientPortal.Controllers
             });
 
             recordsTotal = ledgerData.Count();
-            var data = ledgerData.Skip(skip).Take(pageSize).ToList();
+            List<PatientLedgerModel> data = ledgerData.Skip(skip).Take(pageSize).ToList();
             return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DischargeSummary()
         {
-            var report = (new WebServiceIntegration()).GetPatientOPDDetail(WebSession.PatientCRNo,
-                                                                    (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString());
-            List<DischargeSummaryModel> list = new List<DischargeSummaryModel>();
-            list.Add(report as DischargeSummaryModel);
+            PDModel report = (new WebServiceIntegration()).GetPatientOPDDetail(
+                                                    !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo,
+                                                    (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString());
+            List<DischargeSummaryModel> list = new List<DischargeSummaryModel>
+            {
+                report as DischargeSummaryModel
+            };
             return View(list);
         }
         public ActionResult ViewDischargeSummaryReport()
         {
-            var report = (new WebServiceIntegration()).GetPatientOPDDetail(WebSession.PatientCRNo,
+            DischargeSummaryModel report = (new WebServiceIntegration()).GetPatientOPDDetail(
+                                            !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo,
                                             (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString()) as DischargeSummaryModel;
-            report.CRNumber = WebSession.PatientCRNo;
+            report.CRNumber = !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo;
             report.Name = WebSession.PatientName;
             report.Gender = WebSession.PatientGender;
             report.Address = WebSession.PatientAddress;
