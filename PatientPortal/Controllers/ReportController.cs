@@ -319,12 +319,8 @@ namespace PatientPortal.Controllers
         public ActionResult DischargeSummary()
         {
             var reports = (new WebServiceIntegration()).GetDischargeSummaryDetail(
-                                                    "pp:2014/029822",
+                                                    !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo,
                                                     (Convert.ToInt32(OPDTypeEnum.DischargeSummary)).ToString());
-            //List<DischargeSummaryModel> list = new List<DischargeSummaryModel>
-            //{
-            //    report as DischargeSummaryModel
-            //};
             TempData["reports"] = reports;
             return View(reports);
         }
@@ -332,12 +328,12 @@ namespace PatientPortal.Controllers
         {
             var reports = TempData["reports"] as List<DischargeSummaryModel>;
             var report = reports.Where(x => x.ipno == ipNo).FirstOrDefault();
-            //report.CRNumber = !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo;
-            //report.Name = WebSession.PatientName;
-            //report.Gender = WebSession.PatientGender;
-            //report.Address = WebSession.PatientAddress;
-            //report.City = WebSession.PatientCity;
-            //report.MobileNumber = WebSession.PatientMobile;
+            report.CRNumber = !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo;
+            report.Name = WebSession.PatientName;
+            report.Gender = WebSession.PatientGender;
+            report.Address = WebSession.PatientAddress;
+            report.City = WebSession.PatientCity;
+            report.MobileNumber = WebSession.PatientMobile;
             return View(report);
         }
     }

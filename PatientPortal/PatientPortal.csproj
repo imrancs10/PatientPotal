@@ -247,7 +247,6 @@
     <Compile Include="Models\Common\CommonModel.cs" />
     <Compile Include="Models\DepartmentOPDModel.cs" />
     <Compile Include="Models\DischargeSummaryModel.cs" />
-    <Compile Include="Models\MyCustomer.cs" />
     <Compile Include="Models\PDModel.cs" />
     <Compile Include="Models\Masters\AppSettingModel.cs" />
     <Compile Include="Models\Masters\DepartmentModel.cs" />

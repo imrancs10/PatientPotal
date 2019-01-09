@@ -28,7 +28,7 @@
                             </thead>
                             <tbody>
                                 @{
-                                    if (Model.Any())
+                                    if (Model != null && Model.Any())
                                     {
                                         foreach (var item in Model)
                                         {
@@ -42,7 +42,7 @@
                                                     <td>@item.DoctorName</td>
                                                     <td>
                                                         <div class="btn-group">
-                                                            <a href="/Report/ViewDischargeSummaryReport?ipNo=@item.ipno" target="_blank" class="btn btn-primary">View Report</a>
+                                                            <a href="/Report/ViewDischargeSummaryReport?ipNo=@item.ipno" target="_self" class="btn btn-primary">View Report</a>
                                                         </div>
                                                     </td>
                                                 </tr>
