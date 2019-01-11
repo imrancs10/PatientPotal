@@ -977,12 +977,13 @@ namespace PatientPortal.Controllers
         {
             await Task.Run(() =>
             {
+                string regNumber = !string.IsNullOrEmpty(patient.CRNumber) ? patient.CRNumber : patient.RegistrationNumber;
                 Message msg = new Message()
                 {
                     MessageTo = patient.Email,
                     MessageNameTo = patient.FirstName + " " + patient.MiddleName + (string.IsNullOrWhiteSpace(patient.MiddleName) ? "" : " ") + patient.LastName,
                     Subject = "Forget UserID",
-                    Body = EmailHelper.GetForgetUserIdEmail(patient.FirstName, patient.MiddleName, patient.LastName, patient.RegistrationNumber)
+                    Body = EmailHelper.GetForgetUserIdEmail(patient.FirstName, patient.MiddleName, patient.LastName, regNumber)
                 };
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
