@@ -54,7 +54,7 @@ $(document).ready(function () {
 
                 if (data.Departments != null) {
                     var departments = data.Departments;
-                    var rowCount = departments.length / 3;
+                    var rowCount = Math.ceil(departments.length / 3);
                     var row = 0;
                     var index = 0;
                     html = html + "<div class='col-sm-4 lists'>";
