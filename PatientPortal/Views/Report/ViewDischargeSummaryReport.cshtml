@@ -7,6 +7,19 @@
     ViewBag.Title = "Discharge Summary";
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
 }
+<script>
+    $(document).ready(function () {
+
+        $(this).bind("contextmenu", function (e) {
+
+            e.preventDefault();
+
+        });
+
+
+    });
+
+</script>
 <div class="" style="padding-top:20px;">
     <div class="col-sm-12 col-lg-12">
         <div class="panel panel-primary">
@@ -25,17 +38,20 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <p><b>Dr. Ram Manohar Lohia Institute of Medical Sciences</b></p>
-                                    <p>Vibhuti Khand, Gomti Nagar, Lucknow - 226010</p>
-                                    <p>Ph. No: 0522 - 4918555,504 Fax No. 0522-4918506</p>
-                                    <p style="font-size:14px;"><b>Department of Medicine</b></p>
-                                    <p style="font-size:12px;"><b>Discharge Summary</b></p>
+                                    <p style="font-size:14px;"><b>Dr. Ram Manohar Lohia Institute of Medical Sciences</b></p>
+                                    <p style="font-size:12px;">Vibhuti Khand, Gomti Nagar, Lucknow - 226010</p>
+                                    <p style="font-size:12px;">Ph. No: 0522 - 4918555,504 Fax No. 0522-4918506</p>
                                 </div>
                                 <div class="col-md-4">
 
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <p style="font-size:14px;"><b>Department of Medicine</b></p>
+                        <p style="font-size:12px;"><b>Discharge Summary</b></p>
                     </div>
                     <hr />
                     <div class="row">
@@ -130,6 +146,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             @Html.Raw(@Model.Matter);
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                           <p style="font-size:12px; font-style:oblique">Discharge disclaimer:</p>
+                            <p style="font-size:10px; font-style:italic">1. This is only for view purpose. Get the authorised signed copy from hospital.</p>
                         </div>
                     </div>
                 </div>
