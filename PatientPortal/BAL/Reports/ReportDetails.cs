@@ -17,7 +17,7 @@ namespace PatientPortal.BAL.Reports
         {
             _db = new PatientPortalEntities();
             var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == WebSession.PatientId).FirstOrDefault();
-            var result = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && x.schemeid == 0).OrderByDescending(x => x.billdate).ToList();
+            var result = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid).OrderByDescending(x => x.billdate).ToList();
             result.ForEach(x =>
             {
                 x.netamt = Math.Round(x.netamt.Value, 2);
