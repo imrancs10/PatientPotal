@@ -18,10 +18,12 @@ namespace PatientPortal.BAL.Masters
             _db = new PatientPortalEntities();
             int _effectRow = 0;
             var _deptRow = _db.Departments.Where(x => x.DepartmentName.Equals(deptName)).FirstOrDefault();
+            var maxDepartmentId = _db.Departments.Max(x => x.DepartmentID);
             if (_deptRow == null)
             {
                 Department _newDept = new Department();
                 _newDept.DepartmentName = deptName;
+                _newDept.DepartmentID = maxDepartmentId + 1;
                 _db.Entry(_newDept).State = EntityState.Added;
                 _effectRow = _db.SaveChanges();
                 return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
