@@ -500,7 +500,7 @@ namespace PatientPortal.Controllers
                                 StatusCode = objResMsgDTO.StatusCode,
                                 TransactionDate = Convert.ToDateTime(objResMsgDTO.TrnReqDate),
                                 TransactionNumber = objResMsgDTO.PgMeTrnRefNo,
-                                Type = TransactionType.Register.ToString()
+                                Type = TransactionType.Registration.ToString()
                             };
                             var transactionData = _details.SavePatientTransaction(transaction);
                             info.PatientTransactions.Add((PatientTransaction)transactionData["data"]);
@@ -510,7 +510,7 @@ namespace PatientPortal.Controllers
                             Session["PatientInfo"] = null;
                             //send patient data to HIS portal
                             HISPatientInfoInsertModel insertModel = setregistrationModelForHISPortal(info);
-                            insertModel.Type = Convert.ToInt32(TransactionType.Register);
+                            insertModel.Type = Convert.ToInt32(TransactionType.Registration);
                             WebServiceIntegration service = new WebServiceIntegration();
                             string serviceResult = service.GetPatientInfoinsert(insertModel);
 

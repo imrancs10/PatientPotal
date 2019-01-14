@@ -1,4 +1,5 @@
-﻿using PatientPortal.BAL.Reports;
+﻿using DataLayer;
+using PatientPortal.BAL.Reports;
 using PatientPortal.Global;
 using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Models;
@@ -53,7 +54,28 @@ namespace PatientPortal.Controllers
             });
             return View(result);
         }
+        public ActionResult PaymentReciept()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GetPaymentReceiptAsync()
+        {
+            ReportDetails _details = new ReportDetails();
+            string draw = Request.Form.GetValues("draw").FirstOrDefault();
+            string start = Request.Form.GetValues("start").FirstOrDefault();
+            string length = Request.Form.GetValues("length").FirstOrDefault();
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+            string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            List<PatientTransaction> result = _details.GetPaymentReceipt();
 
+            recordsTotal = result.Count();
+            List<PatientTransaction> data = result.Skip(skip).Take(pageSize).ToList();
+            return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+        }
+        
         public ActionResult ReportViewing()
         {
             return View();

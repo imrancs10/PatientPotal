@@ -78,6 +78,19 @@ namespace PatientPortal.BAL.Reports
             return result;
         }
 
+        public List<PatientTransaction> GetPaymentReceipt()
+        {
+            _db = new PatientPortalEntities();
+            _db.Configuration.LazyLoadingEnabled = false;
+            var result = _db.PatientTransactions.Where(x => x.PatientId == WebSession.PatientId).OrderBy(x => x.TransactionDate).ToList();
+            result.ForEach(x =>
+            {
+                x.ResponseCode = x.TransactionDate.Value.ToString("dd/MM/yyyy");
+                x.StatusCode = x.StatusCode == "S" ? "Success" : "Fail";
+            });
+            return result;
+        }
+
         public List<PatientLedgerModel> GetPatientLedger(DateTime? fromDate = null, DateTime? toDate = null)
         {
             _db = new PatientPortalEntities();

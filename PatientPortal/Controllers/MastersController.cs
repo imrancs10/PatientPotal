@@ -274,7 +274,7 @@ namespace PatientPortal.Controllers
             {
                 PatientId = info.PatientId
             };
-            if (insertModel.Type == Convert.ToInt32(TransactionType.Register))
+            if (insertModel.Type == Convert.ToInt32(TransactionType.Registration))
                 user.RegistrationStatusHIS = serviceResult;
             else
                 user.RenewalStatusHIS = serviceResult;

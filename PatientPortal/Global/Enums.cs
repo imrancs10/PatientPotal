@@ -25,7 +25,7 @@ namespace PatientPortal.Global
         }
         public enum TransactionType
         {
-            Register = 0,
+            Registration = 0,
             Renewal = 1,
             PayBill = 2
         }

@@ -483,6 +483,7 @@
     <Content Include="Views\Appointment\CancellationAppointment.cshtml" />
     <Content Include="Views\Report\DischargeSummary.cshtml" />
     <Content Include="Views\Report\ViewDischargeSummaryReport.cshtml" />
+    <Content Include="Views\Report\PaymentReciept.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">
