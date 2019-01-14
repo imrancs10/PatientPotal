@@ -23,7 +23,7 @@ namespace PatientPortal.Infrastructure.Utility
         {
             string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
             body += "As you requested, here registration is created, your registration number is : <b>" + registrationnumber + "</b> you can use to create your Password by clicking on below URL.<br/>";
-            body += "<br/><b></b>" + link + "<br/><br/>";
+            body += "<br/><b></b>< a href = '"+ link +"' target = '_blank' > " + link + " < br/><br/>";
             body += "Thank You,<br/>";
             body += "Patient Portal Information System Customer Support";
             return body;
@@ -32,7 +32,7 @@ namespace PatientPortal.Infrastructure.Utility
         {
             string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
             body += "As you requested, your CR registration is created, you can use to create your Password by clicking on below URL.<br/>";
-            body += "<br/><b></b>" + link + "<br/><br/>";
+            body += "<br/><b></b>< a href = '"+ link +"' target = '_blank' > " + link + " < br/><br/>";
             body += "Thank You,<br/>";
             body += "Patient Portal Information System Customer Support";
             return body;
@@ -94,7 +94,7 @@ namespace PatientPortal.Infrastructure.Utility
         {
             string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
             body += "As you requested, you can use to create your Password by clicking on below URL.<br/>";
-            body += "<br/><b></b>" +  link + "<br/><br/>";
+            body += "<br/><b></b><a href='"+ link +"' target='_blank'>" +  link + "</a><br/><br/>";
             body += "Thank You,<br/>";
             body += "Patient Portal Information System Customer Support";
             return body;
