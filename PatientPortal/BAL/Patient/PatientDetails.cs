@@ -110,7 +110,7 @@ namespace PatientPortal.BAL.Patient
         public PatientInfo GetPatientDetailByRegistrationNumberAndMobileNumber(string regNumber, string mobilenumber)
         {
             _db = new PatientPortalEntities();
-            return _db.PatientInfoes.Where(x => x.RegistrationNumber == regNumber && x.MobileNumber == mobilenumber).FirstOrDefault();
+            return _db.PatientInfoes.Where(x => x.RegistrationNumber == regNumber || x.CRNumber == regNumber && x.MobileNumber == mobilenumber).FirstOrDefault();
         }
 
         public PatientInfo GetPatientDetailByRegistrationNumberOrCRNumber(string UserId)
