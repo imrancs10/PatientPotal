@@ -98,10 +98,10 @@ namespace PatientPortal.BAL.Reports
             var patientInfo = _db.PatientInfoes.Where(x => x.PatientId == WebSession.PatientId).FirstOrDefault();
             List<PateintLeadger> data = new List<PateintLeadger>();
             if (fromDate == null && toDate == null)
-                data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && x.schemeid == 0 && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(_period)).OrderByDescending(x => x.billdate).ToList();
+                data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(_period)).OrderByDescending(x => x.billdate).ToList();
             else
             {
-                data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && x.schemeid == 0 && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(fromDate) && DbFunctions.TruncateTime(x.billdate) <= DbFunctions.TruncateTime(toDate)).OrderByDescending(x => x.billdate).ToList();
+                data = _db.PateintLeadgers.Where(x => x.PId == patientInfo.pid && DbFunctions.TruncateTime(x.billdate) >= DbFunctions.TruncateTime(fromDate) && DbFunctions.TruncateTime(x.billdate) <= DbFunctions.TruncateTime(toDate)).OrderByDescending(x => x.billdate).ToList();
             }
             List<PatientLedgerModel> ledgerList = new List<PatientLedgerModel>();
 
