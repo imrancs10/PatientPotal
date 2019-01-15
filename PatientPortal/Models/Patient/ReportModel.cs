@@ -24,5 +24,6 @@ namespace PatientPortal.Models.Patient
         public string Receipt { get; set; }
         public string Balance { get; set; }
         public string SaleType { get; set; }
+        public string schemeid { get; set; }
     }
 }
