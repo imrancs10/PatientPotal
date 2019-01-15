@@ -68,14 +68,30 @@
         $('.dataTables_length').addClass('hidden');
         $('.dataTables_info').addClass('hidden');
         $('.dataTables_paginate').addClass('hidden');
-
-        var dd = $('.table:eq(0)').clone();
-
-        dd.find('tbody').append($('.table:eq(1) tbody tr').clone());
+        debugger
+        var rows = $('#PaymentLedgerReport tr td');
+        var index = 6
+        var rowCount = $('#PaymentLedgerReport tr td').length / 7;
+        for (var i = 0; i < rowCount; i++) {
+            if ($(rows[index]).text() > 0) {
+                $(rows[index]).parent().addClass('hidden');
+            }
+            index += 7;
+        }
+        var dd = $('#PaymentLedgerReport').clone();
+        //dd.find('tbody').append($('.table:eq(1) tbody tr').clone());
 
         win.document.write('<html><head><title>' + pageTitle + '</title>' +
             '<link rel="stylesheet" href="' + stylesheet + '">' +
             '</head><body style="font-size=11px;"><hr/><div style="text-align:center;"><img src="' + $('#hdnHospitalLogo').val() + '"/></div><hr/> <table class="table table-bordered table-hover table-responsive table-striped">' + dd.html() + '</table></body ></html > ');
+
+        index = 6
+        for (var i = 0; i < rowCount; i++) {
+            if ($(rows[index]).text() > 0) {
+                $(rows[index]).parent().removeClass('hidden');
+            }
+            index += 7;
+        }
         //win.document.close();
         //win.print();
         //win.close();
@@ -131,7 +147,14 @@
                     { "data": "Payment", "name": "Payment", "autoWidth": true, "title": "Payment" },
                     { "data": "Receipt", "name": "Receipt", "autoWidth": true, "title": "Receipt" },
                     { "data": "schemeid", "name": "schemeid", "autoWidth": true, "title": "schemeid" }
-                ]
+                ],
+                "initComplete": function (settings, json) {
+                    $('#PaymentLedgerReport').find('th').eq(6).addClass('hidden');
+                    var rows = $('#PaymentLedgerReport').find('tr');
+                    $.each(rows, function (i, row) {
+                        $(row).find('td').eq(6).addClass('hidden');
+                    });
+                }
             });
             //formacy report
             var formacyTable = $("#MedicinLedgerReport").DataTable({
@@ -154,7 +177,14 @@
                     { "data": "Payment", "name": "Payment", "autoWidth": true, "title": "Payment" },
                     { "data": "Receipt", "name": "Receipt", "autoWidth": true, "title": "Receipt" },
                     { "data": "schemeid", "name": "schemeid", "autoWidth": true, "title": "schemeid" }
-                ]
+                ],
+                "initComplete": function (settings, json) {
+                    $('#MedicinLedgerReport').find('th').eq(6).addClass('hidden');
+                    var rows = $('#MedicinLedgerReport').find('tr');
+                    $.each(rows, function (i, row) {
+                        $(row).find('td').eq(6).addClass('hidden');
+                    });
+                }
             });
 
             $("#FilterButton").click(function () {
@@ -186,9 +216,9 @@
                         .draw();
                 }
             });
-
-            $('#PaymentLedgerReport_filter').addClass('hidden');
             $('#MedicinLedgerReport_filter').addClass('hidden');
+            $('#PaymentLedgerReport_filter').addClass('hidden');
+           
         });
 
 
