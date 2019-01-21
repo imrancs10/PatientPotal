@@ -246,6 +246,7 @@
     <Compile Include="Infrastructure\Utility\VerificationCodeGeneration.cs" />
     <Compile Include="Models\Common\CommonModel.cs" />
     <Compile Include="Models\DepartmentOPDModel.cs" />
+    <Compile Include="Models\AppointmentsModel.cs" />
     <Compile Include="Models\DischargeSummaryModel.cs" />
     <Compile Include="Models\PDModel.cs" />
     <Compile Include="Models\Masters\AppSettingModel.cs" />

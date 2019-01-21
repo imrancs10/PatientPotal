@@ -1,15 +1,19 @@
-﻿using System;
+﻿using DataLayer;
+using PatientPortal.BAL.Appointments;
+using PatientPortal.BAL.Patient;
+using PatientPortal.Global;
+using PatientPortal.Infrastructure;
+using PatientPortal.Infrastructure.Adapter.WebService;
+using PatientPortal.Infrastructure.Utility;
+using PatientPortal.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using PatientPortal.BAL.Appointments;
-using DataLayer;
-using PatientPortal.Infrastructure;
-using PatientPortal.Infrastructure.Utility;
-using PatientPortal.Global;
-using PatientPortal.Models;
-using PatientPortal.BAL.Patient;
+using static PatientPortal.Global.Enums;
+using JsonResult = System.Web.Mvc.JsonResult;
+using System.Data.Entity;
+using System.Globalization;
 
 namespace PatientPortal.Controllers
 {
@@ -66,7 +70,7 @@ namespace PatientPortal.Controllers
                     };
                     ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
                     sendMessageStrategy.SendMessages();
-                    
+
                     //Send SMS
                     msg.Body = "Hello " + string.Format("{0} {1}", user.FirstName, user.LastName) + "\nAs you requested an appointment with " + doctorname + " is  booked on schedule time " + model.AppointmentDateFrom.ToString("dd-MMM-yyyy hh:mm tt") + " at " + deptname + " Department\n Regards:\n Patient Portal(RMLHIMS)";
                     msg.MessageTo = user.Mobile;
@@ -104,6 +108,110 @@ namespace PatientPortal.Controllers
             {
                 result.Add((int)Enums.JsonResult.Invalid_DataId, "Patient Id is invalid");
                 return Json(result.ToList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult GetPatientAppointmentListDataTableFuture()
+        {
+            AppointDetails _details = new AppointDetails();
+            int _patientId = 0;
+            string _sessionPatienId = Session["PatientId"] == null ? "0" : Session["PatientId"].ToString();
+            if (int.TryParse(_sessionPatienId, out _patientId))
+            {
+                string draw = Request.Form.GetValues("draw").FirstOrDefault();
+                string start = Request.Form.GetValues("start").FirstOrDefault();
+                string length = Request.Form.GetValues("length").FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+                string filterText = Request["search[value]"];
+                List<AppointmentsModel> reports = _details.PatientAppointmentList(_patientId, 0, 0)
+                                            .Where(x => (x.IsCancelled == false || x.IsCancelled == null)
+                                                        && Convert.ToDateTime(x.AppointmentDate) >= DateTime.Now).ToList();
+                reports.ForEach(x =>
+                {
+                    x.AppointmentDate = Convert.ToDateTime(x.AppointmentDate).ToString("dd/MM/yyyy");
+                    x.Slot = x.TimeFrom.Substring(0, 5) + " " + x.TimeTo.Substring(0, 5);
+                    x.Status = x.IsCancelled != null && x.IsCancelled.Value ? "<strong style='color:red; cursor: pointer'>Cancelled</strong>" : "<strong style='color:green; cursor: pointer'>Booked</strong>";
+                });
+                if (!string.IsNullOrEmpty(filterText))
+                {
+                    reports = reports.Where(x => x.DoctorName.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                                || x.Status.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                                || x.AppointmentDate.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                                || x.DepartmentName.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+                }
+                recordsTotal = reports.Count();
+                List<AppointmentsModel> data = reports.Skip(skip).Take(pageSize).ToList();
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                SetAlertMessage("User session is end");
+                return RedirectToAction("GetAppointments");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GetPatientAppointmentListDataTablePast()
+        {
+            //get data from web service
+            var reportFromService = (new WebServiceIntegration()).GetMyVisitDetail(
+                                                   !string.IsNullOrEmpty(WebSession.PatientCRNo) ? WebSession.PatientCRNo : WebSession.PatientRegNo,
+                                                   (Convert.ToInt32(OPDTypeEnum.MyVisit)).ToString());
+
+            AppointDetails _details = new AppointDetails();
+            int _patientId = 0;
+            string _sessionPatienId = Session["PatientId"] == null ? "0" : Session["PatientId"].ToString();
+            if (int.TryParse(_sessionPatienId, out _patientId))
+            {
+                string draw = Request.Form.GetValues("draw").FirstOrDefault();
+                string start = Request.Form.GetValues("start").FirstOrDefault();
+                string length = Request.Form.GetValues("length").FirstOrDefault();
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+                string filterText = Request["search[value]"];
+                List<AppointmentsModel> reports = _details.PatientAppointmentList(_patientId, 0, 0)
+                                                          .Where(x => x.IsCancelled == true
+                                                                    || Convert.ToDateTime(x.AppointmentDate) < DateTime.Now).ToList();
+                reports.ForEach(x =>
+                {
+                    x.AppointmentDate = Convert.ToDateTime(x.AppointmentDate).ToString("dd/MM/yyyy");
+                    x.Status = x.IsCancelled != null && x.IsCancelled.Value
+                                    ? "Cancelled on : " + x.CancelDate.Value.ToString("dd/MM/yyyy") + " \n Reason : " + x.CancelReason + "<strong style='color:Red; cursor: pointer'>Cancelled</strong>"
+                                    : "<strong style='color:green; cursor: pointer'>Booked</strong>";
+                });
+                if (reportFromService != null)
+                {
+                    reportFromService.ForEach(x =>
+                    {
+                        reports.Add(new AppointmentsModel()
+                        {
+                            AppointmentDate = Convert.ToDateTime(x.datescheduled).ToString("dd/MM/yyyy"),
+                            DepartmentName = x.DepartName,
+                            DoctorName = x.DoctorName,
+                            fromtime = x.fromtime,
+                            totime = x.totime,
+                            Status = "<strong style='color:green; cursor: pointer'>Booked</strong>"
+                        });
+                    });
+                }
+                if (!string.IsNullOrEmpty(filterText))
+                {
+                    reports = reports.Where(x => x.DoctorName.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                                || x.Status.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                                || x.AppointmentDate.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                                || x.DepartmentName.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+                }
+                recordsTotal = reports.Count();
+                List<AppointmentsModel> data = reports.Skip(skip).Take(pageSize).ToList();
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                SetAlertMessage("User session is end");
+                return RedirectToAction("GetAppointments");
             }
         }
 
@@ -198,5 +306,6 @@ namespace PatientPortal.Controllers
             };
             return model;
         }
+
     }
 }

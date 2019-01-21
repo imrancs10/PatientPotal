@@ -11,7 +11,8 @@ namespace PatientPortal.Global
         {
             IPD = 1,
             OPD = 2,
-            DischargeSummary = 3
+            DischargeSummary = 3,
+            MyVisit = 4
         }
         public enum MasterLookupEnum
         {

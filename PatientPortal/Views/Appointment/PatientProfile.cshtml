@@ -48,9 +48,9 @@
                                         <div>@json.Email</div>
                                     </div>
                                     @*<div class="form-group">
-                                        <label>DOB</label>
-                                        <div>@Convert.ToDateTime(json.DOB).ToLongDateString()</div>
-                                    </div>*@
+                                            <label>DOB</label>
+                                            <div>@Convert.ToDateTime(json.DOB).ToLongDateString()</div>
+                                        </div>*@
                                 </div>
                                 <div class="col-sm-6 col-lg-6">
                                     <div class="form-group">
@@ -66,9 +66,9 @@
                                         <div>@json.Address</div>
                                     </div>
                                     @*<div class="form-group">
-                                        <label>City/State/Country</label>
-                                        <div>@json.City, @json.State, @json.Country - @json.PINCode</div>
-                                    </div>*@
+                                            <label>City/State/Country</label>
+                                            <div>@json.City, @json.State, @json.Country - @json.PINCode</div>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>
@@ -83,18 +83,18 @@
 
                                 <div class="table table-responsive">
                                     <table class="table table table-bordered table-responsive table-striped" id="tbleappointment">
-                                        <thead>
-                                            <tr>
-                                                <th>Sr. No.</th>
-                                                <th>Date</th>
-                                                <th>Department</th>
-                                                <th>Consultant</th>
-                                                <th>Slot</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
+                                        @*<thead>
+                                                <tr>
+                                                    <th>Sr. No.</th>
+                                                    <th>Date</th>
+                                                    <th>Department</th>
+                                                    <th>Consultant</th>
+                                                    <th>Slot</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>*@
                                     </table>
                                 </div>
                             </div>
@@ -104,16 +104,16 @@
                             <div class="panel-body">
                                 <div class="table table-responsive">
                                     <table class="table table table-bordered table-responsive table-striped" id="tblevisit">
-                                        <thead>
-                                            <tr>
-                                                <th>Sr. No.</th>
-                                                <th>Visit Date</th>
-                                                <th>Department</th>
-                                                <th>Consultant Doctor</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
+                                        @*<thead>
+                                                <tr>
+                                                    <th>Sr. No.</th>
+                                                    <th>Visit Date</th>
+                                                    <th>Department</th>
+                                                    <th>Consultant Doctor</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>*@
                                     </table>
                                 </div>
                             </div>
@@ -122,4 +122,132 @@
                 </div>
             </div>
         </div>
-        
+
+
+        <link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+        @section Scripts
+{
+            <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    //Appointment Table
+                    var appointmentTable = $("#tbleappointment").DataTable({
+                        "processing": true, // for show progress bar
+                        "serverSide": true, // for process server side
+                        "filter": true, // this is for disable filter (search box)
+                        "orderMulti": false, // for disable multiple column at once
+                        "ordering": false,
+                        "pageLength": 10,
+                        "ajax": {
+                            "url": "/Appointment/GetPatientAppointmentListDataTableFuture",
+                            "type": "POST",
+                            "datatype": "json"
+                        },
+                        "columns": [
+                            { "data": "srNumber", "name": "srNumber", "autoWidth": true, "title": "Sr. No" },
+                            { "data": "AppointmentDate", "name": "AppointmentDate", "autoWidth": true, "title": "Date" },
+                            { "data": "DepartmentName", "name": "DepartmentName", "autoWidth": true, "title": "Department" },
+                            { "data": "DoctorName", "name": "DoctorName", "autoWidth": true, "title": "Consultant" },
+                            { "data": "Slot", "name": "Slot", "autoWidth": true, "title": "Slot" },
+                            { "data": "Status", "name": "Status", "autoWidth": true, "title": "Status" },
+                            {
+                                "title": "Action",
+                                "render": function (data, type, full, meta) {
+                                    if (full.IsCancelled == false)
+                                        return '<button id="btnCancel" class="btn btn-danger" data-data="' + full.AppointmentId + '" style="padding: 2px 12px !important;">Cancel</button>';
+                                    else
+                                        return '<span></span>';
+                                }
+                            },
+                        ],
+                        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                            $("td:first", nRow).html(iDisplayIndex + 1);
+                            return nRow;
+                        },
+                        "initComplete": function (settings, json) {
+                        }
+                    });
+
+                    $(document).on('click', '[id*="btnCancel"]', function () {
+                        var appId = $(this).data('data');
+                        utility.ajax.helperWithData(app.urls.appointmentCancelAppointment, { 'appointmentId': appId, 'CancelReason': '' }, function (data) {
+                            if (data[0].Key == 103) {
+                                utility.alert.setAlert(utility.alert.alertType.success, data[0].Value);
+                                appointmentTable.draw();
+                                visitTabe.draw();
+                            }
+                            if (data[0].Key == 102) {
+                                utility.alert.setAlert(utility.alert.alertType.error, data[0].Value);
+                            }
+                        });
+                    });
+
+                    //My Visit Table
+                    var visitTabe = $("#tblevisit").DataTable({
+                        "processing": true, // for show progress bar
+                        "serverSide": true, // for process server side
+                        "filter": true, // this is for disable filter (search box)
+                        "orderMulti": false, // for disable multiple column at once
+                        "ordering": false,
+                        "pageLength": 10,
+                        "ajax": {
+                            "url": "/Appointment/GetPatientAppointmentListDataTablePast",
+                            "type": "POST",
+                            "datatype": "json"
+                        },
+                        "columns": [
+                            { "data": "srNumber", "name": "srNumber", "autoWidth": true, "title": "Sr. No" },
+                            { "data": "AppointmentDate", "name": "AppointmentDate", "autoWidth": true, "title": "Visit Date" },
+                            { "data": "DepartmentName", "name": "DepartmentName", "autoWidth": true, "title": "Department" },
+                            { "data": "DoctorName", "name": "DoctorName", "autoWidth": true, "title": "Consultant Doctor" },
+                            { "data": "Status", "name": "Status", "autoWidth": true, "title": "Status" }
+                        ],
+                        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                            $("td:first", nRow).html(iDisplayIndex + 1);
+                            return nRow;
+                        },
+                        "initComplete": function (settings, json) {
+                        }
+                    });
+
+                    $("#tbleappointment_filter input")
+                        .unbind() // Unbind previous default bindings
+                        .bind("input", function (e) { // Bind our desired behavior
+                            // If the length is 3 or more characters, or the user pressed ENTER, search
+                            if (this.value.length >= 3 || e.keyCode == 13) {
+                                // Call the API search function
+                                appointmentTable.search(this.value).draw();
+                            }
+                            // Ensure we clear the search if they backspace far enough
+                            if (this.value == "") {
+                                appointmentTable.search("").draw();
+                            }
+                            return;
+                        });
+
+                    $("#tblevisit_filter input")
+                        .unbind() // Unbind previous default bindings
+                        .bind("input", function (e) { // Bind our desired behavior
+                            // If the length is 3 or more characters, or the user pressed ENTER, search
+                            if (this.value.length >= 3 || e.keyCode == 13) {
+                                // Call the API search function
+                                visitTabe.search(this.value).draw();
+                            }
+                            // Ensure we clear the search if they backspace far enough
+                            if (this.value == "") {
+                                visitTabe.search("").draw();
+                            }
+                            return;
+                        });
+                    //$('#tbleappointment_filter').addClass('hidden');
+                    //$('#tblevisit_filter').addClass('hidden');
+
+                });
+            </script>
+        }
+        <style>
+            #tbleappointment td, #tblevisit th {
+                border-bottom: 0px;
+                border-right: 0px;
+            }
+        </style>

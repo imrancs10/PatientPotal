@@ -1,5 +1,6 @@
 ﻿using DataLayer;
 using PatientPortal.Global;
+using PatientPortal.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -119,7 +120,7 @@ namespace PatientPortal.BAL.Appointments
                 throw raise;
             }
         }
-        public IEnumerable<object> PatientAppointmentList(int _patientId, int year = 0, int month = 0)
+        public List<AppointmentsModel> PatientAppointmentList(int _patientId, int year = 0, int month = 0)
         {
             _db = new PatientPortalEntities();
             var _list = (from docAppointment in _db.AppointmentInfoes
@@ -128,21 +129,22 @@ namespace PatientPortal.BAL.Appointments
                          where docAppointment.PatientInfo.PatientId.Equals(_patientId) &&
                          (year == 0 || docAppointment.AppointmentDateFrom.Year == year) &&
                          (month == 0 || docAppointment.AppointmentDateFrom.Month == month)
-                         select new
+                         select new AppointmentsModel
                          {
-                             docAppointment.AppointmentDateFrom,
-                             docAppointment.IsCancelled,
-                             docAppointment.CancelDate,
-                             docAppointment.CancelReason,
-                             docAppointment.Doctor.DepartmentID,
-                             docAppointment.Doctor.Department.DepartmentName,
-                             docAppointment.AppointmentDateTo,
-                             docAppointment.AppointmentId,
-                             docAppointment.DoctorId,
-                             docAppointment.Doctor.DoctorName,
-                             docAppointment.PatientId,
+                             AppointmentDate = DbFunctions.TruncateTime(docAppointment.AppointmentDateFrom).ToString(),
+                             IsCancelled = docAppointment.IsCancelled,
+                             CancelDate = docAppointment.CancelDate,
+                             CancelReason = docAppointment.CancelReason,
+                             DepartmentID = docAppointment.Doctor.DepartmentID,
+                             DepartmentName = docAppointment.Doctor.Department.DepartmentName,
+                             TimeFrom = DbFunctions.CreateTime(docAppointment.AppointmentDateFrom.Hour, docAppointment.AppointmentDateFrom.Minute, docAppointment.AppointmentDateFrom.Second).ToString(),
+                             TimeTo = DbFunctions.CreateTime(docAppointment.AppointmentDateTo.Hour, docAppointment.AppointmentDateTo.Minute, docAppointment.AppointmentDateTo.Second).ToString(),
+                             AppointmentId = docAppointment.AppointmentId,
+                             DoctorId = docAppointment.DoctorId,
+                             DoctorName = docAppointment.Doctor.DoctorName,
+                             PatientId = docAppointment.PatientId,
                              PatientName = docAppointment.PatientInfo.FirstName + " " + docAppointment.PatientInfo.MiddleName + " " + docAppointment.PatientInfo.LastName
-                         }).OrderBy(x => x.AppointmentDateFrom).ToList();
+                         }).OrderBy(x => x.AppointmentDate).ToList();
             return _list;
         }
         public Dictionary<int, string> CancelAppointment(int _patientId, int _appId, string CancelReason = "")
