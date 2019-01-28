@@ -23,6 +23,9 @@ namespace PatientPortal.Models.Masters
         public string DepartmentName { get; set; }
         public string Designation { get; set; }
         public string Degree { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public byte[] Image { get; set; }
     }
 
     public class MasterLookupModel

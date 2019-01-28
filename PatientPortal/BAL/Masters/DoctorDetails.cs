@@ -15,7 +15,7 @@ namespace PatientPortal.BAL.Masters
     public class DoctorDetails
     {
         PatientPortalEntities _db = null;
-        public Enums.CrudStatus SaveDoctor(string doctorName, int deptId, string designation, string degree)
+        public Enums.CrudStatus SaveDoctor(string doctorName, int deptId, string designation, string degree, string doctorDesc)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -28,14 +28,16 @@ namespace PatientPortal.BAL.Masters
                 _newDoc.Degree = degree;
                 _newDoc.Designation = designation;
                 _newDoc.CreatedDate = DateTime.Now;
+                _newDoc.Description = doctorDesc;
                 _db.Entry(_newDoc).State = EntityState.Added;
                 _effectRow = _db.SaveChanges();
+                WebSession.DoctorId = _newDoc.DoctorID;
                 return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
             }
             else
                 return Enums.CrudStatus.DataAlreadyExist;
         }
-        public Enums.CrudStatus EditDoctor(string doctorName, int deptId, int docId, string designation, string degree)
+        public Enums.CrudStatus EditDoctor(string doctorName, int deptId, int docId, string designation, string degree, string doctorDesc)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -47,12 +49,30 @@ namespace PatientPortal.BAL.Masters
                 _docRow.Designation = designation;
                 _docRow.Degree = degree;
                 _docRow.ModifiedDate = DateTime.Now;
+                _docRow.Description = doctorDesc;
                 _db.Entry(_docRow).State = EntityState.Modified;
                 _effectRow = _db.SaveChanges();
                 return _effectRow > 0 ? Enums.CrudStatus.Updated : Enums.CrudStatus.NotUpdated;
             }
             else
                 return Enums.CrudStatus.DataNotFound;
+        }
+        public Enums.CrudStatus UpdateDoctorImage(byte[] image, int doctorId)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _doctorRow = _db.Doctors.Where(x => x.DoctorID.Equals(doctorId)).FirstOrDefault();
+            if (_doctorRow != null)
+            {
+                _doctorRow.Image = image;
+                _db.Entry(_doctorRow).State = EntityState.Modified;
+                _effectRow = _db.SaveChanges();
+                return _effectRow > 0 ? Enums.CrudStatus.Updated : Enums.CrudStatus.NotUpdated;
+            }
+            else
+            {
+                return Enums.CrudStatus.DataNotFound;
+            }
         }
         public Enums.CrudStatus DeleteDoctor(int docId)
         {
@@ -82,6 +102,8 @@ namespace PatientPortal.BAL.Masters
                              DepartmentId = dept.DepartmentID,
                              DoctorId = doc.DoctorID,
                              DepartmentName = dept.DepartmentName,
+                             Description = doc.Description,
+                             Image = doc.Image,
                              Degree = string.IsNullOrEmpty(doc.Degree) ? string.Empty : doc.Degree,
                              Designation = string.IsNullOrEmpty(doc.Designation) ? string.Empty : doc.Designation
                          }).ToList();

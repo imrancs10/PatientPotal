@@ -151,5 +151,10 @@ namespace PatientPortal.Global
             get { return HttpContext.Current.Session["DepartmentId"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["DepartmentId"]); }
             set { HttpContext.Current.Session["DepartmentId"] = value; }
         }
+        public static int? DoctorId
+        {
+            get { return HttpContext.Current.Session["DoctorId"] == null ? 0 : Convert.ToInt32(HttpContext.Current.Session["DoctorId"]); }
+            set { HttpContext.Current.Session["DoctorId"] = value; }
+        }
     }
 }

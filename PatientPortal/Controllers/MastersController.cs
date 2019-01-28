@@ -71,18 +71,18 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveDoctor(string doctorName, int deptId, string designation, string degree)
+        public JsonResult SaveDoctor(string doctorName, int deptId, string designation, string degree, string doctorDesc)
         {
             DoctorDetails _details = new DoctorDetails();
 
-            return Json(CrudResponse(_details.SaveDoctor(doctorName, deptId, designation, degree)), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.SaveDoctor(doctorName, deptId, designation, degree, doctorDesc)), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult EditDoctor(string doctorName, int deptId, int docId, string designation, string degree)
+        public JsonResult EditDoctor(string doctorName, int deptId, int docId, string designation, string degree, string doctorDesc)
         {
             DoctorDetails _details = new DoctorDetails();
-            return Json(CrudResponse(_details.EditDoctor(doctorName, deptId, docId, designation, degree)), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.EditDoctor(doctorName, deptId, docId, designation, degree, doctorDesc)), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -95,7 +95,13 @@ namespace PatientPortal.Controllers
         public JsonResult GetDoctors()
         {
             DoctorDetails _details = new DoctorDetails();
-            return Json(_details.DoctorList(), JsonRequestBehavior.AllowGet);
+            var doctors = _details.DoctorList();
+            doctors.ForEach(x =>
+            {
+                if (x.Image != null)
+                    x.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(x.Image));
+            });
+            return Json(doctors, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -361,6 +367,35 @@ namespace PatientPortal.Controllers
                     byte[] data = target.ToArray();
                     _details.UpdateDeptImage(data, Convert.ToInt32(WebSession.DepartmentId));
                     WebSession.DepartmentId = null;
+                    return Json("Image saved.");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+        }
+        [HttpPost]
+        public JsonResult DoctorImageSave()
+        {
+            DoctorDetails _details = new DoctorDetails();
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    //Resume
+                    HttpPostedFileBase file = files[0];
+                    MemoryStream target = new MemoryStream();
+                    file.InputStream.CopyTo(target);
+                    byte[] data = target.ToArray();
+                    _details.UpdateDoctorImage(data, Convert.ToInt32(WebSession.DoctorId));
+                    WebSession.DoctorId = null;
                     return Json("Image saved.");
                 }
                 catch (Exception ex)

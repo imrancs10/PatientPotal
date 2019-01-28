@@ -24,6 +24,9 @@ doctor.addNew = function () {
         td = td + '<td> <input type="text" id="txtDoctor" placeholder="Doctor name" class="form-control" name="txtDoctor" value="" /></td>';
         td = td + '<td> <input type="text" id="txtDesignation" placeholder="Designation" class="form-control" name="txtDesignation" value="" /></td>';
         td = td + '<td> <input type="text" id="txtDegree" class="form-control" placeholder="Degree" name="txtDegree" value="" /></td>';
+        td = td + '<td> <input type="text" class="form-control" name="Description" value="" /></td>';
+        td = td + '<td> <input type="file" name="Image" id="Image" accept=".gif,.jpg,.jpeg,.png"/></td>';
+        td = td + '<td> </td>';
         td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
                             '<button type="button" class="btn btn-secondary" onclick="doctor.save(this)">Save</button>' +
                             '<button type="button" class="btn btn-secondary" onclick="doctor.cancel(this)">Cancel</button>' +
@@ -58,7 +61,20 @@ doctor.getData = function () {
             var tr = '<tr>';
             var td = '<td>' + (ind + 1) + '</td>';
             $(binderArray).each(function (ind1, ele1) {
-                td = td + '<td data-deptid="' + ele["DepartmentId"] + '">' + ele[ele1] + '</td>';
+                var text = ele[ele1];
+                if (ele1 == "Image" && text !== null && typeof text !== typeof undefined) {
+                    td = td + "<td data-deptid='" + ele["DepartmentId"] + "'><img src='" + ele["ImageUrl"] + "' alt='' class='img-responsive galimg' style='height:100px;width:100px;'/></td>";
+                }
+                else if (ele1 == "ImageUrl") {
+                    td = td + '<td class="hidden" data-deptid="' + ele["DepartmentId"] + '">' + text + '</td>';
+                }
+                else if (text !== null && typeof text !== typeof undefined) {
+                    td = td + '<td data-deptid="' + ele["DepartmentId"] + '">' + text + '</td>';
+                }
+                else {
+                    td = td + '<td data-deptid="' + ele["DepartmentId"] + '"></td>';
+                }
+                //td = td + '<td data-deptid="' + ele["DepartmentId"] + '">' + ele[ele1] + '</td>';
             });
             td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
                                 '<button type="button" id="btnEdit" class="btn btn-secondary" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.edit(this)">Edit</button>' +
@@ -70,13 +86,20 @@ doctor.getData = function () {
     });
 }
 
+doctor.RemoveFile = function (_this) {
+    var html = '<input type="file" name="Image" id="Image" accept=".gif,.jpg,.jpeg,.png"/>';
+    $(html).insertAfter(_this);
+    $(_this).parent().find('a').remove();
+    return false;
+}
+
 doctor.save = function (row) {
     var mainContainer = $(row).parent().parent().parent();
     let docName = $(mainContainer).find('input[id="txtDoctor"]').val();
     let designation = $(mainContainer).find('input[id="txtDesignation"]').val();
     let degree = $(mainContainer).find('input[id="txtDegree"]').val();
     let deptId = $(mainContainer).find('select').find(':selected').val();
-
+    var deptDesc = $(mainContainer).find('input[name="Description"]').val();
     if (deptId != null && typeof deptId !== undefined && deptId !== '') {
 
         if (docName != null && typeof docName !== undefined && docName !== '') {
@@ -86,12 +109,13 @@ doctor.save = function (row) {
             param.deptId = deptId;
             param.designation = designation;
             param.degree = degree;
-
+            param.doctorDesc = deptDesc;
             utility.ajax.helperWithData(url, param, function (data) {
-                if (data = 'Data has been saved') {
-                    $(row).parent().parent().parent()[0].remove();
+                if (data == 'Data has been saved') {
+                    //$(row).parent().parent().parent()[0].remove();
                     utility.alert.setAlert(utility.alert.alertType.success, 'Data has been saved');
-                    doctor.getData();
+                    //doctor.getData();
+                    doctor.saveFiles(row);
                 }
             });
 
@@ -118,14 +142,28 @@ doctor.edit = function (row) {
         var depttd = $(mainContainer).find('td:eq(1)');
         var desigtd = $(mainContainer).find('td:eq(3)');
         var degreetd = $(mainContainer).find('td:eq(4)');
+        var DescriptionTd = $(mainContainer).find('td:eq(5)');
+        var ImageTd = $(mainContainer).find('td:eq(6)');
+        var ImageUrlTd = $(mainContainer).find('td:eq(7)');
         var docName = $(doctortd).text();
         let designatoin = $(desigtd).text();
         let degree = $(degreetd).text();
+        var Description = $(DescriptionTd).text();
+        var ImageUrl = $(ImageUrlTd).text();
         $(doctortd).empty().append('<input id="txtDoctor" placeholder="Doctor Name" type="text" class="form-control" value="' + docName + '" />');
         $(desigtd).empty().append('<input id="txtDesignation" placeholder="Designation" type="text" class="form-control" value="' + designatoin + '" />');
         $(degreetd).empty().append('<input id="txtDegree" placeholder="Degree" type="text" class="form-control" value="' + degree + '" />');
         $(depttd).empty().append('<select class="form-control" required="required">' + $('#ddlDepartment').clone().html() + '</select>');
         $(depttd).find('select').val($(depttd).data('deptid'));
+        $(DescriptionTd).empty().append('<input type="text" name="Description" class="form-control" value="' + Description + '" />');
+        if (ImageUrl != '' && ImageUrl != "null") {
+            $(ImageTd).empty().append("<a><img src='" + ImageUrl + "' alt='' class='img-responsive galimg' style='height:100px;width:100px;'/></a><a href='javascript:void(0)' onclick='javascript:return doctor.RemoveFile(this)' style='color:red;padding-left:7px;'>X</a>");
+        }
+        else {
+            $(ImageTd).empty().append('<input type="file" name="Image" id="Image" accept=".gif,.jpg,.jpeg,.png"/>');
+        }
+
+        $(ImageUrlTd).empty().append(ImageUrl);
         $(row).parent().prepend('<button type="button" id="btnUpdate" class="btn btn-secondary" data-docid="' + $(row).data('docid') + '" data-deptid="' + $(row).data('deptid') + '" onclick="doctor.update(this)">Update</button>');
         $(row).parent().append('<button type="button" class="btn btn-secondary" onclick="doctor.cancelEdit(this,' + $(row).data('deptid') + ')">cancel</button>');
         $(row).remove();
@@ -139,6 +177,7 @@ doctor.update = function (row) {
     var doctorId = $(row).data('docid');
     let designation = $(mainContainer).find('input[id="txtDesignation"]').val();
     let degree = $(mainContainer).find('input[id="txtDegree"]').val();
+    var deptDesc = $(row).parent().parent().parent().find('input[name="Description"]').val();
     if (deptId != null && typeof deptId !== undefined && deptId !== '') {
 
         if (docName != null && typeof docName !== undefined && docName !== '') {
@@ -150,11 +189,12 @@ doctor.update = function (row) {
             param.docId = doctorId;
             param.designation = designation;
             param.degree = degree;
-
+            param.doctorDesc = deptDesc;
             utility.ajax.helperWithData(url, param, function (data) {
-                if (data = 'Data has been updated') {
+                if (data == 'Data has been updated') {
                     utility.alert.setAlert(utility.alert.alertType.success, 'Data has been updated');
-                    doctor.getData();
+                    //doctor.getData();
+                    doctor.saveFiles(row);
                 }
             });
 
@@ -171,18 +211,19 @@ doctor.update = function (row) {
 }
 
 doctor.cancelEdit = function (row, id) {
-    var mainContainer = $(row).parent().parent().parent();
-    var degree = $(mainContainer).find('td:eq(4) input[id="txtDegree"]').val();
-    var designation = $(mainContainer).find('td:eq(3) input[id="txtDesignation"]').val();
-    var doctorname = $(mainContainer).find('td:eq(2) input[id="txtDoctor"]').val();
-    var department = $(mainContainer).find('td:eq(1) select').val(id).find(':selected').text();
-    $(mainContainer).find('td:eq(2)').empty().text(doctorname);
-    $(mainContainer).find('td:eq(1)').empty().text(department);
-    $(mainContainer).find('td:eq(3)').empty().text(designation);
-    $(mainContainer).find('td:eq(4)').empty().text(degree);
-    $(row).parent().prepend('<button type="button" class="btn btn-secondary" data-id="' + id + '" onclick="doctor.edit(this)">Edit</button>');
-    $('#btnUpdate').remove();
-    $(row).remove();
+    //var mainContainer = $(row).parent().parent().parent();
+    //var degree = $(mainContainer).find('td:eq(4) input[id="txtDegree"]').val();
+    //var designation = $(mainContainer).find('td:eq(3) input[id="txtDesignation"]').val();
+    //var doctorname = $(mainContainer).find('td:eq(2) input[id="txtDoctor"]').val();
+    //var department = $(mainContainer).find('td:eq(1) select').val(id).find(':selected').text();
+    //$(mainContainer).find('td:eq(2)').empty().text(doctorname);
+    //$(mainContainer).find('td:eq(1)').empty().text(department);
+    //$(mainContainer).find('td:eq(3)').empty().text(designation);
+    //$(mainContainer).find('td:eq(4)').empty().text(degree);
+    //$(row).parent().prepend('<button type="button" class="btn btn-secondary" data-id="' + id + '" onclick="doctor.edit(this)">Edit</button>');
+    //$('#btnUpdate').remove();
+    //$(row).remove();
+    department.getData();
 }
 
 doctor.delete = function (row) {
@@ -190,7 +231,7 @@ doctor.delete = function (row) {
     var url = app.urls.doctorDelete;
     utility.confirmBox('Are you sure..!\n\n You wanr to delete', 'Confirmation', function () {
         utility.ajax.helperWithData(url, { docId: docId }, function (data) {
-            if (data = 'Data delete from database') {
+            if (data == 'Data delete from database') {
                 utility.alert.setAlert(utility.alert.alertType.success, 'Data delete from database');
                 doctor.getData();
             }
@@ -202,5 +243,38 @@ doctor.delete = function (row) {
    
 }
 
-
+doctor.saveFiles = function (row) {
+    //save files
+    if (window.FormData !== undefined) {
+        var fileData = new FormData();
+        //image
+        var fileUpload = $(row).parent().parent().parent().find('input[type="file"]').get(0);
+        if (fileUpload != undefined) {
+            var files = fileUpload.files;
+            fileData.append(files[0].name, files[0]);
+            $.ajax({
+                dataType: 'json',
+                type: 'POST',
+                url: '/Masters/DoctorImageSave',
+                contentType: false, // Not to set any content header  
+                processData: false, // Not to process data  
+                data: fileData,
+                success: function (data) {
+                    $(row).parent().parent().parent()[0].remove();
+                    department.getData();
+                },
+                failure: function (response) {
+                    alert(response);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+        else {
+            $(row).parent().parent().parent()[0].remove();
+            department.getData();
+        }
+    }
+} 
 
