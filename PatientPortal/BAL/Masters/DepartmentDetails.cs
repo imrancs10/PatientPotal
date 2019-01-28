@@ -13,7 +13,7 @@ namespace PatientPortal.BAL.Masters
     {
         PatientPortalEntities _db = null;
 
-        public Enums.CrudStatus SaveDept(string deptName)
+        public Enums.CrudStatus SaveDept(string deptName, string deptDesc, string deptUrl)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -23,15 +23,19 @@ namespace PatientPortal.BAL.Masters
             {
                 Department _newDept = new Department();
                 _newDept.DepartmentName = deptName;
+                _newDept.DepartmentUrl = deptUrl;
+                _newDept.Description = deptDesc;
                 _newDept.DepartmentID = maxDepartmentId + 1;
                 _db.Entry(_newDept).State = EntityState.Added;
                 _effectRow = _db.SaveChanges();
+                WebSession.DepartmentId = _newDept.DepartmentID;
                 return _effectRow > 0 ? Enums.CrudStatus.Saved : Enums.CrudStatus.NotSaved;
+                
             }
             else
                 return Enums.CrudStatus.DataAlreadyExist;
         }
-        public Enums.CrudStatus EditDept(string deptName, int deptId)
+        public Enums.CrudStatus EditDept(string deptName, int deptId, string deptUrl,string  deptDesc)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
@@ -39,6 +43,23 @@ namespace PatientPortal.BAL.Masters
             if (_deptRow != null)
             {
                 _deptRow.DepartmentName = deptName;
+                _deptRow.DepartmentUrl = deptUrl;
+                _deptRow.Description = deptDesc;
+                _db.Entry(_deptRow).State = EntityState.Modified;
+                _effectRow = _db.SaveChanges();
+                return _effectRow > 0 ? Enums.CrudStatus.Updated : Enums.CrudStatus.NotUpdated;
+            }
+            else
+                return Enums.CrudStatus.DataNotFound;
+        }
+        public Enums.CrudStatus UpdateDeptImage(byte[] image, int deptId)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _deptRow = _db.Departments.Where(x => x.DepartmentID.Equals(deptId)).FirstOrDefault();
+            if (_deptRow != null)
+            {
+                _deptRow.Image = image;
                 _db.Entry(_deptRow).State = EntityState.Modified;
                 _effectRow = _db.SaveChanges();
                 return _effectRow > 0 ? Enums.CrudStatus.Updated : Enums.CrudStatus.NotUpdated;
@@ -70,7 +91,10 @@ namespace PatientPortal.BAL.Masters
                          {
                              DeparmentName = dept.DepartmentName,
                              DepartmentId = dept.DepartmentID,
-                             DepartmentUrl = dept.DepartmentUrl
+                             DepartmentUrl = dept.DepartmentUrl,
+                             Description = dept.Description,
+                             Image = dept.Image
+                             //ImageUrl= string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(dept.Image))
                          }).ToList();
             return _list != null ? _list : new List<DepartmentModel>();
         }

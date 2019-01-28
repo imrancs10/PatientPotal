@@ -10,6 +10,9 @@ namespace PatientPortal.Models.Masters
         public int DepartmentId { get; set; }
         public string DeparmentName { get; set; }
         public string DepartmentUrl { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public byte[] Image { get; set; }
     }
 
     public class DoctorModel

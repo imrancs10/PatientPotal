@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using DataLayer;
 using PatientPortal.BAL.Masters;
 using PatientPortal.BAL.Patient;
+using PatientPortal.Global;
 using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Models;
 using PatientPortal.Models.Masters;
@@ -36,18 +37,18 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveDepartment(string deptName)
+        public JsonResult SaveDepartment(string deptName, string deptDesc, string deptUrl)
         {
             _details = new DepartmentDetails();
 
-            return Json(CrudResponse(_details.SaveDept(deptName)), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.SaveDept(deptName, deptDesc, deptUrl)), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult EditDepartment(string deptName, int deptId)
+        public JsonResult EditDepartment(string deptName, int deptId, string deptDesc, string deptUrl)
         {
             _details = new DepartmentDetails();
-
-            return Json(CrudResponse(_details.EditDept(deptName, deptId)), JsonRequestBehavior.AllowGet);
+            WebSession.DepartmentId = deptId;
+            return Json(CrudResponse(_details.EditDept(deptName, deptId, deptUrl, deptDesc)), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult DeleteDepartment(int deptId)
@@ -60,7 +61,13 @@ namespace PatientPortal.Controllers
         public override JsonResult GetDepartments()
         {
             _details = new DepartmentDetails();
-            return Json(_details.DepartmentList(), JsonRequestBehavior.AllowGet);
+            var departments = _details.DepartmentList();
+            departments.ForEach(x =>
+            {
+                if (x.Image != null)
+                    x.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(x.Image));
+            });
+            return Json(departments, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -308,7 +315,7 @@ namespace PatientPortal.Controllers
             return Json(_details.GetMastersData(), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult SaveMasterLookup(string name,string value)
+        public JsonResult SaveMasterLookup(string name, string value)
         {
             _details = new DepartmentDetails();
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(value))
@@ -317,7 +324,7 @@ namespace PatientPortal.Controllers
                 return null;
             }
 
-            return Json(CrudResponse(_details.SaveMasterLookup(name,value)), JsonRequestBehavior.AllowGet);
+            return Json(CrudResponse(_details.SaveMasterLookup(name, value)), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult EditMasterLookup(string name, string value, int deptId)
@@ -336,6 +343,35 @@ namespace PatientPortal.Controllers
             _details = new DepartmentDetails();
 
             return Json(CrudResponse(_details.DeleteMasterLookup(deptId)), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DepartmentImageSave()
+        {
+            _details = new DepartmentDetails();
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    //  Get all files from Request object  
+                    HttpFileCollectionBase files = Request.Files;
+                    //Resume
+                    HttpPostedFileBase file = files[0];
+                    MemoryStream target = new MemoryStream();
+                    file.InputStream.CopyTo(target);
+                    byte[] data = target.ToArray();
+                    _details.UpdateDeptImage(data, Convert.ToInt32(WebSession.DepartmentId));
+                    WebSession.DepartmentId = null;
+                    return Json("Image saved.");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
         }
     }
 }

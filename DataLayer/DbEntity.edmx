@@ -59,6 +59,8 @@
           <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="DepartmentName" Type="varchar" MaxLength="200" />
           <Property Name="DepartmentUrl" Type="varchar" MaxLength="500" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -69,6 +71,8 @@
           <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="Designation" Type="varchar" MaxLength="100" />
           <Property Name="Degree" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Image" Type="varbinary(max)" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
@@ -930,6 +934,8 @@
           <NavigationProperty Name="Doctors" Relationship="PatientPortalModel.FK_Doctor_Doctor" FromRole="Department" ToRole="Doctor" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_Department" FromRole="Department" ToRole="PatientInfo" />
           <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalModel.FK_PatientInfoCRClone_Department" FromRole="Department" ToRole="PatientInfoCRClone" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -947,6 +953,8 @@
           <NavigationProperty Name="DoctorLeaves" Relationship="PatientPortalModel.FK_DoctorLeave_Doctor" FromRole="Doctor" ToRole="DoctorLeave" />
           <NavigationProperty Name="DoctorSchedules" Relationship="PatientPortalModel.FK_DoctorScheduleDay_DoctorSchedule" FromRole="Doctor" ToRole="DoctorSchedule" />
           <NavigationProperty Name="LabreportPdfs" Relationship="PatientPortalModel.FK_LabreportPdf_Doctor" FromRole="Doctor" ToRole="LabreportPdf" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="DoctorLeave">
           <Key>
@@ -1599,6 +1607,8 @@
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="PatientPortalModel.Department">
               <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DepartmentUrl" ColumnName="DepartmentUrl" />
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -1608,6 +1618,8 @@
           <EntitySetMapping Name="Doctors">
             <EntityTypeMapping TypeName="PatientPortalModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Degree" ColumnName="Degree" />
