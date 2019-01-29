@@ -223,7 +223,7 @@ doctor.cancelEdit = function (row, id) {
     //$(row).parent().prepend('<button type="button" class="btn btn-secondary" data-id="' + id + '" onclick="doctor.edit(this)">Edit</button>');
     //$('#btnUpdate').remove();
     //$(row).remove();
-    department.getData();
+    doctor.getData();
 }
 
 doctor.delete = function (row) {
@@ -261,7 +261,7 @@ doctor.saveFiles = function (row) {
                 data: fileData,
                 success: function (data) {
                     $(row).parent().parent().parent()[0].remove();
-                    department.getData();
+                    doctor.getData();
                 },
                 failure: function (response) {
                     alert(response);
@@ -273,7 +273,7 @@ doctor.saveFiles = function (row) {
         }
         else {
             $(row).parent().parent().parent()[0].remove();
-            department.getData();
+            doctor.getData();
         }
     }
 } 

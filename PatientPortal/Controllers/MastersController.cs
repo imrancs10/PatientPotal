@@ -82,6 +82,7 @@ namespace PatientPortal.Controllers
         public JsonResult EditDoctor(string doctorName, int deptId, int docId, string designation, string degree, string doctorDesc)
         {
             DoctorDetails _details = new DoctorDetails();
+            WebSession.DoctorId = docId;
             return Json(CrudResponse(_details.EditDoctor(doctorName, deptId, docId, designation, degree, doctorDesc)), JsonRequestBehavior.AllowGet);
         }
 

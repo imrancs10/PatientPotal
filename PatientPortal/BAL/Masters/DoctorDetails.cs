@@ -106,7 +106,7 @@ namespace PatientPortal.BAL.Masters
                              Image = doc.Image,
                              Degree = string.IsNullOrEmpty(doc.Degree) ? string.Empty : doc.Degree,
                              Designation = string.IsNullOrEmpty(doc.Designation) ? string.Empty : doc.Designation
-                         }).ToList();
+                         }).OrderBy(x => x.DoctorId).ToList();
             return _list != null ? _list : new List<DoctorModel>();
         }
         public IEnumerable<object> GetDoctorLeaveList(int doctorId)
