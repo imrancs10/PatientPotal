@@ -28,9 +28,9 @@ doctor.addNew = function () {
         td = td + '<td> <input type="file" name="Image" id="Image" accept=".gif,.jpg,.jpeg,.png"/></td>';
         td = td + '<td> </td>';
         td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
-                            '<button type="button" class="btn btn-secondary" onclick="doctor.save(this)">Save</button>' +
-                            '<button type="button" class="btn btn-secondary" onclick="doctor.cancel(this)">Cancel</button>' +
-                        '</div></td>';
+            '<button type="button" class="btn btn-secondary" onclick="doctor.save(this)">Save</button>' +
+            '<button type="button" class="btn btn-secondary" onclick="doctor.cancel(this)">Cancel</button>' +
+            '</div></td>';
         tr = tr + td + '</tr>';
         //$(tbody).append(tr);
         $("#doctorTable tr:first").after(tr);
@@ -58,30 +58,36 @@ doctor.getData = function () {
         });
 
         $(data).each(function (ind, ele) {
-            var tr = '<tr>';
-            var td = '<td>' + (ind + 1) + '</td>';
-            $(binderArray).each(function (ind1, ele1) {
-                var text = ele[ele1];
-                if (ele1 == "Image" && text !== null && typeof text !== typeof undefined) {
-                    td = td + "<td data-deptid='" + ele["DepartmentId"] + "'><img src='" + ele["ImageUrl"] + "' alt='' class='img-responsive galimg' style='height:100px;width:100px;'/></td>";
-                }
-                else if (ele1 == "ImageUrl") {
-                    td = td + '<td class="hidden" data-deptid="' + ele["DepartmentId"] + '">' + text + '</td>';
-                }
-                else if (text !== null && typeof text !== typeof undefined) {
-                    td = td + '<td data-deptid="' + ele["DepartmentId"] + '">' + text + '</td>';
-                }
-                else {
-                    td = td + '<td data-deptid="' + ele["DepartmentId"] + '"></td>';
-                }
-                //td = td + '<td data-deptid="' + ele["DepartmentId"] + '">' + ele[ele1] + '</td>';
-            });
-            td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
-                                '<button type="button" id="btnEdit" class="btn btn-secondary" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.edit(this)">Edit</button>' +
-                                '<button type="button" class="btn btn-danger" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.delete(this)">Delete</button>' +
-                            '</div></td>';
-            tr = tr + td + '</tr>';
-            $(tbody).append(tr);
+            var urlDoctor = app.urls.doctorById;
+            var doctorImage = null;
+            utility.ajax.helperWithData(urlDoctor, { doctorId: ele["DoctorId"] }, function (dataDoctor) {
+                doctorImage = dataDoctor.ImageUrl;
+                var tr = '<tr>';
+                var td = '<td>' + (ind + 1) + '</td>';
+                $(binderArray).each(function (ind1, ele1) {
+                    var text = ele[ele1];
+                    if (ele1 == "Image" && doctorImage !== null && typeof doctorImage !== typeof undefined) {
+                        td = td + "<td data-deptid='" + ele["DepartmentId"] + "'><img src='" + doctorImage + "' alt='' class='img-responsive galimg' style='height:100px;width:100px;'/></td>";
+                    }
+                    else if (ele1 == "ImageUrl") {
+                        td = td + '<td class="hidden" data-deptid="' + ele["DepartmentId"] + '">' + doctorImage + '</td>';
+                    }
+                    else if (text !== null && typeof text !== typeof undefined) {
+                        td = td + '<td data-deptid="' + ele["DepartmentId"] + '">' + text + '</td>';
+                    }
+                    else {
+                        td = td + '<td data-deptid="' + ele["DepartmentId"] + '"></td>';
+                    }
+                    //td = td + '<td data-deptid="' + ele["DepartmentId"] + '">' + ele[ele1] + '</td>';
+                });
+                td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
+                    '<button type="button" id="btnEdit" class="btn btn-secondary" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.edit(this)">Edit</button>' +
+                    '<button type="button" class="btn btn-danger" data-docid="' + ele["DoctorId"] + '" data-deptid="' + ele["DepartmentId"] + '" onclick="doctor.delete(this)">Delete</button>' +
+                    '</div></td>';
+                tr = tr + td + '</tr>';
+                $(tbody).append(tr);
+            }, undefined, undefined, false);
+
         });
     });
 }
@@ -240,7 +246,7 @@ doctor.delete = function (row) {
     }, function () {
         $(this).dialog("close");
     });
-   
+
 }
 
 doctor.saveFiles = function (row) {
@@ -276,5 +282,5 @@ doctor.saveFiles = function (row) {
             doctor.getData();
         }
     }
-} 
+}
 

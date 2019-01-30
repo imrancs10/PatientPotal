@@ -93,7 +93,7 @@ namespace PatientPortal.BAL.Masters
                              DepartmentId = dept.DepartmentID,
                              DepartmentUrl = dept.DepartmentUrl,
                              Description = dept.Description,
-                             Image = dept.Image
+                             //Image = dept.Image
                              //ImageUrl= string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(dept.Image))
                          }).ToList();
             return _list != null ? _list : new List<DepartmentModel>();
@@ -111,14 +111,22 @@ namespace PatientPortal.BAL.Masters
             return _list != null ? _list : new List<MasterLookupModel>();
         }
 
-        public Department GetDeparmentById(int deptId)
+        public DepartmentModel GetDeparmentById(int deptId)
         {
             _db = new PatientPortalEntities();
             int _effectRow = 0;
             var _deptRow = _db.Departments.Where(x => x.DepartmentID.Equals(deptId)).FirstOrDefault();
             if (_deptRow != null)
             {
-                return _deptRow;
+                var dep = new DepartmentModel()
+                {
+                    DeparmentName = _deptRow.DepartmentName,
+                    DepartmentId = _deptRow.DepartmentID,
+                    DepartmentUrl = _deptRow.DepartmentUrl,
+                    Description = _deptRow.Description,
+                    Image = _deptRow.Image
+                };
+                return dep;
             }
             return null;
         }

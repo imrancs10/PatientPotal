@@ -19,7 +19,7 @@ utility.ajax.options = {
     success: ''
 };
 
-utility.ajax.helper = function (url, success, error,method) {
+utility.ajax.helper = function (url, success, error, method) {
     if (typeof success === 'function') {
         utility.ajax.options.success = success;
     }
@@ -35,7 +35,7 @@ utility.ajax.helper = function (url, success, error,method) {
 
     $.ajax(utility.ajax.options);
 }
-utility.ajax.helperWithData = function (url, data, success, error, method) {
+utility.ajax.helperWithData = function (url, data, success, error, method, async) {
     if (typeof success === 'function') {
         utility.ajax.options.success = success;
     }
@@ -47,6 +47,7 @@ utility.ajax.helperWithData = function (url, data, success, error, method) {
     }
     utility.ajax.options.method = method === undefined ? "POST" : method;
     utility.ajax.options.url = url;
+    utility.ajax.options.async = async === undefined ? true : async;
     utility.ajax.options.data = JSON.stringify(data);
     utility.ajax.options.dataType = 'json';
     $.ajax(utility.ajax.options);
@@ -105,10 +106,10 @@ utility.global.timeSplitter = function (minTime, maxTime, minSeed) {
     var maxTimeObj = utility.global.get24FormarTime(maxTime);
     var minMins = minTimeObj.hour * 60;
     var maxMins = maxTimeObj.hour * 60;
-    time.push(minTimeObj.hour + ':' + minTimeObj.minutes + (minTimeObj.hour>11?' PM':' AM'));
-    for (var i = minMins; i <= maxMins; i+=60) {
+    time.push(minTimeObj.hour + ':' + minTimeObj.minutes + (minTimeObj.hour > 11 ? ' PM' : ' AM'));
+    for (var i = minMins; i <= maxMins; i += 60) {
         for (var j = minSeed; j <= 60; j += minSeed) {
-            time.push((((minMins + j) % 60) == 0 ? ((minMins / 60) + 1) : (minMins / 60)) + ':' + (((minMins + j) % 60) == 0 ? '00' : ((minMins + j) % 60)) + ' ' + ((((minMins + j) % 60) == 0 ? ((minMins / 60) + 1) : (minMins / 60))>=12 ? 'PM' : 'AM'));
+            time.push((((minMins + j) % 60) == 0 ? ((minMins / 60) + 1) : (minMins / 60)) + ':' + (((minMins + j) % 60) == 0 ? '00' : ((minMins + j) % 60)) + ' ' + ((((minMins + j) % 60) == 0 ? ((minMins / 60) + 1) : (minMins / 60)) >= 12 ? 'PM' : 'AM'));
         }
         minMins += 60;
     }
@@ -184,7 +185,7 @@ Date.prototype.getCustomDetails = function (year, month) {
     obj.currentMonth = date.getMonth() + 1;
     obj.getDateString = date.toDateString();
     obj.todayDate = new Date().getDate();
-    obj.todayMonth = new Date().getMonth()+1;
+    obj.todayMonth = new Date().getMonth() + 1;
     obj.todayYear = new Date().getFullYear();
     return obj;
 }
@@ -198,11 +199,11 @@ Date.prototype.compareDate = function (date1, date2) {
     var day2 = date2.getDate();
     var month2 = date2.getMonth() + 1;
     var year2 = date2.getFullYear();
-    var obj={};
+    var obj = {};
     obj.isMonthSame = month1 === month2,
-    obj.isDaySame = day1 === day2,
-    obj.isYearSame = year1 == year2,
-    obj.isDateSame = month1 === month2 ? (day1 === day2 ? (year1 == year2 ? true : false) : false) : false;
+        obj.isDaySame = day1 === day2,
+        obj.isYearSame = year1 == year2,
+        obj.isDateSame = month1 === month2 ? (day1 === day2 ? (year1 == year2 ? true : false) : false) : false;
     obj.isDateLessOrEqual = month1 <= month2 ? (day1 <= day2 ? (year1 <= year2 ? true : false) : false) : false;
     obj.isDateLess = month1 < month2 ? true : (day1 < day2 ? true : (year1 < year2 ? true : false));
     obj.isDateGreaterOrEqual = month1 >= month2 ? (day1 >= day2 ? (year1 >= year2 ? true : false) : false) : false;
@@ -218,18 +219,18 @@ $(document).ajaxComplete(function () {
     $('.ajaxloader').hide();
 });
 
-utility.confirmBox = function (message,title,yesFunction,noFunction) {
+utility.confirmBox = function (message, title, yesFunction, noFunction) {
     $('<div></div>').appendTo('body')
-    .html('<div><h6>' + message + '?</h6></div>')
-    .dialog({
-        modal: true, title: title, zIndex: 10000, autoOpen: true,
-        width: 'auto', resizable: false,
-        buttons: {
-            Yes: yesFunction,
-            No: noFunction
-        },
-        close: function (event, ui) {
-            $(this).remove();
-        }
-    });
+        .html('<div><h6>' + message + '?</h6></div>')
+        .dialog({
+            modal: true, title: title, zIndex: 10000, autoOpen: true,
+            width: 'auto', resizable: false,
+            buttons: {
+                Yes: yesFunction,
+                No: noFunction
+            },
+            close: function (event, ui) {
+                $(this).remove();
+            }
+        });
 };

@@ -11,11 +11,13 @@ app.urls.commonGetDaysList = '/common/GetDaysList';
 app.urls.commonGetDoctorList = '/common/GetDoctorList';
 
 app.urls.departmentList = '/masters/GetDepartments';
+app.urls.departmentById = '/masters/GetDepartmentImageById';
 app.urls.departmentSave = '/masters/SaveDepartment';
 app.urls.departmentEdit = '/masters/EditDepartment';
 app.urls.departmentDelete = '/masters/DeleteDepartment';
 
 app.urls.doctorList = '/masters/GetDoctors';
+app.urls.doctorById = '/masters/GetDoctorImageById';
 app.urls.doctorSave = '/masters/SaveDoctor';
 app.urls.doctorEdit = '/masters/EditDoctor';
 app.urls.doctorDelete = '/masters/DeleteDoctor';

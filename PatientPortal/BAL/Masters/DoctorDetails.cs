@@ -103,11 +103,26 @@ namespace PatientPortal.BAL.Masters
                              DoctorId = doc.DoctorID,
                              DepartmentName = dept.DepartmentName,
                              Description = doc.Description,
-                             Image = doc.Image,
+                             //Image = doc.Image,
                              Degree = string.IsNullOrEmpty(doc.Degree) ? string.Empty : doc.Degree,
                              Designation = string.IsNullOrEmpty(doc.Designation) ? string.Empty : doc.Designation
                          }).OrderBy(x => x.DoctorId).ToList();
             return _list != null ? _list : new List<DoctorModel>();
+        }
+
+        public DoctorModel GetDoctorById(int deptId)
+        {
+            _db = new PatientPortalEntities();
+            var _deptRow = _db.Doctors.Where(x => x.DoctorID.Equals(deptId)).FirstOrDefault();
+            if (_deptRow != null)
+            {
+                var dep = new DoctorModel()
+                {
+                    Image = _deptRow.Image
+                };
+                return dep;
+            }
+            return null;
         }
         public IEnumerable<object> GetDoctorLeaveList(int doctorId)
         {

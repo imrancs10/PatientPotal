@@ -835,7 +835,7 @@ namespace PatientPortal.Controllers
                 Address = address,
                 CityId = city,
                 Country = country,
-                Department = dept != null ? dept.DepartmentName : string.Empty,
+                Department = dept != null ? dept.DeparmentName : string.Empty,
                 //DOB = DateTime.Parse(DOB, CultureInfo.InvariantCulture),
                 Email = email,
                 FirstName = firstname,

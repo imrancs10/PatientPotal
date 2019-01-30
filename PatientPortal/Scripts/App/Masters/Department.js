@@ -24,29 +24,34 @@ department.getData = function () {
         });
 
         $(data).each(function (ind, ele) {
-            var tr = '<tr>';
-            var td = '<td>' + (ind + 1) + '</td>';
-            $(binderArray).each(function (ind1, ele1) {
-                var text = ele[ele1];
-                if (ele1 == "Image" && text !== null && typeof text !== typeof undefined) {
-                    td = td + "<td><img src='" + ele["ImageUrl"] + "' alt='' class='img-responsive galimg' style='height:100px;width:100px;'/></td>";
-                }
-                else if (ele1 == "ImageUrl") {
-                    td = td + '<td class="hidden">' + text + '</td>';
-                }
-                else if (text !== null && typeof text !== typeof undefined) {
-                    td = td + '<td>' + text + '</td>';
-                }
-                else {
-                    td = td + '<td></td>';
-                }
-            });
-            td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
-                '<button type="button" id="btnEdit" class="btn btn-secondary" data-id=' + ele["DepartmentId"] + ' onclick="department.edit(this)">Edit</button>' +
-                '<button type="button" class="btn btn-danger" data-id=' + ele["DepartmentId"] + ' onclick="department.delete(this)">Delete</button>' +
-                '</div></td>';
-            tr = tr + td + '</tr>';
-            $(tbody).append(tr);
+            var urlDepartment = app.urls.departmentById;
+            var depImage = null;
+            utility.ajax.helperWithData(urlDepartment, { deptId: ele["DepartmentId"] }, function (dataDepartment) {
+                depImage = dataDepartment.ImageUrl;
+                var tr = '<tr>';
+                var td = '<td>' + (ind + 1) + '</td>';
+                $(binderArray).each(function (ind1, ele1) {
+                    var text = ele[ele1];
+                    if (ele1 == "Image" && depImage !== null && typeof depImage !== typeof undefined) {
+                        td = td + "<td><img src='" + depImage + "' alt='' class='img-responsive galimg' style='height:100px;width:100px;'/></td>";
+                    }
+                    else if (ele1 == "ImageUrl") {
+                        td = td + '<td class="hidden">' + depImage + '</td>';
+                    }
+                    else if (text !== null && typeof text !== typeof undefined) {
+                        td = td + '<td>' + text + '</td>';
+                    }
+                    else {
+                        td = td + '<td></td>';
+                    }
+                });
+                td = td + '<td><div class="btn-group" role="group" aria-label="Basic example">' +
+                    '<button type="button" id="btnEdit" class="btn btn-secondary" data-id=' + ele["DepartmentId"] + ' onclick="department.edit(this)">Edit</button>' +
+                    '<button type="button" class="btn btn-danger" data-id=' + ele["DepartmentId"] + ' onclick="department.delete(this)">Delete</button>' +
+                    '</div></td>';
+                tr = tr + td + '</tr>';
+                $(tbody).append(tr);
+            }, undefined, undefined, false);
         });
     });
 }

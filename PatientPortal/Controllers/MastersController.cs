@@ -62,12 +62,25 @@ namespace PatientPortal.Controllers
         {
             _details = new DepartmentDetails();
             var departments = _details.DepartmentList();
-            departments.ForEach(x =>
-            {
-                if (x.Image != null)
-                    x.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(x.Image));
-            });
+            //departments.ForEach(x =>
+            //{
+            //    if (x.Image != null)
+            //        x.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(x.Image));
+            //});
             return Json(departments, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDepartmentImageById(int deptId)
+        {
+            _details = new DepartmentDetails();
+            var department = _details.GetDeparmentById(deptId);
+            if (department != null)
+            {
+                if (department.Image != null)
+                    department.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(department.Image));
+            }
+           
+            return Json(department, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -97,12 +110,25 @@ namespace PatientPortal.Controllers
         {
             DoctorDetails _details = new DoctorDetails();
             var doctors = _details.DoctorList();
-            doctors.ForEach(x =>
-            {
-                if (x.Image != null)
-                    x.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(x.Image));
-            });
+            //doctors.ForEach(x =>
+            //{
+            //    if (x.Image != null)
+            //        x.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(x.Image));
+            //});
             return Json(doctors, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDoctorImageById(int doctorId)
+        {
+            DoctorDetails _details = new DoctorDetails();
+            var doctor = _details.GetDoctorById(doctorId);
+            if (doctor != null)
+            {
+                if (doctor.Image != null)
+                    doctor.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(doctor.Image));
+            }
+
+            return Json(doctor, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
