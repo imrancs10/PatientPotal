@@ -180,7 +180,7 @@ namespace PatientPortal.Controllers
                     x.AppointmentDate = Convert.ToDateTime(x.AppointmentDate).ToString("dd/MM/yyyy");
                     x.Status = x.IsCancelled != null && x.IsCancelled.Value
                                     ? "Cancelled on : " + x.CancelDate.Value.ToString("dd/MM/yyyy") + " \n Reason : " + x.CancelReason + "<strong style='color:Red; cursor: pointer'>Cancelled</strong>"
-                                    : "<strong style='color:green; cursor: pointer'>Booked</strong>";
+                                    : "<strong style='color:green; cursor: pointer'>Visited</strong>";
                 });
                 if (reportFromService != null)
                 {
@@ -193,7 +193,7 @@ namespace PatientPortal.Controllers
                             DoctorName = x.DoctorName,
                             fromtime = x.fromtime,
                             totime = x.totime,
-                            Status = "<strong style='color:green; cursor: pointer'>Booked</strong>"
+                            Status = "<strong style='color:green; cursor: pointer'>Visited</strong>"
                         });
                     });
                 }
