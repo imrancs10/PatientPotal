@@ -120,6 +120,32 @@ namespace PatientPortal.BAL.Appointments
                 throw raise;
             }
         }
+        public IEnumerable<object> PatientAppointmentListBookAppointment(int _patientId, int year = 0, int month = 0)
+        {
+            _db = new PatientPortalEntities();
+            var _list = (from docAppointment in _db.AppointmentInfoes
+
+                         orderby docAppointment.DoctorId
+                         where docAppointment.PatientInfo.PatientId.Equals(_patientId) &&
+                         (year == 0 || docAppointment.AppointmentDateFrom.Year == year) &&
+                         (month == 0 || docAppointment.AppointmentDateFrom.Month == month)
+                         select new
+                         {
+                             docAppointment.AppointmentDateFrom,
+                             docAppointment.IsCancelled,
+                             docAppointment.CancelDate,
+                             docAppointment.CancelReason,
+                             docAppointment.Doctor.DepartmentID,
+                             docAppointment.Doctor.Department.DepartmentName,
+                             docAppointment.AppointmentDateTo,
+                             docAppointment.AppointmentId,
+                             docAppointment.DoctorId,
+                             docAppointment.Doctor.DoctorName,
+                             docAppointment.PatientId,
+                             PatientName = docAppointment.PatientInfo.FirstName + " " + docAppointment.PatientInfo.MiddleName + " " + docAppointment.PatientInfo.LastName
+                         }).OrderBy(x => x.AppointmentDateFrom).ToList();
+            return _list;
+        }
         public List<AppointmentsModel> PatientAppointmentList(int _patientId, int year = 0, int month = 0)
         {
             _db = new PatientPortalEntities();

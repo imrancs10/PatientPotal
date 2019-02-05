@@ -102,7 +102,7 @@ namespace PatientPortal.Controllers
             Dictionary<int, string> result = new Dictionary<int, string>();
             if (int.TryParse(_sessionPatienId, out _patientId))
             {
-                return Json(_details.PatientAppointmentList(_patientId, year, month), JsonRequestBehavior.AllowGet);
+                return Json(_details.PatientAppointmentListBookAppointment(_patientId, year, month), JsonRequestBehavior.AllowGet);
             }
             else
             {
