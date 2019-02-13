@@ -209,6 +209,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MastersController.cs" />
@@ -485,6 +486,8 @@
     <Content Include="Views\Report\DischargeSummary.cshtml" />
     <Content Include="Views\Report\ViewDischargeSummaryReport.cshtml" />
     <Content Include="Views\Report\PaymentReciept.cshtml" />
+    <Content Include="Views\General\Information.cshtml" />
+    <Content Include="Views\General\AboutRML.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">
