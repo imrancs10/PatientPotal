@@ -35,8 +35,16 @@ namespace PatientPortal.Controllers
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
-            string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            string filterText = Request["search[value]"];
             List<DataLayer.PateintLeadger> result = _details.GetBillReportData();
+
+            if (!string.IsNullOrEmpty(filterText))
+            {
+                result = result.Where(x => x.billdate.ToString().Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.billno.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.vtype.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.netamt.ToString().Contains(filterText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
 
             recordsTotal = result.Count();
             List<DataLayer.PateintLeadger> data = result.Skip(skip).Take(pageSize).ToList();
@@ -68,8 +76,18 @@ namespace PatientPortal.Controllers
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
-            string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            string filterText = Request["search[value]"];
             List<PatientTransaction> result = _details.GetPaymentReceipt();
+
+            if (!string.IsNullOrEmpty(filterText))
+            {
+                result = result.Where(x => x.OrderId.ToString().Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.Amount.ToString().Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.TransactionNumber.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.ResponseCode.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.Type.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.StatusCode.ToString().Contains(filterText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
 
             recordsTotal = result.Count();
             List<PatientTransaction> data = result.Skip(skip).Take(pageSize).ToList();
@@ -90,8 +108,16 @@ namespace PatientPortal.Controllers
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
-            string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
-            List<DataLayer.LabreportPdf> result = _details.GetLabReportData();
+            string filterText = Request["search[value]"];
+            List<LabreportPdf> result = _details.GetLabReportData();
+
+            if (!string.IsNullOrEmpty(filterText))
+            {
+                result = result.Where(x => x.Labref.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.LabName.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.BillNo.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.Location.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
 
             recordsTotal = result.Count();
             List<DataLayer.LabreportPdf> data = result.Skip(skip).Take(pageSize).ToList();
@@ -253,6 +279,7 @@ namespace PatientPortal.Controllers
             int recordsTotal = 0;
             List<PatientLedgerModel> ledgerData;
             string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            string filterText = Request["search[value]"];
             if (!string.IsNullOrEmpty(filterDateRange))
             {
                 DateTime FromDate = DateTime.Now.AddMonths(-6);
@@ -272,6 +299,16 @@ namespace PatientPortal.Controllers
             else
             {
                 ledgerData = _details.GetPatientLedger().Where(x => x.Type == "GP" || x.Type == "GR").ToList();
+            }
+
+            if (!string.IsNullOrEmpty(filterText))
+            {
+                ledgerData = ledgerData.Where(x => x.Date.ToString().Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.IPNo.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.VNo.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.Receipt.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.Payment.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.Description.ToString().Contains(filterText, StringComparison.InvariantCultureIgnoreCase)).ToList();
             }
 
             ledgerData.ForEach(x =>
@@ -301,6 +338,7 @@ namespace PatientPortal.Controllers
             int recordsTotal = 0;
             List<PatientLedgerModel> ledgerData;
             string filterDateRange = Request.Form.GetValues("columns[0][search][value]").FirstOrDefault();
+            string filterText = Request["search[value]"];
             if (!string.IsNullOrEmpty(filterDateRange))
             {
                 DateTime FromDate = DateTime.Now.AddMonths(-6);
@@ -332,6 +370,16 @@ namespace PatientPortal.Controllers
                     x.Payment = "";
                 }
             });
+
+            if (!string.IsNullOrEmpty(filterText))
+            {
+                ledgerData = ledgerData.Where(x => x.Date.ToString().Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.IPNo.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.VNo.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.Receipt.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.Payment.Contains(filterText, StringComparison.InvariantCultureIgnoreCase)
+                                            || x.Description.ToString().Contains(filterText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
 
             recordsTotal = ledgerData.Count();
             List<PatientLedgerModel> data = ledgerData.Skip(skip).Take(pageSize).ToList();

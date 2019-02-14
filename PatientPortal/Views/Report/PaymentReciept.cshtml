@@ -30,10 +30,10 @@
 <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#paymentReceiptTable").DataTable({
+        var paymentReceiptTable = $("#paymentReceiptTable").DataTable({
             "processing": true, // for show progress bar
             "serverSide": true, // for process server side
-            "filter": false, // this is for disable filter (search box)
+            "filter": true, // this is for disable filter (search box)
             "orderMulti": false, // for disable multiple column at once
             "ordering": false,
             "pageLength": 50,
@@ -51,6 +51,21 @@
                 { "data": "Type", "name": "Type", "autoWidth": true, "title": "Transaction Type" }
             ]
         });
+
+        $("#paymentReceiptTable_filter input")
+            .unbind() // Unbind previous default bindings
+            .bind("input", function (e) { // Bind our desired behavior
+                // If the length is 2 or more characters, or the user pressed ENTER, search
+                if (this.value.length >= 2 || e.keyCode == 13) {
+                    // Call the API search function
+                    paymentReceiptTable.search(this.value).draw();
+                }
+                // Ensure we clear the search if they backspace far enough
+                if (this.value == "") {
+                    paymentReceiptTable.search("").draw();
+                }
+                return;
+            });
     });
 </script>
 <style>

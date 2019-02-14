@@ -213,8 +213,8 @@
                     $("#tbleappointment_filter input")
                         .unbind() // Unbind previous default bindings
                         .bind("input", function (e) { // Bind our desired behavior
-                            // If the length is 3 or more characters, or the user pressed ENTER, search
-                            if (this.value.length >= 3 || e.keyCode == 13) {
+                            // If the length is 2 or more characters, or the user pressed ENTER, search
+                            if (this.value.length >= 2 || e.keyCode == 13) {
                                 // Call the API search function
                                 appointmentTable.search(this.value).draw();
                             }
@@ -228,8 +228,8 @@
                     $("#tblevisit_filter input")
                         .unbind() // Unbind previous default bindings
                         .bind("input", function (e) { // Bind our desired behavior
-                            // If the length is 3 or more characters, or the user pressed ENTER, search
-                            if (this.value.length >= 3 || e.keyCode == 13) {
+                            // If the length is 2 or more characters, or the user pressed ENTER, search
+                            if (this.value.length >= 2 || e.keyCode == 13) {
                                 // Call the API search function
                                 visitTabe.search(this.value).draw();
                             }

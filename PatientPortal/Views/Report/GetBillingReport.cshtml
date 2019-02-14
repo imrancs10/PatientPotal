@@ -49,10 +49,10 @@
 <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#labreportTable").DataTable({
+        var labreportTable = $("#labreportTable").DataTable({
             "processing": true, // for show progress bar
             "serverSide": true, // for process server side
-            "filter": false, // this is for disable filter (search box)
+            "filter": true, // this is for disable filter (search box)
             "orderMulti": false, // for disable multiple column at once
             "ordering": false,
             "pageLength": 50,
@@ -77,6 +77,21 @@
                 },
             ]
         });
+
+        $("#labreportTable_filter input")
+            .unbind() // Unbind previous default bindings
+            .bind("input", function (e) { // Bind our desired behavior
+                // If the length is 2 or more characters, or the user pressed ENTER, search
+                if (this.value.length >= 2 || e.keyCode == 13) {
+                    // Call the API search function
+                    labreportTable.search(this.value).draw();
+                }
+                // Ensure we clear the search if they backspace far enough
+                if (this.value == "") {
+                    labreportTable.search("").draw();
+                }
+                return;
+            });
     });
 </script>
 <style>

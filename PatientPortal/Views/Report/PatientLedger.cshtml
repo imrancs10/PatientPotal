@@ -148,7 +148,7 @@
                     { "data": "Receipt", "name": "Receipt", "autoWidth": true, "title": "Receipt" },
                     { "data": "schemeid", "name": "schemeid", "autoWidth": true, "title": "schemeid" }
                 ],
-                "initComplete": function (settings, json) {
+                "drawCallback": function (settings) {
                     $('#PaymentLedgerReport').find('th').eq(6).addClass('hidden');
                     var rows = $('#PaymentLedgerReport').find('tr');
                     $.each(rows, function (i, row) {
@@ -156,6 +156,22 @@
                     });
                 }
             });
+
+            $("#PaymentLedgerReport_filter input")
+                .unbind() // Unbind previous default bindings
+                .bind("input", function (e) { // Bind our desired behavior
+                    // If the length is 2 or more characters, or the user pressed ENTER, search
+                    if (this.value.length >= 2 || e.keyCode == 13) {
+                        // Call the API search function
+                        paymentTable.search(this.value).draw();
+                    }
+                    // Ensure we clear the search if they backspace far enough
+                    if (this.value == "") {
+                        paymentTable.search("").draw();
+                    }
+                    return;
+                });
+
             //formacy report
             var formacyTable = $("#MedicinLedgerReport").DataTable({
                 "processing": true, // for show progress bar
@@ -178,7 +194,7 @@
                     { "data": "Receipt", "name": "Receipt", "autoWidth": true, "title": "Receipt" },
                     { "data": "schemeid", "name": "schemeid", "autoWidth": true, "title": "schemeid" }
                 ],
-                "initComplete": function (settings, json) {
+                "drawCallback": function (settings) {
                     $('#MedicinLedgerReport').find('th').eq(6).addClass('hidden');
                     var rows = $('#MedicinLedgerReport').find('tr');
                     $.each(rows, function (i, row) {
@@ -186,6 +202,21 @@
                     });
                 }
             });
+
+            $("#MedicinLedgerReport_filter input")
+                .unbind() // Unbind previous default bindings
+                .bind("input", function (e) { // Bind our desired behavior
+                    // If the length is 2 or more characters, or the user pressed ENTER, search
+                    if (this.value.length >= 2 || e.keyCode == 13) {
+                        // Call the API search function
+                        formacyTable.search(this.value).draw();
+                    }
+                    // Ensure we clear the search if they backspace far enough
+                    if (this.value == "") {
+                        formacyTable.search("").draw();
+                    }
+                    return;
+                });
 
             $("#FilterButton").click(function () {
                 var fromDate = $("#DateFrom").val().formatMMDDYYYY();
@@ -216,9 +247,9 @@
                         .draw();
                 }
             });
-            $('#MedicinLedgerReport_filter').addClass('hidden');
-            $('#PaymentLedgerReport_filter').addClass('hidden');
-           
+            //$('#MedicinLedgerReport_filter').addClass('hidden');
+            //$('#PaymentLedgerReport_filter').addClass('hidden');
+
         });
 
 
