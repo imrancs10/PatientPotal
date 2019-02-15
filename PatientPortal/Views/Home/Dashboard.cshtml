@@ -3,12 +3,8 @@
     ViewBag.Title = "Dashboard";
 
     Layout = "~/Views/Shared/_LayoutPatient.cshtml";
-
 }
-
-
 <div class="innercontentDashboard">
-
     <div class="row">
         <div class="col-md-10">
             <div class="clearfix"></div>
@@ -113,11 +109,13 @@
                             <span class="fa fa-user-o" aria-hidden="true"></span>
 
                             <div class="txtInner">
-
-                                <p><a href="#" class="innercontentDashboard">Messages</a></p>
-
+                                <p>
+                                    <a href="/Home/MyMessageList" class="innercontentDashboard">Messages</a>
+                                    <span class="badge badge-success">
+                                        @ViewData["MessageCount"]
+                                    </span>
+                                </p>
                                 @*<h3 id="cartHappyCustomers">6</h3>*@
-
                             </div>
 
                         </div>
@@ -128,25 +126,25 @@
 
                 </div>
                 @*<br />
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <div class="src_field_box"><a class="btn btn-lg btn-default btn-block ripplelink">Not Admitted </a></div>
-                        </div>
-                        <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <div class="src_field_box"><a class="btn btn-lg btn-default btn-block ripplelink">Not Admitted </a></div>
+                            </div>
+                            <div class="col-md-4">
 
-                        </div>
-                        <div class="col-md-4">
-                            <div class="src_field_box">
-                                <a class="btn btn-lg btn-default btn-block ripplelink">Balance: <strong>10000</strong></a>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="src_field_box">
+                                    <a class="btn btn-lg btn-default btn-block ripplelink">Balance: <strong>10000</strong></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
                 <div class="col-md-2"></div>
-               
-</div>
 
-</div>
+            </div>
+
         </div>
     </div>
+</div>

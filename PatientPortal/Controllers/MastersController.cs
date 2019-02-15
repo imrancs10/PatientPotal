@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DataLayer;
 using PatientPortal.BAL.Masters;
 using PatientPortal.BAL.Patient;
 using PatientPortal.Global;
+using PatientPortal.Infrastructure;
 using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Models;
 using PatientPortal.Models.Masters;
@@ -79,7 +81,7 @@ namespace PatientPortal.Controllers
                 if (department.Image != null)
                     department.ImageUrl = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(department.Image));
             }
-           
+
             return Json(department, JsonRequestBehavior.AllowGet);
         }
 
@@ -251,6 +253,50 @@ namespace PatientPortal.Controllers
                 ViewData["PatientInfo"] = result;
             }
             return View();
+        }
+
+        public ActionResult SendMessageToPatient()
+        {
+            PatientDetails _detail = new PatientDetails();
+            var result = _detail.GetAllPatientDetail();
+            ViewData["PatientInfo"] = result;
+            return View();
+        }
+
+        [HttpPost]
+        public void SendMessageToPatient(string patientIds, string message)
+        {
+            PatientDetails _detail = new PatientDetails();
+            var patientIdList = patientIds.Split(',');
+            foreach (var patient in patientIdList)
+            {
+                var result = _detail.GetPatientDetailById(Convert.ToInt32(patient));
+                PatientMessage messageInfo = new PatientMessage()
+                {
+                    CreatedDate=DateTime.Now,
+                    HasRead=false,
+                    Message= message,
+                    PatientId= result.PatientId,
+                };
+                _detail.SavePatientMessage(messageInfo);
+                SendMessageToPateint(result.FirstName, result.MiddleName, result.LastName, result.MobileNumber, message);
+            }
+        }
+
+        private async Task SendMessageToPateint(string firstname, string middlename, string lastname, string mobilenumber, string message)
+        {
+            await Task.Run(() =>
+            {
+                //Send SMS
+                Message msg = new Message()
+                {
+                    Body = "Hello " + string.Format("{0} {1}", firstname, lastname) + "\n" + message + "\n Regards:\n Patient Portal(RMLHIMS)",
+                    MessageTo = mobilenumber,
+                    MessageType = MessageType.OTP
+                };
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForSMS(msg);
+                sendMessageStrategy.SendMessages();
+            });
         }
 
         [HttpPost]

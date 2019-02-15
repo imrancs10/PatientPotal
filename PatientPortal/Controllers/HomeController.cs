@@ -1,7 +1,10 @@
 ﻿using com.awl.MerchantToolKit;
 using DataLayer;
+using log4net;
+using PatientPortal.BAL.Lookup;
 using PatientPortal.BAL.Masters;
 using PatientPortal.BAL.Patient;
+using PatientPortal.Global;
 using PatientPortal.Infrastructure;
 using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Infrastructure.Authentication;
@@ -10,19 +13,15 @@ using PatientPortal.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using static PatientPortal.Global.Enums;
-using log4net;
-using PatientPortal.Global;
-using System.Globalization;
-using PatientPortal.BAL.Lookup;
 
 namespace PatientPortal.Controllers
 {
@@ -33,6 +32,8 @@ namespace PatientPortal.Controllers
         [CustomAuthorize]
         public ActionResult Dashboard()
         {
+            PatientDetails _detail = new PatientDetails();
+            ViewData["MessageCount"] = _detail.GetPatientMessageCount(User.Id);
             return View();
         }
         public ActionResult Index()
@@ -1370,6 +1371,13 @@ namespace PatientPortal.Controllers
             SendMailFordeviceVerification(pateintModel.FirstName, pateintModel.MiddleName, pateintModel.LastName, pateintModel.Email, verificationCode, pateintModel.MobileNumber);
             Session["otp"] = verificationCode;
             return RedirectToAction("Register", new { actionName = "getotpscreen" });
+        }
+
+        public ActionResult MyMessageList()
+        {
+            PatientDetails _detail = new PatientDetails();
+            ViewData["PatientMessage"] = _detail.UpdateAndGetPatientMessageList(User.Id);
+            return View();
         }
     }
 }

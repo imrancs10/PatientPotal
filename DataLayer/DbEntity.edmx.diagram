@@ -50,6 +50,8 @@
         <AssociationConnector Association="PatientPortalModel.FK_PatientInfoCRClone_PatientInfoCRClone" />
         <AssociationConnector Association="PatientPortalModel.FK_PatientInfoCRClone_State" />
         <EntityTypeShape EntityType="PatientPortalModel.MasterLookup" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientMessage" Width="1.5" PointX="10.5" PointY="5.75" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientMessage_PatientInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
