@@ -488,6 +488,7 @@
     <Content Include="Views\Report\PaymentReciept.cshtml" />
     <Content Include="Views\General\Information.cshtml" />
     <Content Include="Views\General\AboutRML.cshtml" />
+    <Content Include="Views\General\HolidayList.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">

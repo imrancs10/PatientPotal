@@ -17,5 +17,10 @@ namespace PatientPortal.Controllers
         {
             return View();
         }
+
+        public ActionResult HolidayList()
+        {
+            return View();
+        }
     }
 }
