@@ -397,3 +397,12 @@ Error Number:-2,State:0,Class:11
    at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
    at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
    at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-26 09:48:08,392 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Web.Services.Protocols.WebClientProtocol.GetWebResponse(WebRequest request)
+   at System.Web.Services.Protocols.HttpWebClientProtocol.GetWebResponse(WebRequest request)
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in B:\PatientPortal\PatientPotal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-26 10:13:20,090 [6] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2019-02-26 10:13:26,037 [6] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2019-02-26 10:13:26,037 [6] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2019-02-26 10:13:27,310 [6] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed

@@ -201,8 +201,8 @@ $(document).on('click', '.timelabel', function () {
 });
 
 $(document).on('click', '#btnGetAppointment', function () {
-    utility.alert.setAlert("Book Appointment", "Book Appointment is in testing mode, it will be available shortly.");
-    return false;
+    //utility.alert.setAlert("Book Appointment", "Book Appointment is in testing mode, it will be available shortly.");
+    //return false;
     if (typeof $(this).data('data') === 'object') {
         utility.ajax.helperWithData(app.urls.appointmentSaveAppointment, $(this).data('data'), function (data) {
             if (data == 'Data has been saved') {
