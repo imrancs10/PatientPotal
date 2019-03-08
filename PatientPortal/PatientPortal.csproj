@@ -310,7 +310,6 @@
     <Content Include="Content\hoe-theme-color.css" />
     <Content Include="Content\hoe.css" />
     <Content Include="Content\jquery-ui.css" />
-    <Content Include="Content\tile-box.css" />
     <Content Include="ExternalAssembly\com.awl.MerchantToolKit.dll" />
     <Content Include="ExternalAssembly\RequestAndResponse.dll" />
     <Content Include="favicon.ico" />
