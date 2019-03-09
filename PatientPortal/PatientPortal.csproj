@@ -330,6 +330,7 @@
     <Content Include="img\banner.jpg" />
     <Content Include="img\click.gif" />
     <Content Include="img\click02.gif" />
+    <Content Include="img\cm.png" />
     <Content Include="img\hospital-logo.png" />
     <Content Include="img\img.jpg" />
     <Content Include="img\jpg_img.jpg" />
