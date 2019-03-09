@@ -95,9 +95,20 @@
     </div>
     <hr class="text-center navbar-fixed-bottom" />
     <footer class="text-center navbar-fixed-bottom">
-        <div class="col-md-9"><p>Powered by Uptron Powertronics Limited (Undertaking of Government) &copy; @DateTime.Now.Year - Patient Portal</p></div>
+        <div class="col-md-9">
+            <p>
+                Powered by Uptron Powertronics Limited (Undertaking of Government) &copy; @DateTime.Now.Year - Patient Portal || Total Number of visitors: @ApplicationInstance.Application["Totaluser"]
+                <!--Online Visitors:<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/433806/t/5"></script>-->
+            </p>
+        </div>
         <div class="col-md-3">
-            <img src="~/img/cm.png" />
+            <table width="235" border="0" cellpadding="1" cellspacing="0" title="Click to Verify - This site chose Symantec SSL for secure e-commerce and confidential communications.">
+                <tr>
+                    <td width="235" align="center" valign="top">
+                        <script type="text/javascript" src="https://seal.websecurity.norton.com/getseal?host_name=www.drrmlimsonline.in&amp;size=M&amp;use_flash=NO&amp;use_transparent=Yes&amp;lang=en"></script><br /><a href="https://www.websecurity.symantec.com/ssl-certificate" target="_blank" style="color:#000000; text-decoration:none; font:bold 10px verdana,sans-serif; letter-spacing:.5px;text-align:center; margin:0px; padding:0px;"> ABOUT SSL CERTIFICATES</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </footer>
     @if (TempData["Alert_Title"] != null)
