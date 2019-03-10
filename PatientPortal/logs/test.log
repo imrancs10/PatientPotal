@@ -289,3 +289,120 @@ Error Number:53,State:0,Class:20
    at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
 ClientConnectionId:78c6e271-89a5-45fd-9c59-0cce13b4b139
 Error Number:208,State:1,Class:16
+2019-02-25 18:10:29,014 [5] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter System.Data.SqlClient.SqlException (0x80131904): Connection Timeout Expired.  The timeout period elapsed during the post-login phase.  The connection could have timed out while waiting for server to complete the login process and respond; Or it could have timed out while attempting to create multiple active connections.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=1481; handshake=936; [Login] initialization=20; authentication=216; [Post-Login] complete=11889;  ---> System.ComponentModel.Win32Exception (0x80004005): The wait operation timed out
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.<Open>b__36(DbConnection t, DbConnectionInterceptionContext c)
+   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext](TTarget target, Action`2 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   at System.Data.Entity.Infrastructure.Interception.DbConnectionDispatcher.Open(DbConnection connection, DbInterceptionContext interceptionContext)
+   at System.Data.Entity.Core.EntityClient.EntityConnection.<Open>b__2()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.<>c__DisplayClass1.<Execute>b__0()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute(Action operation)
+   at System.Data.Entity.Core.EntityClient.EntityConnection.Open()
+ClientConnectionId:47766247-3bc0-4860-a4ac-7ac15d1f5bb3
+Error Number:-2,State:0,Class:11
+2019-02-25 19:07:11,701 [5] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:13:27,395 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:18:55,454 [13] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:19:26,540 [8] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:22:30,274 [13] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-25 19:24:11,030 [13] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-25 19:24:30,101 [5] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-25 19:25:26,073 [5] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-25 19:27:12,667 [13] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-25 19:27:54,731 [10] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-25 19:34:49,744 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-25 19:36:20,473 [8] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-25 19:40:30,466 [5] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:43:14,705 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:46:21,380 [12] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:46:52,752 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:47:45,331 [12] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:48:14,649 [17] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-25 19:57:05,403 [10] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at PatientPortal.Infrastructure.Utility.Serializer.Deserialize[T](String input, String rootElementName) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Utility\Serializer.cs:line 22
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in D:\AllProjectsMVC\LatestUptronProjects\PatientPortal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 83
+2019-02-26 09:48:08,392 [6] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Web.Services.Protocols.WebClientProtocol.GetWebResponse(WebRequest request)
+   at System.Web.Services.Protocols.HttpWebClientProtocol.GetWebResponse(WebRequest request)
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in B:\PatientPortal\PatientPotal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-02-26 10:13:20,090 [6] DEBUG PatientPortal.Controllers.HomeController Send Email Started
+2019-02-26 10:13:26,037 [6] DEBUG PatientPortal.Controllers.HomeController Send Email sucessed
+2019-02-26 10:13:26,037 [6] DEBUG PatientPortal.Controllers.HomeController Send SMS started
+2019-02-26 10:13:27,310 [6] DEBUG PatientPortal.Controllers.HomeController Send SMS sucessed
