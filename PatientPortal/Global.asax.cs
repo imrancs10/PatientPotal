@@ -13,6 +13,13 @@ namespace PatientPortal
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        protected void Application_BeginRequest()
+        {
+            if (FormsAuthentication.RequireSSL && !Request.IsSecureConnection && !Request.IsLocal)
+            {
+                Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
+            }
+        }
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
