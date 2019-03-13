@@ -15,7 +15,7 @@ namespace PatientPortal
     {
         protected void Application_BeginRequest()
         {
-            if (FormsAuthentication.RequireSSL && !Request.IsSecureConnection && !Request.IsLocal)
+            if (!Request.IsLocal)
             {
                 Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
             }
