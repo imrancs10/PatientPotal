@@ -201,28 +201,28 @@ $(document).on('click', '.timelabel', function () {
 });
 
 $(document).on('click', '#btnGetAppointment', function () {
-    //utility.alert.setAlert("Book Appointment", "Book Appointment is in testing mode, it will be available shortly.");
-    //return false;
-    if (typeof $(this).data('data') === 'object') {
-        utility.ajax.helperWithData(app.urls.appointmentSaveAppointment, $(this).data('data'), function (data) {
-            if (data == 'Data has been saved') {
-                utility.alert.setAlert(utility.alert.alertType.success, 'Your appointment has been booked');
-                $('.timelabelActive').addClass('Bookedtimelabel').removeClass('timelabel').removeClass('timelabelActive');
-                $('#selectAppointmant').text();
-                $('#btnGetAppointment').data('data', '')
-            }
-            else if (data == 'Your Session has been expired') {
-                utility.alert.setAlert(utility.alert.alertType.error, 'Either you logged out or your session is expired');
-                window.location = location.protocol + '//' + location.host; //Redirect to defult page
-            }
-            else if (data == 'Data already exists') {
-                utility.alert.setAlert(utility.alert.alertType.error, 'You can book only ' + $('#hdnAppointmentLimitPerUser').val() + ' appointment for one particular calender date');
-            }
-        });
-    }
-    else {
-        utility.alert.setAlert(utility.alert.alertType.warning, 'Please select the appointment time');
-    }
+    utility.alert.setAlert("Book Appointment", "Book Appointment is in testing mode, it will be available shortly.");
+    return false;
+    //if (typeof $(this).data('data') === 'object') {
+    //    utility.ajax.helperWithData(app.urls.appointmentSaveAppointment, $(this).data('data'), function (data) {
+    //        if (data == 'Data has been saved') {
+    //            utility.alert.setAlert(utility.alert.alertType.success, 'Your appointment has been booked');
+    //            $('.timelabelActive').addClass('Bookedtimelabel').removeClass('timelabel').removeClass('timelabelActive');
+    //            $('#selectAppointmant').text();
+    //            $('#btnGetAppointment').data('data', '')
+    //        }
+    //        else if (data == 'Your Session has been expired') {
+    //            utility.alert.setAlert(utility.alert.alertType.error, 'Either you logged out or your session is expired');
+    //            window.location = location.protocol + '//' + location.host; //Redirect to defult page
+    //        }
+    //        else if (data == 'Data already exists') {
+    //            utility.alert.setAlert(utility.alert.alertType.error, 'You can book only ' + $('#hdnAppointmentLimitPerUser').val() + ' appointment for one particular calender date');
+    //        }
+    //    });
+    //}
+    //else {
+    //    utility.alert.setAlert(utility.alert.alertType.warning, 'Please select the appointment time');
+    //}
 });
 
 appointment.binddoctor = function (day, date) {
