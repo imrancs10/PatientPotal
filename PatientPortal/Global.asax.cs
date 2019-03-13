@@ -17,7 +17,7 @@ namespace PatientPortal
         {
             if (!Request.IsLocal)
             {
-                Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
+               // Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
             }
         }
         protected void Application_Start()
