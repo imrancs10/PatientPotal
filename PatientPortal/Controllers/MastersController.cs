@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using DataLayer;
+﻿using DataLayer;
 using PatientPortal.BAL.Masters;
 using PatientPortal.BAL.Patient;
 using PatientPortal.Global;
@@ -13,6 +6,11 @@ using PatientPortal.Infrastructure;
 using PatientPortal.Infrastructure.Adapter.WebService;
 using PatientPortal.Models;
 using PatientPortal.Models.Masters;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 using static PatientPortal.Global.Enums;
 using JsonResult = System.Web.Mvc.JsonResult;
 

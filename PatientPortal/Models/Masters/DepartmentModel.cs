@@ -27,8 +27,12 @@ namespace PatientPortal.Models.Masters
         public string ImageUrl { get; set; }
         public byte[] Image { get; set; }
     }
-
-    public class MasterLookupModel
+    public class DoctorTypeModel
+    {
+        public int Id { get; set; }
+        public string DoctorType { get; set; }
+    }
+        public class MasterLookupModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
