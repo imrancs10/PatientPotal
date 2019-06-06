@@ -316,13 +316,14 @@
                     </li>
                     @if ((@patientOPDInfo != null && @Convert.ToString(patientOPDInfo.patStatus) == "Admitted") || showingDaysRemaining)
                     {
-                        <li>
-                            <a href="~/Home/MakePayment">
-                                <i class="fa fa-bar-chart"></i>
-                                <span class="menu-text">Make Payment</span>
-                                <span class="label sul">New</span>
-                            </a>
-                        </li>
+                    <li>
+                        <!--<a href="~/Home/MakePayment">-->
+                        <a class="isDisabled" href="javascript:void(0)">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="menu-text">Make Payment</span>
+                            <span class="label sul">New</span>
+                        </a>
+                    </li>
                     }
                     else
                     {
