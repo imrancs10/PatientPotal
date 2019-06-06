@@ -67,6 +67,12 @@ namespace PatientPortal.Controllers
             return Json(_details.DepartmentList(), JsonRequestBehavior.AllowGet);
         }
 
+        public virtual JsonResult GetDoctorType()
+        {
+            DoctorDetails _details = new DoctorDetails();
+            return Json(_details.GetDoctorTypeList(), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetDoctorList(int deptId=0)
         {
             DoctorDetails _details = new DoctorDetails();

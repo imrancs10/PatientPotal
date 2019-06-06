@@ -32,6 +32,7 @@ namespace DataLayer
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string Description { get; set; }
         public byte[] Image { get; set; }
+        public Nullable<int> DoctorTypeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AppointmentInfo> AppointmentInfoes { get; set; }
@@ -42,5 +43,6 @@ namespace DataLayer
         public virtual ICollection<DoctorSchedule> DoctorSchedules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LabreportPdf> LabreportPdfs { get; set; }
+        public virtual DoctorType DoctorType { get; set; }
     }
 }

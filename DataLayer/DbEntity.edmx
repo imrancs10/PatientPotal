@@ -67,6 +67,7 @@
             <PropertyRef Name="DoctorID" />
           </Key>
           <Property Name="DoctorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoctorTypeId" Type="int" />
           <Property Name="DoctorName" Type="varchar" MaxLength="200" />
           <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="Designation" Type="varchar" MaxLength="100" />
@@ -97,6 +98,13 @@
           <Property Name="TimeFromMeridiemID" Type="int" />
           <Property Name="TimeTo" Type="int" />
           <Property Name="TimeToMeridiemID" Type="int" />
+        </EntityType>
+        <EntityType Name="DoctorType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoctorType" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Gbl_Master_Login">
           <Key>
@@ -417,6 +425,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Doctor_DoctorType">
+          <End Role="DoctorType" Type="Self.DoctorType" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="DoctorTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DoctorLeave_Doctor">
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
           <End Role="DoctorLeave" Type="Self.DoctorLeave" Multiplicity="*" />
@@ -666,6 +686,7 @@
           <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DoctorLeave" EntityType="Self.DoctorLeave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DoctorSchedule" EntityType="Self.DoctorSchedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorType" EntityType="Self.DoctorType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_Login" EntityType="Self.Gbl_Master_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_User" EntityType="Self.Gbl_Master_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalDetail" EntityType="Self.HospitalDetail" Schema="dbo" store:Type="Tables" />
@@ -695,6 +716,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Doctor_Doctor" Association="Self.FK_Doctor_Doctor">
             <End Role="Department" EntitySet="Department" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_DoctorType" Association="Self.FK_Doctor_DoctorType">
+            <End Role="DoctorType" EntitySet="DoctorType" />
             <End Role="Doctor" EntitySet="Doctor" />
           </AssociationSet>
           <AssociationSet Name="FK_DoctorLeave_Doctor" Association="Self.FK_DoctorLeave_Doctor">
@@ -902,6 +927,11 @@
             <End Role="PatientInfo" EntitySet="PatientInfoes" />
             <End Role="PatientMessage" EntitySet="PatientMessages" />
           </AssociationSet>
+          <EntitySet Name="DoctorTypes" EntityType="PatientPortalModel.DoctorType" />
+          <AssociationSet Name="FK_Doctor_DoctorType" Association="PatientPortalModel.FK_Doctor_DoctorType">
+            <End Role="DoctorType" EntitySet="DoctorTypes" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
           <Key>
@@ -987,6 +1017,8 @@
           <NavigationProperty Name="LabreportPdfs" Relationship="PatientPortalModel.FK_LabreportPdf_Doctor" FromRole="Doctor" ToRole="LabreportPdf" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DoctorTypeId" Type="Int32" />
+          <NavigationProperty Name="DoctorType" Relationship="PatientPortalModel.FK_Doctor_DoctorType" FromRole="Doctor" ToRole="DoctorType" />
         </EntityType>
         <EntityType Name="DoctorLeave">
           <Key>
@@ -1603,6 +1635,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DoctorType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoctorType1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Doctors" Relationship="PatientPortalModel.FK_Doctor_DoctorType" FromRole="DoctorType" ToRole="Doctor" />
+        </EntityType>
+        <Association Name="FK_Doctor_DoctorType">
+          <End Type="PatientPortalModel.DoctorType" Role="DoctorType" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="DoctorTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1674,6 +1726,7 @@
           <EntitySetMapping Name="Doctors">
             <EntityTypeMapping TypeName="PatientPortalModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="DoctorTypeId" ColumnName="DoctorTypeId" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -1992,6 +2045,14 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorTypes">
+            <EntityTypeMapping TypeName="PatientPortalModel.DoctorType">
+              <MappingFragment StoreEntitySet="DoctorType">
+                <ScalarProperty Name="DoctorType1" ColumnName="DoctorType" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

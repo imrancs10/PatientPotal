@@ -89,6 +89,9 @@
     <Compile Include="DoctorSchedule.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="DoctorType.cs">
+      <DependentUpon>DbEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Gbl_Master_Login.cs">
       <DependentUpon>DbEntity.tt</DependentUpon>
     </Compile>

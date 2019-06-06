@@ -52,6 +52,8 @@
         <EntityTypeShape EntityType="PatientPortalModel.MasterLookup" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="PatientPortalModel.PatientMessage" Width="1.5" PointX="10.5" PointY="5.75" />
         <AssociationConnector Association="PatientPortalModel.FK_PatientMessage_PatientInfo" />
+        <EntityTypeShape EntityType="PatientPortalModel.DoctorType" Width="1.5" PointX="8.375" PointY="0.875" />
+        <AssociationConnector Association="PatientPortalModel.FK_Doctor_DoctorType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -124,6 +124,17 @@ namespace PatientPortal.BAL.Masters
             }
             return null;
         }
+        public List<DoctorTypeModel> GetDoctorTypeList()
+        {
+            _db = new PatientPortalEntities();
+            var _list = (from doc in _db.DoctorTypes
+                         select new DoctorTypeModel
+                         {
+                             Id = doc.Id,
+                             DoctorType = doc.DoctorType1,
+                         }).OrderBy(x => x.DoctorType).ToList();
+            return _list != null ? _list : new List<DoctorTypeModel>();
+        }
         public IEnumerable<object> GetDoctorLeaveList(int doctorId)
         {
             _db = new PatientPortalEntities();
