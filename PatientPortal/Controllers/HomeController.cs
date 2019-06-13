@@ -1136,14 +1136,14 @@ namespace PatientPortal.Controllers
                 return View();
             }
 
-            var patientInfoClone = details.GetPatientCloneDetailByCRNumber(CRNumber);
-            if (patientInfoClone != null)
-            {
-                PatientInfoModel crData = GetPatientInfoModelClone(patientInfoClone);
-                ViewData["CRData"] = crData;
-                Session["crData"] = crData;
-                return View();
-            }
+            //var patientInfoClone = details.GetPatientCloneDetailByCRNumber(CRNumber);
+            //if (patientInfoClone != null)
+            //{
+            //    PatientInfoModel crData = GetPatientInfoModelClone(patientInfoClone);
+            //    ViewData["CRData"] = crData;
+            //    Session["crData"] = crData;
+            //    return View();
+            //}
             else
             {
                 WebServiceIntegration service = new WebServiceIntegration();
