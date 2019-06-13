@@ -153,7 +153,6 @@
                             <div class="src_field_box">
                                 <!--<a href="../home/Register" id="registerBTN" class="btn btn-lg btn-blue btn-block ripplelink"> NEW REGISTRATION </a>-->
                                 <a href="#" id="registerBTN" class="btn btn-lg btn-blue btn-block ripplelink"> NEW REGISTRATION </a>
-                                <a href="../home/TempRegister" id="registerBTN" class="btn btn-lg btn-blue btn-block ripplelink"> Temporary REGISTRATION </a>
                             </div>
                         </div>
                     </div>
@@ -170,22 +169,22 @@
                     @*<a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank" class="btn btn-lg btn-dark btn-block ripplelink"> OPD SCHEDULE </a>*@
                     <a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank"> <img src="~/img/click.gif" class="img-responsive" style="height:48px;width:220px;" /></a>
                 </div>
-                <div class="col-md-8 hidden-xs">
+                <div class="col-md-6 hidden-xs">
                     <marquee behavior="scroll" onMouseOver="this.setAttribute('scrollamount', 0, 0);this.stop();"
                              OnMouseOut="this.setAttribute('scrollamount', 2, 0);this.start();" direction="left" scrollamount="3" scrolldelay="1">
                         @*@{
-                                PatientPortal.Models.PDModel pdmodel;
-                                string totOPD = "0000";
-                                string totIPD = "0000";
-                                string total = "0000";
-                                if (ViewData["PDDetail"] != null)
-                                {
-                                    pdmodel = ViewData["PDDetail"] as PatientPortal.Models.PDModel;
-                                    totOPD = pdmodel.totOPD;
-                                    totIPD = pdmodel.totIPD;
-                                    total = Convert.ToString(Convert.ToInt32(pdmodel.totOPD) + Convert.ToInt32(pdmodel.totIPD));
-                                }
-                            }*@
+                    PatientPortal.Models.PDModel pdmodel;
+                    string totOPD = "0000";
+                    string totIPD = "0000";
+                    string total = "0000";
+                    if (ViewData["PDDetail"] != null)
+                    {
+                        pdmodel = ViewData["PDDetail"] as PatientPortal.Models.PDModel;
+                        totOPD = pdmodel.totOPD;
+                        totIPD = pdmodel.totIPD;
+                        total = Convert.ToString(Convert.ToInt32(pdmodel.totOPD) + Convert.ToInt32(pdmodel.totIPD));
+                    }
+                }*@
                         <div align="left">
                             <a href="#" target="_parent" style="float:left;margin-left:10px; margin-top: 15px;color:#000;">
                                 No. of OPD: <span style="color:#953b39;" id="TotalOPDText">
@@ -201,6 +200,9 @@
                             </a>
                         </div>
                     </marquee>
+                </div>
+                <div class="col-md-2">
+                    <a href="../home/TempRegister" id="registerBTN" class="btn btn-lg btn-blue btn-block ripplelink" style="height:40px;width:190px; margin-top: 6px;">Temporary Registration</a>
                 </div>
                 <div class="col-md-2">
                     @*<a href="https://drrmlims.ac.in/OPDSchedules.php" target="_blank" class="btn btn-lg btn-dark btn-block ripplelink"> OPD SCHEDULE </a>*@
