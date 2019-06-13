@@ -118,6 +118,75 @@ namespace PatientPortal.Controllers
             return View();
         }
 
+        public ActionResult TempRegister()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SaveTempPatient(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string MaritalStatus, string title, string aadharNumber)
+        {
+            string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            if (mobilenumber.Trim().Length != 10)
+            {
+                SetAlertMessage("Please Enter correct Mobile Number", "Register");
+                return RedirectToAction("TempRegister");
+            }
+            else if (!Regex.IsMatch(email, emailRegEx, RegexOptions.IgnoreCase))
+            {
+                SetAlertMessage("Please Enter correct Email Address", "Register");
+                return RedirectToAction("TempRegister");
+            }
+            else
+            {
+                PatientDetails details = new PatientDetails();
+                //var patientInfo = details.GetPatientDetailByMobileNumberANDEmail(mobilenumber.Trim(), email.Trim());
+                //if (patientInfo != null)
+                //{
+                //    SetAlertMessage("Mobile Number or Email Id already in our database, kindly chhange it or reset your account.", "Register");
+                //    return RedirectToAction("TempRegister");
+                //}
+                PatientDetails _details = new PatientDetails();
+                int pinResult = 0;
+                PatientInfo info = new PatientInfo();
+
+                info.AadharNumber = aadharNumber;
+                info.FirstName = firstname;
+                info.MiddleName = middlename;
+                info.LastName = lastname;
+                if (!string.IsNullOrEmpty(DOB))
+                    info.DOB = Convert.ToDateTime(DOB);
+                info.Gender = Gender;
+                info.MobileNumber = mobilenumber;
+                info.Email = email;
+                info.Address = address;
+                info.Country = country;
+                info.PinCode = int.TryParse(pincode, out pinResult) ? pinResult : 0;
+                info.Religion = religion;
+                info.FatherOrHusbandName = FatherHusbandName;
+                info.MaritalStatus = MaritalStatus;
+                //info.Title = Title;
+                //info.pid = Convert.ToDecimal(pid);
+                //info.Location = location;
+
+                if (!string.IsNullOrEmpty(city))
+                    info.CityId = Convert.ToInt32(city);
+                else
+                    info.CityId = null;
+                if (!string.IsNullOrEmpty(state))
+                    info.StateId = Convert.ToInt32(state);
+                else
+                    info.StateId = null;
+                if (!string.IsNullOrEmpty(department))
+                    info.DepartmentId = Convert.ToInt32(department);
+                else
+                    info.DepartmentId = null;
+
+                Dictionary<string, object> result;
+                details.CreateOrUpdatePatientDetail(info);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> GetPatientOTP(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string MaritalStatus, string title, string aadharNumber)
         {

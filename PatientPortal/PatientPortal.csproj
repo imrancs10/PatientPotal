@@ -493,6 +493,7 @@
     <Content Include="Views\General\HolidayList.cshtml" />
     <Content Include="Views\Masters\SendMessageToPatient.cshtml" />
     <Content Include="Views\Home\MyMessageList.cshtml" />
+    <Content Include="Views\Home\TempRegister.cshtml" />
     <None Include="Web References\HISWebReference\GetPatientDetails.disco" />
     <None Include="Web References\OPDWebReference\GetPatOpdDetails.wsdl" />
     <None Include="Web References\OPDWebReference\Reference.map">
