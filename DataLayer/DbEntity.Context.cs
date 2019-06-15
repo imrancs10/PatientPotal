@@ -49,5 +49,6 @@ namespace DataLayer
         public virtual DbSet<MasterLookup> MasterLookups { get; set; }
         public virtual DbSet<PatientMessage> PatientMessages { get; set; }
         public virtual DbSet<DoctorType> DoctorTypes { get; set; }
+        public virtual DbSet<PatientInfoTemporary> PatientInfoTemporaries { get; set; }
     }
 }

@@ -23,7 +23,18 @@ namespace PatientPortal.Infrastructure.Utility
         {
             string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
             body += "As you requested, here registration is created, your registration number is : <b>" + registrationnumber + "</b> you can use to create your Password by clicking on below URL.<br/>";
-            body += "<br/><b></b>< a href = '"+ link +"' target = '_blank' > " + link + " < br/><br/>";
+            body += "<br/><b></b>< a href = '" + link + "' target = '_blank' > " + link + " < br/><br/>";
+            body += "Thank You,<br/>";
+            body += "Patient Portal Information System Customer Support";
+            return body;
+        }
+
+        public static string GetTemporaryRegistrationSuccessEmail(string firstname, string middlename, string lastname, string registrationnumber)
+        {
+            string body = string.Format("Hi {0} {1} {2}<br/><br/>", firstname, middlename, lastname);
+            body += "As you requested, here your temporary registration is created, your registration number is : <b>" + registrationnumber + "</b> you can use at hospital for further processing." +
+                "" +
+                "<br/>";
             body += "Thank You,<br/>";
             body += "Patient Portal Information System Customer Support";
             return body;

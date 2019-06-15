@@ -124,7 +124,7 @@ namespace PatientPortal.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> SaveTempPatient(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string MaritalStatus, string title, string aadharNumber)
+        public ActionResult SaveTempPatient(string firstname, string middlename, string lastname, string DOB, string Gender, string mobilenumber, string email, string address, string city, string country, string state, string pincode, string religion, string department, string FatherHusbandName, string MaritalStatus, string title, string aadharNumber)
         {
             string emailRegEx = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             if (mobilenumber.Trim().Length != 10)
@@ -140,16 +140,9 @@ namespace PatientPortal.Controllers
             else
             {
                 PatientDetails details = new PatientDetails();
-                //var patientInfo = details.GetPatientDetailByMobileNumberANDEmail(mobilenumber.Trim(), email.Trim());
-                //if (patientInfo != null)
-                //{
-                //    SetAlertMessage("Mobile Number or Email Id already in our database, kindly chhange it or reset your account.", "Register");
-                //    return RedirectToAction("TempRegister");
-                //}
                 PatientDetails _details = new PatientDetails();
                 int pinResult = 0;
-                PatientInfo info = new PatientInfo();
-
+                PatientInfoTemporary info = new PatientInfoTemporary();
                 info.AadharNumber = aadharNumber;
                 info.FirstName = firstname;
                 info.MiddleName = middlename;
@@ -181,9 +174,21 @@ namespace PatientPortal.Controllers
                     info.DepartmentId = Convert.ToInt32(department);
                 else
                     info.DepartmentId = null;
-
+                info.RegistrationNumber = VerificationCodeGeneration.GetSerialNumber();
                 Dictionary<string, object> result;
-                details.CreateOrUpdatePatientDetail(info);
+                result = details.SaveTemporaryPatientInfo(info);
+                if (result["status"].ToString() == CrudStatus.Saved.ToString())
+                {
+                    var patient = ((PatientInfoTemporary)result["data"]);
+                    SetAlertMessage("Temporary Registration succesfull.", "Register");
+                    SendMailTemporaryRegistration(info.RegistrationNumber, patient);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    SetAlertMessage("Temporary Registration failed.", "Register");
+                    return RedirectToAction("TempRegister");
+                }
             }
         }
 
@@ -204,12 +209,12 @@ namespace PatientPortal.Controllers
             else
             {
                 PatientDetails details = new PatientDetails();
-                var patientInfo = details.GetPatientDetailByMobileNumberANDEmail(mobilenumber.Trim(), email.Trim());
-                if (patientInfo != null)
-                {
-                    SetAlertMessage("Mobile Number or Email Id already in our database, kindly chhange it or reset your account.", "Register");
-                    return RedirectToAction("Register");
-                }
+                //var patientInfo = details.GetPatientDetailByMobileNumberANDEmail(mobilenumber.Trim(), email.Trim());
+                //if (patientInfo != null)
+                //{
+                //    SetAlertMessage("Mobile Number or Email Id already in our database, kindly chhange it or reset your account.", "Register");
+                //    return RedirectToAction("Register");
+                //}
                 string verificationCode = VerificationCodeGeneration.GenerateDeviceVerificationCode();
                 PatientInfoModel pateintModel = getPatientInfoModelForSession(firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, verificationCode, state, FatherHusbandName, 0, null, MaritalStatus, title, aadharNumber);
                 if (pateintModel != null)
@@ -697,6 +702,29 @@ namespace PatientPortal.Controllers
                     msg.Body = EmailHelper.GetRegistrationCRSuccessEmail(info.FirstName, info.MiddleName, info.LastName, serialNumber, baseUrl + passwordCreateURL);
 
                 ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+            });
+        }
+
+        private async Task SendMailTemporaryRegistration(string serialNumber, PatientInfoTemporary info)
+        {
+            await Task.Run(() =>
+            {
+                Message msg = new Message()
+                {
+                    MessageTo = info.Email,
+                    MessageNameTo = info.FirstName + " " + info.MiddleName + (string.IsNullOrWhiteSpace(info.MiddleName) ? "" : " ") + info.LastName,
+                    Subject = "Temporary Registration Created",
+                    Body = EmailHelper.GetTemporaryRegistrationSuccessEmail(info.FirstName, info.MiddleName, info.LastName, serialNumber)
+                };
+
+                ISendMessageStrategy sendMessageStrategy = new SendMessageStrategyForEmail(msg);
+                sendMessageStrategy.SendMessages();
+
+                msg.Body = "Hello " + string.Format("{0} {1}", info.FirstName, info.LastName) + "\n your temporary registration is created succesfully, your registration number is " + info.RegistrationNumber + " you can use at hospital for further processing..\n Regards:\n Patient Portal(RMLHIMS)";
+                msg.MessageTo = info.MobileNumber;
+                msg.MessageType = MessageType.OTP;
+                sendMessageStrategy = new SendMessageStrategyForSMS(msg);
                 sendMessageStrategy.SendMessages();
             });
         }

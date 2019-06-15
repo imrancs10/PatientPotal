@@ -236,26 +236,6 @@ namespace PatientPortal.BAL.Patient
                 {
                     _patientRow.Email = info.Email;
                     _patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
-                    //_patientRow.Password = !string.IsNullOrEmpty(info.Password) ? info.Password : _patientRow.Password;
-                    //_patientRow.RegistrationNumber = !string.IsNullOrEmpty(info.RegistrationNumber) ? info.RegistrationNumber : _patientRow.RegistrationNumber; ;
-                    //_patientRow.Address = info.Address;
-                    //_patientRow.City = info.City;
-                    //_patientRow.Country = info.Country;
-                    //_patientRow.DepartmentId = info.DepartmentId;
-                    //_patientRow.DOB = info.DOB;
-                    //_patientRow.FirstName = info.FirstName;
-                    //_patientRow.Gender = info.Gender;
-                    //_patientRow.LastName = info.LastName;
-                    //_patientRow.MiddleName = info.MiddleName;
-                    //_patientRow.MobileNumber = info.MobileNumber;
-                    //_patientRow.PinCode = info.PinCode;
-                    //_patientRow.Religion = info.Religion;
-                    //_patientRow.State = info.State;
-                    //_patientRow.FatherOrHusbandName = info.FatherOrHusbandName;
-                    //_patientRow.Photo = info.Photo != null ? info.Photo : _patientRow.Photo;
-                    //_patientRow.MaritalStatus = info.MaritalStatus;
-                    //_patientRow.Title = info.Title;
-                    //_patientRow.AadharNumber = info.AadharNumber;
                     _db.Entry(_patientRow).State = EntityState.Modified;
                     _db.SaveChanges();
                     result.Add("status", CrudStatus.Saved.ToString());
@@ -271,25 +251,30 @@ namespace PatientPortal.BAL.Patient
             }
             else
             {
-                var _deptRow = _db.PatientInfoes.Include(x => x.Department).Where(x => (!string.IsNullOrEmpty(x.MobileNumber) && x.MobileNumber.Equals(info.MobileNumber)) || x.Email.Equals(info.Email)).FirstOrDefault();
-                if (_deptRow == null)
-                {
-                    info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
-                    info.CreatedDate = DateTime.Now;
-                    _db.Entry(info).State = EntityState.Added;
-                    _effectRow = _db.SaveChanges();
-                    result.Add("status", CrudStatus.Saved.ToString());
-                    info.Department = _db.PatientInfoes.Include(x => x.Department).FirstOrDefault().Department;
-                    result.Add("data", info);
-                    return result;
-                }
-                else
-                {
-                    result.Add("status", CrudStatus.DataAlreadyExist.ToString());
-                    result.Add("data", _deptRow);
-                    return result;
-                }
+                info.ValidUpto = DateTime.Now.AddMonths(Convert.ToInt32(ConfigurationManager.AppSettings["RegistrationValidityInMonth"]));
+                info.CreatedDate = DateTime.Now;
+                _db.Entry(info).State = EntityState.Added;
+                _effectRow = _db.SaveChanges();
+                result.Add("status", CrudStatus.Saved.ToString());
+                info.Department = _db.PatientInfoes.Include(x => x.Department).FirstOrDefault().Department;
+                result.Add("data", info);
+                return result;
             }
+        }
+
+        public Dictionary<string, object> SaveTemporaryPatientInfo(PatientInfoTemporary info)
+        {
+            _db = new PatientPortalEntities();
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            int _effectRow = 0;
+            info.ValidUpto = DateTime.Now.AddDays(Convert.ToInt32(ConfigurationManager.AppSettings["TemporaryRegistrationValidityInDay"]));
+            info.CreatedDate = DateTime.Now;
+            _db.Entry(info).State = EntityState.Added;
+            _effectRow = _db.SaveChanges();
+            result.Add("status", CrudStatus.Saved.ToString());
+            info.Department = _db.PatientInfoes.Include(x => x.Department).FirstOrDefault().Department;
+            result.Add("data", info);
+            return result;
         }
 
         public Dictionary<string, object> CreateOrUpdatePatientDetailClone(PatientInfoCRClone info)

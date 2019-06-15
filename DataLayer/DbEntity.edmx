@@ -327,6 +327,44 @@
           <Property Name="pid" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Location" Type="varchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="PatientInfoTemporary">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegistrationNumber" Type="varchar" MaxLength="14" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="MaritalStatus" Type="varchar" MaxLength="100" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="PinCode" Type="int" />
+          <Property Name="Religion" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="OTP" Type="varchar" MaxLength="50" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="FatherOrHusbandName" Type="varchar" MaxLength="100" />
+          <Property Name="ResetCode" Type="varchar" MaxLength="100" />
+          <Property Name="CRNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ValidUpto" Type="datetime" />
+          <Property Name="AadharNumber" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="RenewalStatusHIS" Type="varchar" MaxLength="500" />
+          <Property Name="RegistrationStatusHIS" Type="varchar" MaxLength="500" />
+          <Property Name="pid" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Location" Type="varchar" MaxLength="5" />
+          <Property Name="LoginPin" Type="varchar" MaxLength="10" />
+          <Property Name="DeviceIdentityfier" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="PatientLoginEntry">
           <Key>
             <PropertyRef Name="ID" />
@@ -629,6 +667,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PatientInfoTemporary_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="PatientInfoTemporary" Type="Self.PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoTemporary_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="PatientInfoTemporary" Type="Self.PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoTemporary_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="PatientInfoTemporary" Type="Self.PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PatientLoginEntry_PatientInfo">
           <End Role="PatientInfo" Type="Self.PatientInfo" Multiplicity="1" />
           <End Role="PatientLoginEntry" Type="Self.PatientLoginEntry" Multiplicity="*" />
@@ -697,6 +771,7 @@
           <EntitySet Name="PateintLeadger" EntityType="Self.PateintLeadger" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfo" EntityType="Self.PatientInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientInfoCRClone" EntityType="Self.PatientInfoCRClone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientInfoTemporary" EntityType="Self.PatientInfoTemporary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginEntry" EntityType="Self.PatientLoginEntry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientLoginHistory" EntityType="Self.PatientLoginHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientMessage" EntityType="Self.PatientMessage" Schema="dbo" store:Type="Tables" />
@@ -785,6 +860,18 @@
           <AssociationSet Name="FK_PatientInfoCRClone_State" Association="Self.FK_PatientInfoCRClone_State">
             <End Role="State" EntitySet="State" />
             <End Role="PatientInfoCRClone" EntitySet="PatientInfoCRClone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_City" Association="Self.FK_PatientInfoTemporary_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_Department" Association="Self.FK_PatientInfoTemporary_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_State" Association="Self.FK_PatientInfoTemporary_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporary" />
           </AssociationSet>
           <AssociationSet Name="FK_PatientLoginEntry_PatientInfo" Association="Self.FK_PatientLoginEntry_PatientInfo">
             <End Role="PatientInfo" EntitySet="PatientInfo" />
@@ -932,6 +1019,19 @@
             <End Role="DoctorType" EntitySet="DoctorTypes" />
             <End Role="Doctor" EntitySet="Doctors" />
           </AssociationSet>
+          <EntitySet Name="PatientInfoTemporaries" EntityType="PatientPortalModel.PatientInfoTemporary" />
+          <AssociationSet Name="FK_PatientInfoTemporary_City" Association="PatientPortalModel.FK_PatientInfoTemporary_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_Department" Association="PatientPortalModel.FK_PatientInfoTemporary_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientInfoTemporary_State" Association="PatientPortalModel.FK_PatientInfoTemporary_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="PatientInfoTemporary" EntitySet="PatientInfoTemporaries" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppointmentInfo">
           <Key>
@@ -977,6 +1077,7 @@
           <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_City_State" FromRole="City" ToRole="State" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_City" FromRole="City" ToRole="PatientInfo" />
           <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalModel.FK_PatientInfoCRClone_City" FromRole="City" ToRole="PatientInfoCRClone" />
+          <NavigationProperty Name="PatientInfoTemporaries" Relationship="PatientPortalModel.FK_PatientInfoTemporary_City" FromRole="City" ToRole="PatientInfoTemporary" />
         </EntityType>
         <EntityType Name="DayMaster">
           <Key>
@@ -998,6 +1099,7 @@
           <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalModel.FK_PatientInfoCRClone_Department" FromRole="Department" ToRole="PatientInfoCRClone" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="PatientInfoTemporaries" Relationship="PatientPortalModel.FK_PatientInfoTemporary_Department" FromRole="Department" ToRole="PatientInfoTemporary" />
         </EntityType>
         <EntityType Name="Doctor">
           <Key>
@@ -1327,6 +1429,7 @@
           <NavigationProperty Name="Cities" Relationship="PatientPortalModel.FK_City_State" FromRole="State" ToRole="City" />
           <NavigationProperty Name="PatientInfoes" Relationship="PatientPortalModel.FK_PatientInfo_State" FromRole="State" ToRole="PatientInfo" />
           <NavigationProperty Name="PatientInfoCRClones" Relationship="PatientPortalModel.FK_PatientInfoCRClone_State" FromRole="State" ToRole="PatientInfoCRClone" />
+          <NavigationProperty Name="PatientInfoTemporaries" Relationship="PatientPortalModel.FK_PatientInfoTemporary_State" FromRole="State" ToRole="PatientInfoTemporary" />
         </EntityType>
         <Association Name="FK_AppointmentInfo_Doctor">
           <End Type="PatientPortalModel.Doctor" Role="Doctor" Multiplicity="1" />
@@ -1652,6 +1755,83 @@
             </Principal>
             <Dependent Role="Doctor">
               <PropertyRef Name="DoctorTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PatientInfoTemporary">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegistrationNumber" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PinCode" Type="Int32" />
+          <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="OTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FatherOrHusbandName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValidUpto" Type="DateTime" Precision="3" />
+          <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="RenewalStatusHIS" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="RegistrationStatusHIS" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="pid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="LoginPin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceIdentityfier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="City" Relationship="PatientPortalModel.FK_PatientInfoTemporary_City" FromRole="PatientInfoTemporary" ToRole="City" />
+          <NavigationProperty Name="Department" Relationship="PatientPortalModel.FK_PatientInfoTemporary_Department" FromRole="PatientInfoTemporary" ToRole="Department" />
+          <NavigationProperty Name="State" Relationship="PatientPortalModel.FK_PatientInfoTemporary_State" FromRole="PatientInfoTemporary" ToRole="State" />
+        </EntityType>
+        <Association Name="FK_PatientInfoTemporary_City">
+          <End Type="PatientPortalModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfoTemporary" Role="PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoTemporary_Department">
+          <End Type="PatientPortalModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfoTemporary" Role="PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientInfoTemporary_State">
+          <End Type="PatientPortalModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="PatientPortalModel.PatientInfoTemporary" Role="PatientInfoTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="PatientInfoTemporary">
+              <PropertyRef Name="StateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2054,6 +2234,45 @@
               <MappingFragment StoreEntitySet="DoctorType">
                 <ScalarProperty Name="DoctorType1" ColumnName="DoctorType" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientInfoTemporaries">
+            <EntityTypeMapping TypeName="PatientPortalModel.PatientInfoTemporary">
+              <MappingFragment StoreEntitySet="PatientInfoTemporary">
+                <ScalarProperty Name="DeviceIdentityfier" ColumnName="DeviceIdentityfier" />
+                <ScalarProperty Name="LoginPin" ColumnName="LoginPin" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="RegistrationStatusHIS" ColumnName="RegistrationStatusHIS" />
+                <ScalarProperty Name="RenewalStatusHIS" ColumnName="RenewalStatusHIS" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
+                <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
+                <ScalarProperty Name="CRNumber" ColumnName="CRNumber" />
+                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
+                <ScalarProperty Name="FatherOrHusbandName" ColumnName="FatherOrHusbandName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

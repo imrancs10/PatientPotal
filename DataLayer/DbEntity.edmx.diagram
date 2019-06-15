@@ -54,6 +54,10 @@
         <AssociationConnector Association="PatientPortalModel.FK_PatientMessage_PatientInfo" />
         <EntityTypeShape EntityType="PatientPortalModel.DoctorType" Width="1.5" PointX="8.375" PointY="0.875" />
         <AssociationConnector Association="PatientPortalModel.FK_Doctor_DoctorType" />
+        <EntityTypeShape EntityType="PatientPortalModel.PatientInfoTemporary" Width="1.5" PointX="17.25" PointY="0.75" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientInfoTemporary_City" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientInfoTemporary_Department" />
+        <AssociationConnector Association="PatientPortalModel.FK_PatientInfoTemporary_State" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
