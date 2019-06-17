@@ -180,7 +180,7 @@ namespace PatientPortal.Controllers
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     var patient = ((PatientInfoTemporary)result["data"]);
-                    SetAlertMessage("Temporary Registration succesfull.", "Register");
+                    SetAlertMessage("Temporary Registration succesfull.Please check Registration No. in your mail!", "Register");
                     SendMailTemporaryRegistration(info.RegistrationNumber, patient);
                     return RedirectToAction("Index");
                 }
