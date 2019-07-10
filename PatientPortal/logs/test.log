@@ -412,3 +412,8 @@ Error Number:-2,State:0,Class:11
    at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in B:\PatientPortal\PatientPotal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
    at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
 2019-07-02 15:53:15,507 [10] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 
+2019-07-10 21:36:34,230 [5] ERROR PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration    at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
+   at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in B:\PatientPortal\PatientPotal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
+   at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
