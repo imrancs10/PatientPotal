@@ -115,7 +115,8 @@ namespace PatientPortal.Controllers
 
                 ViewData["registerAction"] = "getotpscreen";
             }
-            return View();
+            //return View();
+            return RedirectToAction("Index");
         }
 
         public ActionResult TempRegister()

@@ -411,3 +411,4 @@ Error Number:-2,State:0,Class:11
    at System.Web.Services.Protocols.SoapHttpClientProtocol.Invoke(String methodName, Object[] parameters)
    at PatientPortal.OPDWebReference.GetPatOpdDetails.GetPatientOPDDetails(String crno, String sptype) in B:\PatientPortal\PatientPotal\PatientPortal\Web References\OPDWebReference\Reference.cs:line 78
    at PatientPortal.Infrastructure.Adapter.WebService.WebServiceIntegration.GetPatientOPDDetail(String crNumber, String type) in B:\PatientPortal\PatientPotal\PatientPortal\Infrastructure\Adapter\WebService\WebServiceIntegration.cs:line 78
+2019-07-02 15:53:15,507 [10] ERROR PatientPortal.Infrastructure.Utility.CustomExceptionFilter 

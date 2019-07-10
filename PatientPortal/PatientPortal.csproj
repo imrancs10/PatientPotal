@@ -450,6 +450,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Masters\AppointmentSetting.cshtml" />
     <Content Include="Views\Masters\LabReport.cshtml" />
     <Content Include="Views\Patient\GetLabReport.cshtml" />
@@ -527,7 +528,6 @@
     <Content Include="Views\Masters\AddDepartments.cshtml" />
     <Content Include="Views\Masters\AddDoctors.cshtml" />
     <Content Include="Views\Masters\AddSchedule.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutPatient.cshtml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
     <Content Include="Views\Appointment\GetAppointments.cshtml" />
