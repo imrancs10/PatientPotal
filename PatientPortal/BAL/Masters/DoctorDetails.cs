@@ -135,6 +135,22 @@ namespace PatientPortal.BAL.Masters
                          }).OrderBy(x => x.DoctorType).ToList();
             return _list != null ? _list : new List<DoctorTypeModel>();
         }
+        public Enums.CrudStatus UpdateDoctorType(int docId, int doctortype)
+        {
+            _db = new PatientPortalEntities();
+            int _effectRow = 0;
+            var _docRow = _db.Doctors.Where(x => x.DoctorID.Equals(docId)).FirstOrDefault();
+            if (_docRow != null)
+            {
+                _docRow.DoctorTypeId = doctortype;
+                _docRow.ModifiedDate = DateTime.Now;
+                _db.Entry(_docRow).State = EntityState.Modified;
+                _effectRow = _db.SaveChanges();
+                return _effectRow > 0 ? Enums.CrudStatus.Updated : Enums.CrudStatus.NotUpdated;
+            }
+            else
+                return Enums.CrudStatus.DataNotFound;
+        }
         public IEnumerable<object> GetDoctorLeaveList(int doctorId)
         {
             _db = new PatientPortalEntities();

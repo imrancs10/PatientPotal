@@ -1,5 +1,7 @@
 ﻿using PatientPortal.BAL.Commom;
+using PatientPortal.BAL.Masters;
 using PatientPortal.BAL.Reports;
+using PatientPortal.Global;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,9 +14,20 @@ namespace PatientPortal.Controllers
     public class AdminController : CommonController
     {
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult DoctorType()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult SaveDoctorType(int doctor, int doctortype)
+        {
+            DoctorDetails _details = new DoctorDetails();
+            var result = _details.UpdateDoctorType(doctor, doctortype);
+            if (result == Enums.CrudStatus.Updated)
+                SetAlertMessage("Doctor Type saved.");
+            else
+                SetAlertMessage("Doctor Type not saved.");
+            return RedirectToAction("DoctorType");
         }
 
         public ActionResult PatientBillReport()
@@ -29,7 +42,7 @@ namespace PatientPortal.Controllers
 
         [HttpPost]
         //HttpPostedFileBase reportfile,
-        public ActionResult SetBillingReport(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount,string BillID)
+        public ActionResult SetBillingReport(int PatientId, string BillNo, string BillType, DateTime BillDate, string ReportUrl, decimal BillAmount, string BillID)
         {
             string ReportPath = string.Empty;
             //if (reportfile != null)
