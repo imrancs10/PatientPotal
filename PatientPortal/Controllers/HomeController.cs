@@ -115,7 +115,8 @@ namespace PatientPortal.Controllers
 
                 ViewData["registerAction"] = "getotpscreen";
             }
-            return View();
+            //return View();
+            return RedirectToAction("Index");
         }
 
         public ActionResult TempRegister()
@@ -180,7 +181,7 @@ namespace PatientPortal.Controllers
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
                     var patient = ((PatientInfoTemporary)result["data"]);
-                    SetAlertMessage("Temporary Registration succesfull.", "Register");
+                    SetAlertMessage("Temporary Registration succesfull.Please check Registration No. in your mail!", "Register");
                     SendMailTemporaryRegistration(info.RegistrationNumber, patient);
                     return RedirectToAction("Index");
                 }
@@ -1013,7 +1014,7 @@ namespace PatientPortal.Controllers
             var patient = _detail.GetPatientDetailByRegistrationNumberAndMobileNumber(registernumber, mobilenumber);
             if (patient == null)
             {
-                SetAlertMessage("Registration or Mobile number is not Correct.", "Forget Password");
+                SetAlertMessage("Registration or Mobile number is not linked.Please Register or map with CR Number", "Forget Password");
                 return View();
             }
             else
@@ -1371,15 +1372,15 @@ namespace PatientPortal.Controllers
             {
                 var crData = (PatientInfoModel)Session["crData"];
                 PatientDetails _details = new PatientDetails();
-                var existingPatient = _details.GetPatientDetailByMobileNumberANDEmail(mobilenumber, email);
-                if (existingPatient != null)
-                {
-                    SetAlertMessage("Patient is already register with same Mobile Number or EmailId", "CR Intergrate");
-                    //Session["crData"] = null;
-                    //_details.DeletePatientInfoCRData(crData.CRNumber);
-                    TempData["CRData"] = crData;
-                    return RedirectToAction("CRIntegrate"); ;
-                }
+                //var existingPatient = _details.GetPatientDetailByMobileNumberANDEmail(mobilenumber, email);
+                //if (existingPatient != null)
+                //{
+                //    SetAlertMessage("Patient is already register with same Mobile Number or EmailId", "CR Intergrate");
+                //    //Session["crData"] = null;
+                //    //_details.DeletePatientInfoCRData(crData.CRNumber);
+                //    TempData["CRData"] = crData;
+                //    return RedirectToAction("CRIntegrate"); ;
+                //}
                 Dictionary<string, object> result = SavePatientInfo(MaritalStatus, title, firstname, middlename, lastname, DOB, Gender, mobilenumber, email, address, city, country, pincode, religion, department, "", state, FatherHusbandName, 0, null, aadharNumber, false, crData.Pid, crData.Location);
                 if (result["status"].ToString() == CrudStatus.Saved.ToString())
                 {
